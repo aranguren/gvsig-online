@@ -4,29 +4,30 @@
 {% load include_if_exists %}
 <html>
 <head>
-	
+
 	<title>{{GVSIGOL_NAME}}</title>
 	<link rel="shortcut icon" href="{% static "img/favicon.png" %}">
-	
+
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-	
+
 	<link rel="stylesheet" href="{% static "js/vendors/bootstrap-3.3.6/css/bootstrap.min.css" %}">
-	<link rel="stylesheet" href="{% static "css/font-awesome-4.4.0/css/font-awesome.min.css" %}">
+	<!-- <link rel="stylesheet" href="{% static "css/font-awesome-4.4.0/css/font-awesome.min.css" %}"> -->
+	<link rel="stylesheet" href="{% static "css/font-awesome-5.15.1/css/all.css" %}">
 	<link rel="stylesheet" href="{% static "css/fontcustom2/fontcustom.css" %}">
 	<link rel="stylesheet" href="{% static "js/vendors/ol-4.0.1/ol.css" %}">
 	<link rel="stylesheet" href="{% static "css/googlefonts.css" %}">
 	<link rel="stylesheet" href="{% static "css/gvsigOL.css" %}">
 	<link rel="stylesheet" href="{% static "css/skins/_all-skins.min.css" %}">
-    
+
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
+
 </head>
 
 <body class="hold-transition layout-top-nav">
@@ -46,16 +47,16 @@
 		<div class="content-wrapper background-grey">
 			<div class="container">
 				<section class="content background-grey">
-				
+
 					<ul class="nav nav-tabs">
 			          	<li class="active"><a href="#tab-wms" data-toggle="tab">{% trans "WMS Services" %}</a></li>
 			          	<li><a href="#tab-wmts" data-toggle="tab">{% trans "WMTS Services" %}</a></li>
 			          	<li><a href="#tab-wfs" data-toggle="tab">{% trans "WFS Services" %}</a></li>
 			          	<li><a href="#tab-csw" data-toggle="tab">{% trans "CSW Services" %}</a></li>
 			        </ul>
-			        
+
 			        <div class="tab-content">
-			        
+
 			        	<div class="tab-pane active" id="tab-wms">
 			        		<div class="box">
 								<div class="box-body">
@@ -64,10 +65,10 @@
 											<th>{% trans "Title" %}</th>
 										    <th>{% trans "URL" %}</th>
 										</tr>
-					          			{% for s in wms %}			
+					          			{% for s in wms %}
 										<tr>
 											<td style="width: 30%;">{{ s.title }}</td>
-											<td style="width: 70%;"><a style="color: #009ABB;text-decoration: none;" href="{{ s.url }}?service=WMS&request=getCapabilities" target="_blank">{{ s.url }}</td>	
+											<td style="width: 70%;"><a style="color: #009ABB;text-decoration: none;" href="{{ s.url }}?service=WMS&request=getCapabilities" target="_blank">{{ s.url }}</td>
 <!-- 									    	<td style="width: 70%;"><a style="color: #009ABB;text-decoration: none;" class="wms-capabilities-link" data-url="{{ s.url }}" href="#">{{ s.url }}</td>										 -->
 									    </tr>
 										{% endfor %}
@@ -75,7 +76,7 @@
 								</div>
 							</div>
 			          	</div>
-			          	
+
 			          	<div class="tab-pane" id="tab-wmts">
 			          		<div class="box">
 								<div class="box-body">
@@ -84,17 +85,17 @@
 											<th>{% trans "Title" %}</th>
 										    <th>{% trans "URL" %}</th>
 										</tr>
-					          			{% for s in wmts %}			
+					          			{% for s in wmts %}
 										<tr>
 											<td style="width: 30%;">{{ s.title }}</td>
-											<td style="width: 70%;"><a style="color: #009ABB;text-decoration: none;" href="{{ s.url }}?service=WMTS&request=getCapabilities" target="_blank">{{ s.url }}</td>	
+											<td style="width: 70%;"><a style="color: #009ABB;text-decoration: none;" href="{{ s.url }}?service=WMTS&request=getCapabilities" target="_blank">{{ s.url }}</td>
 									    </tr>
 										{% endfor %}
 									</table>
 								</div>
 							</div>
 			          	</div>
-			          	
+
 			          	<div class="tab-pane" id="tab-wfs">
 			          		<div class="box">
 								<div class="box-body">
@@ -103,17 +104,17 @@
 											<th>{% trans "Title" %}</th>
 										    <th>{% trans "URL" %}</th>
 										</tr>
-					          			{% for s in wfs %}			
+					          			{% for s in wfs %}
 										<tr>
 											<td style="width: 30%;">{{ s.title }}</td>
-											<td style="width: 70%;"><a style="color: #009ABB;text-decoration: none;" href="{{ s.url }}?service=WFS&request=getCapabilities" target="_blank">{{ s.url }}</td>	
+											<td style="width: 70%;"><a style="color: #009ABB;text-decoration: none;" href="{{ s.url }}?service=WFS&request=getCapabilities" target="_blank">{{ s.url }}</td>
 									    </tr>
 										{% endfor %}
 									</table>
 								</div>
 							</div>
 			          	</div>
-			          	
+
 			          	<div class="tab-pane" id="tab-csw">
 			          		<div class="box">
 								<div class="box-body">
@@ -122,17 +123,17 @@
 											<th>{% trans "Title" %}</th>
 										    <th>{% trans "URL" %}</th>
 										</tr>
-					          			{% for s in csw %}			
+					          			{% for s in csw %}
 										<tr>
 											<td style="width: 30%;">{{ s.title }}</td>
-											<td style="width: 70%;"><a style="color: #009ABB;text-decoration: none;" href="{{ s.url }}?service=CSW&request=getCapabilities" target="_blank">{{ s.url }}</td>	
+											<td style="width: 70%;"><a style="color: #009ABB;text-decoration: none;" href="{{ s.url }}?service=CSW&request=getCapabilities" target="_blank">{{ s.url }}</td>
 									    </tr>
 										{% endfor %}
 									</table>
 								</div>
 							</div>
 			          	</div>
-			          	
+
 			        </div>
 
 				</section>
@@ -145,9 +146,9 @@
 			</div>
 		</footer>
 
-		
+
 	</div>
-	
+
 	<!-- Modal -->
 	<div class="modal fade" id="modal-capabilities" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
@@ -183,7 +184,7 @@
 	<script>
 		var messageBox = new messageBox();
 	</script>
-	
+
 	<script type="text/javascript">
 	  $(document).ready(ajustamodal);
 	  $(window).resize(ajustamodal);
@@ -192,43 +193,43 @@
 	    $(".ativa-scroll").css({"height":altura,"overflow-y":"auto"});
 	  }
 	</script>
-	
+
 	<script type="text/javascript">
-	
+
 	$().ready(function() {
 		$('.wms-capabilities-link').on('click', function(){
 			var capabilitiesUrl = this.dataset.url + '?service=WMS&request=getCapabilities';
 			getWmsCapabilities(capabilitiesUrl);
 		});
-		
+
 		$('a[href="wms-capabilities-link"]').click(function(){
-		      alert('Sign new href executed.'); 
+		      alert('Sign new href executed.');
 		   });
-		
+
 		$('.wfs-capabilities-link').on('click', function(){
 			var capabilitiesUrl = this.dataset.url + '?service=WFS&request=getCapabilities';
 			getWfsCapabilities(capabilitiesUrl);
 		});
-		
+
 		function getWmsCapabilities(url){
 			var parser = new ol.format.WMSCapabilities();
 
 		  	fetch(url).then(function(response) {
 		   		return response.text();
-		   		
+
 		  	}).then(function(text) {
 		   		var jsonCapabilities = parser.read(text);
 		   		$('#modal-capabilities .modal-body').empty();
 		   		$('#modal-capabilities .modal-body').append(wmsCapabilitiesToHtml(jsonCapabilities));
 				$('#modal-capabilities').modal('show');
-				
+
 		   	});
 		}
-		
+
 		function getWfsCapabilities(url){
 			console.log('Get WFS Capabilities');
 		}
-		
+
 		function wmsCapabilitiesToHtml(jsonCapabilities){
 			var html = '';
 			html += '<section class="invoice">';
@@ -255,13 +256,13 @@
 			html += 		'</div>';
 			html += 	'</div>';
 			html += '</section>';
-			
+
 			return html;
 		}
-		
+
 		function getWmsSummary(jsonCapabilities){
 			var html = '';
-			
+
 			html += 	'<div class="row invoice-info">';
 			html += 		'<div class="col-sm-12 invoice-col">';
 			html += 			'<address>';
@@ -280,13 +281,13 @@
 			html += 			'</address>';
 			html += 		'</div>';
 			html += 	'</div>';
-			
+
 			return html;
 		}
-		
+
 		function getWmsRequests(jsonCapabilities){
 			var html = '';
-			
+
 			for (key in jsonCapabilities.Capability.Request) {
 				html += '<div class="box box-solid">';
 				html += 	'<div class="box-header with-border">';
@@ -296,19 +297,19 @@
 				html += 	'<div class="box-body">';
 				html += 		'<ul>';
 				for (var i=0; i<jsonCapabilities.Capability.Request[key].Format.length; i++) {
-					html += 		'<li>' + jsonCapabilities.Capability.Request[key].Format[i] + '</li>';	
+					html += 		'<li>' + jsonCapabilities.Capability.Request[key].Format[i] + '</li>';
 				}
 				html += 		'</ul>';
 				html += 	'</div>';
 				html += '</div>';
 			}
-			
+
 			return html;
 		}
-		
+
 		function getWmsSupportedCrs(jsonCapabilities){
 			var html = '';
-			
+
 			html += '<div class="box box-solid">';
 			html += 	'<div class="box-header with-border">';
 			//html += 		'<i class="fa fa-check"></i>';
@@ -317,18 +318,18 @@
 			html += 	'<div class="box-body">';
 			html += 		'<ul>';
 			for (var i=0; i<jsonCapabilities.Capability.Layer.CRS.length; i++) {
-				html += 		'<li>' + jsonCapabilities.Capability.Layer.CRS[i] + '</li>';	
+				html += 		'<li>' + jsonCapabilities.Capability.Layer.CRS[i] + '</li>';
 			}
 			html += 		'</ul>';
 			html += 	'</div>';
 			html += '</div>';
-			
+
 			return html;
 		}
-		
+
 		function getWmsLayers(jsonCapabilities){
 			var html = '';
-          
+
 			if (jsonCapabilities.Capability.Layer.Layer) {
 				var layers = jsonCapabilities.Capability.Layer.Layer;
 				for (var i=0; i<layers.length; i++) {
@@ -365,20 +366,20 @@
 					html += '</div>';
 				}
 			}
-			
+
 			return html;
 		}
 	});
-	
+
 </script>
 
-	{% for app in INSTALLED_APPS %}												  
-		{% if 'gvsigol_app_' in app %}	
-			{% with "load_js_"|add:app|cut:"gvsigol_app_"|add:".html" as aux %}	   			 	
+	{% for app in INSTALLED_APPS %}
+		{% if 'gvsigol_app_' in app %}
+			{% with "load_js_"|add:app|cut:"gvsigol_app_"|add:".html" as aux %}
 				{% include_if_exists aux %}
 			{% endwith %}
-		{% endif %}		    					
+		{% endif %}
 	{% endfor %}
-	
+
 </body>
 </html>

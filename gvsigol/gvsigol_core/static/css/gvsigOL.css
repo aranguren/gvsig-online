@@ -266,7 +266,9 @@ a:focus {
   background-color: transparent;
   background-image: none;
   padding: 15px 15px;
-  font-family: fontAwesome;
+  /* font-family: fontAwesome; */
+  font-family: "Font Awesome 5 Free";  /* updated font-family */
+  font-weight: 400; /* regular style/weight */
 }
 .main-header .sidebar-toggle:before {
   content: "\f0c9";
@@ -1530,7 +1532,8 @@ a:focus {
   position: relative;
   border-radius: 3px;
   background: #ffffff;
-  border-top: 3px solid #d2d6de;
+  /* border-top: 2px dotted #1ab394; */
+  border-top: 2px dotted #d2d6de;
   /*margin-bottom: 20px;*/
   width: 100%;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
@@ -5101,13 +5104,13 @@ input.temporary-check[type=checkbox]{
 	color: #444;
 }
 
-.ol-button i {	
+.ol-button i {
 	color: inherit;
 }
-.ol-button.ol-active button{	
+.ol-button.ol-active button{
 	background: rgba(60, 136, 0, 0.7)
 }
-.dragbox-custom {	
+.dragbox-custom {
 	right: 8px;
 	top: 8px;
 }

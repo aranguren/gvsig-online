@@ -25,10 +25,10 @@ from gvsigol_core.models import LayerGroup
 from django.utils.translation import ugettext as _
 from gvsigol.settings import GVSIGOL_LDAP
 from django.contrib.auth.models import User
-import ldap.modlist as modlist
+#import ldap.modlist as modlist
 from gvsigol import settings
 import shutil
-import ldap
+#import ldap
 import sys
 import os
 

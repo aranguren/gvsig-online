@@ -3,28 +3,29 @@
 {% load i18n %}
 <html>
 <head>
-	
+
 	<title>{{GVSIGOL_NAME}}</title>
 	<link rel="shortcut icon" href="{% static "img/favicon.png" %}">
-	
+
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-	
+
 	<link rel="stylesheet" href="{% static "js/vendors/bootstrap-3.3.6/css/bootstrap.min.css" %}">
-	<link rel="stylesheet" href="{% static "css/font-awesome-4.4.0/css/font-awesome.min.css" %}">
+	<!-- <link rel="stylesheet" href="{% static "css/font-awesome-4.4.0/css/font-awesome.min.css" %}"> -->
+	<link rel="stylesheet" href="{% static "css/font-awesome-5.15.1/css/all.css" %}">
 	<link rel="stylesheet" href="{% static "css/fontcustom2/fontcustom.css" %}">
 	<link rel="stylesheet" href="{% static "css/googlefonts.css" %}">
 	<link rel="stylesheet" href="{% static "css/gvsigOL.css" %}">
 	<link rel="stylesheet" href="{% static "css/skins/_all-skins.min.css" %}">
-    
+
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
+
 </head>
 
 <body class="hold-transition layout-top-nav">
@@ -43,8 +44,8 @@
 
 		<div class="content-wrapper background-grey">
 			<div class="container">
-				<section class="content background-grey">	
-					
+				<section class="content background-grey">
+
 					<div class="box">
 						<div class="box-header with-border">
 							<h3 class="box-title" style="margin-right: 20px;">{% trans "Web application" %}</h3>
@@ -56,7 +57,7 @@
 					                	<i class="fa fa-user"></i>
 					                </div>
 									<div class="product-info">
-										<a href="{{intro_url}}" class="product-title ">{% trans "Introduction and concepts" %}</a> 
+										<a href="{{intro_url}}" class="product-title ">{% trans "Introduction and concepts" %}</a>
 										<span class="product-description">{% trans "Features of the platform and license. Definition of the objects and entities that are part of the environment." %}</span>
 									</div>
 								</li>
@@ -65,7 +66,7 @@
 					                	<i class="fa fa-cogs"></i>
 					                </div>
 									<div class="product-info">
-										<a href="{{admin_guide_url}}" class="product-title ">{% trans "Administration Guide" %}</a> 
+										<a href="{{admin_guide_url}}" class="product-title ">{% trans "Administration Guide" %}</a>
 										<span class="product-description">{% trans "This guide is intended for platform admin users. It teaches the steps to carry out the management of users and groups, services, symbology, projects ... " %}</span>
 									</div>
 								</li>
@@ -74,7 +75,7 @@
 					                	<i class="fa fa-globe"></i>
 					                </div>
 									<div class="product-info">
-										<a href="{{viewer_url}}" class="product-title ">{% trans "Map viewer user manual" %}</a> 
+										<a href="{{viewer_url}}" class="product-title ">{% trans "Map viewer user manual" %}</a>
 										<span class="product-description">{% trans "This manual provides a review of each of the features offered by the map viewer" %}</span>
 									</div>
 								</li>
@@ -83,14 +84,14 @@
 					                	<i class="fa fa-cubes"></i>
 					                </div>
 									<div class="product-info">
-										<a href="{{plugins_url}}" class="product-title ">{% trans "Plugins" %}</a> 
+										<a href="{{plugins_url}}" class="product-title ">{% trans "Plugins" %}</a>
 										<span class="product-description">{% trans "Plugins add features that are not initially present on the platform" %}</span>
 									</div>
 								</li>
 							</ul>
 						</div>
 					</div>
-					
+
 					<div class="box">
 						<div class="box-header with-border">
 							<h3 class="box-title" style="margin-right: 20px;">{% trans "Mobile application" %}</h3>
@@ -102,7 +103,7 @@
 					                	<i class="fa fa-mobile"></i>
 					                </div>
 									<div class="product-info">
-										<a href="{{mobile_url}}" class="product-title ">{% trans "User manual" %}</a> 
+										<a href="{{mobile_url}}" class="product-title ">{% trans "User manual" %}</a>
 										<span class="product-description">{% trans "Learn how to manage geographic information from a mobile device or tablet" %}</span>
 									</div>
 								</li>
@@ -119,7 +120,7 @@
 			</div>
 		</footer>
 
-		
+
 	</div>
 
 	<script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
@@ -139,6 +140,6 @@
 	<script>
 		var messageBox = new messageBox();
 	</script>
-	
+
 </body>
 </html>

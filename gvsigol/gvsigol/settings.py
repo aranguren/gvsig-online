@@ -25,10 +25,10 @@
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 import os
-import ldap
+#import ldap
 import django.conf.locale
 from django.conf import settings
-from django_auth_ldap.config import LDAPSearch
+#from django_auth_ldap.config import LDAPSearch
 from django.utils.translation import ugettext_lazy as _
 from django.core.files.storage import FileSystemStorage
 
@@ -38,7 +38,7 @@ if '__file__' in globals():
 else:
     BASE_DIR = os.path.join(os.path.abspath(os.getcwd()), "gvsigol")
 
-# Eliminando warnings molestos  
+# Eliminando warnings molestos
 import requests
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
@@ -157,22 +157,22 @@ INSTALLED_APPS = [
     #'gvsigol_app_librapicassa',
 
     ############# PLUGINS ################
-    #'gvsigol_plugin_catalog',
+    'gvsigol_plugin_catalog',
     #'gvsigol_plugin_catastro',
     #'gvsigol_plugin_catastrouy',
-    #'gvsigol_plugin_charts',
-    #'gvsigol_plugin_downloadman',
-    #'gvsigol_plugin_draw',
-    #'gvsigol_plugin_edition',
-    #'gvsigol_plugin_elevation',
+    'gvsigol_plugin_charts',
+    'gvsigol_plugin_downloadman',
+    'gvsigol_plugin_draw',
+    'gvsigol_plugin_edition',
+    'gvsigol_plugin_elevation',
     #'gvsigol_plugin_emergencies',
     #'gvsigol_plugin_geocoding',
-    #'gvsigol_plugin_importfromservice',
-    #'gvsigol_plugin_importvector',
+    'gvsigol_plugin_importfromservice',
+    'gvsigol_plugin_importvector',
     #'gvsigol_plugin_manageaddresses',
-    'gvsigol_plugin_opensea2',
+    #'gvsigol_plugin_opensea2',
     #'gvsigol_plugin_picassa',
-    #'gvsigol_plugin_print',
+    'gvsigol_plugin_print',
     #'gvsigol_plugin_restapi',
     #'gvsigol_plugin_streetview',
     #'gvsigol_plugin_turiscan',
@@ -185,7 +185,7 @@ try:
     INSTALLED_APPS.append('corsheaders')
 except ImportError:
     print 'ERROR: No ha instalado la libreria corsheaders'
-    
+
 try:
     __import__('drf_yasg')
     INSTALLED_APPS.append('drf_yasg')
@@ -201,7 +201,7 @@ ACTSTREAM_SETTINGS = {
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware', 
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -237,7 +237,7 @@ TEMPLATES = [
         ],
         'APP_DIRS': True,
         'OPTIONS': {
-            'context_processors': [        
+            'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -259,7 +259,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         #'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'gvsigonline_v2',
+        'NAME': 'mopc2',
         'USER': DB_USER_DEVEL, # WARNING: Do not write any password here!!!! Store them in 'settings_passwords.py' for local development
         'PASSWORD': DB_PW_DEVEL, # WARNING: Do not write any password here!!!! Store them in 'settings_passwords.py' for local development
         'HOST': 'localhost',
@@ -289,7 +289,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 GVSIGOL_LDAP = {
-    'ENABLED': True,
+    'ENABLED': False,
     'HOST':'localhost',
     'PORT': '389',
     'DOMAIN': 'dc=local,dc=gvsigonline,dc=com',
@@ -304,9 +304,9 @@ AUTHENTICATION_BACKENDS = (
     #'django_auth_ldap.backend.LDAPBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
-AUTH_LDAP_SERVER_URI = "ldap://localhost:389"
-AUTH_LDAP_ROOT_DN = "dc=dev,dc=gvsigonline,dc=com"
-AUTH_LDAP_USER_SEARCH = LDAPSearch("dc=dev,dc=gvsigonline,dc=com", ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
+#AUTH_LDAP_SERVER_URI = "ldap://localhost:389"
+#AUTH_LDAP_ROOT_DN = "dc=dev,dc=gvsigonline,dc=com"
+#AUTH_LDAP_USER_SEARCH = LDAPSearch("dc=dev,dc=gvsigonline,dc=com", ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
 
 
 # Internationalization
@@ -333,7 +333,7 @@ django.conf.locale.LANG_INFO = LANG_INFO
 LANGUAGES = (
     ('es', _('Spanish')),
     ('va', _('Valencian')),
-    #('ca', _('Catalan')), 
+    #('ca', _('Catalan')),
     ('en', _('English')),
     #('pt', _('Portuguese')),
 )
@@ -359,7 +359,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 LOGOUT_PAGE_URL = '/gvsigonline/'
 
 # Email settings
-EMAIL_BACKEND_ACTIVE = True
+EMAIL_BACKEND_ACTIVE = False
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = ''
@@ -417,9 +417,9 @@ GDALINFO_PATH = GDALTOOLS_BASEPATH + '/gdalinfo'
 OGR2OGR_PATH = GDALTOOLS_BASEPATH + '/ogr2ogr'
 
 TILE_SIZE = 256
-MAX_ZOOM_LEVEL = 18 
+MAX_ZOOM_LEVEL = 18
 
-# Must be a valid iconv encoding name. Use iconv --list on Linux to see valid names 
+# Must be a valid iconv encoding name. Use iconv --list on Linux to see valid names
 SUPPORTED_ENCODINGS = [ "LATIN1", "UTF-8", "ISO-8859-15", "WINDOWS-1252"]
 USE_DEFAULT_SUPPORTED_CRS = True
 SUPPORTED_CRS = {
@@ -504,7 +504,7 @@ GVSIGOL_BASE_LAYERS = {
 #skin-purple-light
 #skin-yellow
 #skin-yellow-light
-GVSIGOL_SKIN = "skin-blue"
+GVSIGOL_SKIN = "skin-green-light"
 
 GVSIGOL_PATH = 'gvsigonline'
 GVSIGOL_NAME = 'gvsig'
@@ -545,8 +545,8 @@ REST_FRAMEWORK = {
 
 SWAGGER_SETTINGS = {
     "api_key": '',
-    "is_authenticated": False, 
-    "is_superuser": False,  
+    "is_authenticated": False,
+    "is_superuser": False,
     'SECURITY_DEFINITIONS': {
         'api_key': {
             'type': 'apiKey',
@@ -581,7 +581,7 @@ TEMPORAL_ADVANCED_PARAMETERS = False
 
 LEGACY_GVSIGOL_SERVICES = {
     'ENGINE':'geoserver',
-    'URL': 'https://localhost/geoserver',
+    'URL': 'http://localhost:8080/geoserver',
     'USER': GEOSERVER_USER_DEVEL, # WARNING: Do not write any password here!!!! Store them in 'settings_passwords.py' for local development
     'PASSWORD': GEOSERVER_PW_DEVEL, # WARNING: Do not write any password here!!!! Store them in 'settings_passwords.py' for local development
 }

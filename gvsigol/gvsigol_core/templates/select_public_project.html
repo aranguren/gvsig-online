@@ -4,29 +4,30 @@
 {% load include_if_exists %}
 <html>
 <head>
-	
+
 	<title>{{GVSIGOL_NAME}}</title>
 	<link rel="shortcut icon" href="{% static "img/favicon.png" %}">
-	
+
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-	
+
 	<link rel="stylesheet" href="{% static "js/vendors/bootstrap-3.3.6/css/bootstrap.min.css" %}">
-	<link rel="stylesheet" href="{% static "css/font-awesome-4.4.0/css/font-awesome.min.css" %}">
+	<!-- <link rel="stylesheet" href="{% static "css/font-awesome-4.4.0/css/font-awesome.min.css" %}"> -->
+	<link rel="stylesheet" href="{% static "css/font-awesome-5.15.1/css/all.css" %}">
 	<link rel="stylesheet" href="{% static "css/fontcustom2/fontcustom.css" %}">
 	<link rel="stylesheet" href="{% static "js/vendors/ol-4.0.1/ol.css" %}">
 	<link rel="stylesheet" href="{% static "css/googlefonts.css" %}">
 	<link rel="stylesheet" href="{% static "css/gvsigOL.css" %}">
 	<link rel="stylesheet" href="{% static "css/skins/_all-skins.min.css" %}">
-    
+
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
+
 </head>
 
 <body class="hold-transition layout-top-nav">
@@ -63,7 +64,7 @@
 										<img src={{project.image}} alt="Project Image">
 									</div>
 									<div class="product-info">
-										<a href="/gvsigonline/core/load/{{project.name}}/" class="product-title">{{project.title}} <span style="font-size: 100%; font-weight: 500; padding: .5em .5em .5em;" class="btn btn-default pull-right"><i class="fa fa-cube margin-r-5"></i> {% trans "Load project" %}</span></a> 
+										<a href="/gvsigonline/core/load/{{project.name}}/" class="product-title">{{project.title}} <span style="font-size: 100%; font-weight: 500; padding: .5em .5em .5em;" class="btn btn-default pull-right"><i class="fa fa-cube margin-r-5"></i> {% trans "Load project" %}</span></a>
 										<span class="product-description"> {{project.description}}</span>
 									</div>
 								</li>
@@ -81,7 +82,7 @@
 			</div>
 		</footer>
 
-		
+
 	</div>
 
 	<script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
@@ -99,19 +100,19 @@
 	<script>
 		var messageBox = new messageBox();
 	</script>
-	
+
 	<script type="text/javascript">
 		$().ready(function() {
 		});
 	</script>
-	
-	{% for app in INSTALLED_APPS %}												  
-		{% if 'gvsigol_app_' in app %}	
-			{% with "load_js_"|add:app|cut:"gvsigol_app_"|add:".html" as aux %}	   			 	
+
+	{% for app in INSTALLED_APPS %}
+		{% if 'gvsigol_app_' in app %}
+			{% with "load_js_"|add:app|cut:"gvsigol_app_"|add:".html" as aux %}
 				{% include_if_exists aux %}
 			{% endwith %}
-		{% endif %}		    					
+		{% endif %}
 	{% endfor %}
-	
+
 </body>
 </html>

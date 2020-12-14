@@ -372,7 +372,8 @@ SITE_ID=1
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 BASE_URL = 'https://localhost'
 MEDIA_ROOT = '/usr/local/var/www/media/'
-MEDIA_URL = 'https://localhost/media/'
+# MEDIA_URL = 'https://localhost/media/'
+MEDIA_URL = '/media/'
 STATIC_URL = '/gvsigonline/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 

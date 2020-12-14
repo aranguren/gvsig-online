@@ -18,6 +18,11 @@ from django.views.i18n import javascript_catalog
 from django.views.i18n import JavaScriptCatalog
 from django.contrib import admin
 
+#
+#  For development use
+#
+from django.conf import settings
+from django.conf.urls.static import static
 import settings
 
 handler404 = 'gvsigol_core.views.not_found_view'
@@ -59,18 +64,18 @@ for app in settings.INSTALLED_APPS:
         urlpatterns += [
             url(r'^gvsigonline/', include(app + '.urls')),
         ]
-        
+
 for plugin in settings.INSTALLED_APPS:
     if 'gvsigol_plugin_' in plugin:
         urlpatterns += [
             url(r'^gvsigonline/', include(plugin + '.urls')),
         ]
-    
+
 if 'gvsigol_core' in settings.INSTALLED_APPS:
     urlpatterns += [
         url(r'^gvsigonline/core/', include('gvsigol_core.urls')),
     ]
-  
+
 if 'gvsigol_auth' in settings.INSTALLED_APPS:
     urlpatterns += [
         url(r'^gvsigonline/auth/', include('gvsigol_auth.urls')),
@@ -80,18 +85,23 @@ if 'gvsigol_services' in settings.INSTALLED_APPS:
     urlpatterns += [
         url(r'^gvsigonline/services/', include('gvsigol_services.urls')),
     ]
-    
+
 if 'gvsigol_symbology' in settings.INSTALLED_APPS:
     urlpatterns += [
         url(r'^gvsigonline/symbology/', include('gvsigol_symbology.urls')),
     ]
-    
+
 if 'gvsigol_filemanager' in settings.INSTALLED_APPS:
     urlpatterns += [
-        url(r'^gvsigonline/filemanager/', include('gvsigol_filemanager.urls', namespace='filemanager')),      
+        url(r'^gvsigonline/filemanager/', include('gvsigol_filemanager.urls', namespace='filemanager')),
     ]
 
 if 'gvsigol_statistics' in settings.INSTALLED_APPS:
     urlpatterns += [
         url(r'^gvsigonline/statistics/', include('gvsigol_statistics.urls', namespace='statistics')),
     ]
+
+#
+#   For development
+#
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

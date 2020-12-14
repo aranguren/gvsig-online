@@ -263,7 +263,7 @@ DATABASES = {
         'USER': DB_USER_DEVEL, # WARNING: Do not write any password here!!!! Store them in 'settings_passwords.py' for local development
         'PASSWORD': DB_PW_DEVEL, # WARNING: Do not write any password here!!!! Store them in 'settings_passwords.py' for local development
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '25432',
     }
 }
 POSTGIS_VERSION = (2, 3, 3)

@@ -396,7 +396,7 @@ CatalogView.prototype.getFacet = function(filterTitle, filterName, filterEntries
 	'</span>'+
 	'<div class="box-tools pull-right">'+
 	'<button class="btn btn-box-tool btn-box-tool-custom" data-widget="collapse">'+
-	'<i class="fa fa-minus"></i>'+
+	'<i class="fa fa-caret-down"></i>'+
 	'</button>'+
 	'</div>'+
 	'</div>'+
@@ -654,7 +654,7 @@ CatalogView.prototype.createLayerGroup = function() {
 	tree += '					<span class="text">' + gettext("Catalog layers") + '</span>';
 	tree += '					<div class="box-tools pull-right">';
 	tree += '						<button class="btn btn-box-tool btn-box-tool-custom group-collapsed-button" data-widget="collapse">';
-	tree += '							<i class="fa fa-plus"></i>';
+	tree += '							<i class="fa fa-caret-left"></i>';
 	tree += '						</button>';
 	tree += '					</div>';
 	tree += '				</div>';
@@ -669,20 +669,20 @@ CatalogView.prototype.createLayerGroup = function() {
 			this.parentNode.parentNode.className = 'box box-default collapsed-box';
 			$(this.parentNode.parentNode.children[1]).css('display', 'none');
 			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder";
-			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-minus") {
-				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-plus";
-			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-plus"){
-				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-minus";
+			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-down") {
+				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-left";
+			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-left"){
+				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-down";
 			}
 		} else if (this.parentNode.parentNode.className == 'box box-default collapsed-box') {
 			this.parentNode.parentNode.className = 'box box-default';
 			$(this.parentNode.parentNode.children[1]).css('display', 'block');
 			this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-plus";
 			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder-open";
-			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-minus") {
-				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-plus";
-			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-plus"){
-				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-minus";
+			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-down") {
+				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-left";
+			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-left"){
+				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-down";
 			}
 		}
 	});

@@ -80,9 +80,9 @@ $.gvsigOL.options = {
 		boxWidgetOptions: {
 			boxWidgetIcons: {
 				//Collapse icon
-				collapse: 'fa-minus',
+				collapse: 'fa-caret-down',
 				//Open icon
-				open: 'fa-plus',
+				open: 'fa-caret-left',
 				//Remove icon
 				remove: 'fa-times'
 			},
@@ -154,7 +154,7 @@ $(function () {
 
 	//Enable sidebar tree view controls
 	$.gvsigOL.tree('.sidebar');
-	
+
 	//Enable control sidebar
 	if (o.enableControlSidebar) {
 	    $.gvsigOL.controlSidebar.activate();
@@ -250,7 +250,7 @@ function _init() {
 						$(".content-wrapper, .right-side").css('min-height', sidebar_height);
 						postSetWidth = sidebar_height;
 					}
-					
+
 					//Fix for the control sidebar height
 			        var controlSidebar = $($.gvsigOL.options.controlSidebarOptions.selector);
 			        if (typeof controlSidebar !== "undefined") {
@@ -415,7 +415,7 @@ function _init() {
 			}
 		});
 	};
-	
+
 	/* ControlSidebar
 	 * ==============
 	 * Adds functionality to the right sidebar
@@ -474,7 +474,7 @@ function _init() {
 					//of the sidebar itself
 					//if (!$('body').hasClass('control-sidebar-open')) {
 						$('body').addClass('control-sidebar-open');
-					//}					
+					//}
 				}
 				$('body').trigger("sidebar:opened");
 			},

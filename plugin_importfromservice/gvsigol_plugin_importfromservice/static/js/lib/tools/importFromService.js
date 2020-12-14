@@ -35,9 +35,9 @@ var ImportFromService = function(conf, map) {
 	var handler = function(e) {
 		self.handler(e);
 	};
-	
+
 	for (var crs in this.conf.supported_crs) {
-		proj4.defs(this.conf.supported_crs[crs].code, this.conf.supported_crs[crs].definition);	
+		proj4.defs(this.conf.supported_crs[crs].code, this.conf.supported_crs[crs].definition);
 	}
 
 	this.$button.on('click', handler);
@@ -61,8 +61,8 @@ ImportFromService.prototype.handler = function(e) {
 };
 
 ImportFromService.prototype.createServiceForm = function() {
-	var self = this; 
-	
+	var self = this;
+
 	if(self.modal == null){
 		self.modal = '';
 		self.modal += '<div class="modal fade" id="modal-importfromservice-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">';
@@ -72,16 +72,16 @@ ImportFromService.prototype.createServiceForm = function() {
 		self.modal += 				'<h4 class="modal-title" id="myModalLabel">' + gettext('Import layer from service') + '</h4>';
 		self.modal += 			'</div>';
 		self.modal += 			'<div class="modal-body">';
-		self.modal += 					'<form id="addvector_form" class="addlayer">'; 
+		self.modal += 					'<form id="addvector_form" class="addlayer">';
 		self.modal += 						'<div class="row">';
-		self.modal += 							'<div class="col-md-2 form-group">';	
+		self.modal += 							'<div class="col-md-2 form-group">';
 		self.modal += 								'<label>' + gettext('Service') + '</label>';
 		self.modal += 								'<select id="servicetype" class="form-control">';
 		self.modal += 									'<option value="WMS" selected>WMS</option>';
 		self.modal += 									'<option value="WFS">WFS</option>';
 		self.modal += 								'</select>';
 		self.modal += 							'</div>';
-		self.modal += 							'<div class="col-md-8 form-group">';	
+		self.modal += 							'<div class="col-md-8 form-group">';
 		self.modal += 								'<label for="serviceurl">' + gettext('Service URL') + '</label>';
 		self.modal += 								'<input class="form-control" id="serviceurl" name="serviceurl" type="text" required="required">';
 		self.modal += 							'</div>';
@@ -91,14 +91,14 @@ ImportFromService.prototype.createServiceForm = function() {
 		self.modal += 							'</div>';
 		self.modal += 						'</div>';
 		self.modal += 						'<div class="row">';
-		self.modal += 							'<div class="col-md-12 form-group">';	
+		self.modal += 							'<div class="col-md-12 form-group">';
 		self.modal +=								'<span id="serviceurl-error" style="display: none; color: red;">* ' + gettext('You must type a valid URL') + '</span>';
 		self.modal +=								'<span id="mixedcontent-error" style="display: none; color: red;">* ' + gettext('Mixed content: The page at was loaded over HTTPS, but requested an insecure URL') + '</span>';
 		self.modal += 							'</div>';
 		self.modal += 						'</div>';
 		self.modal += 					'</form>';
 		self.modal += 					'<div class="row" style="max-height: 300px; overflow: auto; padding-right: 20px;">';
-		self.modal += 						'<ul id="importfromservice-layerlist" class="products-list product-list-in-box list">';	
+		self.modal += 						'<ul id="importfromservice-layerlist" class="products-list product-list-in-box list">';
 		self.modal += 						'</ul>';
 		self.modal += 					'</div>';
 		self.modal += 			'</div>';
@@ -109,14 +109,14 @@ ImportFromService.prototype.createServiceForm = function() {
 		self.modal += 	'</div>';
 		self.modal += '</div>';
 		$('body').append(self.modal);
-		
+
 		$("#modal-importfromservice-dialog").modal('show');
-		
+
 		$('#serviceurl').on('input', function(){
 			$('#serviceurl-error').css('display', 'none');
 			$('#mixedcontent-error').css('display', 'none');
 		});
-		
+
 		$('#button-importfromservice-connect').unbind("click").click(function(e){
 			e.preventDefault();
 			var serviceURL = $('#serviceurl').val();
@@ -127,7 +127,7 @@ ImportFromService.prototype.createServiceForm = function() {
 			protocol = protocol.substring(0, protocol.length - 1);
 			if (serviceURL == '') {
 				$('#serviceurl-error').css('display', 'block');
-				
+
 			} else {
 				if (protocol == currentProtocol) {
 					if (serviceURL.endsWith('?')) {
@@ -143,20 +143,20 @@ ImportFromService.prototype.createServiceForm = function() {
 							var parser = new ol.format.WMSCapabilities();
 							var result = parser.read(response);
 							self.wmsLayers = result.Capability.Layer.Layer;
-							
+
 							$('#importfromservice-layerlist').empty();
 							for (var i=0; i<self.wmsLayers.length; i++) {
 								var htmlLayer = '';
 								htmlLayer += '<li class="item">';
 								htmlLayer += 	'<div class="product-info">';
-								htmlLayer += 		'<a data-layername="' + self.wmsLayers[i].Name + '" href="" class="product-title load-wms-layer">' + self.wmsLayers[i].Name + '<span style="font-size: 100%; font-weight: 500; padding: .5em .5em .5em;" class="btn btn-default pull-right"><i class="fa fa-globe margin-r-5"></i>' + gettext('Load layer') + '</span></a>'; 
+								htmlLayer += 		'<a data-layername="' + self.wmsLayers[i].Name + '" href="" class="product-title load-wms-layer">' + self.wmsLayers[i].Name + '<span style="font-size: 100%; font-weight: 500; padding: .5em .5em .5em;" class="btn btn-default pull-right"><i class="fa fa-globe margin-r-5"></i>' + gettext('Load layer') + '</span></a>';
 								htmlLayer += 		'<span class="product-description">' + self.wmsLayers[i].Title + '</span>';
 								htmlLayer += 	'</div>';
 								htmlLayer += '</li>';
-								
+
 								$('#importfromservice-layerlist').append(htmlLayer);
 							}
-							
+
 							$('.load-wms-layer').on('click', function(e){
 								e.preventDefault();
 								var layerName = this.dataset.layername;
@@ -166,23 +166,23 @@ ImportFromService.prototype.createServiceForm = function() {
 									}
 								}
 							});
-							
+
 						} else if (serviceType == 'WFS') {
 							self.featureTypeList = response.getElementsByTagName("FeatureTypeList")[0];
-							
+
 							$('#importfromservice-layerlist').empty();
 							for (var i=0; i<self.featureTypeList.children.length; i++) {
 								var htmlLayer = '';
 								htmlLayer += '<li class="item">';
 								htmlLayer += 	'<div class="product-info">';
-								htmlLayer += 		'<a data-layername="' + self.featureTypeList.children[i].children[0].textContent + '" href="" class="product-title load-wfs-layer">' + self.featureTypeList.children[i].children[0].textContent + '<span style="font-size: 100%; font-weight: 500; padding: .5em .5em .5em;" class="btn btn-default pull-right"><i class="fa fa-globe margin-r-5"></i>' + gettext('Load layer') + '</span></a>'; 
+								htmlLayer += 		'<a data-layername="' + self.featureTypeList.children[i].children[0].textContent + '" href="" class="product-title load-wfs-layer">' + self.featureTypeList.children[i].children[0].textContent + '<span style="font-size: 100%; font-weight: 500; padding: .5em .5em .5em;" class="btn btn-default pull-right"><i class="fa fa-globe margin-r-5"></i>' + gettext('Load layer') + '</span></a>';
 								htmlLayer += 		'<span class="product-description">' + self.featureTypeList.children[i].children[1].textContent + '</span>';
 								htmlLayer += 	'</div>';
 								htmlLayer += '</li>';
-								
+
 								$('#importfromservice-layerlist').append(htmlLayer);
 							}
-							
+
 							$('.load-wfs-layer').on('click', function(e){
 								e.preventDefault();
 								var layerName = this.dataset.layername;
@@ -192,26 +192,26 @@ ImportFromService.prototype.createServiceForm = function() {
 									}
 								}
 							});
-							
-						} 
+
+						}
 					}).fail(function(xhr, status, error) {
 						$('#importfromservice-layerlist').empty();
 						$('#serviceurl-error').css('display', 'block');
 					});
-					
+
 				} else {
 					$('#mixedcontent-error').css('display', 'block');
 				}
-				
+
 			}
-			
+
 		});
 
 		$('#button-importfromservice-cancel').unbind("click").click(function(){
 			$("#modal-importfromservice-dialog").modal('hide');
 			self.modal = null;
 		});
-		
+
 	} else {
 		$("#modal-importfromservice-dialog").modal('hide');
 		self.modal = null;
@@ -221,7 +221,7 @@ ImportFromService.prototype.createServiceForm = function() {
 ImportFromService.prototype.loadWMSLayer = function(url, layer) {
 	var self = this;
 	var layerId = viewer.core._nextLayerId();
-	
+
 	var wmsParams = {
 		'LAYERS': layer.Name,
 		'FORMAT': 'image/png',
@@ -254,14 +254,14 @@ ImportFromService.prototype.loadWMSLayer = function(url, layer) {
 	wmsLayer.imported = true;
 	wmsLayer.legend = wmsLayer.wms_url + '?SERVICE=WMS&VERSION=1.1.1&layer=' + layer.Name + '&REQUEST=getlegendgraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on';
 	wmsLayer.legend_no_auth = wmsLayer.wms_url + '?SERVICE=WMS&VERSION=1.1.1&layer=' + layer.Name + '&REQUEST=getlegendgraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on';
-	
+
 	this.map.addLayer(wmsLayer);
 	this.createLayerUI(wmsLayer, layerId);
 	viewer.core.getLegend().reloadLegend();
-	
+
 	$("#modal-importfromservice-dialog").modal('hide');
 	self.modal = null;
-	
+
 };
 
 ImportFromService.prototype.loadWFSLayer = function(url, layer) {
@@ -271,7 +271,7 @@ ImportFromService.prototype.loadWFSLayer = function(url, layer) {
 	var layerTitle = layer.children[1].textContent;
 
 	var style = self.getRandomStyle();
-	
+
 	var wfsLayer = new ol.layer.Vector({
 		id: layerId,
 		name: layerName,
@@ -288,7 +288,7 @@ ImportFromService.prototype.loadWFSLayer = function(url, layer) {
 		    }
 		})
 	});
-	
+
 	wfsLayer.baselayer = false;
 	wfsLayer.setZIndex(99999999);
 	wfsLayer.dataid = layerId;
@@ -307,14 +307,14 @@ ImportFromService.prototype.loadWFSLayer = function(url, layer) {
 };
 
 ImportFromService.prototype.getRandomStyle = function() {
-	
-	var getColor = function () { return Math.floor(Math.random()*256) };	
+
+	var getColor = function () { return Math.floor(Math.random()*256) };
 	var r = getColor();
 	var g = getColor();
 	var b = getColor();
     var rgbColor = "rgb(" + r + "," + g + "," + b + ")";
     var rgbColorOpacity = "rgba(" + r + "," + g + "," + b + ", 0.3)";
-	
+
 	var style = new ol.style.Style({
     	fill: new ol.style.Fill({
       		color: rgbColorOpacity
@@ -357,30 +357,30 @@ ImportFromService.prototype.createLayerGroup = function() {
 	group += '			</li>';
 
 	$(".layer-tree").append(group);
-	
+
 	$(".layertree-folder-icon").click(function(){
 		if (this.parentNode.parentNode.className == 'box box-default') {
 			this.parentNode.parentNode.className = 'box box-default collapsed-box';
 			$(this.parentNode.parentNode.children[1]).css('display', 'none');
 			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder";
-			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-minus") {
-				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-plus";
-			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-plus"){
-				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-minus";
+			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-down") {
+				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-left";
+			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-left"){
+				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-down";
 			}
 		} else if (this.parentNode.parentNode.className == 'box box-default collapsed-box') {
 			this.parentNode.parentNode.className = 'box box-default';
 			$(this.parentNode.parentNode.children[1]).css('display', 'block');
 			this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-plus";
 			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder-open";
-			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-minus") {
-				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-plus";
-			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-plus"){
-				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-minus";
+			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-down") {
+				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-left";
+			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-left"){
+				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-down";
 			}
 		}
 	});
-	
+
 	$("[data-widget='collapse']").click(function(){
 		if (this.parentNode.parentNode.children[0].className == 'layertree-folder-icon fa fa-folder') {
 			this.parentNode.parentNode.children[0].className = 'layertree-folder-icon fa fa-folder-open';
@@ -412,7 +412,7 @@ ImportFromService.prototype.reorder = function(event,ui) {
 
 ImportFromService.prototype.createLayerUI = function(layer, dataId) {
 	var self = this;
-	
+
 	var groupId = "gvsigol-importfromservice-group";
 	var groupEntry = $("#"+groupId);
 	var zIndex = groupEntry.length;
@@ -421,11 +421,11 @@ ImportFromService.prototype.createLayerUI = function(layer, dataId) {
 	}
 
 	var layerTree = viewer.core.getLayerTree();
-	
+
 	var removeLayerButtonUI = '<a id="remove-service-layer-' + dataId + '" data-layerid="' + dataId + '" class="btn btn-block btn-social btn-custom-tool remove-service-layer-btn">';
 	removeLayerButtonUI +=    '	<i class="fa fa-times"></i> ' + gettext('Remove layer');
 	removeLayerButtonUI +=    '</a>';
-	
+
 	var layerUI = $(layerTree.createOverlayUI(layer, false));
 	layerUI.find(".box-body .zoom-to-layer").after(removeLayerButtonUI);
 	$(".importfromservice-layer-group").append(layerUI);

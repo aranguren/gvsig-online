@@ -34,9 +34,9 @@ var ImportVector = function(conf, map) {
 	var handler = function(e) {
 		self.handler(e);
 	};
-	
+
 	for (var crs in this.conf.supported_crs) {
-		proj4.defs(this.conf.supported_crs[crs].code, this.conf.supported_crs[crs].definition);	
+		proj4.defs(this.conf.supported_crs[crs].code, this.conf.supported_crs[crs].definition);
 	}
 
 	this.$button.on('click', handler);
@@ -60,8 +60,8 @@ ImportVector.prototype.handler = function(e) {
 };
 
 ImportVector.prototype.createUploadForm = function() {
-	var self = this; 
-	
+	var self = this;
+
 	if(self.modal == null){
 		self.modal = '';
 		self.modal += '<div class="modal fade" id="modal-importvector-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">';
@@ -71,9 +71,9 @@ ImportVector.prototype.createUploadForm = function() {
 		self.modal += 				'<h4 class="modal-title" id="myModalLabel">' + gettext('Import vector file') + '</h4>';
 		self.modal += 			'</div>';
 		self.modal += 			'<div class="modal-body">';
-		self.modal += 					'<form id="addvector_form" class="addlayer">'; 
+		self.modal += 					'<form id="addvector_form" class="addlayer">';
 		self.modal += 						'<div class="row">';
-		self.modal += 							'<div class="col-md-12 form-group">';	
+		self.modal += 							'<div class="col-md-12 form-group">';
 		self.modal += 								'<label for="vectorfile">' + gettext('Vector file') + ' (shp.zip, *.kml, .json)</label>';
 		self.modal += 								'<input class="form-control" id="vectorfile" name="vectorfile" type="file"  required="required" accept=".zip,.kml,.json">';
 		self.modal +=								'<span id="vectorfile-error" style="display: none; color: red;">* ' + gettext('You must select a file') + '</span>';
@@ -81,12 +81,12 @@ ImportVector.prototype.createUploadForm = function() {
 		self.modal += 							'</div>';
 		self.modal += 						'</div>';
 		self.modal += 						'<div class="row">';
-		self.modal += 							'<div class="col-md-12 form-group">';	
+		self.modal += 							'<div class="col-md-12 form-group">';
 		self.modal += 								'<label for="vectortitle">' + gettext('Layer title in TOC') + '</label>';
 		self.modal += 								'<input class="form-control" id="vectortitle" name="vectortitle" type="text">';
 		self.modal +=								'<span id="vectortitle-error" style="display: none; color: red;">* ' + gettext('You must indicate a title for the layer') + '</span>'
 		self.modal += 							'</div>';
-		self.modal += 						'</div>'; 
+		self.modal += 						'</div>';
 		self.modal += 					'</form>';
 		self.modal += 			'</div>';
 		self.modal += 			'<div class="modal-footer">';
@@ -97,41 +97,41 @@ ImportVector.prototype.createUploadForm = function() {
 		self.modal += 	'</div>';
 		self.modal += '</div>';
 		$('body').append(self.modal);
-		
+
 		$("#modal-importvector-dialog").modal('show');
-		
+
 		$('#vectortitle').on('input', function(){
 			$('#vectortitle-error').css('display', 'none');
 		});
-		
+
 		$('#vectorfile').on('input', function(){
 			$('#vectorfile-error').css('display', 'none');
 			$('#vectorfilesize-error').css('display', 'none');
 		});
-		
+
 		$('#button-importvector-accept').unbind("click").click(function(e){
 			e.preventDefault();
 			var title = $('#vectortitle').val();
 			if (title == '') {
 				$('#vectortitle-error').css('display', 'block');
-				
+
 			} else {
 				$('body').overlay();
 				var form = document.getElementById('addvector_form');
-				var file = form[0].files[0];   
+				var file = form[0].files[0];
 				if (file) {
 					var size = file.size / 1024;
 					if (size < 20000) {
-						var currentProj = self.map.getView().getProjection();    
-						var fr = new FileReader();   
+						var currentProj = self.map.getView().getProjection();
+						var fr = new FileReader();
 						var sourceFormat = null;
 						var source = new ol.source.Vector();
 						var layerId = viewer.core._nextLayerId();
 						var name = file.name.split('.')[0];
 						var extension = file.name.split('.')[1];
 
-						var style = self.getRandomStyle();	
-						
+						var style = self.getRandomStyle();
+
 						var vectorLayer = new ol.layer.Vector({
 							id: layerId,
 							source: source,
@@ -139,62 +139,62 @@ ImportVector.prototype.createUploadForm = function() {
 							style: style,
 							strategy: ol.loadingstrategy.bbox
 						});
-						
+
 						var geomType = null;
 						if (extension == 'zip') {
 							sourceFormat = new ol.format.GeoJSON();
-							
-							fr.onload = function (evt) {  
+
+							fr.onload = function (evt) {
 								var vectorData = evt.target.result;
-								var dataProjection = sourceFormat.readProjection(vectorData) || currentProj;        
-								shp(vectorData).then(function (geojson) {   
+								var dataProjection = sourceFormat.readProjection(vectorData) || currentProj;
+								shp(vectorData).then(function (geojson) {
 									geomType = geojson.features[0].geometry.type;
 									vectorLayer.randomStyle = self.getVectorStyle(geomType);
-									source.addFeatures(sourceFormat.readFeatures(geojson,  {                
-										dataProjection: dataProjection,                
-										featureProjection: currentProj            
-									}));   
+									source.addFeatures(sourceFormat.readFeatures(geojson,  {
+										dataProjection: dataProjection,
+										featureProjection: currentProj
+									}));
 									$.overlayout();
 								});
-								
-								
-							};    
+
+
+							};
 							fr.readAsArrayBuffer(file);
-							
+
 						} else if (extension == 'kml') {
 							sourceFormat = new ol.format.KML({
 								extractStyles: false,
 					            extractAttributes: true
 							});
-							
-							fr.onload = function (evt) {       
-								var vectorData = evt.target.result;   
-								var dataProjection = sourceFormat.readProjection(vectorData) || currentProj;        
-								source.addFeatures(sourceFormat.readFeatures(vectorData,  {                
-									dataProjection: dataProjection,                
-									featureProjection: currentProj            
+
+							fr.onload = function (evt) {
+								var vectorData = evt.target.result;
+								var dataProjection = sourceFormat.readProjection(vectorData) || currentProj;
+								source.addFeatures(sourceFormat.readFeatures(vectorData,  {
+									dataProjection: dataProjection,
+									featureProjection: currentProj
 								}));
 								geomType = 'LineString';
 								if (vectorData.indexOf('<Point') > -1 || vectorData.indexOf('<MultiPoint') > -1) {
 									geomType = 'Point';
-									
+
 								} else if (vectorData.indexOf('<LineString') > -1 || vectorData.indexOf('<MultiLineString') > -1) {
 									geomType = 'LineString';
-									
+
 								} else if (vectorData.indexOf('<Polygon') > -1 || vectorData.indexOf('<MultiPolygon') > -1) {
 									geomType = 'Polygon';
 								}
 								vectorLayer.randomStyle = self.getVectorStyle(geomType);
 								$.overlayout();
-								
-								
-							};    
+
+
+							};
 							fr.readAsText(file);
-							
+
 						} else if (extension == 'json') {
 							sourceFormat = new ol.format.GeoJSON();
-							
-							fr.onload = function (evt) {       
+
+							fr.onload = function (evt) {
 								var vectorData = evt.target.result;
 								var jsonVectorData = JSON.parse(vectorData);
 								var dataProjection = 'EPSG:4326';
@@ -206,22 +206,22 @@ ImportVector.prototype.createUploadForm = function() {
 												dataProjection = 'EPSG:' + jsonVectorData.crs.properties.name.split('::')[1];
 											}
 										}
-									} 
+									}
 								}
-								       
-								source.addFeatures(sourceFormat.readFeatures(vectorData,  {                
-									dataProjection: dataProjection,                
-									featureProjection: currentProj            
+
+								source.addFeatures(sourceFormat.readFeatures(vectorData,  {
+									dataProjection: dataProjection,
+									featureProjection: currentProj
 								}));
 								geomType = jsonVectorData.features[0].geometry.type;
 								vectorLayer.randomStyle = self.getVectorStyle(geomType);
 								$.overlayout();
-								
-								
-							};    
+
+
+							};
 							fr.readAsText(file);
-						} 
-						
+						}
+
 						vectorLayer.baselayer = false;
 						vectorLayer.setZIndex(99999999);
 						vectorLayer.dataid = layerId;
@@ -238,26 +238,26 @@ ImportVector.prototype.createUploadForm = function() {
 						self.createVectorLayerUI (vectorLayer, layerId);
 						$("#modal-importvector-dialog").modal('hide');
 						self.modal = null;
-						
+
 					} else {
 						$('#vectorfilesize-error').css('display', 'block');
 						$.overlayout();
 					}
-					
+
 				} else {
 					$('#vectorfile-error').css('display', 'block');
 					$.overlayout();
 				}
-				
+
 			}
-			
+
 		});
 
 		$('#button-importvector-cancel').unbind("click").click(function(){
 			$("#modal-importvector-dialog").modal('hide');
 			self.modal = null;
 		});
-		
+
 	} else {
 		$("#modal-importvector-dialog").modal('hide');
 		self.modal = null;
@@ -280,7 +280,7 @@ ImportVector.prototype.getVectorStyle = function(gtype) {
 				}
 			]}
 		};
-		
+
 	} else if (gtype == 'LineString' || gtype == 'MultiLineString') {
 		return {
 			"version" : "2",
@@ -292,7 +292,7 @@ ImportVector.prototype.getVectorStyle = function(gtype) {
 				}
 			]}
 		};
-		
+
 	} else if (gtype == 'Polygon' || gtype == 'MultiPolygon') {
 		return {
 			"version" : "2",
@@ -306,20 +306,20 @@ ImportVector.prototype.getVectorStyle = function(gtype) {
 				}
 			]}
 		};
-		
+
 	}
 };
 
 ImportVector.prototype.getRandomStyle = function() {
-	
-	var getColor = function () { return Math.floor(Math.random()*256) };	
+
+	var getColor = function () { return Math.floor(Math.random()*256) };
 	var r = getColor();
 	var g = getColor();
 	var b = getColor();
     var rgbColor = "rgb(" + r + "," + g + "," + b + ")";
     var rgbColorOpacity = "rgba(" + r + "," + g + "," + b + ", 0.3)";
     var hexColor = this.rgbToHex(r,g,b);
-    	
+
     this.vectorRandomStyle = {
     	fill_color: hexColor,
     	fill_opacity: 0.3,
@@ -327,7 +327,7 @@ ImportVector.prototype.getRandomStyle = function() {
     	stroke_width: 2,
     	radius: 7
     };
-	
+
 	var style = new ol.style.Style({
     	fill: new ol.style.Fill({
       		color: rgbColorOpacity
@@ -374,30 +374,30 @@ ImportVector.prototype.createLayerGroup = function() {
 	group += '			</li>';
 
 	$(".layer-tree").append(group);
-	
+
 	$(".layertree-folder-icon").click(function(){
 		if (this.parentNode.parentNode.className == 'box box-default') {
 			this.parentNode.parentNode.className = 'box box-default collapsed-box';
 			$(this.parentNode.parentNode.children[1]).css('display', 'none');
 			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder";
-			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-minus") {
-				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-plus";
-			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-plus"){
-				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-minus";
+			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-down") {
+				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-left";
+			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-left"){
+				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-down";
 			}
 		} else if (this.parentNode.parentNode.className == 'box box-default collapsed-box') {
 			this.parentNode.parentNode.className = 'box box-default';
 			$(this.parentNode.parentNode.children[1]).css('display', 'block');
 			this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-plus";
 			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder-open";
-			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-minus") {
-				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-plus";
-			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-plus"){
-				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-minus";
+			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-down") {
+				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-left";
+			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-left"){
+				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-down";
 			}
 		}
 	});
-	
+
 	$("[data-widget='collapse']").click(function(){
 		if (this.parentNode.parentNode.children[0].className == 'layertree-folder-icon fa fa-folder') {
 			this.parentNode.parentNode.children[0].className = 'layertree-folder-icon fa fa-folder-open';
@@ -429,7 +429,7 @@ ImportVector.prototype.reorder = function(event,ui) {
 
 ImportVector.prototype.createVectorLayerUI = function(vectorLayer, dataId) {
 	var self = this;
-	
+
 	var groupId = "gvsigol-importvector-group";
 	var groupEntry = $("#"+groupId);
 	var zIndex = groupEntry.length;
@@ -438,11 +438,11 @@ ImportVector.prototype.createVectorLayerUI = function(vectorLayer, dataId) {
 	}
 
 	var layerTree = viewer.core.getLayerTree();
-	
+
 	var removeLayerButtonUI = '<a id="remove-vector-layer-' + dataId + '" data-layerid="' + dataId + '" class="btn btn-block btn-social btn-custom-tool remove-vector-layer-btn">';
 	removeLayerButtonUI +=    '	<i class="fa fa-times"></i> ' + gettext('Remove layer');
 	removeLayerButtonUI +=    '</a>';
-	
+
 	var vectorLayerUI = $(layerTree.createOverlayUI(vectorLayer, $("#"+groupId).is(":checked")));
 	vectorLayerUI.find(".box-body .zoom-to-layer").after(removeLayerButtonUI);
 	$(".importvector-layer-group").append(vectorLayerUI);

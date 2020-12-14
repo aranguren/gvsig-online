@@ -27,7 +27,7 @@
 var CatalogView = function(mapViewer, config) {
 	this.mapViewer = mapViewer;
 	this.map = mapViewer.getMap();
-	this.map_container = $("#container");	
+	this.map_container = $("#container");
 	this.layerTree = mapViewer.getLayerTree();
 	this.catalog_panel = null;
 	this.catalog_map = null;
@@ -41,16 +41,16 @@ var CatalogView = function(mapViewer, config) {
 	this.config.customFiltersConfig = this.config.customFiltersConfig || {};
 	this.fromResult = 1;
 	this.sortBy = '&sortBy=relevance';
-	
+
 	var self = this;
 	$('body').on('change-to-2D-event', function() {
 		self.hidePanel();
 	});
-	
+
 	$('body').on('change-to-3D-event', function() {
 		self.hidePanel();
 	});
-	
+
 };
 
 CatalogView.prototype.initialization = function(){
@@ -168,7 +168,7 @@ CatalogView.prototype.initialization = function(){
 	catalogPanel += '</div></div>';
 	$("body").append(catalogPanel);
 	$('.dropdown-multiselect .dropdown-menu').click(function(evt) {evt.stopPropagation()})
-	
+
 	if (this.config.customFiltersConfig.url && !this.config.customFiltersConfig.products) {
 		$.ajax({
 			url: self.config.customFiltersConfig.url,
@@ -179,7 +179,7 @@ CatalogView.prototype.initialization = function(){
 			}
 		});
 	}
-	
+
 	this.catalog_panel = $("#catalog_container");
 	if(!this.catalog_map){
 		this.catalog_map = new CatalogMap(this, "catalog_map");
@@ -189,7 +189,7 @@ CatalogView.prototype.initialization = function(){
 	$("#catalog-search-button").unbind("click").click(function(){
 		self.filterCatalog();
 	});
-	
+
 	$("#search-results-order-btn").change(function(a, b, c) {
 		var option = $("#search-results-order-btn option:selected").get(0);
 		if (option) {
@@ -197,7 +197,7 @@ CatalogView.prototype.initialization = function(){
 			self.filterCatalog();
 		}
 	});
-	
+
 	$("#gn-any-field").off("keypress").on("keypress", function(e){
 		if(e.keyCode == 13) {
 			self.filterCatalog();
@@ -206,7 +206,7 @@ CatalogView.prototype.initialization = function(){
 
 	$("#catalog-search-advanced-button").unbind("click").click(function(){
 		$("#catalog_search_advanced").toggle();
-		//$("#catalog_map_full").toggle(); 
+		//$("#catalog_map_full").toggle();
 	});
 
 	$("#catalog-clear-button").unbind("click").click(function(){
@@ -241,7 +241,7 @@ CatalogView.prototype.getBaseUrl = function() {
 
 CatalogView.prototype.getLocalizedEndpoint = function() {
 	if (viewer.core.conf.language.iso639_2b) {
-		url = this.getBaseUrl() + '/srv/' + viewer.core.conf.language.iso639_2b;	
+		url = this.getBaseUrl() + '/srv/' + viewer.core.conf.language.iso639_2b;
 	}
 	else {
 		url = this.getBaseUrl() + '/srv/eng';
@@ -389,14 +389,14 @@ CatalogView.prototype.getFacetEntries = function(query, cat, filterName){
 
 CatalogView.prototype.getFacet = function(filterTitle, filterName, filterEntries){
 	var filter_code = '<ul class="catalog_filter_cat">'+
-	'<li class="box box-default" style="list-style-type: none;">'+	
+	'<li class="box box-default" style="list-style-type: none;">'+
 	'<div class="box-header with-border catalog_filter_title">'+
-	'<span class="text">'+ 
+	'<span class="text">'+
 	filterTitle +
 	'</span>'+
 	'<div class="box-tools pull-right">'+
 	'<button class="btn btn-box-tool btn-box-tool-custom" data-widget="collapse">'+
-	'<i class="fa fa-minus"></i>'+
+	'<i class="fa fa-caret-down"></i>'+
 	'</button>'+
 	'</div>'+
 	'</div>'+
@@ -471,7 +471,7 @@ CatalogView.prototype.getMetadataEntry = function(metadata){
 				break;
 			}
 		}
-		
+
 		var md_url = this.sanitizeHtmlText(this.getMetadataUrl(metadata['geonet:info']['uuid']));
 		met += '			<img src="'+this.sanitizeHtmlText(image_src)+'" style="width:100%;"/>';
 		met += '		</div>';
@@ -557,17 +557,17 @@ CatalogView.prototype.createResourceLink = function(links){
 			var csvLink = link_url + '?service=WFS&version=1.1.0&request=GetFeature&outputFormat=csv&typeName=' + layer_name;
 			content += '<li class="catalog-link">';
 			content += '<div class="row">';
-			content += '<div class="col-md-4 form-group">';	
+			content += '<div class="col-md-4 form-group">';
 			content += '<i class="fa fa-file-archive-o" aria-hidden="true"></i>';
 			content += '<span class="catalog-link-resource"><p>' + layer_title + '<br/><span class="catalog-entry-subtitle">' + layer_name + '</span></p></span>';
 			content += '</div>';
-			content += 	'<div class="col-md-2 form-group">';	
+			content += 	'<div class="col-md-2 form-group">';
 			content += 		'<a href="' + shapeLink + '"><div class="download-btn"><i style="margin-right: 10px;" class="fa fa-download"></i>' + gettext('Download ShapeFile') + '</div></a>';
 			content += 	'</div>';
-			content += 	'<div class="col-md-2 form-group">';	
+			content += 	'<div class="col-md-2 form-group">';
 			content += 		'<a href="' + csvLink + '"><div class="download-btn"><i style="margin-right: 10px;" class="fa fa-download"></i>' + gettext('Download CSV') + '</div></a>';
 			content += 	'</div>';
-			content += 	'<div class="col-md-2 form-group">';	
+			content += 	'<div class="col-md-2 form-group">';
 			content += 		'<a target="_blank" href="' + gmlLink + '"><div class="download-btn"><i style="margin-right: 10px;" class="fa fa-download"></i>' + gettext('Download GML') + '</div></a>';
 			content += 	'</div>';
 			content += '</div>';
@@ -576,11 +576,11 @@ CatalogView.prototype.createResourceLink = function(links){
 			var wcs_link = link_url + '?service=WCS&version=2.0.0&request=GetCoverage&CoverageId='+layer_name;
 			content += '<li class="catalog-link">';
 			content += '<div class="row">';
-			content += '<div class="col-md-4 form-group">';	
+			content += '<div class="col-md-4 form-group">';
 			content += '<i class="fa fa-file-archive-o" aria-hidden="true"></i>';
 			content += '<span class="catalog-link-resource"><p>' + layer_title + '<br/><span class="catalog-entry-subtitle">' + layer_name + '</span></p></span>';
 			content += '</div>';
-			content += 	'<div class="col-md-2 form-group">';	
+			content += 	'<div class="col-md-2 form-group">';
 			content += 		'<a href="' + wcs_link + '"><div class="download-btn"><i style="margin-right: 10px;" class="fa fa-download"></i>' + gettext('Access raster data') + '</div></a>';
 			content += 	'</div>';
 			content += '</div>';
@@ -589,11 +589,11 @@ CatalogView.prototype.createResourceLink = function(links){
 		else if(type.startsWith("text/") || type == 'application/zip' || type == 'application/pdf'){
 			content += '<li class="catalog-link">';
 			content += '<div class="row">';
-			content += '<div class="col-md-6 form-group">';	
+			content += '<div class="col-md-6 form-group">';
 			content += '<i class="fa fa-file-archive-o" aria-hidden="true"></i>';
 			content += '<span class="catalog-link-resource"><p>' + layer_title + '<br/><span class="catalog-entry-subtitle">' + layer_name + '</span></p></span>';
 			content += '</div>';
-			content += 	'<div class="col-md-2 form-group">';	
+			content += 	'<div class="col-md-2 form-group">';
 			content += 		'<a href="' + link_url + '"><div class="download-btn"><i style="margin-right: 10px;" class="fa fa-download"></i>' + gettext('Access resource') + '</div></a>';
 			content += 	'</div>';
 			content += '</div>';
@@ -630,7 +630,7 @@ CatalogView.prototype.getMaxGroupOrder = function() {
 	for (var i=0; i<viewer.core.conf.layerGroups.length; i++) {
 		var group = viewer.core.conf.layerGroups[i];
 		if (group.groupOrder > maxGroupOrder) {
-			maxGroupOrder = group.groupOrder; 
+			maxGroupOrder = group.groupOrder;
 		}
 	}
 	return maxGroupOrder;
@@ -648,7 +648,7 @@ CatalogView.prototype.createLayerGroup = function() {
 	tree += '			<li class="box box-default collapsed-box" id="' + groupId + '">';
 	tree += '				<div class="box-header with-border">';
 	if (viewer.core.conf.selectable_groups) {
-		tree += '				<input type="checkbox" class="layer-group" id="layergroup-' + groupId + '">';		
+		tree += '				<input type="checkbox" class="layer-group" id="layergroup-' + groupId + '">';
 	}
 	tree += '					<i style="cursor: pointer;" class="layertree-folder-icon fa fa-folder"></i>';
 	tree += '					<span class="text">' + gettext("Catalog layers") + '</span>';
@@ -663,30 +663,30 @@ CatalogView.prototype.createLayerGroup = function() {
 	tree += '			</li>';
 
 	$(".layer-tree").append(tree);
-	
+
 	$(".layertree-folder-icon").click(function(){
 		if (this.parentNode.parentNode.className == 'box box-default') {
 			this.parentNode.parentNode.className = 'box box-default collapsed-box';
 			$(this.parentNode.parentNode.children[1]).css('display', 'none');
 			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder";
-			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-minus") {
-				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-plus";
-			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-plus"){
-				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-minus";
+			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-down") {
+				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-left";
+			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-left"){
+				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-down";
 			}
 		} else if (this.parentNode.parentNode.className == 'box box-default collapsed-box') {
 			this.parentNode.parentNode.className = 'box box-default';
 			$(this.parentNode.parentNode.children[1]).css('display', 'block');
 			this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-plus";
 			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder-open";
-			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-minus") {
-				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-plus";
-			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-plus"){
-				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-minus";
+			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-down") {
+				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-left";
+			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-left"){
+				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-down";
 			}
 		}
 	});
-	
+
 	$("[data-widget='collapse']").click(function(){
 		if (this.parentNode.parentNode.children[0].className == 'layertree-folder-icon fa fa-folder') {
 			this.parentNode.parentNode.children[0].className = 'layertree-folder-icon fa fa-folder-open';
@@ -694,9 +694,9 @@ CatalogView.prototype.createLayerGroup = function() {
 			this.parentNode.parentNode.children[0].className = 'layertree-folder-icon fa fa-folder';
 		}
 	});
-	
+
 	$("#layergroup-gvsigol-geonetwork-group").unbind("change").change(function (e) {
-		var groupId = 'layergroup-geonetwork-group'; 
+		var groupId = 'layergroup-geonetwork-group';
 		var checked = this.checked;
 
 		$("#gvsigol-geonetwork-group").find(".layer-box").each(function(idx, el) {
@@ -725,7 +725,7 @@ CatalogView.prototype.createLayerGroup = function() {
 
 CatalogView.prototype._createOLLayer = function(url, name, title, abstract, dataId, bbox, wfs_url, wcs_url) {
 	var self = this;
-	
+
 	if (url.endsWith("?")) {
 		url = url.substring(0, url.length-1);
 	}
@@ -734,8 +734,8 @@ CatalogView.prototype._createOLLayer = function(url, name, title, abstract, data
 		source: new ol.source.TileWMS({
 			url: url,
 			params: {
-				'LAYERS': name, 
-				'TILED': true, 
+				'LAYERS': name,
+				'TILED': true,
 				'dataid': dataId
 			},
 			serverType: 'geoserver'
@@ -763,7 +763,7 @@ CatalogView.prototype._createOLLayer = function(url, name, title, abstract, data
 		catalogLayer.wfs_url = wfs_url;
 	}
 	if (bbox != null && bbox.length>0) {
-		catalogLayer.bboxwgs84 = bbox;		
+		catalogLayer.bboxwgs84 = bbox;
 	}
 	catalogLayer.on('change:visible', function(){
 		self.mapViewer.getLegend().reloadLegend();
@@ -778,18 +778,18 @@ CatalogView.prototype._createOLLayer = function(url, name, title, abstract, data
 CatalogView.prototype.createLayer = function(name, title, abstract, url, dataId, bbox, group_visible, wfs_url, wcs_url) {
 	var self = this;
 	var newLayer = self._createOLLayer(url, name, title, abstract, dataId, bbox, wfs_url, wcs_url);
-	
+
 	var groupId = "gvsigol-geonetwork-group";
 	var groupEntry = $("#"+groupId);
 	if(groupEntry.length == 0){
 		self.createLayerGroup();
 	}
 	var layerTree = self.mapViewer.getLayerTree();
-	
+
 	var removeLayerButtonUI = '<a id="remove-catalog-layer-' + dataId + '" data-layerid="' + dataId + '" class="btn btn-block btn-social btn-custom-tool remove-catalog-layer-btn">';
 	removeLayerButtonUI +=	'	<i class="fa fa-times"></i> ' + gettext('Remove layer');
 	removeLayerButtonUI +=	'</a>';
-	
+
 	var newLayerUI = $(layerTree.createOverlayUI(newLayer, $("#layergroup-"+groupId).is(":checked")));
 	newLayerUI.find(".box-body .zoom-to-layer").after(removeLayerButtonUI);
 	$(".geonetwork-layer-group").prepend(newLayerUI);
@@ -809,7 +809,7 @@ CatalogView.prototype.createLayer = function(name, title, abstract, url, dataId,
 			};
 		}, this);
 	});
-	
+
 	self.mapViewer.getLegend().reloadLegend();
 };
 /*
@@ -821,12 +821,12 @@ CatalogView.prototype.zoomToLayer = function(layer) {
 	}
 	else { // query getCapabilities otherwise
 		var layer_name = layer.get("id").replace("geonetwork-", "");
-	
+
 		var url = layer.getSource().urls[0]+'?request=GetCapabilities&service=WMS';
 		var parser = new ol.format.WMSCapabilities();
 		$.ajax(url).then(function(response) {
 			var result = parser.read(response);
-			var Layers = result.Capability.Layer.Layer; 
+			var Layers = result.Capability.Layer.Layer;
 			var extent;
 			for (var i=0, len = Layers.length; i<len; i++) {
 				var layerobj = Layers[i];
@@ -921,11 +921,11 @@ CatalogView.prototype.getCatalogFilters = function(query, searchComponents, cate
 	filters += "&from="+self.fromResult;
 	var to = self.fromResult + self.config.resultsPerPage - 1;
 	filters += "&to="+to;
-	
+
 	var facetsConfig = self.config.facetsConfig;
 	var facetsOrder = self.config.facetsOrder;
 	var disabledFacets = self.config.disabledFacets;
-	
+
 	var url = self.getLocalizedEndpoint() + "/q";
 	// TODO: authentication
 	url = url + '?_content_type=json' + filters + '&bucket=s101&facet.q=' + query + '&fast=index&resultType=details' + self.sortBy;
@@ -937,7 +937,7 @@ CatalogView.prototype.getCatalogFilters = function(query, searchComponents, cate
 				$('#catalog-search-button-icon').removeClass('fa-spinner fa-spin').addClass('fa-search');
 				//response = JSON.parse(response);
 				self.data = {};
-				
+
 				self.updatePager(response.summary['@count']);
 				var all_filters_code = '';
 				var shownFilters = {};
@@ -997,12 +997,12 @@ CatalogView.prototype.getCatalogFilters = function(query, searchComponents, cate
 					var metadata = response.metadata;
 					content_code += self.getMetadataEntry(metadata);
 					if (metadata) {
-						self.data[metadata['geonet:info']['uuid']] = metadata;	
+						self.data[metadata['geonet:info']['uuid']] = metadata;
 					}
 					else {
 						self.data = {};
 					}
-					
+
 				}
 				$("#catalog_content").html(content_code);
 
@@ -1039,7 +1039,7 @@ CatalogView.prototype.getCatalogFilters = function(query, searchComponents, cate
 							}
 						}
 						content += aux_content + "</ul>";
-	
+
 						if(aux_content.length == 0){
 							aux_content += '<div style="padding: 10px">';
 							aux_content += '<div class="no_catalog_content col-md-12">';
@@ -1048,10 +1048,10 @@ CatalogView.prototype.getCatalogFilters = function(query, searchComponents, cate
 							aux_content += '</div>';
 							aux_content += '<div style="clear:both"></div>';
 							aux_content += '</div>';
-	
+
 							content = aux_content;
 						}
-	
+
 						$('#modal-catalog .modal-body').html(content);
 						$('#modal-catalog').modal('show');
 					}
@@ -1059,7 +1059,7 @@ CatalogView.prototype.getCatalogFilters = function(query, searchComponents, cate
 
 				$(".catalog_linkmap").unbind("click").click(function(){
 					var id = $(this).attr("name");
-					var layerSummary = self.data[id]; 
+					var layerSummary = self.data[id];
 					var links = layerSummary.link;
 					var title = layerSummary.title || layerSummary.defaultTitle || layerSummary.name || '';
 					var abstract = layerSummary.abstract || title;
@@ -1120,7 +1120,7 @@ CatalogView.prototype.getCatalogFilters = function(query, searchComponents, cate
 						else {
 							self.createAvailableLayersPanel(wms.url, "WMS");
 						}
-						
+
 					}
 				});
 
@@ -1280,7 +1280,7 @@ CatalogView.prototype._replaceMetadataBtnEvents = function() {
 			});
 		});
 	}
-	
+
 	$(".show-metadata-link").unbind("click").on('click', function(e) {
 		var layers = self.map.getLayers();
 		var selectedLayer = null;
@@ -1317,7 +1317,7 @@ CatalogView.prototype._replaceMetadataBtnEvents = function() {
 
 CatalogView.prototype.install = function() {
 	var self = this;
-	
+
 	var modal = '';
 	modal += '<div class="modal fade" id="modal-catalog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">';
 	modal += '	<div class="modal-dialog" role="document" style="width:auto;margin:30px 50px 30px 50px;">';
@@ -1336,25 +1336,25 @@ CatalogView.prototype.install = function() {
 	modal += '		</div>';
 	modal += '	</div>';
 	modal += '</div>';
-	
+
 	$("body").append(modal);
-	
+
 	$("#show_catalog").click(function(){
 		$("body").trigger('show-catalog-event');
 		self.showPanel();
 	});
-	
+
 	$("#show_map").click(function(){
 		self.hidePanel()
 	});
-	
+
 	this._replaceMetadataBtnEvents();
 }
 
 CatalogView.prototype.addCustomFilter = function(catalogPanel) {
 	if (this.config.customFiltersConfig.url) {
 		var adminAreasConf = this.config.customFiltersConfig.adminAreas;
-		
+
 		catalogPanel += '<div id="catalog_search"class="row">';
 		catalogPanel += '	<div id="admin_areas_div" class="col-sm-6">';
 		catalogPanel += '		<label for="admin_areas_btn"></label>';
@@ -1456,7 +1456,7 @@ CatalogView.prototype.addCustomFilterEntries = function() {
 		optionStr += '</li>';
 		$('.admin_areas_multiselect ul').append(optionStr);
 	}
-	
+
 	$('#admin_areas_div input').change(function() {
 		var text = '';
 		$("#admin_areas_div * ul li").each(function() {
@@ -1477,7 +1477,7 @@ CatalogView.prototype.addCustomFilterEntries = function() {
 	$('.admin_areas_multiselect').on('hide.bs.dropdown', function() {
 		self.filterCatalog();
 	});
-	
+
 	var productDef;
 	$('#products_select').empty()
 	$('#products_select').siblings().text(this.config.customFiltersConfig.products.label);
@@ -1523,18 +1523,18 @@ CatalogView.prototype.clearCustomFilters = function() {
 
 CatalogView.prototype.installNavBars = function() {
 	var self = this;
-	
+
 	var html = '';
-	
+
 	/*html += '<ul class="nav navbar-nav">';
 	html += '	<li><a href="#" id="show_map" class="dropdown-toggle">Map</a></li>';
 	html += '</ul>'
 	html += '<ul class="nav navbar-nav">';
 	html += '	<li><a href="#" id="show_catalog" class="dropdown-toggle">Catalog</a></li>';
 	html += '</ul>';
-	
+
 	$("#viewer-navbar").append(html);*/
-	
+
 	/*
 	html += '<li class="dropdown">';
 	html += 	'<a class="dropdown-toggle" data-toggle="dropdown" href="#">';
@@ -1544,20 +1544,18 @@ CatalogView.prototype.installNavBars = function() {
 	html += 		'<li id="show_catalog" role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="fa fa-newspaper-o m-r-5"></i>' + gettext('Catalog and downloads') + '</a></li>';
 	html += 	'</ul>';
 	html += '</li>';
-	
+
 	$("#gvsigol-navbar-menus").append(html);*/
-	
+
 	var button = '<li id="show_catalog" role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="fa fa-newspaper-o m-r-5"></i>' + gettext('Catalog') + '</a></li>';
 	$('#gvsigol-navbar-views-menu').append(button);
-	
+
 	$("#show_catalog").click(function(){
 		$("body").trigger('show-catalog-event');
 		self.showPanel();
 	});
-	
+
 	$("#show_map").click(function(){
 		self.hidePanel()
 	});
 }
-
-

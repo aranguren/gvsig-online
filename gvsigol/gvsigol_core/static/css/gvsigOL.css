@@ -1723,7 +1723,7 @@ a:focus {
 .box-header {
   color: #444;
   display: block;
-  padding: 10px;
+  padding: 5px;
   position: relative;
 }
 .box-header.with-border {

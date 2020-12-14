@@ -361,7 +361,7 @@ ImportVector.prototype.createLayerGroup = function() {
 	var group = '';
 	group += '			<li class="box box-default collapsed-box" id="' + groupId + '">';
 	group += '				<div class="box-header with-border">';
-	group += '					<i style="cursor: pointer;" class="layertree-folder-icon fa fa-folder-o"></i>';
+	group += '					<i style="cursor: pointer;" class="layertree-folder-icon fa fa-folder"></i>';
 	group += '					<span class="text">' + gettext("Imported vector files") + '</span>';
 	group += '					<div class="box-tools pull-right">';
 	group += '						<button class="btn btn-box-tool btn-box-tool-custom group-collapsed-button" data-widget="collapse">';
@@ -379,7 +379,7 @@ ImportVector.prototype.createLayerGroup = function() {
 		if (this.parentNode.parentNode.className == 'box box-default') {
 			this.parentNode.parentNode.className = 'box box-default collapsed-box';
 			$(this.parentNode.parentNode.children[1]).css('display', 'none');
-			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder-o";
+			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder";
 			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-minus") {
 				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-plus";
 			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-plus"){
@@ -389,7 +389,7 @@ ImportVector.prototype.createLayerGroup = function() {
 			this.parentNode.parentNode.className = 'box box-default';
 			$(this.parentNode.parentNode.children[1]).css('display', 'block');
 			this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-plus";
-			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder-open-o";
+			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder-open";
 			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-minus") {
 				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-plus";
 			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-plus"){
@@ -399,10 +399,10 @@ ImportVector.prototype.createLayerGroup = function() {
 	});
 	
 	$("[data-widget='collapse']").click(function(){
-		if (this.parentNode.parentNode.children[0].className == 'layertree-folder-icon fa fa-folder-o') {
-			this.parentNode.parentNode.children[0].className = 'layertree-folder-icon fa fa-folder-open-o';
-		} else if (this.parentNode.parentNode.children[0].className == 'layertree-folder-icon fa fa-folder-open-o') {
-			this.parentNode.parentNode.children[0].className = 'layertree-folder-icon fa fa-folder-o';
+		if (this.parentNode.parentNode.children[0].className == 'layertree-folder-icon fa fa-folder') {
+			this.parentNode.parentNode.children[0].className = 'layertree-folder-icon fa fa-folder-open';
+		} else if (this.parentNode.parentNode.children[0].className == 'layertree-folder-icon fa fa-folder-open') {
+			this.parentNode.parentNode.children[0].className = 'layertree-folder-icon fa fa-folder';
 		}
 	});
 }

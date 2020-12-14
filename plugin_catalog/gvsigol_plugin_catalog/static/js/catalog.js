@@ -650,7 +650,7 @@ CatalogView.prototype.createLayerGroup = function() {
 	if (viewer.core.conf.selectable_groups) {
 		tree += '				<input type="checkbox" class="layer-group" id="layergroup-' + groupId + '">';		
 	}
-	tree += '					<i style="cursor: pointer;" class="layertree-folder-icon fa fa-folder-o"></i>';
+	tree += '					<i style="cursor: pointer;" class="layertree-folder-icon fa fa-folder"></i>';
 	tree += '					<span class="text">' + gettext("Catalog layers") + '</span>';
 	tree += '					<div class="box-tools pull-right">';
 	tree += '						<button class="btn btn-box-tool btn-box-tool-custom group-collapsed-button" data-widget="collapse">';
@@ -668,7 +668,7 @@ CatalogView.prototype.createLayerGroup = function() {
 		if (this.parentNode.parentNode.className == 'box box-default') {
 			this.parentNode.parentNode.className = 'box box-default collapsed-box';
 			$(this.parentNode.parentNode.children[1]).css('display', 'none');
-			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder-o";
+			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder";
 			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-minus") {
 				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-plus";
 			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-plus"){
@@ -678,7 +678,7 @@ CatalogView.prototype.createLayerGroup = function() {
 			this.parentNode.parentNode.className = 'box box-default';
 			$(this.parentNode.parentNode.children[1]).css('display', 'block');
 			this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-plus";
-			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder-open-o";
+			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder-open";
 			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-minus") {
 				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-plus";
 			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-plus"){
@@ -688,10 +688,10 @@ CatalogView.prototype.createLayerGroup = function() {
 	});
 	
 	$("[data-widget='collapse']").click(function(){
-		if (this.parentNode.parentNode.children[0].className == 'layertree-folder-icon fa fa-folder-o') {
-			this.parentNode.parentNode.children[0].className = 'layertree-folder-icon fa fa-folder-open-o';
-		} else if (this.parentNode.parentNode.children[0].className == 'layertree-folder-icon fa fa-folder-open-o') {
-			this.parentNode.parentNode.children[0].className = 'layertree-folder-icon fa fa-folder-o';
+		if (this.parentNode.parentNode.children[0].className == 'layertree-folder-icon fa fa-folder') {
+			this.parentNode.parentNode.children[0].className = 'layertree-folder-icon fa fa-folder-open';
+		} else if (this.parentNode.parentNode.children[0].className == 'layertree-folder-icon fa fa-folder-open') {
+			this.parentNode.parentNode.children[0].className = 'layertree-folder-icon fa fa-folder';
 		}
 	});
 	

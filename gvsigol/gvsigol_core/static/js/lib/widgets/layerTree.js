@@ -24,7 +24,7 @@
  * TODO
  */
 var layerTree = function(conf, map, viewer, isPublic) {
-	this.map = map;	
+	this.map = map;
 	this.conf = conf;
 	this.viewer = viewer;
 	this.editionBar = null;
@@ -33,7 +33,7 @@ var layerTree = function(conf, map, viewer, isPublic) {
 	this.$container = $('#layer-tree-tab');
 	this.$temporary_container = $('#temporary-tab');
 	this.createTree();
-	
+
 	this.step_val_array = [];
 	this.step_val = 1;
 	this.min_val = 0;
@@ -43,7 +43,7 @@ var layerTree = function(conf, map, viewer, isPublic) {
 		base_layers: this.conf.base_layers,
 		layerGroups: this.conf.layerGroups
 	};
-	
+
 };
 
 /**
@@ -62,11 +62,11 @@ layerTree.prototype.refreshSlider = function() {
 };
 
 layerTree.prototype.createTree = function() {
-	
+
 	var self = this;
 	this.layerCount = 0;
 	var groupCount = 1;
-	
+
 	var baseGroup = null;
 	if (this.conf.layerGroups) {
 		for (var i=0; i<this.conf.layerGroups.length; i++) {
@@ -75,7 +75,7 @@ layerTree.prototype.createTree = function() {
 			}
 		}
 	}
-	
+
 	var tree = '';
 	tree += '<div class="box">';
 	tree += 	'<div class="box-body">';
@@ -93,13 +93,13 @@ layerTree.prototype.createTree = function() {
 		tree += '					<span class="text">' + baseGroup.groupTitle + '</span>';
 		tree += '					<div class="box-tools pull-right">';
 		tree += '						<button class="btn btn-box-tool btn-box-tool-custom" data-widget="collapse">';
-		tree += '							<i class="fa fa-minus"></i>';
+		tree += '							<i class="fa fa-caret-down"></i>';
 		tree += '						</button>';
 		tree += '					</div>';
 		tree += '				</div>';
 		tree += '				<div id="baselayers-group" class="box-body" style="display: block; font-size: 12px;">';
-		for (var j=0; j<baseGroup.layers.length; j++) {	
-			var layer = baseGroup.layers[j];				
+		for (var j=0; j<baseGroup.layers.length; j++) {
+			var layer = baseGroup.layers[j];
 			tree += 				self.createBaseLayerUI(layer);
 		}
 		tree += 					self.createEmptyBaseLayerUI();
@@ -119,17 +119,17 @@ layerTree.prototype.createTree = function() {
 						tree += '					<input type="checkbox" class="layer-group" id="layergroup-' + layerGroup.groupId + '">';
 					}
 				}
-				tree += '					<i style="cursor: pointer;" class="layertree-folder-icon fa fa-folder-o"></i>';
+				tree += '					<i style="cursor: pointer;" class="layertree-folder-icon fa fa-folder"></i>';
 				tree += '					<span class="text">' + layerGroup.groupTitle + '</span>';
 				tree += '					<div class="box-tools pull-right">';
 				tree += '						<button id="button-' + layerGroup.groupId + '" class="btn btn-box-tool btn-box-tool-custom group-collapsed-button" data-widget="collapse">';
-				tree += '							<i class="fa fa-plus"></i>';
+				tree += '							<i class="fa fa-caret-left"></i>'; //Caret for collapsed indicator
 				tree += '						</button>';
 				tree += '					</div>';
 				tree += '				</div>';
 				tree += '				<div data-grouporder="' + layerGroup.groupOrder + '" data-groupnumber="' + (groupCount++) * 100 + '" class="box-body layer-tree-groups" style="display: none;">';
-				for (var j=0; j<layerGroup.layers.length; j++) {	
-					var layer = layerGroup.layers[j];				
+				for (var j=0; j<layerGroup.layers.length; j++) {
+					var layer = layerGroup.layers[j];
 					tree += self.createOverlayUI(layer, layerGroup.visible);
 				}
 				tree += '				</div>';
@@ -140,44 +140,44 @@ layerTree.prototype.createTree = function() {
 	tree += '		</ul>';
 	tree += '	</div>';
 	tree += '</div>';
-	
+
 	this.$container.append(tree);
-	
+
 	$(".layertree-folder-icon").click(function(){
 		if (this.parentNode.parentNode.className == 'box box-default') {
 			this.parentNode.parentNode.className = 'box box-default collapsed-box';
 			$(this.parentNode.parentNode.children[1]).css('display', 'none');
-			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder-o";
-			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-minus") {
-				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-plus";
-			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-plus"){
-				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-minus";
+			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder";
+			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-down") {
+				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-left";
+			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-left"){
+				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-down";
 			}
 		} else if (this.parentNode.parentNode.className == 'box box-default collapsed-box') {
 			this.parentNode.parentNode.className = 'box box-default';
 			$(this.parentNode.parentNode.children[1]).css('display', 'block');
-			this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-plus";
-			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder-open-o";
-			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-minus") {
-				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-plus";
-			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-plus"){
-				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-minus";
+			this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-left";
+			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder-open";
+			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-down") {
+				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-left";
+			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-left"){
+				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-down";
 			}
 		}
 	});
-	
+
 	$("[data-widget='collapse']").click(function(){
-		if (this.parentNode.parentNode.children[0].className == 'layertree-folder-icon fa fa-folder-o') {
-			this.parentNode.parentNode.children[0].className = 'layertree-folder-icon fa fa-folder-open-o';
-		} else if (this.parentNode.parentNode.children[0].className == 'layertree-folder-icon fa fa-folder-open-o') {
-			this.parentNode.parentNode.children[0].className = 'layertree-folder-icon fa fa-folder-o';
+		if (this.parentNode.parentNode.children[0].className == 'layertree-folder-icon fa fa-folder') {
+			this.parentNode.parentNode.children[0].className = 'layertree-folder-icon fa fa-folder-open';
+		} else if (this.parentNode.parentNode.children[0].className == 'layertree-folder-icon fa fa-folder-open') {
+			this.parentNode.parentNode.children[0].className = 'layertree-folder-icon fa fa-folder';
 		}
 	});
-	
+
 	$(".layer-group").unbind("change").change(function (e) {
-		var groupId = this.id.split('-')[1]; 
+		var groupId = this.id.split('-')[1];
 		var checked = this.checked;
-		for (var i=0; i<self.conf.layerGroups.length; i++) {			
+		for (var i=0; i<self.conf.layerGroups.length; i++) {
 			var group = self.conf.layerGroups[i];
 			if (group.groupId == groupId) {
 				if (group.allows_getmap) {
@@ -198,18 +198,18 @@ layerTree.prototype.createTree = function() {
 								mapLayer.setVisible(false);
 								layerCheckbox.checked = true;
 								layerCheckbox.disabled = true;
-								
+
 								$(".layer-opacity-slider[data-layerid='"+layer.id+"']").slider( "option", "disabled", true );
 							} else {
 								mapLayer.setVisible(false);
 								layerCheckbox.checked = false;
 								layerCheckbox.disabled = false;
-								
+
 								$(".layer-opacity-slider[data-layerid='"+layer.id+"']").slider( "option", "disabled", false );
 							}
 						}
 					}
-					
+
 				} else {
 					if (checked) {
 						self.changeState(group, 'layergroup', 'set-visibility', true);
@@ -223,28 +223,28 @@ layerTree.prototype.createTree = function() {
 						if (checked) {
 							mapLayer.setVisible(true);
 							layerCheckbox.checked = true;
-							
+
 						} else {
 							mapLayer.setVisible(false);
 							layerCheckbox.checked = false;
 						}
 					}
 				}
-				
-				
-			}			
+
+
+			}
 		}
 	});
-	
+
 	this.setLayerEvents();
 	this.createTemporaryTab();
-	
+
 	var availableLayers = new Array();
 	if (this.conf.layerGroups) {
 		for (var i=0; i<this.conf.layerGroups.length; i++) {
 			var layerGroup = this.conf.layerGroups[i];
 			if (!layerGroup.basegroup) {
-				for (var j=0; j<layerGroup.layers.length; j++) {	
+				for (var j=0; j<layerGroup.layers.length; j++) {
 					var layer = layerGroup.layers[j];
 					availableLayers.push({
 						id: layer.id,
@@ -261,7 +261,7 @@ layerTree.prototype.createTree = function() {
 		allowClear: true,
 		width: '380px'
 	});
-	
+
 	$('#combo-layers').on('select2:select', function (e) {
 	    var data = e.params.data;
 	    $('.layer-tree li').each(function () {
@@ -278,7 +278,7 @@ layerTree.prototype.createTree = function() {
 	    if (!mapLayer.getVisible()) {
 	    	mapLayer.setVisible(true);
 	    	$('#' + data.id).prop('checked', true);
-	    }  
+	    }
 	});
 
 };
@@ -298,7 +298,7 @@ layerTree.prototype.setLayerEvents = function() {
 						$(this).slider( "value", layer.getOpacity() * 100);
 						$("#layer-opacity-output-" + id).text((layer.getOpacity() * 100).toString() + '%');
 					}
-				}						
+				}
 			}, this);
 	    },
 	    slide: function( event, ui ) {
@@ -312,7 +312,7 @@ layerTree.prototype.setLayerEvents = function() {
 						$("#layer-opacity-output-" + id).text(ui.value + '%');
 						self.changeState(layer, 'layer', 'change-opacity', opacity);
 					}
-				}						
+				}
 			}, this);
 	    }
 	});
@@ -351,10 +351,10 @@ layerTree.prototype.setLayerEvents = function() {
 					layer.setVisible(true);
 					self.changeState(layer, 'layer', 'change-baselayer', true);
 				}
-			}						
+			}
 		}, this);
 	});
-	
+
 	$(".layer-box input[type=checkbox]").unbind("change").change(function (e) {
 		var layers = self.map.getLayers();
 		layers.forEach(function(layer){
@@ -366,7 +366,7 @@ layerTree.prototype.setLayerEvents = function() {
 						if($("#layer-"+layer.get("id")).length){
 							$("#layer-"+layer.get("id")).css("display", "none");
 							if(self.hasTemporaryLayersActive()){
-								self.refreshTemporalInfo();	
+								self.refreshTemporalInfo();
 								self.updateTemporalLayers();
 							}else{
 								$("#enable-temporary").prop('checked', false);
@@ -378,7 +378,7 @@ layerTree.prototype.setLayerEvents = function() {
 						self.changeState(layer, 'layer', 'set-visibility', true);
 						if($("#layer-"+layer.get("id")).length){
 							$("#layer-"+layer.get("id")).css("display", "block");
-							self.refreshTemporalInfo();	
+							self.refreshTemporalInfo();
 							self.updateTemporalLayers();
 						}
 					}
@@ -395,10 +395,10 @@ layerTree.prototype.setLayerEvents = function() {
 				if (id===layer.get("id")) {
 					layer.setOpacity(this.valueAsNumber/100);
 				}
-			}						
+			}
 		}, this);
 	});
-	
+
 	$(".show-attribute-table-link").unbind("click").on('click', function(e) {
 		var selectedLayer = null;
 		var layers = self.map.getLayers();
@@ -407,13 +407,13 @@ layerTree.prototype.setLayerEvents = function() {
 				if (this.dataset.id == layer.get('id')) {
 					selectedLayer = layer;
 				}
-			}						
+			}
 		}, this);
 		var dataTable = new attributeTable(selectedLayer, self.map, self.conf, self.viewer);
 		dataTable.show();
 		dataTable.registerEvents();
 	});
-	
+
 	$(".show-metadata-link").unbind("click").on('click', function(e) {
 		var layers = self.map.getLayers();
 		var selectedLayer = null;
@@ -423,11 +423,11 @@ layerTree.prototype.setLayerEvents = function() {
 				if (id===layer.get("id")) {
 					selectedLayer = layer;
 				}
-			}						
+			}
 		}, this);
 		self.showMetadata(selectedLayer);
 	});
-	
+
 	$(".detailed-info-link").unbind("click").on('click', function(e) {
 		var layers = self.map.getLayers();
 		var selectedLayer = null;
@@ -437,11 +437,11 @@ layerTree.prototype.setLayerEvents = function() {
 				if (id===layer.get("id")) {
 					selectedLayer = layer;
 				}
-			}						
+			}
 		}, this);
 		self.detailedInfo(selectedLayer);
 	});
-	
+
 	$(".layer-downloads-link").unbind("click").on('click', function(e) {
 		var layers = self.map.getLayers();
 		var selectedLayer = null;
@@ -455,7 +455,7 @@ layerTree.prototype.setLayerEvents = function() {
 		}, this);
 		self.layerDownloads(selectedLayer);
 	});
-	
+
 	$(".zoom-to-layer").unbind("click").on('click', function(e) {
 		var layers = self.map.getLayers();
 		var selectedLayer = null;
@@ -465,12 +465,12 @@ layerTree.prototype.setLayerEvents = function() {
 				if (id===layer.get("id")) {
 					selectedLayer = layer;
 				}
-			}						
+			}
 		}, this);
 		self.zoomToLayer(selectedLayer);
 	});
-	
-	
+
+
 	$(".symbol-to-layer").unbind("change").on('change', function(e) {
 		var layers = self.map.getLayers();
 		var comp_id = $(this).attr("id");
@@ -483,13 +483,13 @@ layerTree.prototype.setLayerEvents = function() {
 					selectedLayer = layer;
 					style = $( "#"+comp_id+" option:selected" ).val();
 				}
-			}						
+			}
 		}, this);
 		if(selectedLayer != null){
 			self.assignStyleToLayer(selectedLayer, style);
 		}
 	});
-	
+
 	$(".layer-tree-groups").sortable({
 		placeholder: "sort-highlight",
 		handle: ".handle",
@@ -509,7 +509,7 @@ layerTree.prototype.createTemporaryTab = function() {
 	temporary_tree += '<input type="checkbox" id="enable-temporary" class="temporary-check">'+ gettext("Enable temporary features")+'</input> <div id="temporary-panel">';
 	temporary_tree += '	<div id="enable-temporary-error"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;' + gettext("A visible layer with temporal properties is needed") + '</div>';
 	temporary_tree += '	<div class="box-body temporary-body">';
-	
+
 	var input_from = '<div class="col-md-1" style="padding: 0px 7px;">';
 	if(this.conf.temporal_advanced_parameters){
 		input_from += '<input type="radio" id="from-date-value" class="temporal-type-radio" name="from-date-value" checked>';
@@ -527,7 +527,7 @@ layerTree.prototype.createTemporaryTab = function() {
 			'<i class="fa fa-plus" aria-hidden="true"></i>'+
 		'</span>'+
 	'</div>';
-	
+
 	if(this.conf.temporal_advanced_parameters){
 		input_from += '<div class="col-md-2" style="margin-top:5px"></div>'+
 		'<div class="col-md-1" style="padding: 0px 7px;margin-top:5px">'+
@@ -540,27 +540,27 @@ layerTree.prototype.createTemporaryTab = function() {
 			'</span>'+
 		'</div>';
 	}
-	
+
 	input_from += '<div class="col-md-3"></div>'+
 	'<div id="from-custom-definition-panel" class="input-group date col-md-9" style="background-color:#eee; display:none;">'+
 		'<span class="text input-group-date-label">' + gettext('year(s)') + '</span>'+
 		'<input id="from-custom-value-year" class="form-control" style="width:50%" type="number" value="0"><br/>'+
-		
+
 		'<span class="text input-group-date-label">'+ gettext('month(s)') + '</span>'+
 		'<input id="from-custom-value-month" class="form-control" style="width:50%" type="number" value="0"><br/>'+
-		
+
 		'<span class="text input-group-date-label">' + gettext('day(s)') + '</span>'+
 		'<input id="from-custom-value-day" class="form-control" style="width:50%" type="number" value="0"><br/>'+
-		
+
 		'<span class="text input-group-date-label">' + gettext('hour(s)') + '</span>'+
 		'<input id="from-custom-value-hour" class="form-control" style="width:50%" type="number" value="0"><br/>'+
-		
+
 		'<span class="text input-group-date-label">' + gettext('minute(s)') + '</span>'+
 		'<input id="from-custom-value-minute" class="form-control" style="width:50%" type="number" value="0"><br/>'+
-		
+
 		'<span class="text input-group-date-label">' + gettext('second(s)') + '</span>'+
 		'<input id="from-custom-value-second" class="form-control" style="width:50%" type="number" value="0"><br/>'+
-	
+
 		'<span class="temporal-buttons temporal-buttons-left from-input-group-date-apply-present date col-md-9" style="width: 50%;">'+
 			gettext('Clear')+
 		'</span>'+
@@ -568,16 +568,16 @@ layerTree.prototype.createTemporaryTab = function() {
 			gettext('apply relative date')+
 		'</span>'+
 	'</div>';
-	
-	
+
+
 	var input_to = '<div class="col-md-1" style="padding: 0px 7px;">';
 	if(this.conf.temporal_advanced_parameters){
 		input_to += '<input type="radio" id="to-date-value" class="temporal-type-radio" name="to-date-value" checked>';
 	}
-	
+
 	input_to += '</div><div class="input-group date col-md-9" id="datetimepicker-to"><input id="temporary-to" class="form-control to-date-value"/><span class="input-group-addon to-date-value"><span class="glyphicon glyphicon-calendar to-date-value"></span></span>'+
 	'<span class="input-group-addon temporal-buttons-empty-gap"></span><span class="temporal-buttons temporal-buttons-left temporal-buttons-left-to to-date-value"><i class="fa fa-minus" aria-hidden="true"></i></span><span class="temporal-buttons temporal-buttons-right temporal-buttons-right-to to-date-value"><i class="fa fa-plus" aria-hidden="true"></i></span></div>';
-	
+
 	if(this.conf.temporal_advanced_parameters){
 		input_to += '<div class="col-md-2" style="margin-top:5px"></div>'+
 		'<div class="col-md-1" style="padding: 0px 7px;margin-top:5px">'+
@@ -590,27 +590,27 @@ layerTree.prototype.createTemporaryTab = function() {
 			'</span>'+
 		'</div>';
 	}
-	
+
 	input_to += '<div class="col-md-3"></div>'+
 	'<div id="to-custom-definition-panel" class="input-group date col-md-9" style="background-color:#eee; display:none;">'+
 		'<span class="text input-group-date-label">' + gettext('year(s)') + '</span>'+
 		'<input id="to-custom-value-year" class="form-control" style="width:50%" type="number" value="0"><br/>'+
-		
+
 		'<span class="text input-group-date-label">'+ gettext('month(s)') + '</span>'+
 		'<input id="to-custom-value-month" class="form-control" style="width:50%" type="number" value="0"><br/>'+
-		
+
 		'<span class="text input-group-date-label">' + gettext('day(s)') + '</span>'+
 		'<input id="to-custom-value-day" class="form-control" style="width:50%" type="number" value="0"><br/>'+
-		
+
 		'<span class="text input-group-date-label">' + gettext('hour(s)') + '</span>'+
 		'<input id="to-custom-value-hour" class="form-control" style="width:50%" type="number" value="0"><br/>'+
-		
+
 		'<span class="text input-group-date-label">' + gettext('minute(s)') + '</span>'+
 		'<input id="to-custom-value-minute" class="form-control" style="width:50%" type="number" value="0"><br/>'+
-		
+
 		'<span class="text input-group-date-label">' + gettext('second(s)') + '</span>'+
 		'<input id="to-custom-value-second" class="form-control" style="width:50%" type="number" value="0"><br/>'+
-	
+
 		'<span class="temporal-buttons temporal-buttons-left to-input-group-date-apply-present date col-md-9" style="width: 50%;">'+
 			gettext('Clear')+
 		'</span>'+
@@ -624,33 +624,33 @@ layerTree.prototype.createTemporaryTab = function() {
 	temporary_tree += '			<div id="to_label_div" class="temporary_field"><div class="col-md-2" style="padding:0px"><span class="text" style="font-weight:bold;margin-left:3px;" >' + gettext('To') + '</span></div>'+input_to+'<div style="clear:both"></div></div>';
 	temporary_tree += '			<div id="step_label_div"><span class="text" style="font-weight:bold;margin-left:3px;" >' + gettext('Step') + '</span><div class="pull-right">'+/*'<input id="temporary-step-value" type="number" class="ui-slider-step" min=1 value="1" disabled/>'+*/'<select id="temporary-step-unit"><option value="second">' + gettext('second(s)') + '</option><option value="minute">' + gettext('minute(s)') + '</option><option value="hour">' + gettext('hour(s)') + '</option><option value="day" selected>' + gettext('day(s)') + '</option><option value="month">' + gettext('month(s)') + '</option><option value="year">' + gettext('year(s)') + '</option></select></div><div style="clear:both"></div></div>';
 	temporary_tree += '			<div id="temporary-layers-slider" class="temporary-layers-slider"></div>';
-	
-	
+
+
 	temporary_tree += '<div style="margin-left:10px;">';
 	temporary_tree += 	'<input type="radio" id="temporary-single" data-value="single" name="temporary-group" checked>';
 	temporary_tree += 	'<span class="text" style="vertical-align: super;margin-left:10px">'+gettext('Single')+'</span>';
 	temporary_tree += '</div>';
-	
+
 	temporary_tree += '<div style="margin-left:10px;">';
 	temporary_tree += 	'<input type="radio" id="temporary-range" data-value="range" name="temporary-group">';
 	temporary_tree += 	'<span class="text" style="vertical-align: super;margin-left:10px">'+gettext('Range')+'</span>';
 	temporary_tree += '</div>';
-	
+
 	temporary_tree += '	</div>';
 	temporary_tree += '</div>';
 	temporary_tree += '<div class="box temporary-body" style="border-top:45px solid #e8ecf4;">';
 	temporary_tree += ' <h4 class="temporary_text">' + gettext('Temporary layers') + '</h4>';
 	temporary_tree += '	<div class="box-body">';
 	temporary_tree += '		<ul class="layer-tree">';
-	
+
 	var has_temporary_layers_global = false;
 	if (this.conf.layerGroups) {
 		for (var i=0; i<this.conf.layerGroups.length; i++) {
 			var has_temporary_layers = false;
 			var layerGroup = this.conf.layerGroups[i];
 			var temporary_tree_aux = '';
-			for (var j=0; j<layerGroup.layers.length; j++) {	
-				var layer = layerGroup.layers[j];				
+			for (var j=0; j<layerGroup.layers.length; j++) {
+				var layer = layerGroup.layers[j];
 				var temporary_tree_aux_layer = self.createTemporaryOverlayUI(layer);
 				if(temporary_tree_aux_layer != ''){
 					temporary_tree_aux += temporary_tree_aux_layer;
@@ -658,27 +658,27 @@ layerTree.prototype.createTemporaryTab = function() {
 					has_temporary_layers_global = true;
 				}
 			}
-			
+
 			if(has_temporary_layers){
 				temporary_tree += temporary_tree_aux;
 			}
 		}
 	}
-	
-	
+
+
 	temporary_tree += '	</div>';
 	temporary_tree += '</div>';
 	temporary_tree += '</div>';
-	
-	
-	
+
+
+
 	this.$temporary_container.append(temporary_tree);
-	
+
 	$(".temporal-type-radio").unbind("change").change(function(){
 		$(".temporal-type-radio").each(function(){
 			var value =  $(this).is(':checked');
 			var name = $(this).attr("id");
-			
+
 			$("input."+name+"").each(function(){
 				$(this).attr("disabled",!value);
 			});
@@ -697,7 +697,7 @@ layerTree.prototype.createTemporaryTab = function() {
 		});
 		self.refreshSlider();
 	});
-	
+
 	$(".from-input-group-date-apply-present").unbind("click").click(function(){
 		$("#from-custom-value-year").val(0);
 		$("#from-custom-value-month").val(0);
@@ -705,13 +705,13 @@ layerTree.prototype.createTemporaryTab = function() {
 		$("#from-custom-value-hour").val(0);
 		$("#from-custom-value-minute").val(0);
 		$("#from-custom-value-second").val(0);
-		
+
 		$("#from-custom-value").val("PRESENT");
 		$("#from-custom-definition-panel").slideUp();
 
 		self.refreshSlider();
 	});
-	
+
 	$(".from-input-group-date-apply").unbind("click").click(function(){
 		var year = $("#from-custom-value-year").val();
 		var month = $("#from-custom-value-month").val();
@@ -719,7 +719,7 @@ layerTree.prototype.createTemporaryTab = function() {
 		var hour = $("#from-custom-value-hour").val();
 		var minute = $("#from-custom-value-minute").val();
 		var second = $("#from-custom-value-second").val();
-		
+
 		if(year == 0 && month == 0 && day == 0 && hour == 0 && minute == 0 && second == 0){
 			$("#from-custom-value").val("PRESENT");
 		}else{
@@ -761,7 +761,7 @@ layerTree.prototype.createTemporaryTab = function() {
 
 		self.refreshSlider();
 	});
-	
+
 	$(".from-custom-definition-button").unbind("click").click(function(){
 		if($("#temporary-range").is(":checked")){
 			$("#from-custom-definition-panel").slideDown();
@@ -769,8 +769,8 @@ layerTree.prototype.createTemporaryTab = function() {
 			alert(gettext("Only PRESENT is available in Instant mode. You need to define a RANGE to use relative intervals"));
 		}
 	});
-	
-	
+
+
 	$(".to-input-group-date-apply-present").unbind("click").click(function(){
 		$("#to-custom-value-year").val(0);
 		$("#to-custom-value-month").val(0);
@@ -778,13 +778,13 @@ layerTree.prototype.createTemporaryTab = function() {
 		$("#to-custom-value-hour").val(0);
 		$("#to-custom-value-minute").val(0);
 		$("#to-custom-value-second").val(0);
-		
+
 		$("#to-custom-value").val("PRESENT");
 		$("#to-custom-definition-panel").slideUp();
-		
+
 		self.refreshSlider();
 	});
-	
+
 	$(".to-input-group-date-apply").unbind("click").click(function(){
 		var year = $("#to-custom-value-year").val();
 		var month = $("#to-custom-value-month").val();
@@ -792,7 +792,7 @@ layerTree.prototype.createTemporaryTab = function() {
 		var hour = $("#to-custom-value-hour").val();
 		var minute = $("#to-custom-value-minute").val();
 		var second = $("#to-custom-value-second").val();
-		
+
 		if(year == 0 && month == 0 && day == 0 && hour == 0 && minute == 0 && second == 0){
 			$("#to-custom-value").val("PRESENT");
 		}else{
@@ -820,7 +820,7 @@ layerTree.prototype.createTemporaryTab = function() {
 					result += (second + "S");
 				}
 			}
-			
+
 			if($("#temporary-range").is(":checked")){
 				if($("#from-date-value").is(":checked") || $("#from-custom-value").val() == "PRESENT"){
 					$("#to-custom-value").val(result);
@@ -835,13 +835,13 @@ layerTree.prototype.createTemporaryTab = function() {
 
 		self.refreshSlider();
 	});
-	
+
 	$(".to-custom-definition-button").unbind("click").click(function(){
 		$("#to-custom-definition-panel").slideDown();
 	});
-	
-	
-	
+
+
+
 	$(".temporary-check").unbind("click").click(function(){
 		self.showHideTemporalPanel();
 	});
@@ -855,53 +855,53 @@ layerTree.prototype.createTemporaryTab = function() {
 					prev_value = $('.temporary-layers-slider').slider("values")[0];
 					prev_value_to = $('.temporary-layers-slider').slider("values")[1];
 				}
-				
+
 				if(input.attr("data-value") == "single"){
 					prev_value = $('.temporary-layers-slider').slider("value");
 				}
-				
+
 			} catch (err){}
-		
+
 			var aux_min = self.current_min_val;
 			if(self.step_val_array && self.step_val_array.length > 0){
 				var index = self.step_val_array.indexOf(self.findNearest(prev_value));
 				if (index > 0){
 					aux_min = self.step_val_array[index-1];
-					
+
 				} else {
 					aux_min = self.step_val_array[0];
 				}
-				
+
 			} else {
 				if(prev_value && (prev_value - self.step_val) > self.current_min_val){
 					aux_min = (prev_value - self.step_val);
 				}
 			}
-			
+
 			if(input.attr("data-value") == "single"){
 				$(".temporary-layers-slider").slider('value',aux_min);
 			}
-			
+
 			if(input.attr("data-value") == "range"){
 				$(".temporary-layers-slider").slider('values',0,aux_min);
 			}
-			
+
 			var dt_cur_from = new Date(aux_min*1000);
 			var formatted = self.formatDate(dt_cur_from);
 			$("#temporary-from").val(formatted);
-    	
+
 	    	if(input.attr("data-value") == "single"){
 	    		self.updateTemporalLayers(dt_cur_from);
 			}
-	    	
+
 			if(input.attr("data-value") == "range"){
 				var dt_cur_to = new Date(prev_value_to*1000);
 				self.updateTemporalLayers(dt_cur_from, dt_cur_to);
 			}
 		}
-		
+
 	});
-	
+
 	$(".temporal-buttons-right-from").unbind("click").click(function(){
 		if(self.hasTemporaryLayersActive()){
 			var prev_value = null;
@@ -910,67 +910,67 @@ layerTree.prototype.createTemporaryTab = function() {
 				if(input.attr("data-value") == "range"){
 					prev_value = $('.temporary-layers-slider').slider("values")[0];
 					prev_value_to = $('.temporary-layers-slider').slider("values")[1];
-					
+
 				}
-				
+
 				if(input.attr("data-value") == "single"){
 					prev_value = $('.temporary-layers-slider').slider("value");
 				}
-				
+
 			} catch(err){}
-			
+
 			var aux_max = self.current_max_val;
 			if(self.step_val_array && self.step_val_array.length > 0){
 				var index = self.step_val_array.indexOf(self.findNearest(prev_value));
 				if(index < self.step_val_array.length-1 && index != -1){
 					aux_max = self.step_val_array[index+1];
-					
+
 				} else {
 					aux_max = self.step_val_array[self.step_val_array.length-1];
 				}
-				
+
 			} else {
 				if(prev_value && (prev_value + self.step_val) < self.max_val){
 					aux_max = (prev_value + self.step_val);
 				}
-				
+
 			}
-			
+
 			if(input.attr("data-value") == "single"){
 				$(".temporary-layers-slider").slider('value',aux_max);
 			}
-			
+
 			if(input.attr("data-value") == "range"){
 				$(".temporary-layers-slider").slider('values',0,aux_max);
 			}
-			
+
 			var dt_cur_from = new Date(aux_max*1000);
 			var formatted = self.formatDate(dt_cur_from);
 	    	$("#temporary-from").val(formatted);
-	
+
 	    	if(input.attr("data-value") == "single"){
 	    		self.updateTemporalLayers(dt_cur_from);
 			}
-	    	
+
 			if(input.attr("data-value") == "range"){
 				var dt_cur_to = new Date(prev_value_to*1000);
 				self.updateTemporalLayers(dt_cur_from, dt_cur_to);
 			}
 		}
 	});
-	
-	
+
+
 	$(".temporal-buttons-left-to").unbind("click").click(function(){
 		if(self.hasTemporaryLayersActive()){
 			var prev_value = null;
 			try {
 				prev_value_from = $('.temporary-layers-slider').slider("values")[0];
 				prev_value = $('.temporary-layers-slider').slider("values")[1];
-				
+
 			} catch(err){
-			
+
 			}
-		
+
 			var aux_min = self.current_min_val;
 			if(self.step_val_array && self.step_val_array.length > 0){
 				var index = self.step_val_array.indexOf(self.findNearest(prev_value));
@@ -979,7 +979,7 @@ layerTree.prototype.createTemporaryTab = function() {
 				} else {
 					aux_min = self.step_val_array[0];
 				}
-				
+
 			} else {
 				if(prev_value && (prev_value - self.step_val) > self.min_val){
 					aux_min = (prev_value - self.step_val);
@@ -989,73 +989,73 @@ layerTree.prototype.createTemporaryTab = function() {
 			var dt_cur_to = new Date(aux_min*1000);
 			var formatted = self.formatDate(dt_cur_to);
 			$("#temporary-to").val(formatted);
-		
+
 			$(".temporary-layers-slider").slider('values',1,aux_min);
 			self.updateTemporalLayers(dt_cur_from, dt_cur_to);
 		}
 	});
-	
+
 	$(".temporal-buttons-right-to").unbind("click").click(function(){
 		if(self.hasTemporaryLayersActive()){
 			var prev_value = null;
 			try {
 				prev_value_from = $('.temporary-layers-slider').slider("values")[0];
 				prev_value = $('.temporary-layers-slider').slider("values")[1];
-				
+
 			} catch(err){}
-			
+
 			var aux_max = self.current_max_val;
 			if(self.step_val_array && self.step_val_array.length > 0){
 				var index = self.step_val_array.indexOf(self.findNearest(prev_value));
 				if (index < self.step_val_array.length-1 && index != -1){
 					aux_max = self.step_val_array[index+1];
-					
+
 				} else {
 					aux_max = self.step_val_array[self.step_val_array.length-1];
 				}
-				
+
 			} else {
 				if (prev_value && (prev_value + self.step_val) < self.max_val){
 					aux_max = (prev_value + self.step_val);
 				}
 			}
-			
+
 			var dt_cur_from = new Date(prev_value_from*1000);
 			var dt_cur_to = new Date(aux_max*1000);
 			var formatted = self.formatDate(dt_cur_to);
 			$("#temporary-to").val(formatted);
-		
+
 			$(".temporary-layers-slider").slider('values',1,aux_max);
 			self.updateTemporalLayers(dt_cur_from, dt_cur_to);
 		}
 	});
-	
+
 	$("input[name=temporary-group]").change(function (e) {
 		self.refreshTemporalSlider();
 	});
-	
+
 	$("#temporary-step-unit").change(function () {
 		self.refreshTemporalStep();
 	});
-	
+
 	if(!has_temporary_layers_global){
 		$(".temporary-tab").css("display","none");
 	}
-	
+
 	$('#datetimepicker-from').datetimepicker({
 		format: 'DD-MM-YYYY HH:mm:ss',
 		showClose: false
 	});
-	
+
 	$('#datetimepicker-to').datetimepicker({
 		format: 'DD-MM-YYYY HH:mm:ss',
 		showClose: false
 	});
-	
 
-	
-	
-	$('#datetimepicker-from').on('dp.change', function(e){ 
+
+
+
+	$('#datetimepicker-from').on('dp.change', function(e){
 		if(e){
 		    var formatedValue = e.date.format(e.date._f);
 		    var value_from = moment(formatedValue, e.date._f);
@@ -1073,8 +1073,8 @@ layerTree.prototype.createTemporaryTab = function() {
 		    }
 		}
 	});
-	
-	$('#datetimepicker-to').on('dp.change', function(e){ 
+
+	$('#datetimepicker-to').on('dp.change', function(e){
 		if(e){
 			var formatedValue = e.date.format(e.date._f);
 			var value_from = moment($("#temporary-from").val(), e.date._f);
@@ -1085,15 +1085,15 @@ layerTree.prototype.createTemporaryTab = function() {
 		    self.updateToSlider(value_to);
 		}
 	});
-	
+
 	document.getElementById('temporary-from').addEventListener('keyup',function(e){
 	    if (e.which == 13) this.blur();
 	});
-	
+
 	document.getElementById('temporary-to').addEventListener('keyup',function(e){
 	    if (e.which == 13) this.blur();
 	});
-	
+
 
 };
 
@@ -1105,11 +1105,11 @@ layerTree.prototype.showHideTemporalPanel = function() {
 		if(self.hasTemporaryLayersActive()){
 			self.refreshTemporalInfo()
 			self.refreshTemporalStep();
-			
+
 			self.updateTemporalLayers();
-			
+
 			self.refreshTemporalSlider();
-			
+
 			if(self.max_val){
 				var dt_cur_from = new Date(self.max_val*1000);
 				var formatted = self.formatDate(dt_cur_from);
@@ -1117,17 +1117,17 @@ layerTree.prototype.showHideTemporalPanel = function() {
 				self.updateTemporalLayers(dt_cur_from);
 				$(".temporary-layers-slider").slider('value',self.max_val);
 			}
-	    
+
 		} else {
 			$("#enable-temporary").prop('checked', false);
 			$('.temporary-body').hide();
-			
+
 			$("#enable-temporary-error").show();
 		    setTimeout(function() {
 		    	$("#enable-temporary-error").hide();
 		    }, 7000);
 		}
-		
+
 	} else {
 	    $('.temporary-body').hide();
 	    self.updateTemporalLayers();
@@ -1141,7 +1141,7 @@ layerTree.prototype.hasTemporaryLayersActive = function() {
 layerTree.prototype.assignStyleToLayer = function(layer, style) {
 	if(!(layer.getSource() instanceof ol.source.WMTS)){
 		layer.getSource().updateParams({"STYLES":style});
-		
+
 	} else {
 		var ignSource3 = new ol.source.WMTS({
 			layer: layer.getSource()['layer_'],
@@ -1202,7 +1202,7 @@ layerTree.prototype.updateToSlider = function(value_to) {
 layerTree.prototype.refreshTemporalStep = function() {
 	var value = "1";//$("#temporary-step-value").val();
 	var unit = $("#temporary-step-unit option:selected").val();
-	
+
 	if(unit=="second"){
 		this.step_val = value*1;
 		$('#datetimepicker-from').datetimepicker().data('DateTimePicker').format('DD-MM-YYYY HH:mm:ss');
@@ -1244,8 +1244,8 @@ layerTree.prototype.refreshTemporalStep = function() {
 		var current_min_date = new Date(this.current_min_val*1000);
 		var current_max_date = new Date(this.current_max_val*1000);
 		this.step_val_array = [];
-		while((current_min_date.getFullYear() < current_max_date.getFullYear()) || 
-				(current_min_date.getFullYear() == current_max_date.getFullYear() && 
+		while((current_min_date.getFullYear() < current_max_date.getFullYear()) ||
+				(current_min_date.getFullYear() == current_max_date.getFullYear() &&
 				current_min_date.getMonth() <= current_max_date.getMonth())){
 			this.step_val_array.push(current_min_date.getTime()/1000);
 			current_min_date.setMonth(current_min_date.getMonth()+parseInt(value));
@@ -1265,10 +1265,10 @@ layerTree.prototype.refreshTemporalStep = function() {
 			current_min_date.setFullYear(current_min_date.getFullYear()+parseInt(value));
 		}
 	}
-	
+
 	this.refreshTemporalSlider();
 };
- 
+
 layerTree.prototype.findNearest = function(value) {
 	var nearest = null;
 	var diff = null;
@@ -1296,10 +1296,10 @@ layerTree.prototype.refreshTemporalInfo = function() {
 			layers.push($(this).attr("data-id"));
 		}
 	});
-	
+
 	var methodx = "Hola";//$("input[name=temporary-group]:checked").val();
 	var self = this;
-	
+
 	$.ajax({
 		type: 'POST',
 		async: false,
@@ -1321,18 +1321,18 @@ layerTree.prototype.refreshTemporalInfo = function() {
 	  		}else{
 	  			self.max_val = Date.parse(dt_to)/1000;
 	  		}
-	  		
+
 	  		try{
 	  			self.mosaic_values = JSON.parse(response['mosaic_values'].replace(/'/g, "\""));
 	  		}catch (err){
-	  		
+
 	  		}
-	  		
+
 	  		self.refreshTemporalSlider();
 		},
 	  	error: function(e){
 	  		alert("error");
-	  		
+
 	  	}
 	});
 };
@@ -1341,11 +1341,11 @@ layerTree.prototype.getStepMax = function(layer_step, combo_step) {
 	if(layer_step == null){
 		return combo_step;
 	}
-	
+
 	if(layer_step == "year"){
 		return layer_step
 	}
-	
+
 	if(layer_step == "month"){
 		if(combo_step == "year"){
 			return combo_step;
@@ -1354,7 +1354,7 @@ layerTree.prototype.getStepMax = function(layer_step, combo_step) {
 			return layer_step;
 		}
 	}
-	
+
 	if(layer_step == "day"){
 		if(combo_step == "year" || combo_step == "month"){
 			return combo_step;
@@ -1363,7 +1363,7 @@ layerTree.prototype.getStepMax = function(layer_step, combo_step) {
 			return layer_step;
 		}
 	}
-	
+
 	if(layer_step == "hour"){
 		if(combo_step == "year" || combo_step == "month" || combo_step == "day"){
 			return combo_step;
@@ -1372,7 +1372,7 @@ layerTree.prototype.getStepMax = function(layer_step, combo_step) {
 			return layer_step;
 		}
 	}
-	
+
 	if(layer_step == "minute"){
 		if(combo_step == "year" || combo_step == "month" || combo_step == "day" || combo_step == "hour"){
 			return combo_step;
@@ -1381,7 +1381,7 @@ layerTree.prototype.getStepMax = function(layer_step, combo_step) {
 			return layer_step;
 		}
 	}
-	
+
 	if(layer_step == "second"){
 		if(combo_step == "year" || combo_step == "month" || combo_step == "day" || combo_step == "hour" || combo_step == "minute"){
 			return combo_step;
@@ -1390,9 +1390,9 @@ layerTree.prototype.getStepMax = function(layer_step, combo_step) {
 			return layer_step;
 		}
 	}
-	
+
 	return combo_step;
-	
+
 };
 
 layerTree.prototype.adaptToStep = function(layer, date) {
@@ -1406,12 +1406,12 @@ layerTree.prototype.adaptToStep = function(layer, date) {
 	var month = date.getMonth()+1;
 	days = days < 10 ? '0'+days : days;
 	month = month < 10 ? '0'+month : month;
-	
+
 	var date_string = date.getFullYear();
 	var step = $("#temporary-step-unit").val();
-	
+
 	var step_value = this.getStepMax(layer.time_resolution, step);
-	
+
 	if(step_value=="year"){
 		date_string = date.getFullYear();
 	}
@@ -1430,7 +1430,7 @@ layerTree.prototype.adaptToStep = function(layer, date) {
 	if(step_value=="second"){
 		date_string = date.getFullYear()+"-"+month+"-"+days+"T"+hours+":"+minutes+":"+seconds+"Z";
 	}
-	
+
 	return date_string;
 };
 
@@ -1447,7 +1447,7 @@ layerTree.prototype.updateTemporalLayers = function(startDate, endDate) {
 			layers.push($(this).attr("data-layerid"));
 		}
 	});
-	
+
 	var maplayers = this.map.getLayers();
 	if(maplayers.getArray() != null){
 		for(var i=0; i<maplayers.getArray().length; i++){
@@ -1457,15 +1457,15 @@ layerTree.prototype.updateTemporalLayers = function(startDate, endDate) {
 					if(startDate){
 						var start = '';
 						var end = '';
-						
-						
+
+
 						if($("#from-custom-date-value").is(':checked')){
 							start = $("#from-custom-value").val();
 						}else{
 							start = startDate.toISOString();
 							start = this.adaptToStep(maplayer, startDate);
 						}
-						
+
 						if (endDate){
 							if($("#to-custom-date-value").is(':checked')){
 								end = $("#to-custom-value").val();
@@ -1475,7 +1475,7 @@ layerTree.prototype.updateTemporalLayers = function(startDate, endDate) {
 
 							start = start + "/" + end;
 						}
-						
+
 						maplayer.getSource().updateParams({'TIME': start});
 					}
 				}else{
@@ -1508,7 +1508,7 @@ layerTree.prototype.refreshTemporalSlider = function() {
 					prev_value = $('.temporary-layers-slider').slider("value");
 				}
 			}catch(err){
-				
+
 			}
 			$("#to_label_div").css("display","none");
 			if($(".temporary-layers-slider").hasClass("ui-slider")){
@@ -1545,7 +1545,7 @@ layerTree.prototype.refreshTemporalSlider = function() {
 			    	self.updateFromSlider(calculated_value);
 				}
 			});
-			
+
 			if(prev_value){
 				var dt_cur_from = new Date(prev_value*1000);
 				var formatted = self.formatDate(dt_cur_from);
@@ -1555,7 +1555,7 @@ layerTree.prototype.refreshTemporalSlider = function() {
 		    	update_min = false;
 			}
 		}
-		
+
 		if(input.attr("data-value") == "range"){
 			var prev_value = $('.temporary-layers-slider').slider("value");
 			$("#to_label_div").css("display","block");
@@ -1581,10 +1581,10 @@ layerTree.prototype.refreshTemporalSlider = function() {
 			    	var formatted = self.formatDate(dt_cur_from);
 			    	$("#temporary-from").val(formatted);
 
-			        var dt_cur_to = new Date(ui.values[1]*1000); //.format("yyyy-mm-dd hh:ii:ss");                
+			        var dt_cur_to = new Date(ui.values[1]*1000); //.format("yyyy-mm-dd hh:ii:ss");
 			        var formatted = self.formatDate(dt_cur_to);
 			    	$("#temporary-to").val(formatted);
-			        
+
 			        self.updateTemporalLayers(dt_cur_from, dt_cur_to);
 			        self.updateFromSlider(calculated_values[0]);
 			        self.updateToSlider(calculated_values[1]);
@@ -1599,29 +1599,29 @@ layerTree.prototype.refreshTemporalSlider = function() {
 				    self.updateToSlider(calculated_values[1]);
 				}
 			});
-			
+
 	    	var dt_cur_to = new Date(this.current_max_val*1000);
 			var formatted = self.formatDate(dt_cur_to);
 	    	$("#temporary-to").val(formatted);
-	    	
+
 			var dt_cur_from = new Date(prev_value*1000);
 			var formatted = self.formatDate(dt_cur_from);
 	    	$("#temporary-from").val(formatted);
-			
+
 	    	$(".temporary-layers-slider").slider('values',1,this.current_max_val); // sets first handle (index 0) to 50
 	    	$(".temporary-layers-slider").slider('values',0,prev_value);
-	    	
+
 	    	self.updateTemporalLayers(dt_cur_from, dt_cur_to);
 	    	update_min = false;
 		}
-		
+
 		if(update_min && self.min_val){
 			var dt_cur_from = new Date(self.min_val*1000); //.format("yyyy-mm-dd hh:ii:ss");
 			var formatted = self.formatDate(dt_cur_from);
 			$("#temporary-from").val(formatted);
 			self.updateTemporalLayers(dt_cur_from);
 		}
-	
+
 };
 
 layerTree.prototype.formatDate = function(date) {
@@ -1699,7 +1699,7 @@ layerTree.prototype.getLayerFromMap = function(tocLayer) {
 			if (layer.get('id')==tocLayer.id) {
 				mapLayer = layer;
 			}
-			
+
 		}
 	}, this);
 	return mapLayer;
@@ -1715,7 +1715,7 @@ layerTree.prototype.getBaseLayerFromMap = function(tocLayer) {
 		if (layer.get('id')==tocLayer.id) {
 			mapLayer = layer;
 		}
-			
+
 	}, this);
 	return mapLayer;
 };
@@ -1736,15 +1736,15 @@ layerTree.prototype.getGroupLayerFromMap = function(tocLayer) {
 	return mapLayer;
 };
 
-layerTree.prototype.createBaseLayerUI = function(layer) {	
+layerTree.prototype.createBaseLayerUI = function(layer) {
 	var mapLayer = this.getBaseLayerFromMap(layer);
 	var id = layer.id;
-    
+
 	var ui = '';
 	if (mapLayer) {
 		mapLayer.setZIndex(this.baseLayerIndex);
 		this.baseLayerIndex++;
-		
+
 		ui += '<div style="margin-left:20px;">';
 		if (layer['default_baselayer']) {
 			ui += 	'<input type="radio" id="' + id + '" data-origin="'+layer['name']+'" name="baselayers-group" checked>';
@@ -1754,33 +1754,33 @@ layerTree.prototype.createBaseLayerUI = function(layer) {
 		ui += 		'<span class="text">' + layer['title'] + '</span>';
 		ui += '</div>';
 	}
-	
-	
+
+
 	return ui;
 };
 
-layerTree.prototype.createEmptyBaseLayerUI = function() {	
+layerTree.prototype.createEmptyBaseLayerUI = function() {
 	var ui = '';
 	ui += '<div style="margin-left:20px;">';
 	ui += 	'<input type="radio" id="gol-layer-empty" data-origin="empty" name="baselayers-group">';
 	ui += 	'<span class="text">' + gettext('No layer') + '</span>';
 	ui += '</div>';
-	
+
 	return ui;
 };
 
 
 
 layerTree.prototype.createTemporaryOverlayUI = function(layer) {
-	
+
 	var mapLayer = this.getLayerFromMap(layer);
 	var id = layer.id;
-	
+
 	var ui = '';
 	if (mapLayer) {
-		if (layer.time_enabled) {	
+		if (layer.time_enabled) {
 			var language = $("#select-language").val();
-		
+
 			var conf = JSON.parse(layer.conf);
 			var fields = conf.fields;
 			var time_field = layer.time_enabled_field;
@@ -1789,26 +1789,26 @@ layerTree.prototype.createTemporaryOverlayUI = function(layer) {
 					time_field = fields[i]["title-"+language];
 				}
 			}
-			
+
 			var visibility = 'style="display: none;"';
 			if(layer.visible){
 				visibility = 'style="display: block;"';
 			}
-			
+
 			ui += '<div id="layer-' + id + '" data-layerid="' + id + '" data-id="'+layer.ref+'" data-zindex="' + mapLayer.getZIndex() + '" class="temporary-layer box thin-border box-default collapsed-box" '+visibility+'>';
-			ui += '		<div class="box-header with-border">';		
+			ui += '		<div class="box-header with-border">';
 			ui += '			<span class="text">' + layer.title + '</span>';
 			ui += '			<div class="box-tools pull-right">';
 			ui += '				<button class="btn btn-box-tool btn-box-tool-custom" data-widget="collapse">';
-			ui += '					<i class="fa fa-plus"></i>';
+			ui += '					<i class="fa fa-caret-left"></i>';
 			ui += '				</button>';
 			ui += '			</div>';
 			ui += '		</div>';
 			ui += '		<div class="box-body" style="display: none;">';
-			
+
 			if(fields.length > 0){
 				ui +=  			gettext('temporary_field') + '<span class="pull-right" style="font-weight:bold;">'+time_field+'</span><div style="clear:both"></div>';
-				
+
 				if(layer.time_enabled_endfield != null && layer.time_enabled_endfield != ""){
 					var time_endfield = layer.time_enabled_endfield;
 					for(var i=0; i<fields.length; i++){
@@ -1818,27 +1818,27 @@ layerTree.prototype.createTemporaryOverlayUI = function(layer) {
 					}
 					ui +=  			gettext('temporary_endfield') + '<span class="pull-right" style="font-weight:bold;">'+time_endfield+'</span><div style="clear:both"></div>';
 				}
-			
+
 			}else{
 				ui +=  			'<span class="pull-right" style="font-weight:bold;">'+gettext('Image Mosaic')+'</span><div style="clear:both"></div>';
-				
+
 			}
-			
+
 			ui += '		</div>';
 			ui += '</div>';
 		}
 	}
-	
-	
-	
+
+
+
 	return ui;
 };
 
 
 layerTree.prototype.createOverlayUI = function(layer, group_visible) {
-	
+
 	var mapLayer = this.getLayerFromMap(layer);
-	
+
 	var ui = '';
 	if (mapLayer) {
 		mapLayer.on('precompose', function(event) {
@@ -1867,10 +1867,10 @@ layerTree.prototype.createOverlayUI = function(layer, group_visible) {
 	      });
 
 		var id = layer.id;
-		
+
 		ui += '<div id="layer-box-' + id + '" data-layerid="' + id + '" data-zindex="' + mapLayer.getZIndex() + '" class="box layer-box thin-border box-default collapsed-box">';
 		ui += '		<div class="box-header with-border">';
-		
+
 		if(layer.icon) {
 			ui += '			<span class="handle" style="margin-left:-1px"> ';
 			ui += '			<image class="layer-icon" src="' + layer.icon + '" width=16px height=16px"/>';
@@ -1881,7 +1881,7 @@ layerTree.prototype.createOverlayUI = function(layer, group_visible) {
 			ui += '				<i class="fa fa-ellipsis-v"></i>';
 			ui += '			</span>';
 		}
-		
+
 		if (group_visible) {
 			ui += '		<input type="checkbox" id="' + id + '" disabled checked>';
 		}else{
@@ -1894,13 +1894,13 @@ layerTree.prototype.createOverlayUI = function(layer, group_visible) {
 		ui += '			<span class="text">' + layer.title + '</span>';
 		ui += '			<div class="box-tools pull-right">';
 		ui += '				<button class="btn btn-box-tool btn-box-tool-custom" data-widget="collapse">';
-		ui += '					<i class="fa fa-plus"></i>';
+		ui += '					<i class="fa fa-caret-left"></i>';
 		ui += '				</button>';
 		ui += '			</div>';
 		ui += '		</div>';
 		ui += '		<div class="box-body" style="display: none;">';
 		if (!layer.external){
-			if( layer.queryable && layer.is_vector) {	    
+			if( layer.queryable && layer.is_vector) {
 				ui += '	<a id="show-attribute-table-' + id + '" data-id="' + id + '" class="btn btn-block btn-social btn-custom-tool show-attribute-table-link">';
 				ui += '		<i class="fa fa-table"></i> ' + gettext('Attribute table');
 				ui += '	</a>';
@@ -1928,7 +1928,7 @@ layerTree.prototype.createOverlayUI = function(layer, group_visible) {
 			ui += '		<i class="fa fa-search" aria-hidden="true"></i> ' + gettext('Zoom to layer');
 			ui += '	</a>';
 		}
-		
+
 		if(layer.styles){
 			if (layer.styles.length > 1) {
 				ui += '		<div class="btn btn-block btn-social btn-select btn-custom-tool"><i class="fa fa-map-marker" aria-hidden="true"></i><select id="symbol-to-layer-' + id + '" class="symbol-to-layer btn btn-block btn-custom-tool">';
@@ -1937,7 +1937,7 @@ layerTree.prototype.createOverlayUI = function(layer, group_visible) {
 					if(!ttitle || ttitle.length == 0){
 						ttitle = layer.styles[i].name;
 					}
-					
+
 					if(layer.styles[i].is_default){
 						ui += '		<option value="'+layer.styles[i].name+'" selected><i class="fa fa-search" aria-hidden="true"></i>'+ ttitle +'</option>';
 					}else{
@@ -1947,7 +1947,7 @@ layerTree.prototype.createOverlayUI = function(layer, group_visible) {
 				ui += '	</select></div>';
 			}
 		}
-		
+
 		ui += '			<label style="display: block; margin-top: 8px; width: 95%;">' + gettext('Opacity') + '<span id="layer-opacity-output-' + layer.id + '" class="margin-l-15 gol-slider-output">%</span></label>';
 		ui += '			<div id="layer-opacity-slider" data-layerid="' + layer.id + '" class="layer-opacity-slider"></div>';
 		ui += '			<label style="display: block; margin-top: 8px; width: 95%;">' + gettext('Swipe') + '<span id="layer-swipe-output-' + layer.id + '" class="margin-l-15 gol-slider-output">0% - 100%</span></label>';
@@ -1964,19 +1964,19 @@ layerTree.prototype.zoomToLayer = function(layer) {
 		var extent = ol.proj.transformExtent(layer.latlong_extent, ol.proj.get('EPSG:4326'), ol.proj.get('EPSG:3857'));
 		self.map.getView().fit(extent, self.map.getSize());
 		return;
-		
+
 	} else if (layer.imported && layer.is_vector) {
 		self.map.getView().fit(layer.getSource().getExtent(), self.map.getSize());
 		return;
 	}
-	
+
 	var layer_name = layer.layer_name;
 
 	var url = layer.wms_url+'?request=GetCapabilities&service=WMS';
 	var parser = new ol.format.WMSCapabilities();
 	$.ajax(url).then(function(response) {
 		   var result = parser.read(response);
-		   var Layers = result.Capability.Layer.Layer; 
+		   var Layers = result.Capability.Layer.Layer;
 		   var extent = null;
 		   for (var i=0, len = Layers.length; i<len; i++) {
 		     var layerobj = Layers[i];
@@ -2022,33 +2022,33 @@ layerTree.prototype.layerDownloads = function(layer) {
 layerTree.prototype.showMetadata = function(layer) {
 	$('#float-modal .modal-title').empty();
 	$('#float-modal .modal-title').append(layer.title);
-	
+
 	var body = '';
 	body += '<div class="row">';
 	body += 	'<div class="col-md-12">';
-	body += 		'<p>' + layer.abstract + '</p>';				
+	body += 		'<p>' + layer.abstract + '</p>';
 	body += 	'</div>';
 	body += '</div>';
-	
+
 	$('#float-modal .modal-body').empty();
 	$('#float-modal .modal-body').append(body);
-	
+
 	var buttons = '';
 	buttons += '<button id="float-modal-cancel-metadata" type="button" class="btn btn-default" data-dismiss="modal">' + gettext('Cancel') + '</button>';
 	if (layer.metadata_url != '') {
 		buttons += '<button id="float-modal-show-metadata" type="button" class="btn btn-default">' + gettext('Show in geonetwork') + '</button>';
 	}
-	
+
 	$('#float-modal .modal-footer').empty();
 	$('#float-modal .modal-footer').append(buttons);
-	
+
 	$("#float-modal").modal('show');
-	
-	var self = this;	
+
+	var self = this;
 	$('#float-modal-show-metadata').on('click', function () {
 		var win = window.open(layer.metadata_url, '_blank');
 		  win.focus();
-		
+
 		$('#float-modal').modal('hide');
 	});
 	return;
@@ -2062,16 +2062,16 @@ layerTree.prototype.detailedInfo = function(layer) {
 	body += '<div class="row">';
 	body += 	layer.detailed_info_html;
 	body += '</div>';
-	
+
 	$('#float-modal .modal-body').empty();
 	$('#float-modal .modal-body').append(body);
-	
+
 	var buttons = '';
 	buttons += '<button id="float-modal-cancel-metadata" type="button" class="btn btn-default" data-dismiss="modal">' + gettext('Cancel') + '</button>';
-	
+
 	$('#float-modal .modal-footer').empty();
 	$('#float-modal .modal-footer').append(buttons);
-	
+
 	$("#float-modal").modal('show');
 };
 
@@ -2083,10 +2083,10 @@ layerTree.prototype.reorder = function(event,ui) {
 	var groupOrder = ui.item[0].parentNode.dataset.grouporder;
 	var groupLayers = ui.item[0].parentNode.children;
 	var mapLayers = this.map.getLayers();
-	
+
 	var zindex = parseInt(groupOrder);
 	var mapLayers_length = mapLayers.getLength();
-	
+
 	for (var i=0; i<groupLayers.length; i++) {
 		var layerid = groupLayers[i].dataset.layerid;
 		mapLayers.forEach(function(layer){
@@ -2106,46 +2106,46 @@ layerTree.prototype.reorder = function(event,ui) {
  * TODO
  */
 layerTree.prototype.changeState = function(object, objectType, action, value) {
-	
+
 	if (objectType == 'layer') {
 		for (var i=0; i<this.state.layerGroups.length; i++) {
-			for (var j=0; j<this.state.layerGroups[i].layers.length; j++) {	
+			for (var j=0; j<this.state.layerGroups[i].layers.length; j++) {
 				if (this.state.layerGroups[i].layers[j].id == object.get('id')) {
 					if (action == 'change-opacity') {
 						this.state.layerGroups[i].layers[j].opacity = value;
-						
+
 					} else if (action == 'set-visibility') {
 						this.state.layerGroups[i].layers[j].visible = value;
 						if (value) {
 							this.registerAction(this.state.layerGroups[i].layers[j]);
 						}
-						
-						
+
+
 					} else if (action == 'change-order') {
 						this.state.layerGroups[i].layers[j].order = value;
-						
+
 					} else if (action == 'change-baselayer') {
 						this.state.layerGroups[i].layers[j].default_baselayer = value;
 						if (value) {
 							this.registerAction(this.state.layerGroups[i].layers[j]);
 						}
 					}
-				}				
-				
+				}
+
 			}
 		}
-		
+
 	} else if (objectType == 'layergroup') {
 		for (var i=0; i<this.state.layerGroups.length; i++) {
 			if (this.state.layerGroups[i].groupName == object.groupName) {
 				if (action == 'set-visibility') {
 					this.state.layerGroups[i].visible = value;
-					
+
 				}
-			}				
+			}
 		}
 	}
-	
+
 };
 
 /**
@@ -2157,7 +2157,7 @@ layerTree.prototype.getState = function() {
 
 layerTree.prototype.registerAction = function(layer) {
 	var self = this;
-	
+
 	$.ajax({
 		type: 'POST',
 		async: true,
@@ -2171,7 +2171,7 @@ layerTree.prototype.registerAction = function(layer) {
 		},
 	  	error: function(e){
 	  		console.log('Error registering layer action');
-	  		
+
 	  	}
 	});
 };

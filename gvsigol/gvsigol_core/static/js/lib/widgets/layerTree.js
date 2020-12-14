@@ -88,7 +88,7 @@ layerTree.prototype.createTree = function() {
 	tree += '	<div class="box-body">';
 	tree += '		<ul class="layer-tree">';
 	if (baseGroup != null) {
-		tree += '			<li class="box box-default"; id="base-layers">';
+		tree += '			<li class="box box-default" id="base-layers">';
 		tree += '				<div class="box-header with-border">';
 		tree += '					<span class="text">' + baseGroup.groupTitle + '</span>';
 		tree += '					<div class="box-tools pull-right">';
@@ -110,8 +110,8 @@ layerTree.prototype.createTree = function() {
 		for (var i=0; i<this.conf.layerGroups.length; i++) {
 			var layerGroup = this.conf.layerGroups[i];
 			if (!layerGroup.basegroup) {
-				tree += '			<li class="box box-default collapsed-box" id="' + layerGroup.groupId + '">';
-				tree += '				<div class="box-header with-border">';
+				tree += '			<li class="box box-default collapsed-box" id="' + layerGroup.groupId + '">'; // > layertree-folder-icon.parentNode.parentNode
+				tree += '				<div class="box-header with-border">'; // > layertree-folder-icon.parentNode
 				if (this.conf.selectable_groups) {
 					if (layerGroup.visible) {
 						tree += '					<input type="checkbox" class="layer-group" id="layergroup-' + layerGroup.groupId + '" checked>';
@@ -119,7 +119,7 @@ layerTree.prototype.createTree = function() {
 						tree += '					<input type="checkbox" class="layer-group" id="layergroup-' + layerGroup.groupId + '">';
 					}
 				}
-				tree += '					<i style="cursor: pointer;" class="layertree-folder-icon fa fa-folder"></i>';
+				tree += '					<i style="cursor: pointer;" class="layertree-folder-icon fa fa-folder"></i>'; // This is the folder on the tree that when clicked, must change its iconß
 				tree += '					<span class="text">' + layerGroup.groupTitle + '</span>';
 				tree += '					<div class="box-tools pull-right">';
 				tree += '						<button id="button-' + layerGroup.groupId + '" class="btn btn-box-tool btn-box-tool-custom group-collapsed-button" data-widget="collapse">';
@@ -147,7 +147,7 @@ layerTree.prototype.createTree = function() {
 		if (this.parentNode.parentNode.className == 'box box-default') {
 			this.parentNode.parentNode.className = 'box box-default collapsed-box';
 			$(this.parentNode.parentNode.children[1]).css('display', 'none');
-			this.parentNode.parentNode.children[0].children[1].className = "layertree-folder-icon fa fa-folder";
+			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder";
 			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-down") {
 				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-left";
 			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-left"){
@@ -157,7 +157,7 @@ layerTree.prototype.createTree = function() {
 			this.parentNode.parentNode.className = 'box box-default';
 			$(this.parentNode.parentNode.children[1]).css('display', 'block');
 			this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-left";
-			this.parentNode.parentNode.children[0].children[1].className = "layertree-folder-icon fa fa-folder-open";
+			this.parentNode.parentNode.children[0].children[0].className = "layertree-folder-icon fa fa-folder-open";
 			if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-down") {
 				this.parentNode.parentNode.children[0].children[2].children[0].children[0].className = "fa fa-caret-left";
 			} else if (this.parentNode.parentNode.children[0].children[2].children[0].children[0].className == "fa fa-caret-left"){

@@ -164,7 +164,7 @@ INSTALLED_APPS = [
     'gvsigol_plugin_downloadman',
     'gvsigol_plugin_draw',
     'gvsigol_plugin_edition',
-    # 'gvsigol_plugin_elevation',
+    'gvsigol_plugin_elevation',
     #'gvsigol_plugin_emergencies',
     #'gvsigol_plugin_geocoding',
     'gvsigol_plugin_importfromservice',

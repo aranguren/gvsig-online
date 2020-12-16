@@ -75,14 +75,14 @@ ol.ext.Ajax.get = function(options) {
  * @fires error
  * @param {string} url
  * @param {*} data Data to send to the server as key / value
- * @param {*} options a set of options that are returned in the 
+ * @param {*} options a set of options that are returned in the
  *  @param {boolean} options.abort false to prevent aborting the current request, default true
  */
 ol.ext.Ajax.prototype.send = function (url, data, options){
   options = options || {};
 	var self = this;
   // Url
-  var encode = (options.encode !== false) 
+  var encode = (options.encode !== false)
   if (encode) url = encodeURI(url);
   // Parameters
   var parameters = '';
@@ -121,7 +121,7 @@ ol.ext.Ajax.prototype.send = function (url, data, options){
         }
       } catch(e) {
         // Error
-        self.dispatchEvent ({ 
+        self.dispatchEvent ({
           type: 'error',
           status: 0,
           statusText: 'parsererror',
@@ -133,7 +133,7 @@ ol.ext.Ajax.prototype.send = function (url, data, options){
       }
       // Success
       //console.log('response',response)
-      self.dispatchEvent ({ 
+      self.dispatchEvent ({
         type: 'success',
         response: response,
         status: this.status,
@@ -142,7 +142,7 @@ ol.ext.Ajax.prototype.send = function (url, data, options){
         jqXHR: this
       });
     } else {
-      self.dispatchEvent ({ 
+      self.dispatchEvent ({
         type: 'error',
         status: this.status,
         statusText: this.statusText,
@@ -155,7 +155,7 @@ ol.ext.Ajax.prototype.send = function (url, data, options){
 	ajax.onerror = function() {
     self._request = null;
     self.dispatchEvent ({ type: 'loadend' });
-    self.dispatchEvent ({ 
+    self.dispatchEvent ({
       type: 'error',
       status: this.status,
       statusText: this.statusText,
@@ -177,7 +177,7 @@ ol.ext.Ajax.prototype.send = function (url, data, options){
  * Create an element
  * @param {string} tagName The element tag, use 'TEXT' to create a text node
  * @param {*} options
- *  @param {string} options.className className The element class name 
+ *  @param {string} options.className className The element class name
  *  @param {Element} options.parent Parent to append the element as child
  *  @param {Element|string} options.html Content of the element
  *  @param {string} options.* Any other attribut to add to the element
@@ -353,7 +353,7 @@ ol.ext.element.getStyle = function(el, styleProp) {
     });
     value = el.currentStyle[styleProp];
     // convert other units to pixels on IE
-    if (/^\d+(em|pt|%|ex)?$/i.test(value)) { 
+    if (/^\d+(em|pt|%|ex)?$/i.test(value)) {
       return (function(value) {
         var oldLeft = el.style.left, oldRsLeft = el.runtimeStyle.left;
         el.runtimeStyle.left = el.currentStyle.left;
@@ -384,7 +384,7 @@ ol.ext.element.outerWidth = function(elt) {
 };
 /** Get element offset rect
  * @param {DOMElement} elt
- * @return {*} 
+ * @return {*}
  */
 ol.ext.element.offsetRect = function(elt) {
   var rect = elt.getBoundingClientRect();
@@ -458,8 +458,8 @@ ol.ext.element.scrollDiv = function(elt, options) {
   });
   // Handle mousewheel
   if (options.mousewheel && !elt.classList.contains('ol-touch')) {
-    ol.ext.element.addListener(elt, 
-      ['mousewheel', 'DOMMouseScroll', 'onmousewheel'], 
+    ol.ext.element.addListener(elt,
+      ['mousewheel', 'DOMMouseScroll', 'onmousewheel'],
       function(e) {
         var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
         elt.classList.add('ol-move');
@@ -470,7 +470,7 @@ ol.ext.element.scrollDiv = function(elt, options) {
     );
   }
 };
-/** Dispatch an event to an Element 
+/** Dispatch an event to an Element
  * @param {string} eventName
  * @param {Element} element
 */
@@ -510,7 +510,7 @@ ol.ext.getMapCanvas = function(map) {
   }
   return canvas;
 };
-  
+
 /* global ol */
 /* Create ol.sphere for backward compatibility with ol < 5.0
  * To use with Openlayers package
@@ -525,13 +525,13 @@ if (window.ol && !ol.sphere) {
   ol.sphere.getLength = ol.Sphere.getLength;
 }
 /**
- * @classdesc 
- *   Attribution Control integrated in the canvas (for jpeg/png 
+ * @classdesc
+ *   Attribution Control integrated in the canvas (for jpeg/png
  * @see http://www.kreidefossilien.de/webgis/dokumentation/beispiele/export-map-to-png-with-scale
  *
  * @constructor
  * @extends {ol.control.Control}
- * @param {Object=} options extend the ol.control options. 
+ * @param {Object=} options extend the ol.control options.
  *  @param {ol.style.Style} options.style style used to draw the title.
  */
 ol.control.CanvasBase = function(options) {
@@ -645,9 +645,9 @@ ol.control.CanvasBase.prototype._draw = function(/* e */) {
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /**
- * This is the base class for Select controls on attributes values. 
- * Abstract base class; 
- * normally only used for creating subclasses and not instantiated in apps. 
+ * This is the base class for Select controls on attributes values.
+ * Abstract base class;
+ * normally only used for creating subclasses and not instantiated in apps.
  *
  * @constructor
  * @extends {ol.control.Control}
@@ -702,7 +702,7 @@ ol.control.SelectBase.prototype.setSources = function (source) {
     this.set ('source', (source instanceof Array) ? source : [source]);
   } else {
     this.unset('source');
-  }  
+  }
 };
 /** Set feature collection to search in
  * @param {ol.Collection<ol.Feature>} features
@@ -784,7 +784,7 @@ ol.control.SelectBase.prototype._checkCondition = function (f, condition, usecas
 /** Selection features in a list of features
  * @param {Array<ol.Feature>} result the current list of features
  * @param {Array<ol.Feature>} features to test in
- * @param {Object} condition 
+ * @param {Object} condition
  *  @param {string} condition.attr attribute name
  *  @param {string} condition.op operator
  *  @param {any} condition.val value to test
@@ -996,7 +996,7 @@ ol.control.Search = function(options) {
   input.addEventListener("input", doSearch);
   if (!options.noCollapse) {
     input.addEventListener('blur', function() {
-      setTimeout(function(){ 
+      setTimeout(function(){
         if (input !== document.activeElement) {
           element.classList.add('ol-collapsed');
           this.set('reverse', false);
@@ -1067,7 +1067,7 @@ ol.control.Search.prototype.setMap = function (map) {
 	}
 };
 /** Get the input field
-*	@return {Element} 
+*	@return {Element}
 *	@api
 */
 ol.control.Search.prototype.getInputField = function () {
@@ -1107,8 +1107,8 @@ ol.control.Search.prototype.reverseGeocode = function (/*coord, cback*/) {
   // this._handleSelect(f);
 };
 /** Trigger custom event on elemebt
- * @param {*} eventName 
- * @param {*} element 
+ * @param {*} eventName
+ * @param {*} element
  * @private
  */
 ol.control.Search.prototype._triggerCustomEvent = function (eventName, element) {
@@ -1133,7 +1133,7 @@ ol.control.Search.prototype.select = function (f, reverse) {
 };
 /**
  * Save history and select
- * @param {*} f 
+ * @param {*} f
  * @param {boolean} reverse true if reverse geocode
  * @private
  */
@@ -1160,7 +1160,7 @@ ol.control.Search.prototype._handleSelect = function (f, reverse) {
   hist.unshift(f);
   while (hist.length > (this.get('maxHistory')||10)) {
     hist.pop();
-  } 
+  }
   this.saveHistory();
   // Select feature
   this.select(f, reverse);
@@ -1179,7 +1179,7 @@ ol.control.Search.prototype.saveHistory = function () {
     localStorage.removeItem("ol@search-"+this._classname);
   }
 };
-/** Restore history (from the localstorage) 
+/** Restore history (from the localstorage)
  */
 ol.control.Search.prototype.restoreHistory = function () {
   if (this._history[this._classname]) {
@@ -1240,7 +1240,7 @@ ol.control.Search.prototype.drawList_ = function (auto) {
     ul.setAttribute('class', 'autocomplete');
   }
   var li, max = Math.min (self.get("maxItems"),auto.length);
-  for (var i=0; i<max; i++) {	
+  for (var i=0; i<max; i++) {
     if (auto[i]) {
       if (!i || !self.equalFeatures(auto[i], auto[i-1])) {
         li = document.createElement("LI");
@@ -1394,7 +1394,7 @@ ol.control.SearchJSON.prototype.handleResponse = function (response) {
  *  @param {integer | undefined} options.minLength minimum length to start searching, default 3
  *  @param {integer | undefined} options.maxItems maximum number of items to display in the autocomplete list, default 10
  *  @param {function | undefined} options.handleResponse Handle server response to pass the features array to the list
- * 
+ *
  *  @param {string|undefined} options.url Url to photon api, default "http://photon.komoot.de/api/"
  *  @param {string|undefined} options.lang Force preferred language, default none
  *  @param {boolean} options.position Search, with priority to geo position, default false
@@ -1425,7 +1425,7 @@ ol.control.SearchPhoton.prototype.getTitle = function (f) {
     + " ("+p.country
     + ")</i>";
 };
-/** 
+/**
  * @param {string} s the search string
  * @return {Object} request data (as key:value)
  * @api
@@ -1477,7 +1477,7 @@ ol.control.SearchPhoton.prototype.select = function (f) {
   } catch(e) { /* ok */ }
   this.dispatchEvent({ type:"select", search:f, coordinate: c });
 };
-/** Get data for reverse geocode 
+/** Get data for reverse geocode
  * @param {ol.coordinate} coord
  */
 ol.control.SearchPhoton.prototype.reverseData = function (coord) {
@@ -1563,7 +1563,7 @@ ol.control.SearchGeoportail.prototype.reverseGeocode = function (coord, cback) {
     +'  </ReverseGeocodeRequest>'
     +' </Request>'
     +'</XLS>';
-  this.ajax (this.get('url').replace('ols/apis/completion','geoportail/ols'), 
+  this.ajax (this.get('url').replace('ols/apis/completion','geoportail/ols'),
     { xls: request },
     function(xml) {
       if (xml) {
@@ -1612,15 +1612,15 @@ ol.control.SearchGeoportail.prototype.getTitle = function (f) {
   var title = f.fulltext;
   return (title);
 };
-/** 
+/**
  * @param {string} s the search string
  * @return {Object} request data (as key:value)
  * @api
  */
 ol.control.SearchGeoportail.prototype.requestData = function (s) {
-	return { 
-    text: s, 
-    type: this.get('type')==='Commune' ? 'PositionOfInterest' : this.get('type') || 'StreetAddress,PositionOfInterest', 
+	return {
+    text: s,
+    type: this.get('type')==='Commune' ? 'PositionOfInterest' : this.get('type') || 'StreetAddress,PositionOfInterest',
     maximumResponses: this.get('maxItems')
   };
 };
@@ -1634,7 +1634,7 @@ ol.control.SearchGeoportail.prototype.handleResponse = function (response) {
   var features = response.results;
   if (this.get('type') === 'Commune') {
     for (var i=features.length-1; i>=0; i--) {
-      if ( features[i].kind 
+      if ( features[i].kind
         && (features[i].classification>5 || features[i].kind=="Département") ) {
           features.splice(i,1);
       }
@@ -1680,9 +1680,9 @@ ol.control.SearchGeoportail.prototype.searchCommune = function (f, cback) {
 			+'</GeocodeRequest>'
 		+'</Request>'
 	+'</XLS>'
-  // Search 
+  // Search
   this.ajax (this.get('url').replace('ols/apis/completion','geoportail/ols'),
-    { 'xls': request }, 
+    { 'xls': request },
     function(xml) {
       if (xml) {
         xml = xml.replace(/\n|\r/g,'');
@@ -1701,7 +1701,7 @@ ol.control.SearchGeoportail.prototype.searchCommune = function (f, cback) {
   );
 };
 
-/*	Copyright (c) 2015 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2015 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -1709,7 +1709,7 @@ ol.control.SearchGeoportail.prototype.searchCommune = function (f, cback) {
  * @classdesc OpenLayers 3 Layer Switcher Control.
  * @fires drawlist
  * @fires toggle
- * 
+ *
  * @constructor
  * @extends {ol.control.Control}
  * @param {Object=} options
@@ -1753,8 +1753,8 @@ ol.control.LayerSwitcher = function(options) {
     element = ol.ext.element.create('DIV', {
       className: (options.switcherClass || "ol-layerswitcher") +' ol-unselectable ol-control'
     });
-    if (options.collapsed !== false) element.classList.add('ol-collapsed'); 
-    else element.classList.add('ol-forceopen'); 
+    if (options.collapsed !== false) element.classList.add('ol-collapsed');
+    else element.classList.add('ol-forceopen');
     this.button = ol.ext.element.create('BUTTON', {
       type: 'button',
       parent: element
@@ -1762,22 +1762,22 @@ ol.control.LayerSwitcher = function(options) {
     this.button.addEventListener('touchstart', function(e){
       element.classList.toggle('ol-collapsed');
       self.dispatchEvent({ type: 'toggle', collapsed: element.classList.contains('ol-collapsed') });
-      e.preventDefault(); 
+      e.preventDefault();
       self.overflow();
     });
     this.button.addEventListener('click', function(){
       element.classList.toggle('ol-forceopen');
-      element.classList.add('ol-collapsed'); 
+      element.classList.add('ol-collapsed');
       self.dispatchEvent({ type: 'toggle', collapsed: !element.classList.contains('ol-forceopen') });
       self.overflow();
     });
     if (options.mouseover) {
-      element.addEventListener ('mouseleave', function(){ 
-        element.classList.add("ol-collapsed"); 
+      element.addEventListener ('mouseleave', function(){
+        element.classList.add("ol-collapsed");
         self.dispatchEvent({ type: 'toggle', collapsed: true });
       });
-      element.addEventListener ('mouseover', function(){ 
-        element.classList.remove("ol-collapsed"); 
+      element.addEventListener ('mouseover', function(){
+        element.classList.remove("ol-collapsed");
         self.dispatchEvent({ type: 'toggle', collapsed: false });
       });
     }
@@ -1889,7 +1889,7 @@ ol.control.LayerSwitcher.prototype.setHeader = function(html) {
 /** Calculate overflow and add scrolls
  *	@param {Number} dir scroll direction -1|0|1|'+50%'|'-50%'
  */
-ol.control.LayerSwitcher.prototype.overflow = function(dir) {	
+ol.control.LayerSwitcher.prototype.overflow = function(dir) {
   if (this.button) {
     // Nothing to show
     if (ol.ext.element.hidden(this.panel_)) {
@@ -1979,7 +1979,7 @@ ol.control.LayerSwitcher.prototype.drawPanel = function() {
   this.dcount++;
   setTimeout (function(){ self.drawPanel_(); }, this.get('drawDelay') || 0);
 };
-/** Delayed draw panel control 
+/** Delayed draw panel control
  * @private
  */
 ol.control.LayerSwitcher.prototype.drawPanel_ = function() {
@@ -2035,10 +2035,10 @@ ol.control.LayerSwitcher.prototype.dragOrdering_ = function(e) {
   var self = this;
   var elt = e.currentTarget.parentNode.parentNode;
   var start = true;
-  var panel = this.panel_; 
+  var panel = this.panel_;
   var pageY;
-  var pageY0 = e.pageY 
-    || (e.touches && e.touches.length && e.touches[0].pageY) 
+  var pageY0 = e.pageY
+    || (e.touches && e.touches.length && e.touches[0].pageY)
     || (e.changedTouches && e.changedTouches.length && e.changedTouches[0].pageY);
   var target, dragElt;
   var layer, group;
@@ -2084,8 +2084,8 @@ ol.control.LayerSwitcher.prototype.dragOrdering_ = function(e) {
   // Ordering
   function move(e) {
     // First drag (more than 2 px) => show drag element (ghost)
-    pageY = e.pageY 
-        || (e.touches && e.touches.length && e.touches[0].pageY) 
+    pageY = e.pageY
+        || (e.touches && e.touches.length && e.touches[0].pageY)
         || (e.changedTouches && e.changedTouches.length && e.changedTouches[0].pageY);
     if (start && Math.abs(pageY0 - pageY) > 2) {
       start = false;
@@ -2094,18 +2094,18 @@ ol.control.LayerSwitcher.prototype.dragOrdering_ = function(e) {
       target = false;
       group = self._getLayerForLI(elt.parentNode.parentNode);
       // Ghost div
-      dragElt = ol.ext.element.create('LI', { 
+      dragElt = ol.ext.element.create('LI', {
         className: 'ol-dragover',
         html: elt.innerHTML,
-        style: { 
-          position: "absolute", 
-          "z-index": 10000, 
-          left: elt.offsetLeft, 
+        style: {
+          position: "absolute",
+          "z-index": 10000,
+          left: elt.offsetLeft,
           opacity: 0.5,
           width: ol.ext.element.outerWidth(elt),
           height: ol.ext.element.getStyle(elt,'height'),
         },
-        parent: panel 
+        parent: panel
       });
       self.element.classList.add('drag');
     }
@@ -2160,7 +2160,7 @@ ol.control.LayerSwitcher.prototype.dragOrdering_ = function(e) {
   ol.ext.element.addListener(document, 'mousemove touchmove', move);
   ol.ext.element.addListener(document, 'mouseup touchend touchcancel', stop);
 };
-/** Change opacity on drag 
+/** Change opacity on drag
 *	@param {event} e drag event
 *	@private
 */
@@ -2172,8 +2172,8 @@ ol.control.LayerSwitcher.prototype.dragOpacity_ = function(e) {
   var elt = e.target;
   var layer = this._getLayerForLI(elt.parentNode.parentNode.parentNode);
   if (!layer) return;
-  var x = e.pageX 
-    || (e.touches && e.touches.length && e.touches[0].pageX) 
+  var x = e.pageX
+    || (e.touches && e.touches.length && e.touches[0].pageX)
     || (e.changedTouches && e.changedTouches.length && e.changedTouches[0].pageX);
   var start = ol.ext.element.getStyle (elt, 'left') - x;
   self.dragging_ = true;
@@ -2185,8 +2185,8 @@ ol.control.LayerSwitcher.prototype.dragOpacity_ = function(e) {
   }
   // On draggin
   function move(e) {
-    var x = e.pageX 
-      || (e.touches && e.touches.length && e.touches[0].pageX) 
+    var x = e.pageX
+      || (e.touches && e.touches.length && e.touches[0].pageX)
       || (e.changedTouches && e.changedTouches.length && e.changedTouches[0].pageX);
     var delta = (start + x) / ol.ext.element.getStyle(elt.parentNode, 'width');
     var opacity = Math.max (0, Math.min(1, delta));
@@ -2216,18 +2216,18 @@ ol.control.LayerSwitcher.prototype.drawList = function(ul, collection) {
   // Info button click
   function onInfo(e) {
     e.stopPropagation();
-    e.preventDefault(); 
+    e.preventDefault();
     var l = self._getLayerForLI(this.parentNode.parentNode);
-    self.oninfo(l); 
+    self.oninfo(l);
     self.dispatchEvent({ type: "info", layer: l });
   }
   // Zoom to extent button
   function zoomExtent(e) {
     e.stopPropagation();
-    e.preventDefault(); 
+    e.preventDefault();
     var l = self._getLayerForLI(this.parentNode.parentNode);
-    if (self.onextent) self.onextent(l); 
-    else self.getMap().getView().fit (l.getExtent(), self.getMap().getSize()); 
+    if (self.onextent) self.onextent(l);
+    else self.getMap().getView().fit (l.getExtent(), self.getMap().getSize());
     self.dispatchEvent({ type: "extent", layer: l });
   }
   // Remove a layer on trash click
@@ -2340,7 +2340,7 @@ ol.control.LayerSwitcher.prototype.drawList = function(ul, collection) {
           className: 'layerExtent',
           title: this.tip.extent,
           click: zoomExtent,
-          parent: layer_buttons  
+          parent: layer_buttons
         });
       }
     }
@@ -2663,7 +2663,7 @@ ol.control.Button = function(options){
 };
 ol.ext.inherits(ol.control.Button, ol.control.Control);
 /** Set the control visibility
-* @param {boolean} b 
+* @param {boolean} b
 */
 ol.control.Button.prototype.setVisible = function (val) {
   if (val) ol.ext.element.show(this.element);
@@ -2693,13 +2693,13 @@ ol.control.Button.prototype.getButtonElement = function() {
   return this.button_;
 };
 
-/*	Copyright (c) 2015 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2015 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /**
- * @classdesc 
- *   OpenLayers 3 Attribution Control integrated in the canvas (for jpeg/png 
+ * @classdesc
+ *   OpenLayers 3 Attribution Control integrated in the canvas (for jpeg/png
  * @see http://www.kreidefossilien.de/webgis/dokumentation/beispiele/export-map-to-png-with-scale
  *
  * @constructor
@@ -2767,7 +2767,7 @@ ol.control.CanvasAttribution.prototype.setMap = function (map) {
   this.map_ = map;
   this.setCanvas (this.isCanvas_);
 };
-/** 
+/**
  * Draw attribution in the final canvas
  * @private
  */
@@ -2809,13 +2809,13 @@ ol.control.CanvasAttribution.prototype.drawAttribution_ = function(e) {
   ctx.restore();
 };
 
-/*	Copyright (c) 2015 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2015 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /**
- * @classdesc 
- *    OpenLayers 3 Scale Line Control integrated in the canvas (for jpeg/png 
+ * @classdesc
+ *    OpenLayers 3 Scale Line Control integrated in the canvas (for jpeg/png
  * @see http://www.kreidefossilien.de/webgis/dokumentation/beispiele/export-map-to-png-with-scale
  *
  * @constructor
@@ -2844,7 +2844,7 @@ ol.control.CanvasScaleLine.prototype.getContext = ol.control.CanvasBase.prototyp
  * @api stable
  */
 ol.control.CanvasScaleLine.prototype.setMap = function (map)
-{	
+{
 	ol.control.CanvasBase.prototype.getCanvas.call(this, map);
 	var oldmap = this.getMap();
 	if (this._listener) ol.Observable.unByKey(this._listener);
@@ -2854,7 +2854,7 @@ ol.control.CanvasScaleLine.prototype.setMap = function (map)
 	// Add postcompose on the map
 	if (map) {
 		this._listener = map.on('postcompose', this.drawScale_.bind(this));
-	} 
+	}
 	// Hide the default DOM element
 	this.element.style.visibility = 'hidden';
 	this.olscale = this.element.querySelector(".ol-scale-line-inner");
@@ -2879,7 +2879,7 @@ ol.control.CanvasScaleLine.prototype.setStyle = function (style)
 	// refresh
 	if (this.getMap()) this.getMap().render();
 }
-/** 
+/**
  * Draw attribution in the final canvas
  * @private
  */
@@ -2928,16 +2928,16 @@ ol.control.CanvasScaleLine.prototype.drawScale_ = function(e)
 	ctx.restore();
 }
 
-/*	Copyright (c) 2015 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2015 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /**
- * A title Control integrated in the canvas (for jpeg/png 
+ * A title Control integrated in the canvas (for jpeg/png
  *
  * @constructor
  * @extends {ol.control.CanvasBase}
- * @param {Object=} options extend the ol.control options. 
+ * @param {Object=} options extend the ol.control options.
  *  @param {string} options.title the title, default 'Title'
  *  @param {ol.style.Style} options.style style used to draw the title.
  */
@@ -2972,7 +2972,7 @@ ol.control.CanvasTitle.prototype.setStyle = function (style) {
   if (this.getMap()) this.getMap().render();
 };
 /**
- * Set the map title 
+ * Set the map title
  * @param {string} map title.
  * @api stable
  */
@@ -2982,7 +2982,7 @@ ol.control.CanvasTitle.prototype.setTitle = function (title) {
   if (this.getMap()) this.getMap().renderSync();
 };
 /**
- * Get the map title 
+ * Get the map title
  * @param {string} map title.
  * @api stable
  */
@@ -3000,7 +3000,7 @@ ol.control.CanvasTitle.prototype.setVisible = function (b) {
 };
 /**
  * Get control visibility
- * @return {bool} 
+ * @return {bool}
  * @api stable
  */
 ol.control.CanvasTitle.prototype.getVisible = function () {
@@ -3043,7 +3043,7 @@ ol.control.CanvasTitle.prototype._draw = function(e) {
   ctx.restore();
 };
 
-/*	Copyright (c) 2015 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2015 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -3052,7 +3052,7 @@ ol.control.CanvasTitle.prototype._draw = function(e) {
  *
  * @constructor
  * @extends {ol.control.CanvasBase}
- * @param {Object=} options extend the ol.control options. 
+ * @param {Object=} options extend the ol.control options.
  *  @param {string} options.className CSS class name
  *  @param {ol.style.Style} options.style style used to draw in the canvas
  *  @param {ol.proj.ProjectionLike} options.projection	Projection. Default is the view projection.
@@ -3075,7 +3075,7 @@ ol.control.CenterPosition = function(options) {
   this.element.style.font = this.getTextFont();
   this.set('projection', options.projection);
   this.setCanvas(options.canvas);
-  this._format = (typeof options.coordinateFormat === 'function') ? options.coordinateFormat : ol.coordinate.toStringXY; 
+  this._format = (typeof options.coordinateFormat === 'function') ? options.coordinateFormat : ol.coordinate.toStringXY;
 };
 ol.ext.inherits(ol.control.CenterPosition, ol.control.CanvasBase);
 /**
@@ -3111,7 +3111,7 @@ ol.control.CenterPosition.prototype.setVisible = function (b) {
 };
 /**
  * Get control visibility
- * @return {bool} 
+ * @return {bool}
  * @api stable
  */
 ol.control.CenterPosition.prototype.getVisible = function () {
@@ -3154,7 +3154,7 @@ ol.control.CenterPosition.prototype._draw = function(e) {
   ctx.restore();
 };
 
-/*	Copyright (c) 2017 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2017 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -3182,7 +3182,7 @@ ol.control.Compass = function(options) {
   if (!options.style) {
     style = new ol.style.Style({stroke: new ol.style.Stroke({width:0}) });
   }
-  ol.control.CanvasBase.call(this, { 
+  ol.control.CanvasBase.call(this, {
     element: elt,
     style: style
   });
@@ -3217,7 +3217,7 @@ ol.control.Compass.prototype.defaultCompass_ = function (s, color) {
   function draw (r, r2) {
     ctx.fillStyle = color ||"#963";
     ctx.beginPath();
-    ctx.moveTo (0,0); 
+    ctx.moveTo (0,0);
     ctx.lineTo (r,0); ctx.lineTo (r2,r2); ctx.moveTo (0,0);
     ctx.lineTo (-r,0); ctx.lineTo (-r2,-r2); ctx.moveTo (0,0);
     ctx.lineTo (0,r); ctx.lineTo (-r2,r2); ctx.moveTo (0,0);
@@ -3229,7 +3229,7 @@ ol.control.Compass.prototype.defaultCompass_ = function (s, color) {
     ctx.globalCompositeOperation = "destination-out";
     ctx.fillStyle = "#fff";
     ctx.beginPath();
-    ctx.moveTo (0,0); 
+    ctx.moveTo (0,0);
     ctx.lineTo (r,0); ctx.lineTo (r2,-r2); ctx.moveTo (0,0);
     ctx.lineTo (-r,0); ctx.lineTo (-r2,r2); ctx.moveTo (0,0);
     ctx.lineTo (0,r); ctx.lineTo (r2,r2); ctx.moveTo (0,0);
@@ -3237,7 +3237,7 @@ ol.control.Compass.prototype.defaultCompass_ = function (s, color) {
     ctx.fill();
     ctx.globalCompositeOperation="source-over";
     ctx.beginPath();
-    ctx.moveTo (0,0); 
+    ctx.moveTo (0,0);
     ctx.lineTo (r,0); ctx.lineTo (r2,-r2); ctx.moveTo (0,0);
     ctx.lineTo (-r,0); ctx.lineTo (-r2,r2); ctx.moveTo (0,0);
     ctx.lineTo (0,r); ctx.lineTo (r2,r2); ctx.moveTo (0,0);
@@ -3301,7 +3301,7 @@ ol.control.Compass.prototype._draw = function(e) {
   ctx.restore();
 };
 
-/** 
+/**
  * @classdesc
  * Application dialog
  * @extends {ol.control.Control}
@@ -3360,11 +3360,11 @@ ol.control.Dialog = function(options) {
   this.set('className', options.className);
 };
 ol.ext.inherits(ol.control.Dialog, ol.control.Control);
-/** Show a new dialog 
+/** Show a new dialog
  * @param { * | Element | string } options options or a content to show
  *  @param {Element | string} options.content dialog content
  *  @param {string} options.title title of the dialog
- *  @param {Object} options.buttons a key/value list of button to show 
+ *  @param {Object} options.buttons a key/value list of button to show
  */
 ol.control.Dialog.prototype.show = function(options) {
   if (options instanceof Element || typeof(options) === 'string') {
@@ -3384,7 +3384,7 @@ ol.control.Dialog.prototype.open = function() {
  *  @param {Element | String} options.content dialog content
  *  @param {string} options.title title of the dialog
  *  @param {string} options.className dialog class name
- *  @param {Object} options.buttons a key/value list of button to show 
+ *  @param {Object} options.buttons a key/value list of button to show
  */
 ol.control.Dialog.prototype.setContent = function(options) {
   if (!options) return;
@@ -3441,13 +3441,13 @@ ol.control.Dialog.prototype._onButton = function(button) {
   }.bind(this);
   return fn;
 };
-/** Close the dialog 
+/** Close the dialog
  */
 ol.control.Dialog.prototype.hide = function() {
   this.element.classList.remove('ol-visible');
   this.dispatchEvent ({ type: 'hide' });
 };
-/** Close the dialog 
+/** Close the dialog
  * @method Dialog.close
  * @return {bool} true if a dialog is closed
  */
@@ -3467,7 +3467,7 @@ ol.control.Dialog.prototype.isOpen = function() {
  *		@param {String} options.class class of the control
  *		@param {String} options.html html code to insert in the control
  *		@param {bool} options.on the control is on
- *		@param {function} options.toggleFn callback when control is clicked 
+ *		@param {function} options.toggleFn callback when control is clicked
  */
 ol.control.Disable = function(options)
 {	options = options||{};
@@ -3494,10 +3494,10 @@ ol.control.Disable.prototype.isOn = function()
  * @api stable
  */
 ol.control.Disable.prototype.disableMap = function(b)
-{	if (b) 
+{	if (b)
 	{	this.element.classList.add("ol-enable").show();
 	}
-	else 
+	else
 	{	this.element.classList.remove("ol-enable").hide();
 	}
 }
@@ -3510,10 +3510,10 @@ ol.control.Disable.prototype.disableMap = function(b)
  *	@param {String} options.className class of the control
  *	@param {String} options.target Specify a target if you want the control to be rendered outside of the map's viewport.
  *	@param {boolean} options.edition false to remove the edition tools, default true
- *	@param {Object} options.interactions List of interactions to add to the bar 
+ *	@param {Object} options.interactions List of interactions to add to the bar
  *    ie. Select, Delete, Info, DrawPoint, DrawLine, DrawPolygon
  *    Each interaction can be an interaction or true (to get the default one) or false to remove it from bar
- *	@param {ol.source.Vector} options.source Source for the drawn features. 
+ *	@param {ol.source.Vector} options.source Source for the drawn features.
  */
 ol.control.EditBar = function(options) {
   options = options || {};
@@ -3549,7 +3549,7 @@ ol.control.EditBar.prototype.setMap = function (map) {
   }
 };
 /** Get an interaction associated with the bar
- * @param {string} name 
+ * @param {string} name
  */
 ol.control.EditBar.prototype.getInteraction = function (name) {
   return this._interactions[name];
@@ -3571,7 +3571,7 @@ ol.control.EditBar.prototype._setSelectInteraction = function (options) {
   // Delete button
   if (options.interactions.Delete !== false) {
     if (options.interactions.Delete instanceof ol.interaction.Delete) {
-      this._interactions.Delete = options.interactions.Delete; 
+      this._interactions.Delete = options.interactions.Delete;
     } else {
       this._interactions.Delete = new ol.interaction.Delete();
     }
@@ -3602,9 +3602,9 @@ ol.control.EditBar.prototype._setSelectInteraction = function (options) {
       className: 'ol-info',
       title: this._getTitle(options.interactions.Info) || "Show informations",
       handleClick: function() {
-        self.dispatchEvent({ 
-          type: 'info', 
-          features: selectCtrl.getInteraction().getFeatures() 
+        self.dispatchEvent({
+          type: 'info',
+          features: selectCtrl.getInteraction().getFeatures()
         });
       }
     }));
@@ -3635,7 +3635,7 @@ ol.control.EditBar.prototype._setSelectInteraction = function (options) {
 };
 /** Add editing tools
  * @private
- */ 
+ */
 ol.control.EditBar.prototype._setEditInteraction = function (options) {
   if (options.interactions.DrawPoint !== false) {
     if (options.interactions.DrawPoint instanceof ol.interaction.Draw) {
@@ -3675,7 +3675,7 @@ ol.control.EditBar.prototype._setEditInteraction = function (options) {
       interaction: this._interactions.DrawLine,
       // Options bar associated with the control
       bar: new ol.control.Bar ({
-        controls:[ 
+        controls:[
           new ol.control.TextButton({
             html: this._getTitle(options.interactions.UndoDraw) || 'undo',
             title: this._getTitle(options.interactions.UndoDraw) || "delete last point",
@@ -3692,7 +3692,7 @@ ol.control.EditBar.prototype._setEditInteraction = function (options) {
             }
           })
         ]
-      }) 
+      })
     });
     this.addControl ( ledit );
   }
@@ -3713,9 +3713,9 @@ ol.control.EditBar.prototype._setEditInteraction = function (options) {
       });
     }
     this._setDrawPolygon(
-      'ol-drawpolygon', 
-      this._interactions.DrawPolygon, 
-      this._getTitle(options.interactions.DrawPolygon) || 'Polygon', 
+      'ol-drawpolygon',
+      this._interactions.DrawPolygon,
+      this._getTitle(options.interactions.DrawPolygon) || 'Polygon',
       options
     );
   }
@@ -3727,9 +3727,9 @@ ol.control.EditBar.prototype._setEditInteraction = function (options) {
       this._interactions.DrawHole = new ol.interaction.DrawHole ();
     }
     this._setDrawPolygon(
-      'ol-drawhole', 
-      this._interactions.DrawHole, 
-      this._getTitle(options.interactions.DrawHole) || 'Hole', 
+      'ol-drawhole',
+      this._interactions.DrawHole,
+      this._getTitle(options.interactions.DrawHole) || 'Hole',
       options
     );
   }
@@ -3766,12 +3766,12 @@ ol.control.EditBar.prototype._setEditInteraction = function (options) {
       interaction: this._interactions.DrawRegular,
       // Options bar associated with the control
       bar: new ol.control.Bar ({
-        controls:[ 
+        controls:[
           new ol.control.TextButton({
             html: div
           })
         ]
-      }) 
+      })
     });
     this.addControl (ctrl);
   }
@@ -3786,7 +3786,7 @@ ol.control.EditBar.prototype._setDrawPolygon = function (className, interaction,
     interaction: interaction,
     // Options bar associated with the control
     bar: new ol.control.Bar({
-      controls:[ 
+      controls:[
         new ol.control.TextButton ({
           html: this._getTitle(options.interactions.UndoDraw) || 'undo',
           title: this._getTitle(options.interactions.UndoDraw) || 'undo last point',
@@ -3803,13 +3803,13 @@ ol.control.EditBar.prototype._setDrawPolygon = function (className, interaction,
           }
         })
       ]
-    }) 
+    })
   });
   this.addControl (fedit);
 };
 /** Add modify tools
  * @private
- */ 
+ */
 ol.control.EditBar.prototype._setModifyInteraction = function (options) {
   // Modify on selected features
   if (options.interactions.ModifySelect !== false && options.interactions.Select !== false) {
@@ -3876,7 +3876,7 @@ ol.control.EditBar.prototype._setModifyInteraction = function (options) {
   }
 };
 
-/*	Copyright (c) 2017 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2017 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -3940,10 +3940,10 @@ ol.control.Gauge.prototype.val = function(v)
  *  @param {string} options.placeholder input placeholder, default Add a new geomark...
  *  @param {bool} options.editable enable modification, default true
  *  @param {string} options.namespace a namespace to save the boolmark (if more than one on a page), default ol
- *  @param {Array<any>} options.marks a list of default bookmarks: 
+ *  @param {Array<any>} options.marks a list of default bookmarks:
  * @see [Geobookmark example](../../examples/map.control.geobookmark.html)
- * @example 
-var bm = new GeoBookmark ({ 
+ * @example
+var bm = new GeoBookmark ({
   marks: {
     "Paris": {pos:_ol_proj_.transform([2.351828, 48.856578], 'EPSG:4326', 'EPSG:3857'), zoom:11, permanent: true },
     "London": {pos:_ol_proj_.transform([-0.1275,51.507222], 'EPSG:4326', 'EPSG:3857'), zoom:12}
@@ -4017,8 +4017,8 @@ ol.control.GeoBookmark = function(options) {
 ol.ext.inherits(ol.control.GeoBookmark, ol.control.Control);
 /** Set bookmarks
 * @param {} bmark a list of bookmarks, default retreave in the localstorage
-* @example 
-bm.setBookmarks({ 
+* @example
+bm.setBookmarks({
   "Paris": {pos:_ol_proj_.transform([2.351828, 48.856578], 'EPSG:4326', 'EPSG:3857'), zoom:11, permanent: true },
   "London": {pos:_ol_proj_.transform([-0.1275,51.507222], 'EPSG:4326', 'EPSG:3857'), zoom:12}
 });
@@ -4178,19 +4178,19 @@ ol.control.GeolocationBar = function(options) {
 };
 ol.ext.inherits(ol.control.GeolocationBar, ol.control.Bar);
 /** Get the ol.interaction.GeolocationDraw associatedwith the bar
- * 
+ *
  */
 ol.control.GeolocationBar.prototype.getInteraction = function () {
   return this._geolocBt.getInteraction();
 };
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /**
  * OpenLayers 3 lobe Overview Control.
- * The globe can rotate with map (follow.) 
+ * The globe can rotate with map (follow.)
  *
  * @constructor
  * @extends {ol.control.Control}
@@ -4238,7 +4238,7 @@ ol.control.Globe = function(opt_options)
 		layers: options.layers
 	});
 	setTimeout (function()
-	{	self.ovmap_.updateSize(); 
+	{	self.ovmap_.updateSize();
 	}, 0);
 	this.set('follow', options.follow || false);
 	// Cache extent
@@ -4271,7 +4271,7 @@ ol.control.Globe.prototype.setMap = function(map) {
 	this._listener = null;
 	ol.control.Control.prototype.setMap.call(this, map);
 	// Get change (new layer added or removed)
-	if (map) 
+	if (map)
 	{	this._listener = map.getView().on('propertychange', this.setView.bind(this));
 		this.setView();
 	}
@@ -4329,7 +4329,7 @@ ol.control.Globe.prototype.setCenter = function (center, show)
 	}
 };
 
-/*	Copyright (c) 2017 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2017 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -4339,14 +4339,14 @@ ol.control.Globe.prototype.setCenter = function (center, show)
  * @constructor
  * @extends {ol.control.CanvasBase}
  * @param {Object=} _ol_control_ options.
- *  @param {ol.projectionLike} options.projection projection to use for the graticule, default EPSG:4326 
+ *  @param {ol.projectionLike} options.projection projection to use for the graticule, default EPSG:4326
  *  @param {number} options.maxResolution max resolution to display the graticule
  *  @param {ol.style.Style} options.style Style to use for drawing the graticule, default black.
  *  @param {number} options.step step beetween lines (in proj units), default 1
  *  @param {number} options.stepCoord show a coord every stepCoord, default 1
- *  @param {number} options.spacing spacing beetween lines (in px), default 40px 
- *  @param {number} options.borderWidthwidth of the border (in px), default 5px 
- *  @param {number} options.marginmargin of the border (in px), default 0px 
+ *  @param {number} options.spacing spacing beetween lines (in px), default 40px
+ *  @param {number} options.borderWidthwidth of the border (in px), default 5px
+ *  @param {number} options.marginmargin of the border (in px), default 0px
  */
 ol.control.Graticule = function(options) {
   if (!options) options = {};
@@ -4355,7 +4355,7 @@ ol.control.Graticule = function(options) {
   elt.className = "ol-graticule ol-unselectable ol-hidden";
   ol.control.CanvasBase.call(this, { element: elt });
   this.set('projection', options.projection || 'EPSG:4326');
-  // Use to limit calculation 
+  // Use to limit calculation
   var p = new ol.proj.Projection({code:this.get('projection')});
   var m = p.getMetersPerUnit();
   this.fac = 1;
@@ -4381,7 +4381,7 @@ ol.control.Graticule = function(options) {
       text: new ol.style.Text({
         stroke: new ol.style.Stroke({ color:"#fff", width:2 }),
         fill: new ol.style.Fill({ color:"#000" }),
-      }) 
+      })
     }));
   }
 };
@@ -4398,7 +4398,7 @@ ol.control.Graticule.prototype._draw = function (e) {
   var h = canvas.height/ratio;
   var proj = this.get('projection');
   var map = this.getMap();
-  var bbox = 
+  var bbox =
   [	map.getCoordinateFromPixel([0,0]),
     map.getCoordinateFromPixel([w,0]),
     map.getCoordinateFromPixel([w,h]),
@@ -4422,7 +4422,7 @@ ol.control.Graticule.prototype._draw = function (e) {
   var margin = this.get('margin');
   // Limit max line draw
   var ds = (xmax-xmin)/step*spacing;
-  if (ds>w) 
+  if (ds>w)
   {	var dt = Math.round((xmax-xmin)/w*spacing /step);
     step *= dt;
     if (step>this.fac) step = Math.round(step/this.fac)*this.fac;
@@ -4530,34 +4530,34 @@ ol.control.Graticule.prototype._draw = function (e) {
       }
       ctx.strokeStyle = color;
       ctx.lineWidth = stroke ? stroke.getWidth() : 1;
-      // 
+      //
       for (i=1; i<txt.top.length; i++)
       {	ctx.beginPath();
         ctx.rect(txt.top[i-1][1][0], margin, txt.top[i][1][0]-txt.top[i-1][1][0], borderWidth);
         ctx.fillStyle = Math.round(txt.top[i][0]/step)%2 ? color: fillColor;
-        ctx.fill(); 
-        ctx.stroke(); 
+        ctx.fill();
+        ctx.stroke();
       }
       for (i=1; i<txt.bottom.length; i++)
       {	ctx.beginPath();
         ctx.rect(txt.bottom[i-1][1][0], h-borderWidth-margin, txt.bottom[i][1][0]-txt.bottom[i-1][1][0], borderWidth);
         ctx.fillStyle = Math.round(txt.bottom[i][0]/step)%2 ? color: fillColor;
-        ctx.fill(); 
-        ctx.stroke(); 
+        ctx.fill();
+        ctx.stroke();
       }
       for (i=1; i<txt.left.length; i++)
       {	ctx.beginPath();
         ctx.rect(margin, txt.left[i-1][1][1], borderWidth, txt.left[i][1][1]-txt.left[i-1][1][1]);
         ctx.fillStyle = Math.round(txt.left[i][0]/step)%2 ? color: fillColor;
-        ctx.fill(); 
-        ctx.stroke(); 
+        ctx.fill();
+        ctx.stroke();
       }
       for (i=1; i<txt.right.length; i++)
       {	ctx.beginPath();
         ctx.rect(w-borderWidth-margin, txt.right[i-1][1][1], borderWidth, txt.right[i][1][1]-txt.right[i-1][1][1]);
         ctx.fillStyle = Math.round(txt.right[i][0]/step)%2 ? color: fillColor;
-        ctx.fill(); 
-        ctx.stroke(); 
+        ctx.fill();
+        ctx.stroke();
       }
       ctx.beginPath();
       ctx.fillStyle = color;
@@ -4565,12 +4565,12 @@ ol.control.Graticule.prototype._draw = function (e) {
       ctx.rect(margin,h-borderWidth-margin, borderWidth,borderWidth);
       ctx.rect(w-borderWidth-margin,margin, borderWidth, borderWidth);
       ctx.rect(w-borderWidth-margin,h-borderWidth-margin, borderWidth,borderWidth);
-      ctx.fill(); 
+      ctx.fill();
     }
   ctx.restore();
 };
 
-/*	Copyright (c) 2017 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2017 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -4648,7 +4648,7 @@ ol.control.GridReference.prototype.getFeatureName = function (f) {
  * @api
  */
 ol.control.GridReference.prototype.sortFeatures = function (a,b) {
-  return (this.getFeatureName(a) == this.getFeatureName(b)) ? 0 : (this.getFeatureName(a) < this.getFeatureName(b)) ? -1 : 1; 
+  return (this.getFeatureName(a) == this.getFeatureName(b)) ? 0 : (this.getFeatureName(a) < this.getFeatureName(b)) ? -1 : 1;
 };
 /** Get the feature title
  * @param {ol.Feature} f
@@ -4866,7 +4866,7 @@ ol.control.Imageline = function(options) {
       parent: element
     });
   }
-  // Source 
+  // Source
   this._source = options.source;
   // Initialize
   ol.control.Control.call(this, {
@@ -4901,10 +4901,10 @@ ol.control.Imageline.prototype.setMap = function (map) {
   }
 	this._listener = null;
 	ol.control.Control.prototype.setMap.call(this, map);
-	if (map) {	
+	if (map) {
     this._listener = [
       map.on('postcompose', this._drawLink.bind(this)),
-      map.on('moveend', function() { 
+      map.on('moveend', function() {
         if (this.get('useExtent')) this.refresh();
       }.bind(this))
     ]
@@ -4985,7 +4985,7 @@ ol.control.Imageline.prototype._setScrolling = function() {
   ol.ext.element.scrollDiv(elt, {
     // Prevent selection when moving
     onmove: function(b) {
-      this._moving=b; 
+      this._moving=b;
     }.bind(this)
   });
 };
@@ -5022,7 +5022,7 @@ ol.control.Imageline.prototype.refresh = function() {
       img.addEventListener('click', function(){
         if (!this._moving) {
           this.dispatchEvent({type: 'select', feature: f });
-          this._scrolldiv.scrollLeft = img.offsetLeft 
+          this._scrolldiv.scrollLeft = img.offsetLeft
             + ol.ext.element.getStyle(img, 'width')/2
             - ol.ext.element.getStyle(this.element, 'width')/2;
             if (this._select) this._select.elt.classList.remove('select');
@@ -5059,7 +5059,7 @@ ol.control.Imageline.prototype.refresh = function() {
       }
     }
   }.bind(this);
-  // Add images 
+  // Add images
   var nb = this.get('maxFeatures');
   for (var i=0, f; f=features[i]; i++) {
     if (nb--<0) break;
@@ -5083,7 +5083,7 @@ ol.control.Imageline.prototype.select = function(feature, scroll) {
       f.elt.classList.add('select');
       this._select = f;
       if (scroll!==false) {
-        this._scrolldiv.scrollLeft = f.elt.offsetLeft 
+        this._scrolldiv.scrollLeft = f.elt.offsetLeft
           + ol.ext.element.getStyle(f.elt, 'width')/2
           - ol.ext.element.getStyle(this.element, 'width')/2;
       }
@@ -5101,10 +5101,10 @@ ol.control.Imageline.prototype._drawLink = function(e) {
   if (map && this._select && this._select.elt) {
     var ctx = e.context || ol.ext.getMapCanvas(this.getMap()).getContext('2d');
     var ratio = e.frameState.pixelRatio;
-    var pt = [ 
-      this._select.elt.offsetLeft 
+    var pt = [
+      this._select.elt.offsetLeft
       - this._scrolldiv.scrollLeft
-      + ol.ext.element.getStyle(this._select.elt, 'width')/2, 
+      + ol.ext.element.getStyle(this._select.elt, 'width')/2,
       parseFloat(ol.ext.element.getStyle(this.element, 'top')) || this.getMap().getSize()[1]
     ];
     var geom = this._select.feature.getGeometry().getFirstCoordinate();
@@ -5201,7 +5201,7 @@ ol.control.IsochroneGeoportail = function(options) {
     .addEventListener('click', function(){
       this.setDirection('reverse');
     }.bind(this));
-  // Input 
+  // Input
   var div = ol.ext.element.create('DIV', { className: 'ol-time', parent: content })
   ol.ext.element.create('DIV', { html:'isochrone:', parent: div });
   ol.ext.element.create('INPUT', { type: 'number', parent: div, min: 0 })
@@ -5246,7 +5246,7 @@ ol.control.IsochroneGeoportail = function(options) {
       }
     }.bind(this));
   this.set('url', 'https://wxs.ign.fr/'+options.apiKey+'/isochrone/isochrone.json');
-  this._ajax = new ol.ext.Ajax({ 
+  this._ajax = new ol.ext.Ajax({
     dataType: 'JSON',
     auth: options.auth
   });
@@ -5368,10 +5368,10 @@ ol.control.IsochroneGeoportail.prototype.search = function(coord, option, iter) 
       smoothing: this.get('smoothing') || true,
       holes: this.get('holes') || false
     };
-    this._ajax.send(this.get('url'), data, { 
-      coord: coord, 
+    this._ajax.send(this.get('url'), data, {
+      coord: coord,
       option: option,
-      iteration: (iter||0)+1 
+      iteration: (iter||0)+1
     });
   }
 };
@@ -5402,7 +5402,7 @@ ol.control.IsochroneGeoportail.prototype._error = function() {
   this.dispatchEvent ({ type:'error' });
 };
 
-/*	Copyright (c) 2015 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2015 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -5428,10 +5428,10 @@ ol.control.LayerPopup.prototype.overflow = function(){};
  * @layers {Array{ol.layer}} list of layer to show
  * @api stable
  */
-ol.control.LayerPopup.prototype.drawList = function(ul, layers) {	
+ol.control.LayerPopup.prototype.drawList = function(ul, layers) {
   var self=this;
 	var setVisibility = function(e) {
-    e.preventDefault(); 
+    e.preventDefault();
 		var l = self._getLayerForLI(this);
 		self.switchLayerVisibility(l,layers);
 		if (e.type=="touchstart") self.element.classList.add("ol-collapsed");
@@ -5450,7 +5450,7 @@ ol.control.LayerPopup.prototype.drawList = function(ul, layers) {
 	});
 };
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -5477,7 +5477,7 @@ ol.ext.inherits(ol.control.LayerSwitcherImage, ol.control.LayerSwitcher);
 ol.control.LayerSwitcherImage.prototype.drawList = function(ul, layers) {
   var self = this;
 	var setVisibility = function(e) {
-    e.preventDefault(); 
+    e.preventDefault();
 		var l = self._getLayerForLI(this);
 		self.switchLayerVisibility(l,layers);
 		if (e.type=="touchstart") self.element.classList.add("ol-collapsed");
@@ -5581,11 +5581,11 @@ ol.control.Legend.prototype.setStyle = function(style) {
 };
 /** Add a new row to the legend
  *  * You can provide in options:
- * - a feature width a style 
+ * - a feature width a style
  * - or a feature that will use the legend style function
  * - or properties ans a geometry type that will use the legend style function
  * - or a style and a geometry type
- * @param {*} options a list of parameters 
+ * @param {*} options a list of parameters
  *  @param {ol.Feature} options.feature a feature to draw
  *  @param {ol.style.Style} options.style the style to use if no feature is provided
  *  @param {*} options.properties properties to use with a style function
@@ -5672,9 +5672,9 @@ ol.control.Legend.prototype.hide = function() {
 ol.control.Legend.prototype.toggle = function() {
   this.element.classList.toggle('ol-collapsed');
 };
-/** Get the image for a style 
+/** Get the image for a style
  * You can provide in options:
- * - a feature width a style 
+ * - a feature width a style
  * - or a feature that will use the legend style function
  * - or properties and a geometry type that will use the legend style function
  * - or a style and a geometry type
@@ -5921,7 +5921,7 @@ ol.control.MapZone.zones.DOMTOM = [{
   extent: [ -5.318421740712579, 41.16082274292913, 9.73284186155716, 51.21957336557702 ]
 }].concat(ol.control.MapZone.zones.DOM,ol.control.MapZone.zones.TOM);
 
-/*	Copyright (c) 2017 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2017 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -6007,7 +6007,7 @@ ol.control.Notification.prototype.toggle = function(duration) {
   }
 };
 
-/*	Copyright (c) 2017 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2017 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -6109,7 +6109,7 @@ ol.control.Overlay.prototype.showImage = function (src, options) {
   });
   if (options.title) {
     content.classList.add('ol-has-title');
-    ol.ext.element.create('P', { 
+    ol.ext.element.create('P', {
       html: options.title,
       parent: content
     });
@@ -6132,7 +6132,7 @@ ol.control.Overlay.prototype.hide = function () {
 };
 /** Toggle control visibility
 */
-ol.control.Overlay.prototype.toggle = function () {	
+ol.control.Overlay.prototype.toggle = function () {
   if (this.getVisible()) this.hide();
   else this.show();
 }
@@ -6150,13 +6150,13 @@ ol.control.Overlay.prototype.setClass = function (className) {
   this.element.className = ('ol-unselectable ol-overlay '+(vis ? 'ol-visible ' : '')+className).trim();
 };
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /**
  * OpenLayers 3 Layer Overview Control.
- * The overview can rotate with map. 
+ * The overview can rotate with map.
  * Zoom levels are configurable.
  * Click on the overview will center the map.
  * Change width/height of the overview trough css.
@@ -6240,7 +6240,7 @@ ol.control.Overview = function(options)
   this.ovmap_.addLayer(this.extentLayer);
   /** Elastic bounce
   *	@param {Int} bounce number of bounce
-  *	@param {Number} amplitude amplitude of the bounce [0,1] 
+  *	@param {Number} amplitude amplitude of the bounce [0,1]
   *	@return {Number}
   * /
   var bounceFn = function (bounce, amplitude){
@@ -6254,7 +6254,7 @@ ol.control.Overview = function(options)
   }
   /** Elastic bounce
   *	@param {Int} bounce number of bounce
-  *	@param {Number} amplitude amplitude of the bounce [0,1] 
+  *	@param {Number} amplitude amplitude of the bounce [0,1]
   *	@return {Number}
   */
   var elasticFn = function (bounce, amplitude) {
@@ -6378,12 +6378,12 @@ ol.control.Overview.prototype.setView = function(e){
     case 'center': {
       var mapExtent = this.getMap().getView().calculateExtent(this.getMap().getSize());
       var extent = this.oview_.calculateExtent(this.ovmap_.getSize());
-      if (mapExtent[0]<extent[0] || mapExtent[1]<extent[1] 
+      if (mapExtent[0]<extent[0] || mapExtent[1]<extent[1]
       || mapExtent[2]>extent[2] || mapExtent[3]>extent[3]){
-        this.oview_.setCenter(this.getMap().getView().getCenter()); 
+        this.oview_.setCenter(this.getMap().getView().getCenter());
       }
       break;
-    }	
+    }
     case 'resolution': {
       //var z = Math.round(this.getMap().getView().getZoom()/2)*2-4;
       var z = Math.round(this.oview_.getZoomForResolution(this.getMap().getView().getResolution())/2)*2-4;
@@ -6396,13 +6396,13 @@ ol.control.Overview.prototype.setView = function(e){
   this.calcExtent_();
 };
 
-/*	Copyright (c) 2015-2018 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2015-2018 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /**
  * Set an hyperlink that will return the user to the current map view.
- * Just add a `permalink`property to layers to be handled by the control (and added in the url). 
+ * Just add a `permalink`property to layers to be handled by the control (and added in the url).
  * The layer's permalink property is used to name the layer in the url.
  * The control must be added after all layer are inserted in the map to take them into acount.
  *
@@ -6476,7 +6476,7 @@ ol.control.Permalink.prototype.setMap = function(map) {
   }
   this._listener = null;
   ol.control.Control.prototype.setMap.call(this, map);
-  // Get change 
+  // Get change
   if (map) {
     this._listener = {
       change: map.getLayerGroup().on('change', this.layerChange_.bind(this)),
@@ -6502,7 +6502,7 @@ ol.control.Permalink.prototype.getLayerByLink =  function (id, layers) {
   }
   return false;
 };
-/** Set map position according to the current link 
+/** Set map position according to the current link
 */
 ol.control.Permalink.prototype.setPosition = function() {
   var map = this.getMap();
@@ -6582,7 +6582,7 @@ ol.control.Permalink.prototype.getUrlParam = function(key) {
 /**
  * Has a parameter url.
  * @param {string} key the key parameter
- * @return {boolean} 
+ * @return {boolean}
  * @api stable
  */
 ol.control.Permalink.prototype.hasUrlParam = function(key) {
@@ -6717,7 +6717,7 @@ ol.control.Print.prototype.print = function(options) {
   var quality = options.quality || this.get('quality');
   if (this.getMap()) {
     if (options.immediate !== 'silent') {
-      this.dispatchEvent(Object.assign({ 
+      this.dispatchEvent(Object.assign({
         type: 'printing',
       }, options));
     }
@@ -6749,7 +6749,7 @@ ol.control.Print.prototype.print = function(options) {
               ctx = canvas.getContext('2d');
               if (/jp.*g$/.test(imageType)) {
                 ctx.fillStyle = this.get('bgColor') || 'white';
-                ctx.fillRect(0,0,canvas.width,canvas.height);		
+                ctx.fillRect(0,0,canvas.width,canvas.height);
               }
             }
             ctx.save();
@@ -6788,7 +6788,7 @@ ol.control.Print.prototype.print = function(options) {
       }
       // get the canvas image
       var image;
-      try { 
+      try {
         image = canvas ? canvas.toDataURL(imageType, quality) : null;
       } catch(e) {
         // Fire error event
@@ -6799,7 +6799,7 @@ ol.control.Print.prototype.print = function(options) {
         return;
       }
       // Fire print event
-      var e = Object.assign({ 
+      var e = Object.assign({
         type: 'print',
         print: {
           format: format,
@@ -6820,7 +6820,7 @@ ol.control.Print.prototype.print = function(options) {
   }
 };
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -6911,7 +6911,7 @@ ol.control.Profil = function(opt_options)
 			t.cellSpacing = '0';
 			t.style.clientWidth = this.canvas_.width/ratio + "px";
 		div.appendChild(t);
-	
+
 	var secondTr = document.createElement("tr");
 			secondTr.classList.add("point-info")
 			t.appendChild(secondTr);
@@ -7055,9 +7055,9 @@ ol.control.Profil.prototype.setGeometry = function(g, options)
 	// No Z
 	if (!/Z/.test(g.getLayout())) return;
 	// No time
-	if(/M/.test(g.getLayout())) 
+	if(/M/.test(g.getLayout()))
 		this.element.querySelector(".slope").parentElement.style.display = 'block';
-	else 
+	else
 		this.element.querySelector(".slope").parentElement.style.display = 'block';
 	// Coords
 	var c = g.getCoordinates();
@@ -7105,13 +7105,13 @@ ol.control.Profil.prototype.setGeometry = function(g, options)
 	{	z = p[2];
 		if (z<zmin) zmin=z;
 		if (z>zmax) zmax=z;
-		if (i==0) 
+		if (i==0)
 			d = 0;
-		else 
+		else
 			d += dist2d(c[i-1], p);
-		if (i==0) 
+		if (i==0)
 			sl = 0;
-		else 
+		else
 			sl = Math.abs(getSlope(c[i-1], p)).toFixed(2);
 		t.push ([d, z, sl, p]);
 	}
@@ -7192,7 +7192,7 @@ ol.control.Profil.prototype.setGeometry = function(g, options)
 	ctx.fillText(this.info.ytitle, h/2, -this.margin_.left);
 	ctx.restore();
 	ctx.stroke();
-	// 
+	//
 	ctx.strokeStyle = "#f15511";
 	ctx.lineWidth = 4;
 	ctx.setLineDash([]);
@@ -7477,7 +7477,7 @@ ol.control.RoutingGeoportail.prototype.handleResponse = function (data, start, e
   routing.feature = new ol.Feature ({
     geometry: route.transform('EPSG:4326',this.getMap().getView().getProjection()),
     start: this._search[0].getTitle(start),
-    end: this._search[0].getTitle(end), 
+    end: this._search[0].getTitle(end),
     distance: routing.distance,
     duration: routing.duration
   });
@@ -7487,7 +7487,7 @@ ol.control.RoutingGeoportail.prototype.handleResponse = function (data, start, e
   return routing;
 };
 /** Calculate route
- * 
+ *
  */
 ol.control.RoutingGeoportail.prototype.calculate = function () {
   console.log('calculate')
@@ -7507,7 +7507,7 @@ ol.control.RoutingGeoportail.prototype.calculate = function () {
     if (data.hasOwnProperty(index)) parameters += index + '=' + data[index];
   }
   var self = this;
-  this.ajax(url + parameters, 
+  this.ajax(url + parameters,
     function (resp) {
       if (resp.status >= 200 && resp.status < 400) {
         self.listRouting(self.handleResponse (JSON.parse(resp.response), start, end));
@@ -7517,7 +7517,7 @@ ol.control.RoutingGeoportail.prototype.calculate = function () {
     }, function(){
       console.log(url + parameters, arguments);
     });
-};	
+};
 /** Send an ajax request (GET)
  * @param {string} url
  * @param {function} onsuccess callback
@@ -7718,7 +7718,7 @@ ol.control.SearchBAN.prototype.select = function (f){
   this.dispatchEvent({ type:"select", search:f, coordinate: c });
 };
 
-/*	Copyright (c) 2017 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2017 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -7728,7 +7728,7 @@ ol.control.SearchBAN.prototype.select = function (f){
  * @constructor
  * @extends {ol.control.Search}
  * @fires select
- * @param {Object=} Control options. 
+ * @param {Object=} Control options.
  *	@param {string} options.className control class name
  *	@param {Element | string | undefined} options.target Specify a target if you want the control to be rendered outside of the map's viewport.
  *	@param {string | undefined} options.label Text label to use for the search button, default "search"
@@ -7738,7 +7738,7 @@ ol.control.SearchBAN.prototype.select = function (f){
  *	@param {integer | undefined} options.maxItems maximum number of items to display in the autocomplete list, default 10
  *
  *	@param {string | undefined} options.property a property to display in the index, default 'name'.
- *	@param {function} options.getTitle a function that takes a feature and return the name to display in the index, default return the property 
+ *	@param {function} options.getTitle a function that takes a feature and return the name to display in the index, default return the property
  *	@param {function | undefined} options.getSearchString a function that take a feature and return a text to be used as search string, default geTitle() is used as search string
  */
 ol.control.SearchDFCI = function(options) {
@@ -7788,7 +7788,7 @@ ol.control.SearchDFCI.prototype.autocomplete = function (s) {
   return result;
 };
 
-/*	Copyright (c) 2017 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2017 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -7798,7 +7798,7 @@ ol.control.SearchDFCI.prototype.autocomplete = function (s) {
  * @constructor
  * @extends {ol.control.Search}
  * @fires select
- * @param {Object=} Control options. 
+ * @param {Object=} Control options.
  *	@param {string} options.className control class name
  *	@param {Element | string | undefined} options.target Specify a target if you want the control to be rendered outside of the map's viewport.
  *	@param {string | undefined} options.label Text label to use for the search button, default "search"
@@ -7808,7 +7808,7 @@ ol.control.SearchDFCI.prototype.autocomplete = function (s) {
  *	@param {integer | undefined} options.maxItems maximum number of items to display in the autocomplete list, default 10
  *
  *	@param {string | undefined} options.property a property to display in the index, default 'name'.
- *	@param {function} options.getTitle a function that takes a feature and return the name to display in the index, default return the property 
+ *	@param {function} options.getTitle a function that takes a feature and return the name to display in the index, default return the property
  *	@param {function | undefined} options.getSearchString a function that take a feature and return a text to be used as search string, default geTitle() is used as search string
  */
 ol.control.SearchFeature = function(options) {
@@ -7862,7 +7862,7 @@ ol.control.SearchFeature.prototype.setSource = function (source) {
 };
 /** Autocomplete function
 * @param {string} s search string
-* @param {int} max max 
+* @param {int} max max
 * @param {function} cback a callback function that takes an array to display in the autocomplete field (for asynchronous search)
 * @return {Array<any>|false} an array of search solutions or false if the array is send with the cback argument (asnchronous)
 * @api
@@ -7887,7 +7887,7 @@ ol.control.SearchFeature.prototype.autocomplete = function (s) {
   return result;
 };
 
-/*	Copyright (c) 2019 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2019 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -7897,7 +7897,7 @@ ol.control.SearchFeature.prototype.autocomplete = function (s) {
  * @constructor
  * @extends {ol.control.Search}
  * @fires select
- * @param {Object=} Control options. 
+ * @param {Object=} Control options.
  *  @param {string} options.className control class name
  *  @param {Element | string | undefined} options.target Specify a target if you want the control to be rendered outside of the map's viewport.
  *  @param {string | undefined} options.label Text label to use for the search button, default "search"
@@ -8068,7 +8068,7 @@ ol.control.SearchGPS.prototype.autocomplete = function (s) {
   // Name
   s = ol.coordinate.toStringHDMS(c)
   if (s) s= s.replace(/(°|′|″) /g,'$1');
-  // 
+  //
   var coord = ol.proj.transform ([c[0], c[1]], 'EPSG:4326', this.getMap().getView().getProjection());
   result.push({ gps: c, coordinate: coord, name: s });
   return result;
@@ -8161,7 +8161,7 @@ ol.control.SearchGeoportailParcelle = function(options) {
   ul = document.createElement('UL');
   ul.classList.add('autocomplete-page');
   auto.appendChild(ul);
-  // Show/hide list on fcus/blur	
+  // Show/hide list on fcus/blur
   this._input.addEventListener('blur', function() {
     setTimeout(function(){ element.classList.add('ol-collapsed-list') }, 200);
   });
@@ -8179,8 +8179,8 @@ ol.control.SearchGeoportailParcelle = function(options) {
   this.set('pageSize', options.pageSize || 5);
 };
 ol.ext.inherits(ol.control.SearchGeoportailParcelle, ol.control.SearchGeoportail);
-/** Select a commune => start searching parcelle  
- * @param {any} e 
+/** Select a commune => start searching parcelle
+ * @param {any} e
  * @private
  */
 ol.control.SearchGeoportailParcelle.prototype.selectCommune = function(e) {
@@ -8214,10 +8214,10 @@ ol.control.SearchGeoportailParcelle.prototype.activateParcelle = function(b) {
   if (b) {
     this._inputParcelle.section.parentElement.classList.add('ol-active');
   } else {
-    this._inputParcelle.section.parentElement.classList.remove('ol-active');		
+    this._inputParcelle.section.parentElement.classList.remove('ol-active');
   }
 };
-/** Send search request for the parcelle  
+/** Send search request for the parcelle
  * @private
  */
 ol.control.SearchGeoportailParcelle.prototype.autocompleteParcelle = function() {
@@ -8238,7 +8238,7 @@ ol.control.SearchGeoportailParcelle.prototype.autocompleteParcelle = function() 
   var section = complete (this._inputParcelle.section.value, 2);
   var numero = complete (this._inputParcelle.numero.value, 4, "0");
   var search = commune + (prefix||'___') + (section||"__") + (numero ?  numero : section ? "____":"0001");
-  this.searchParcelle(search, 
+  this.searchParcelle(search,
     function(jsonResp) {
       this._listParcelle(jsonResp);
     }.bind(this),
@@ -8266,7 +8266,7 @@ ol.control.SearchGeoportailParcelle.prototype.searchParcelle = function(search, 
   +'</XLS>'
   // Geocode
   this.ajax(
-    this.get('url').replace('ols/apis/completion','geoportail/ols'), 
+    this.get('url').replace('ols/apis/completion','geoportail/ols'),
     { xls: request },
     function(xml) {
       // XML to JSON
@@ -8278,8 +8278,8 @@ ol.control.SearchGeoportailParcelle.prototype.searchParcelle = function(search, 
         var node = parc.getElementsByTagName('gml:pos')[0] || parc.getElementsByTagName('pos')[0];
         var p = node.childNodes[0].nodeValue.split(' ');
         var att = parc.getElementsByTagName('Place');
-        var json = { 
-          lon: Number(p[1]), 
+        var json = {
+          lon: Number(p[1]),
           lat: Number(p[0])
         };
         for (var k=0, a; a=att[k]; k++) {
@@ -8288,13 +8288,13 @@ ol.control.SearchGeoportailParcelle.prototype.searchParcelle = function(search, 
         jsonResp.push(json);
       }
       success(jsonResp);
-    }, 
+    },
     { dataType: 'XML' }
   );
 };
 /**
  * Draw the autocomplete list
- * @param {*} resp 
+ * @param {*} resp
  * @private
  */
 ol.control.SearchGeoportailParcelle.prototype._listParcelle = function(resp) {
@@ -8350,13 +8350,13 @@ ol.control.SearchGeoportailParcelle.prototype._listParcelle = function(resp) {
 };
 /**
  * Handle parcelle section
- * @param {*} parc 
+ * @param {*} parc
  * @private
  */
 ol.control.SearchGeoportailParcelle.prototype._handleParcelle = function(parc) {
-  this.dispatchEvent({ 
-    type:"parcelle", 
-    search: parc, 
+  this.dispatchEvent({
+    type:"parcelle",
+    search: parc,
     coordinate: ol.proj.fromLonLat([parc.lon, parc.lat], this.getMap().getView().getProjection())
   });
 };
@@ -8411,16 +8411,16 @@ ol.control.SearchNominatim.prototype.getTitle = function (f) {
   if (f.icon) title = "<img src='"+f.icon+"' />" + title;
   return (title);
 };
-/** 
+/**
  * @param {string} s the search string
  * @return {Object} request data (as key:value)
  * @api
  */
 ol.control.SearchNominatim.prototype.requestData = function (s) {
-  var data = { 
-    format: "json", 
-    addressdetails: 1, 
-    q: s, 
+  var data = {
+    format: "json",
+    addressdetails: 1,
+    q: s,
     polygon_geojson: this.get('polygon') ? 1:0,
     bounded: this.get('bounded') ? 1:0,
     limit: this.get('maxItems')
@@ -8480,7 +8480,7 @@ ol.control.SearchNominatim.prototype.reverseGeocode = function (coord, cback) {
  *  @param {integer | undefined} options.minLength minimum length to start searching, default 3
  *  @param {integer | undefined} options.maxItems maximum number of items to display in the autocomplete list, default 10
  *  @param {function | undefined} options.handleResponse Handle server response to pass the features array to the list
- * 
+ *
  *  @param {string|undefined} options.lang API language, default none
  */
 ol.control.SearchWikipedia = function(options){
@@ -8513,7 +8513,7 @@ ol.control.SearchWikipedia.prototype.setLang = function (lang){
   this.set('lang', lang)
   this.set('url', 'https://'+lang+'.wikipedia.org/w/api.php');
 };
-/** 
+/**
  * @param {string} s the search string
  * @return {Object} request data (as key:value)
  * @api
@@ -8838,7 +8838,7 @@ ol.control.Select.prototype.doSelect = function (options) {
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /**
- * Select features by property using a popup 
+ * Select features by property using a popup
  *
  * @constructor
  * @extends {ol.control.SelectBase}
@@ -8906,13 +8906,13 @@ ol.control.SelectCheck.prototype.doSelect = function(options) {
     }
   }.bind(this));
   if (!conditions.length) {
-    return ol.control.SelectBase.prototype.doSelect.call(this, { 
-      features: options.features, 
-      matchAll: this._selectAll 
+    return ol.control.SelectBase.prototype.doSelect.call(this, {
+      features: options.features,
+      matchAll: this._selectAll
     });
   } else {
     return ol.control.SelectBase.prototype.doSelect.call(this, {
-      features: options.features, 
+      features: options.features,
       conditions: conditions
     })
   }
@@ -8966,7 +8966,7 @@ ol.control.SelectCheck.prototype.setValues = function(options) {
       name: id,
       type: (this.get('type')==='radio' ? 'radio' : 'checkbox'),
       value: val,
-      change: function () { 
+      change: function () {
         if (this._onchoice) this._onchoice()
         else this.doSelect();
       }.bind(this),
@@ -8986,7 +8986,7 @@ ol.control.SelectCheck.prototype.setValues = function(options) {
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /**
- * Select features by property using a condition 
+ * Select features by property using a condition
  *
  * @constructor
  * @extends {ol.control.SelectBase}
@@ -8997,7 +8997,7 @@ ol.control.SelectCheck.prototype.setValues = function(options) {
  *  @param {ol/source/Vector | Array<ol/source/Vector>} options.source the source to search in
  *  @param {string} options.label control label, default 'condition'
  *  @param {number} options.selectAll select all features if no option selected
- *  @param {condition|Array<condition>} options.condition conditions 
+ *  @param {condition|Array<condition>} options.condition conditions
  *  @param {function|undefined} options.onchoice function triggered when an option is clicked, default doSelect
  */
 ol.control.SelectCondition = function(options) {
@@ -9009,7 +9009,7 @@ ol.control.SelectCondition = function(options) {
   });
   this._check = ol.ext.element.create('INPUT', {
     type: 'checkbox',
-    change: function () { 
+    change: function () {
       if (this._onchoice) this._onchoice()
       else this.doSelect();
     }.bind(this),
@@ -9123,8 +9123,8 @@ ol.control.SelectFulltext.prototype.doSelect= function(options) {
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /**
- * A multiselect control. 
- * A container that manage other control Select 
+ * A multiselect control.
+ * A container that manage other control Select
  *
  * @constructor
  * @extends {ol.control.SelectBase}
@@ -9206,7 +9206,7 @@ ol.control.SelectMulti.prototype.doSelect = function() {
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /**
- * Select features by property using a popup 
+ * Select features by property using a popup
  *
  * @constructor
  * @extends {ol.control.SelectBase}
@@ -9232,7 +9232,7 @@ ol.control.SelectPopup = function(options) {
     });
   }
   this._input = ol.ext.element.create('SELECT', {
-    on: { change: function () { 
+    on: { change: function () {
       if (this._onchoice) this._onchoice();
       else this.doSelect();
     }.bind(this) },
@@ -9265,7 +9265,7 @@ ol.control.SelectPopup.prototype.doSelect = function(options) {
     return ol.control.SelectBase.prototype.doSelect.call(this, { features: options.features, matchAll: this._selectAll });
   } else {
     return ol.control.SelectBase.prototype.doSelect.call(this, {
-      features: options.features, 
+      features: options.features,
       conditions: [{
         attr: this.get('property'),
         op: '=',
@@ -9413,7 +9413,7 @@ ol.control.Status.prototype.isShown = function() {
  *	@param {Element | string | undefined} options.target The target element to place the story. If no html is provided the content of the target will be used.
  */
 ol.control.Storymap = function(options) {
-  // Remove or get target content 
+  // Remove or get target content
   if (options.target) {
     if (!options.html) {
       options.html = options.target.innerHTML;
@@ -9438,12 +9438,12 @@ ol.control.Storymap = function(options) {
           e.preventDefault();
         } else {
           if (e.target.tagName==='IMG' && e.target.dataset.title) {
-            this.dispatchEvent({ 
+            this.dispatchEvent({
               coordinate: this.getMap() ? this.getMap().getCoordinateFromPixel([e.layerX,e.layerY]) : null,
-              type: 'clickimage', 
-              img: e.target, 
-              title: e.target.dataset.title, 
-              element: c, 
+              type: 'clickimage',
+              img: e.target,
+              title: e.target.dataset.title,
+              element: c,
               name: c.getAttribute('name'),
               originalEvent: e
             });
@@ -9465,7 +9465,7 @@ ol.control.Storymap = function(options) {
   // Scroll to the next chapter
   var sc = this.element.querySelectorAll('.ol-scroll-next');
   sc.forEach(function(s) {
-    s.addEventListener('click', function(e) { 
+    s.addEventListener('click', function(e) {
       if (s.parentElement.classList.contains('ol-select')) {
         var chapter = this.element.querySelectorAll('.chapter');
         var scrollto = s.offsetTop;
@@ -9481,10 +9481,10 @@ ol.control.Storymap = function(options) {
       }
     }.bind(this));
   }.bind(this));
-  // Scroll top 
+  // Scroll top
   sc = this.element.querySelectorAll('.ol-scroll-top');
   sc.forEach(function(i) {
-    i.addEventListener('click', function(e){ 
+    i.addEventListener('click', function(e){
       this.element.scrollTop = 0;
       e.stopPropagation();
       e.preventDefault();
@@ -9495,9 +9495,9 @@ ol.control.Storymap = function(options) {
       parseFloat(currentDiv.getAttribute('data-lat'))];
     var coord = ol.proj.fromLonLat(lonlat, this.getMap().getView().getProjection());
     var zoom = parseFloat(currentDiv.getAttribute('data-zoom'));
-    return { 
-      type: 'scrollto', 
-      element: currentDiv, 
+    return {
+      type: 'scrollto',
+      element: currentDiv,
       name: currentDiv.getAttribute('name'),
       coordinate: coord,
       lon: lonlat,
@@ -9771,7 +9771,7 @@ ol.control.Swipe.prototype.postcompose = function(e) {
   e.context.restore();
 };
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -9800,14 +9800,14 @@ ol.control.Target = function(options) {
 };
 ol.ext.inherits(ol.control.Target, ol.control.CanvasBase);
 /** Set the control visibility
- * @paraam {boolean} b 
+ * @paraam {boolean} b
  */
 ol.control.Target.prototype.setVisible = function (b) {
   this.set("visible",b);
 	if (this.getMap()) this.getMap().renderSync();
 };
 /** Get the control visibility
- * @return {boolean} b 
+ * @return {boolean} b
  */
 ol.control.Target.prototype.getVisible = function () {
   return this.get("visible");
@@ -9841,7 +9841,7 @@ ol.control.Target.prototype._draw = function (e) {
             }
           }
           vectorContext = ol.render.getVectorContext(event);
-        } 
+        }
         vectorContext.setStyle(style);
         vectorContext.drawGeometry(geom);
       }
@@ -9883,8 +9883,8 @@ ol.ext.inherits(ol.control.TextButton, ol.control.Button);
  *	@param {ol.SourceImageOptions.vector} options.source class of the control
  *	@param {Number} options.interval time interval length in ms or a text with a format d, h, mn, s (31 days = '31d'), default none
  *	@param {String} options.maxWidth width of the time line in px, default 2000px
- *	@param {String} options.minDate minimum date 
- *	@param {String} options.maxDate maximum date 
+ *	@param {String} options.minDate minimum date
+ *	@param {String} options.maxDate maximum date
  *	@param {Number} options.minZoom Minimum zoom for the line, default .2
  *	@param {Number} options.maxZoom Maximum zoom for the line, default 4
  *	@param {boolean} options.zoomButton Are zoom buttons avaliable, default false
@@ -9964,10 +9964,10 @@ ol.control.Timeline = function(options) {
       scrollListener = null;
     }
     scrollListener = setTimeout(function() {
-      this.dispatchEvent({ 
-        type: 'scroll', 
-        date: this.getDate(), 
-        dateStart: this.getDate('start'), 
+      this.dispatchEvent({
+        type: 'scroll',
+        date: this.getDate(),
+        dateStart: this.getDate('start'),
         dateEnd: this.getDate('end')
       });
     }.bind(this), options.scrollTimeout || 15);
@@ -9978,7 +9978,7 @@ ol.control.Timeline = function(options) {
   ol.ext.element.scrollDiv(this._scrollDiv, {
     onmove: function(b) {
       // Prevent selection on moving
-      this._moving = b; 
+      this._moving = b;
     }.bind(this)
   });
   this._tline = [];
@@ -9993,7 +9993,7 @@ ol.control.Timeline = function(options) {
   if (options.getHTML) this._getHTML =  options.getHTML;
   if (options.getFeatureDate) this._getFeatureDate =  options.getFeatureDate;
   if (options.endFeatureDate) this._endFeatureDate =  options.endFeatureDate;
-  // Feature source 
+  // Feature source
   this.setFeatures(options.features || options.source, options.zoom);
 };
 ol.ext.inherits(ol.control.Timeline, ol.control.Control);
@@ -10143,7 +10143,7 @@ ol.control.Timeline.prototype.refresh = function(zoom, first) {
       }
     }
   }.bind(this));
-  tline.sort(function(a,b) { 
+  tline.sort(function(a,b) {
     return (a.date < b.date ? -1 : (a.date===b.date ? 0: 1))
   });
   // Draw
@@ -10199,9 +10199,9 @@ ol.control.Timeline.prototype.refresh = function(zoom, first) {
     }
     // Calculate image width
     if (f.end) {
-      ol.ext.element.setStyle(t, { 
-        minWidth: (f.end-d) * scale, 
-        width: (f.end-d) * scale, 
+      ol.ext.element.setStyle(t, {
+        minWidth: (f.end-d) * scale,
+        width: (f.end-d) * scale,
         maxWidth: 'unset'
       });
     }
@@ -10225,10 +10225,10 @@ ol.control.Timeline.prototype.refresh = function(zoom, first) {
   this._nbline = line.length;
   if (first) this.setDate(this._minDate, { anim: false, position: 'start' });
   // Dispatch scroll event
-  this.dispatchEvent({ 
-    type: 'scroll', 
-    date: this.getDate(), 
-    dateStart: this.getDate('start'), 
+  this.dispatchEvent({
+    type: 'scroll',
+    date: this.getDate(),
+    dateStart: this.getDate('start'),
     dateEnd: this.getDate('end')
   });
 };
@@ -10530,7 +10530,7 @@ ol.control.Toggle.prototype.toggle = function() {
 /** Change control state
  * @param {bool} b activate or deactivate the control, default false
  */
-ol.control.Toggle.prototype.setActive = function(b) {	
+ol.control.Toggle.prototype.setActive = function(b) {
   if (this.interaction_) this.interaction_.setActive (b);
   if (this.subbar_) this.subbar_.setActive(b);
   if (this.getActive()===b) return;
@@ -10552,7 +10552,7 @@ ol.control.Toggle.prototype.getInteraction = function() {
 };
 
 /*
-  Copyright (c) 2016 Jean-Marc VIGLINO, 
+  Copyright (c) 2016 Jean-Marc VIGLINO,
   released under the CeCILL license (http://www.cecill.info/).
 */
 /** Feature animation base class
@@ -10565,8 +10565,8 @@ ol.control.Toggle.prototype.getInteraction = function() {
 *	@param {bool} options.revers revers the animation direction
 *	@param {Number} options.repeat number of time to repeat the animation, default 0
 *	@param {oo.style.Style} options.hiddenStyle a style to display the feature when playing the animation
-*	  to be used to make the feature selectable when playing animation 
-*	  (@see {@link ../examples/map.featureanimation.select.html}), default the feature 
+*	  to be used to make the feature selectable when playing animation
+*	  (@see {@link ../examples/map.featureanimation.select.html}), default the feature
 *	  will be hidden when playing (and niot selectable)
 *	@param {ol.easing.Function} options.fade an easing function used to fade in the feature, default none
 *	@param {ol.easing.Function} options.easing an easing function for the animation, default ol.easing.linear
@@ -10583,7 +10583,7 @@ ol.featureAnimation = function(options) {
   ol.Object.call(this);
 };
 ol.ext.inherits(ol.featureAnimation, ol.Object);
-/** Draw a geometry 
+/** Draw a geometry
 * @param {olx.animateFeatureEvent} e
 * @param {ol.geom} geom geometry for shadow
 * @param {ol.geom} shadow geometry for shadow (ie. style with zIndex = -1)
@@ -10604,18 +10604,18 @@ ol.featureAnimation.prototype.drawGeom_ = function (e, geom, shadow) {
     } catch(e) { /* ok */ }
   }
 };
-/** Function to perform manipulations onpostcompose. 
+/** Function to perform manipulations onpostcompose.
  * This function is called with an ol.featureAnimationEvent argument.
- * The function will be overridden by the child implementation.    
+ * The function will be overridden by the child implementation.
  * Return true to keep this function for the next frame, false to remove it.
  * @param {ol.featureAnimationEvent} e
  * @return {bool} true to continue animation.
- * @api 
+ * @api
  */
 ol.featureAnimation.prototype.animate = function (/* e */) {
   return false;
 };
-/** An animation controler object an object to control animation with start, stop and isPlaying function.    
+/** An animation controler object an object to control animation with start, stop and isPlaying function.
  * To be used with {@link olx.Map#animateFeature} or {@link ol.layer.Vector#animateFeature}
  * @typedef {Object} ol.animationControler
  * @property {function} start - start animation.
@@ -10623,7 +10623,7 @@ ol.featureAnimation.prototype.animate = function (/* e */) {
  * @property {function} isPlaying - return true if animation is playing.
  */
 /** Animate feature on a map
- * @function 
+ * @function
  * @fires animationstart, animationend
  * @param {ol.Feature} feature Feature to animate
  * @param {ol.featureAnimation|Array<ol.featureAnimation>} fanim the animation to play
@@ -10646,7 +10646,7 @@ ol.Map.prototype.animateFeature = function(feature, fanim) {
   }
   animLayer(this.getLayers().getArray());
 };
-/** Animate feature on a vector layer 
+/** Animate feature on a vector layer
  * @fires animationstart, animationend
  * @param {ol.Feature} feature Feature to animate
  * @param {ol.featureAnimation|Array<ol.featureAnimation>} fanim the animation to play
@@ -10741,7 +10741,7 @@ ol.layer.Base.prototype.animateFeature = function(feature, fanim, useFilter) {
     var event = { type:'animationend', feature: feature };
     if (options) {
       for (var i in options) if (options.hasOwnProperty(i)) {
-        event[i] = options[i]; 
+        event[i] = options[i];
       }
     }
     fanim[step].dispatchEvent(event);
@@ -10760,7 +10760,7 @@ ol.layer.Base.prototype.animateFeature = function(feature, fanim, useFilter) {
       var event = { type:'animationstart', feature: feature };
       if (options) {
         for (var i in options) if (options.hasOwnProperty(i)) {
-          event[i] = options[i]; 
+          event[i] = options[i];
         }
       }
       fanim[step].dispatchEvent(event);
@@ -10777,10 +10777,10 @@ ol.layer.Base.prototype.animateFeature = function(feature, fanim, useFilter) {
 };
 
 /*
-	Copyright (c) 2016 Jean-Marc VIGLINO, 
+	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL license (http://www.cecill.info/).
 */
-/** Bounce animation: 
+/** Bounce animation:
  * @constructor
  * @extends {ol.featureAnimation}
  * @param {ol.featureAnimationBounceOptions} options
@@ -10813,7 +10813,7 @@ ol.featureAnimation.Bounce.prototype.animate = function (e)
 }
 
 /*
-	Copyright (c) 2016 Jean-Marc VIGLINO, 
+	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL license (http://www.cecill.info/).
 */
 /** Drop animation: drop a feature on the map
@@ -10835,20 +10835,20 @@ ol.ext.inherits(ol.featureAnimation.Drop, ol.featureAnimation);
 */
 ol.featureAnimation.Drop.prototype.animate = function (e)
 {	// First time > calculate duration / speed
-	if (!e.time) 
+	if (!e.time)
 	{	var angle = e.frameState.viewState.rotation;
 		var s = e.frameState.size[1] * e.frameState.viewState.resolution;
 		if (this.side_!='top') s *= -1;
 		this.dx = -Math.sin(angle)*s;
 		this.dy = Math.cos(angle)*s;
-		if (this.speed_) 
+		if (this.speed_)
 		{	this.duration_ = s/this.speed_/e.frameState.viewState.resolution;
 		}
 	}
 	// Animate
 	var flashGeom = e.geom.clone();
 	flashGeom.translate(
-		this.dx*(1-this.easing_(e.elapsed)),  
+		this.dx*(1-this.easing_(e.elapsed)),
 		this.dy*(1-this.easing_(e.elapsed))
 	);
 	this.drawGeom_(e, flashGeom, e.geom);
@@ -10856,7 +10856,7 @@ ol.featureAnimation.Drop.prototype.animate = function (e)
 }
 
 /*
-	Copyright (c) 2016 Jean-Marc VIGLINO, 
+	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL license (http://www.cecill.info/).
 */
 /** Fade animation: feature fade in
@@ -10880,14 +10880,14 @@ ol.featureAnimation.Fade.prototype.animate = function (e)
 }
 
 /*
-	Copyright (c) 2016 Jean-Marc VIGLINO, 
+	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL license (http://www.cecill.info/).
 */
 /** Do nothing for a given duration
  * @constructor
  * @extends {ol.featureAnimation}
  * @param {ol.featureAnimationShowOptions} options
- * 
+ *
  */
 ol.featureAnimation.None = function(options)
 {	ol.featureAnimation.call(this, options);
@@ -10897,15 +10897,15 @@ ol.ext.inherits(ol.featureAnimation.None, ol.featureAnimation);
 * @param {ol.featureAnimationEvent} e
 */
 ol.featureAnimation.None.prototype.animate = function (e)
-{	
+{
 	return (e.time <= this.duration_);
 };
 
 /*
-  Copyright (c) 2016 Jean-Marc VIGLINO, 
+  Copyright (c) 2016 Jean-Marc VIGLINO,
   released under the CeCILL license (http://www.cecill.info/).
 */
-/** Do nothing 
+/** Do nothing
  * @constructor
  * @extends {ol.featureAnimation}
  */
@@ -10915,7 +10915,7 @@ ol.featureAnimation.Null = function() {
 ol.ext.inherits(ol.featureAnimation.Null, ol.featureAnimation);
 
 /*
-	Copyright (c) 2016-2018 Jean-Marc VIGLINO, 
+	Copyright (c) 2016-2018 Jean-Marc VIGLINO,
 	released under the CeCILL license (http://www.cecill.info/).
 */
 /** Path animation: feature follow a path
@@ -10932,7 +10932,7 @@ ol.featureAnimation.Path = function(options)
 	this.speed_ = options.speed || 0;
 	this.path_ = options.path;
 	switch (options.rotate) {
-		case true: 
+		case true:
 		case 0:
 			this.rotate_ = 0;
 			break;
@@ -10954,8 +10954,8 @@ ol.ext.inherits(ol.featureAnimation.Path, ol.featureAnimation);
 * @param {ol.featureAnimationEvent} e
 */
 ol.featureAnimation.Path.prototype.animate = function (e)
-{	// First time 
-	if (!e.time) 
+{	// First time
+	if (!e.time)
 	{	if (!this.dist_) return false;
 	}
 	var dmax = this.dist_*this.easing_(e.elapsed);
@@ -10968,7 +10968,7 @@ ol.featureAnimation.Path.prototype.animate = function (e)
 		dx = p[0]-p0[0];
 		dy = p[1]-p0[1];
 		dl = Math.sqrt(dx*dx+dy*dy);
-		if (dl && d+dl>=dmax) 
+		if (dl && d+dl>=dmax)
 		{	s = (dmax-d)/dl;
 			p = [ p0[0] + (p[0]-p0[0])*s, p0[1] + (p[1]-p0[1])*s];
 			break;
@@ -10991,10 +10991,10 @@ ol.featureAnimation.Path.prototype.animate = function (e)
 }
 
 /*
-	Copyright (c) 2016 Jean-Marc VIGLINO, 
+	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL license (http://www.cecill.info/).
 */
-/** Shakee animation: 
+/** Shakee animation:
  * @constructor
  * @extends {ol.featureAnimation}
  * @param {ol.featureAnimationShakeOptions} options
@@ -11020,7 +11020,7 @@ ol.featureAnimation.Shake.prototype.animate = function (e)
 	var shadow = e.geom.clone();
 	var t = this.easing_(e.elapsed)
 	t = Math.sin(this.bounce_*t) * this.amplitude_ * (1-t) * e.frameState.viewState.resolution;
-	if (this.horizontal_) 
+	if (this.horizontal_)
 	{	flashGeom.translate(t, 0);
 		shadow.translate(t, 0);
 	}
@@ -11030,7 +11030,7 @@ ol.featureAnimation.Shake.prototype.animate = function (e)
 }
 
 /*
-	Copyright (c) 2016 Jean-Marc VIGLINO, 
+	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL license (http://www.cecill.info/).
 */
 /** Show an object for a given duration
@@ -11046,13 +11046,13 @@ ol.ext.inherits(ol.featureAnimation.Show, ol.featureAnimation);
 * @param {ol.featureAnimationEvent} e
 */
 ol.featureAnimation.Show.prototype.animate = function (e)
-{	
+{
 	this.drawGeom_(e, e.geom);
 	return (e.time <= this.duration_);
 }
 
 /*
-	Copyright (c) 2016 Jean-Marc VIGLINO, 
+	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL license (http://www.cecill.info/).
 */
 /** Slice animation: feature enter from left
@@ -11073,7 +11073,7 @@ ol.ext.inherits(ol.featureAnimation.Slide, ol.featureAnimation);
 */
 ol.featureAnimation.Slide.prototype.animate = function (e)
 {	// First time > calculate duration / speed
-	if (!e.time) 
+	if (!e.time)
 	{	if (this.side_=='left') this.dx = (e.extent[0]-e.bbox[2])
 		else this.dx = (e.extent[2]-e.bbox[0])
 		if (this.speed_) this.duration_ = Math.abs(this.dx)/this.speed_/e.frameState.viewState.resolution;
@@ -11086,7 +11086,7 @@ ol.featureAnimation.Slide.prototype.animate = function (e)
 }
 
 /*
-	Copyright (c) 2016 Jean-Marc VIGLINO, 
+	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL license (http://www.cecill.info/).
 */
 /** Teleport a feature at a given place
@@ -11119,7 +11119,7 @@ ol.featureAnimation.Teleport.prototype.animate = function (e)
 }
 
 /*
-	Copyright (c) 2016 Jean-Marc VIGLINO, 
+	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL license (http://www.cecill.info/).
 */
 /** Slice animation: feature enter from left
@@ -11140,7 +11140,7 @@ ol.ext.inherits(ol.featureAnimation.Throw, ol.featureAnimation);
 */
 ol.featureAnimation.Throw.prototype.animate = function (e)
 {	// First time > calculate duration / speed
-	if (!e.time && this.speed_) 
+	if (!e.time && this.speed_)
 	{	var dx, dy;
 		if (this.side_=='left')
 		{	dx = this.dx = e.extent[0]-e.bbox[2];
@@ -11155,7 +11155,7 @@ ol.featureAnimation.Throw.prototype.animate = function (e)
 	// Animate
 	var flashGeom = e.geom.clone();
 	var shadow = e.geom.clone();
-	flashGeom.translate(this.dx*(1-this.easing_(e.elapsed)), 
+	flashGeom.translate(this.dx*(1-this.easing_(e.elapsed)),
 		this.dy*Math.cos(Math.PI/2*this.easing_(e.elapsed)));
 	shadow.translate(this.dx*(1-this.easing_(e.elapsed)), 0);
 	this.drawGeom_(e, flashGeom, shadow);
@@ -11163,7 +11163,7 @@ ol.featureAnimation.Throw.prototype.animate = function (e)
 }
 
 /*
-  Copyright (c) 2016 Jean-Marc VIGLINO, 
+  Copyright (c) 2016 Jean-Marc VIGLINO,
   released under the CeCILL license (http://www.cecill.info/).
 */
 /** Zoom animation: feature zoom in (for points)
@@ -11231,16 +11231,16 @@ ol.featureAnimation.Zoom.prototype.animate = function (e) {
   return (e.time <= this.duration_);
 }
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /* Namespace */
 ol.filter = {};
 /**
- * @classdesc 
- * Abstract base class; normally only used for creating subclasses and not instantiated in apps.    
- * Used to create filters    
+ * @classdesc
+ * Abstract base class; normally only used for creating subclasses and not instantiated in apps.
+ * Used to create filters
  * Use {@link _ol_Map_#addFilter}, {@link _ol_Map_#removeFilter} or {@link _ol_Map_#getFilters} to handle filters on a map.
  * Use {@link ol.layer.Base#addFilter}, {@link ol.layer.Base#removeFilter} or {@link ol.layer.Base#getFilters}
  * to handle filters on layers.
@@ -11291,7 +11291,7 @@ function postcompose_(e) {
 */
 function filterRedraw_() {
   if (this.renderSync) this.renderSync();
-  else this.changed(); 
+  else this.changed();
 }
 /** Add a filter to an ol object
 * @this {ol.Map|ol.layer.Layer} this: the map or layer the filter is added to
@@ -11363,7 +11363,7 @@ ol.layer.Base.prototype.getFilters = function () {
 };
 })();
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -11451,7 +11451,7 @@ ol.filter.Mask.prototype.postcompose = function(e) {
   ctx.restore();
 }
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -11496,37 +11496,37 @@ ol.filter.Clip.prototype.clipPath_ = function(e)
 	if (!coords) return;
 	var ex = this.get('extent');
 	var scx = 1, scy = 1;
-	if (this.get("units")=="%") 
+	if (this.get("units")=="%")
 	{	scx = canvas.width/(ex[2]-ex[0]);
 		scy = canvas.height/(ex[3]-ex[1]);
 	}
-	if (this.get("keepAspectRatio")) 
+	if (this.get("keepAspectRatio"))
 	{	scx = scy = Math.min (scx, scy);
 	}
 	var pos = this.get('position');
 	var dx=0, dy=0;
-	if (/left/.test(pos)) 
+	if (/left/.test(pos))
 	{	dx = -ex[0]*scx;
 	}
-	else if (/center/.test(pos)) 
+	else if (/center/.test(pos))
 	{	dx = canvas.width/2 - (ex[2]-ex[0])*scx/2;
 	}
-	else if (/right/.test(pos)) 
+	else if (/right/.test(pos))
 	{	dx = canvas.width - (ex[2]-ex[0])*scx;
 	}
 	var fx = function(x) { return x*scx + dx };
-	if (/top/.test(pos)) 
+	if (/top/.test(pos))
 	{	dy = -ex[1]*scy;
 	}
-	else if (/middle/.test(pos)) 
+	else if (/middle/.test(pos))
 	{	dy = canvas.height/2 - (ex[3]-ex[1])*scy/2;
 	}
-	else if (/bottom/.test(pos)) 
+	else if (/bottom/.test(pos))
 	{	dy = canvas.height - (ex[3]-ex[1])*scy;
 	}
 	var fy = function(y) { return y*scy + dy; };
 	ctx.moveTo ( fx(coords[0][0]), fy(coords[0][1]) );
-	for (var i=1, p; p=coords[i]; i++) 
+	for (var i=1, p; p=coords[i]; i++)
 	{	ctx.lineTo ( fx(p[0]), fy(p[1]) );
 	}
 	ctx.lineTo ( fx(coords[0][0]), fy(coords[0][1]) );
@@ -11558,7 +11558,7 @@ ol.filter.Clip.prototype.postcompose = function(e)
 	e.context.restore();
 }
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -11620,7 +11620,7 @@ ol.filter.Colorize.prototype.setFilter = function(options)
 			this.set('color', ol.color.asString([v,v,v,255]));
 			this.set('operation', 'soft-light');
 			break;
-		default: 
+		default:
 			this.set ('operation', 'color');
 			break;
 	}
@@ -11644,11 +11644,11 @@ ol.filter.Colorize.prototype.setColor = function(c)
 		this.set("color", ol.color.asString(c));
 	}
 }
-/** @private 
+/** @private
  */
 ol.filter.Colorize.prototype.precompose = function(/* e */) {
 }
-/** @private 
+/** @private
  */
 ol.filter.Colorize.prototype.postcompose = function(e) {
 	// Set back color hue
@@ -11670,12 +11670,12 @@ ol.filter.Colorize.prototype.postcompose = function(e) {
 		else
 		{	ctx.globalCompositeOperation = this.get('operation');
 			ctx.fillStyle = this.get('color');
-			ctx.fillRect(0,0,canvas.width,canvas.height);  
+			ctx.fillRect(0,0,canvas.width,canvas.height);
 		}
 	ctx.restore();
 }
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -11706,7 +11706,7 @@ ol.filter.Composite.prototype.postcompose = function(e)
 {	e.context.restore();
 }
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -11837,7 +11837,7 @@ ol.filter.Fold.prototype.postcompose = function(e) {
   ctx.restore();
 };
 
-/*	Copyright (c) 2017 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2017 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -11857,7 +11857,7 @@ ol.filter.Lego = function(options) {
   // Default image
   img.src = this.img[options.img] || this.img.ol3;
   img.crossOrigin = options.crossOrigin || null;
-  // and pattern 
+  // and pattern
   this.pattern = {
     canvas: document.createElement('canvas')
   };
@@ -11913,7 +11913,7 @@ ol.filter.Lego.prototype.setBrick = function (width, img, crossOrigin) {
 *	@param {number} offsetX x offset
 *	@param {number} offsetY y offset
 */
-ol.filter.Lego.prototype.getPattern = function (offsetX, offsetY) {	
+ol.filter.Lego.prototype.getPattern = function (offsetX, offsetY) {
   if (!this.pattern.ctx) return "transparent";
   //return this.pattern.ctx.fillStyle
   var c = this.pattern.canvas;
@@ -11928,7 +11928,7 @@ ol.filter.Lego.prototype.getPattern = function (offsetX, offsetY) {
     ctx.beginPath();
     ctx.clearRect(-2*c.width, -2*c.height, 4*c.width, 4*c.height);
     ctx.rect(-offsetX, -offsetY, 2*c.width/sc, 2*c.height/sc);
-    ctx.fill(); 
+    ctx.fill();
   ctx.restore();
   return ctx.createPattern(c, 'repeat');
 };
@@ -11944,7 +11944,7 @@ ol.filter.Lego.prototype.postcompose = function(e) {
     ratio = 1;
   }
   ctx.save();
-    // resize 
+    // resize
     var step = this.pattern.canvas.width*ratio;
     var p = e.frameState.extent;
     var res = e.frameState.viewState.resolution/ratio;
@@ -11978,11 +11978,11 @@ ol.filter.Lego.prototype.postcompose = function(e) {
     ctx.scale(ratio,ratio);
     ctx.fillStyle = this.getPattern (offset[0]/ratio, offset[1]/ratio);
     ctx.rect(0,0, w, h);
-    ctx.fill(); 
+    ctx.fill();
   ctx.restore();
 };
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -12012,13 +12012,13 @@ ol.filter.Texture.prototype.setFilter = function(options)
 {	var img;
 	options = options || {};
 	if (options.img) img = options.img;
-	else 
+	else
 	{	img = new Image();
 		if (options.src) {
 			// Look for a texture stored in ol.filter.Texture.Image
 			if (ol.filter.Texture.Image && ol.filter.Texture.Image[options.src]) {
 				img.src = ol.filter.Texture.Image[options.src];
-			} 
+			}
 			// default source
 			else {
 				if (!img.src) img.src = options.src;
@@ -12043,7 +12043,7 @@ ol.filter.Texture.prototype.setFilter = function(options)
 		// Force refresh
 		self.set('ready', true);
 	}
-	if (img.width) 
+	if (img.width)
 	{	setPattern(img);
 	}
 	else
@@ -12091,7 +12091,7 @@ ol.filter.Texture.prototype.postcompose = function(e)
 	}
 	var ratio = e.frameState.pixelRatio;
 	var res = e.frameState.viewState.resolution;
-	var w = canvas.width/2, 
+	var w = canvas.width/2,
 		h = canvas.height/2;
 	ctx.save();
 		ctx.globalCompositeOperation = "multiply";
@@ -12108,7 +12108,7 @@ ol.filter.Texture.prototype.postcompose = function(e)
 			ctx.rotate(e.frameState.viewState.rotation);
 			ctx.beginPath();
 			ctx.rect(-w-m, -h-m, 2*m, 2*m);
-			ctx.fill(); 
+			ctx.fill();
 		}
 		else
 		{
@@ -12123,7 +12123,7 @@ ol.filter.Texture.prototype.postcompose = function(e)
 				ctx.beginPath();
 				ctx.fillStyle = this.pattern.ctx.fillStyle;
 				ctx.rect(-offsetX -m , -offsetY -m, 2*m, 2*m);
-				ctx.fill(); 
+				ctx.fill();
 			/*	//old version without centered rotation
 				var offsetX = -(e.frameState.extent[0]/res) % this.pattern.canvas.width;
 				var offsetY = (e.frameState.extent[1]/res) % this.pattern.canvas.height;
@@ -12132,13 +12132,13 @@ ol.filter.Texture.prototype.postcompose = function(e)
 				ctx.beginPath();
 				ctx.fillStyle = this.pattern.ctx.fillStyle
 				ctx.rect(-offsetX -m , -offsetY -m, 2*m, 2*m);
-				ctx.fill(); 
+				ctx.fill();
 			*/
 		}
 	ctx.restore();
 }
 
-/*	Copyright (c) 2019 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2019 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -12189,7 +12189,7 @@ ol.format.GeoRSS.prototype.readFeature = function(source, options) {
     // Polygon
     temp = f.get('georss:polygon').trim().split(' ');
     for (var i=0; i<temp.length; i += 2) {
-      coord.push([parseFloat(temp[i+1]), parseFloat(temp[i])]) 
+      coord.push([parseFloat(temp[i+1]), parseFloat(temp[i])])
     }
     g = new ol.geom.Polygon([coord]);
     console.log(temp,coord)
@@ -12241,12 +12241,12 @@ ol.format.GeoRSS.prototype.readFeatures = function(source, options) {
   return features;
 };
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /** Handles coordinates on the center of the viewport.
- * It can be used as abstract base class used for creating subclasses. 
+ * It can be used as abstract base class used for creating subclasses.
  * The CenterTouch interaction modifies map browser event coordinate and pixel properties to force pointer on the viewport center to any interaction that them.
  * Only pointermove pointerup are concerned with it.
  * @constructor
@@ -12268,25 +12268,25 @@ ol.interaction.CenterTouch = function(options)
 		];
 	if (!(this.targetStyle instanceof Array)) this.targetStyle = [this.targetStyle];
 	this.composite = options.composite || '';
-	// Interaction to defer center on top of the interaction 
+	// Interaction to defer center on top of the interaction
 	// this is done to enable other coordinates manipulation inserted after the interaction (snapping)
 	this.ctouch = new ol.interaction.Interaction(
-		{	handleEvent: function(e) 
-				{	if (rex.test(e.type) && this.getMap()) 
+		{	handleEvent: function(e)
+				{	if (rex.test(e.type) && this.getMap())
 					{	e.coordinate = this.getMap().getView().getCenter();
 						e.pixel = this.getMap().getSize();
 						e.pixel = [ e.pixel[0]/2, e.pixel[1]/2 ];
 					}
-					return true; 
+					return true;
 				}
 		});
 	// Target on map center
 	this._target = new ol.control.Target();
 	ol.interaction.Interaction.call(this,
-		{	handleEvent: function(e) 
+		{	handleEvent: function(e)
 			{	if (rex.test(e.type)) this.pos_ = e.coordinate;
 				if (options.handleEvent) return options.handleEvent.call (this,e);
-				return true; 
+				return true;
 			}
 		});
 };
@@ -12320,7 +12320,7 @@ ol.interaction.CenterTouch.prototype.setActive = function(b)
 {	ol.interaction.Interaction.prototype.setActive.call (this, b);
 	this.pos_ = null;
 	if (this.getMap())
-	{	if (this.getActive()) 
+	{	if (this.getActive())
 		{	this.getMap().addInteraction(this.ctouch);
 			this.getMap().addControl(this._target);
 		}
@@ -12334,12 +12334,12 @@ ol.interaction.CenterTouch.prototype.setActive = function(b)
  * @return {ol.coordinate}
  */
 ol.interaction.CenterTouch.prototype.getPosition = function ()
-{	if (!this.pos_) 
+{	if (!this.pos_)
 	{	var px =this.getMap().getSize();
 		px = [ px[0]/2, px[1]/2 ];
 		this.pos_ = this.getMap().getCoordinateFromPixel(px);
 	}
-	return this.pos_; 
+	return this.pos_;
 };
 
 /** Clip interaction to clip layers in a circle
@@ -12543,7 +12543,7 @@ ol.interaction.CopyPaste.prototype.setSources = function (sources) {
   }
 };
 /** Get sources to cut feature from
- * @return { Array<ol.source.Vector> } 
+ * @return { Array<ol.source.Vector> }
  */
 ol.interaction.CopyPaste.prototype.getSources = function () {
   return this._source;
@@ -12555,7 +12555,7 @@ ol.interaction.CopyPaste.prototype.setDestination = function (destination) {
   this._destination = destination;
 };
 /** Get source to paste features
- * @param { ol.source.Vector } 
+ * @param { ol.source.Vector }
  */
 ol.interaction.CopyPaste.prototype.getDestination = function () {
   return this._destination;
@@ -12618,7 +12618,7 @@ ol.interaction.CopyPaste.prototype.paste = function(options) {
   if (options.silent===false) this.dispatchEvent({ type:'paste', features: features, time: (new Date).getTime() });
 };
 
-/*	Copyright (c) 2018 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2018 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -12701,7 +12701,7 @@ ol.interaction.DragOverlay = function(options) {
       // Start dragging
       if (this._dragging) {
         this._dragging.setPosition(evt.coordinate);
-        this.dispatchEvent({ 
+        this.dispatchEvent({
           type: 'dragstart',
           overlay: this._dragging,
           coordinate: evt.coordinate
@@ -12714,7 +12714,7 @@ ol.interaction.DragOverlay = function(options) {
     handleDragEvent: function(evt) {
       if (this._dragging) {
         this._dragging.setPosition(evt.coordinate);
-        this.dispatchEvent({ 
+        this.dispatchEvent({
           type: 'dragging',
           overlay: this._dragging,
           coordinate: evt.coordinate
@@ -12724,7 +12724,7 @@ ol.interaction.DragOverlay = function(options) {
     // Stop dragging
     handleUpEvent: function(evt) {
       if (this._dragging) {
-        this.dispatchEvent({ 
+        this.dispatchEvent({
           type: 'dragend',
           overlay: this._dragging,
           coordinate: evt.coordinate
@@ -12774,7 +12774,7 @@ ol.interaction.DragOverlay.prototype.removeOverlay = function (ov) {
   }
 };
 
-/*	Copyright (c) 2017 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2017 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -12817,7 +12817,7 @@ ol.interaction.DrawHole = function(options) {
       this.layers_ = options.layers;
     } else if (options.layers.indexOf) {
       this.layers_ = function(l) {
-        return (options.layers.indexOf(l) >= 0); 
+        return (options.layers.indexOf(l) >= 0);
       };
     }
   }
@@ -12848,7 +12848,7 @@ ol.interaction.DrawHole.prototype.setActive = function(b) {
   ol.interaction.Draw.prototype.setActive.call (this, b);
 };
 /**
- * Remove last point of the feature currently being drawn 
+ * Remove last point of the feature currently being drawn
  * (test if points to remove before).
  */
 ol.interaction.DrawHole.prototype.removeLastPoint = function() {
@@ -12856,7 +12856,7 @@ ol.interaction.DrawHole.prototype.removeLastPoint = function() {
     ol.interaction.Draw.prototype.removeLastPoint.call(this);
   }
 };
-/** 
+/**
  * Get the current polygon to hole
  * @return {ol.Feature}
  */
@@ -12913,7 +12913,7 @@ ol.interaction.DrawHole.prototype._startDrawing = function(e) {
   }
 };
 /**
- * Stop drawing and add the sketch feature to the target feature. 
+ * Stop drawing and add the sketch feature to the target feature.
  * @param {ol.interaction.Draw.Event} e
  * @private
  */
@@ -12968,7 +12968,7 @@ ol.interaction.DrawHole.prototype._geometryFn = function(coordinates, geometry) 
   return geometry;
 };
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -12978,7 +12978,7 @@ ol.interaction.DrawHole.prototype._geometryFn = function(coordinates, geometry) 
  * @fires drawstart, drawing, drawend, drawcancel
  * @param {olx.interaction.TransformOptions} options
  *  @param {Array<ol.Layer>} source Destination source for the drawn features
- *  @param {ol.Collection<ol.Feature>} features Destination collection for the drawn features 
+ *  @param {ol.Collection<ol.Feature>} features Destination collection for the drawn features
  *  @param {ol.style.Style | Array.<ol.style.Style> | ol.style.StyleFunction | undefined} style style for the sketch
  *  @param {integer} sides number of sides, default 0 = circle
  *  @param { ol.events.ConditionType | undefined } squareCondition A function that takes an ol.MapBrowserEvent and returns a boolean to draw square features.
@@ -12991,9 +12991,9 @@ ol.interaction.DrawRegular = function(options) {
   if (!options) options={};
   this.squaredClickTolerance_ = options.clickTolerance ? options.clickTolerance * options.clickTolerance : 36;
   this.maxCircleCoordinates_ = options.maxCircleCoordinates || 100;
-  // Collection of feature to transform 
+  // Collection of feature to transform
   this.features_ = options.features;
-  // List of layers to transform 
+  // List of layers to transform
   this.source_ = options.source;
   // Square condition
   this.squareFn_ = options.squareCondition;
@@ -13036,7 +13036,7 @@ ol.interaction.DrawRegular = function(options) {
     displayInLayerSwitcher: false,
     style: options.style || defaultStyle
   });
-  ol.interaction.Interaction.call(this, {	
+  ol.interaction.Interaction.call(this, {
       /*
       handleDownEvent: this.handleDownEvent_,
       handleMoveEvent: this.handleMoveEvent_,
@@ -13085,7 +13085,7 @@ ol.interaction.DrawRegular.prototype.setSides = function (nb) {
 }
 /**
  * Allow rotation when centered + square
- * @param {bool} 
+ * @param {bool}
  * @api stable
  */
 ol.interaction.DrawRegular.prototype.canRotate = function (b) {
@@ -13134,8 +13134,8 @@ ol.interaction.DrawRegular.prototype.getGeom_ = function () {
       d = [coord[0] - center[0], coord[1] - center[1]];
       if (this.square_ && !hasrotation) {
         //var d = [coord[0] - center[0], coord[1] - center[1]];
-        var dm = Math.max (Math.abs(d[0]), Math.abs(d[1])); 
-        coord = [ 
+        var dm = Math.max (Math.abs(d[0]), Math.abs(d[1]));
+        coord = [
           center[0] + (d[0]>0 ? dm:-dm),
           center[1] + (d[1]>0 ? dm:-dm)
         ];
@@ -13197,8 +13197,8 @@ ol.interaction.DrawRegular.prototype.drawSketch_ = function(evt) {
       //f.setGeometry (g);
       if (g.getType()==='Polygon') f.getGeometry().setCoordinates(g.getCoordinates());
       this.overlayLayer_.getSource().addFeature(f);
-      if (this.coord_ 
-        && this.square_ 
+      if (this.coord_
+        && this.square_
         && ((this.canRotate_ && this.centered_ && this.coord_) || (!this.sides_ && !this.centered_))) {
         this.overlayLayer_.getSource().addFeature(new ol.Feature(new ol.geom.LineString([this.center_,this.coord_])));
       }
@@ -13255,7 +13255,7 @@ ol.interaction.DrawRegular.prototype.handleEvent_ = function(evt) {
           }
         }
       }
-      this.upPx_ = evt.pixel;	
+      this.upPx_ = evt.pixel;
       break;
     }
     case "pointerdrag": {
@@ -13308,14 +13308,14 @@ ol.interaction.DrawRegular.prototype.handleMoveEvent_ = function(evt) {
     this.coord_ = evt.coordinate;
     this.coordPx_ = evt.pixel;
     var f = this.drawSketch_(evt);
-    this.dispatchEvent({ 
-      type:'drawing', 
-      feature: f, 
-      pixel: evt.pixel, 
+    this.dispatchEvent({
+      type:'drawing',
+      feature: f,
+      pixel: evt.pixel,
       startCoordinate: this.center_,
-      coordinate: evt.coordinate, 
-      square: this.square_, 
-      centered: this.centered_ 
+      coordinate: evt.coordinate,
+      square: this.square_,
+      centered: this.centered_
     });
   } else  {
     this.drawPoint_(evt.coordinate);
@@ -13360,7 +13360,7 @@ ol.interaction.DrawRegular.prototype.end_ = function(evt) {
   this.drawSketch_();
 };
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -13448,7 +13448,7 @@ ol.interaction.DrawTouch.prototype.setMap = function(map) {
 ol.interaction.DrawTouch.prototype.getGeometryType = function() {
   return this.typeGeom_;
 };
-/** Start drawing and add the sketch feature to the target layer. 
+/** Start drawing and add the sketch feature to the target layer.
  * The ol.interaction.Draw.EventType.DRAWEND event is dispatched before inserting the feature.
  */
 ol.interaction.DrawTouch.prototype.finishDrawing = function() {
@@ -13480,12 +13480,12 @@ ol.interaction.DrawTouch.prototype.finishDrawing = function() {
       default: break;
     }
     if (this._feature) this.source_.addFeature (this._feature);
-    this.dispatchEvent({ 
+    this.dispatchEvent({
       type: 'drawend',
       feature: this._feature,
       valid: valid
     });
-  }  
+  }
   // reset
   this.geom_ = [];
   this.drawSketch_();
@@ -13502,7 +13502,7 @@ ol.interaction.DrawTouch.prototype.addPoint = function() {
     start = true;
   }
   switch (this.typeGeom_) {
-    case "Point": 
+    case "Point":
       this._feature.setGeometry(new ol.geom.Point(this.geom_.pop()));
       break;
     case "LineString":
@@ -13513,7 +13513,7 @@ ol.interaction.DrawTouch.prototype.addPoint = function() {
   }
   // Dispatch events
   if (start) {
-    this.dispatchEvent({ 
+    this.dispatchEvent({
       type: 'drawstart',
       feature: this._feature
     });
@@ -13757,8 +13757,8 @@ ol.interaction.FillAttribute.prototype.setAttributes = function(properties) {
   this._attributes = properties;
 };
 /** Set an attribute
- * @param {string} key 
- * @param {*} val 
+ * @param {string} key
+ * @param {*} val
  */
 ol.interaction.FillAttribute.prototype.setAttribute = function(key, val) {
   this._attributes[key] = val;
@@ -13770,8 +13770,8 @@ ol.interaction.FillAttribute.prototype.getAttributes = function() {
   return this._attributes;
 };
 /** Get an attribute
- * @param {string} key 
- * @return {*} val 
+ * @param {string} key
+ * @return {*} val
  */
 ol.interaction.FillAttribute.prototype.getAttribute = function(key) {
   return this._attributes[key];
@@ -13846,7 +13846,7 @@ ol.interaction.Flashlight.prototype.setColor = function(options)
 	if (options.color) {
 		c = this.endColor = ol.color.asString(ol.color.asArray(options.color)||options.color);
 	}
-	else 
+	else
 	{	c[3] = 0
 		this.endColor = ol.color.asString(c);
 	}
@@ -13860,7 +13860,7 @@ ol.interaction.Flashlight.prototype.setColor = function(options)
 ol.interaction.Flashlight.prototype.setPosition = function(e)
 {	if (e.pixel) this.pos = e.pixel;
 	else this.pos = e;
-	if (this.getMap()) 
+	if (this.getMap())
 	{	this.getMap().renderSync();
 	}
 }
@@ -13873,7 +13873,7 @@ ol.interaction.Flashlight.prototype.postcompose_ = function(e)
 	var h = ctx.canvas.height;
 	ctx.save();
 	ctx.scale(ratio,ratio);
-	if (!this.pos) 
+	if (!this.pos)
 	{	ctx.fillStyle = this.startColor;
 		ctx.fillRect( 0,0,w,h );
 	}
@@ -13898,7 +13898,7 @@ ol.interaction.Flashlight.prototype.postcompose_ = function(e)
 ol.interaction.FocusMap = function() {
   //
   ol.interaction.Interaction.call(this, {});
-  // Focus (hidden) button to focus on the map when click on it 
+  // Focus (hidden) button to focus on the map when click on it
   this.focusBt = ol.ext.element.create('BUTTON', {
     on: {
       focus: function() {
@@ -13926,7 +13926,7 @@ ol.interaction.FocusMap.prototype.setMap = function(map) {
     this._listener = this.getMap().on('pointerdown', function() {
       if (this.getActive()) this.focusBt.focus();
     }.bind(this));
-    this.getMap().getViewport().appendChild(this.focusBt); 
+    this.getMap().getViewport().appendChild(this.focusBt);
   }
 };
 
@@ -13950,7 +13950,7 @@ ol.interaction.FocusMap.prototype.setMap = function(map) {
 ol.interaction.GeolocationDraw = function(options) {
   if (!options) options={};
   // Geolocation
-  this.geolocation = new ol.Geolocation(({ 
+  this.geolocation = new ol.Geolocation(({
     projection: "EPSG:4326",
     trackingOptions: {
       maximumAge: 10000,
@@ -14093,21 +14093,21 @@ ol.interaction.GeolocationDraw.prototype.stop = function() {
   this.setActive(false);
 };
 /** Pause drawing
- * @param {boolean} b 
+ * @param {boolean} b
  */
 ol.interaction.GeolocationDraw.prototype.pause = function(b) {
   this.pause_ = b!==false;
 };
 /** Is paused
- * @return {boolean} b 
+ * @return {boolean} b
  */
 ol.interaction.GeolocationDraw.prototype.isPaused = function() {
   return this.pause_;
 };
 /** Enable following the track on the map
-* @param {boolean|auto|position|visible} follow, 
-*	false: don't follow, 
-*	true: follow (position+zoom), 
+* @param {boolean|auto|position|visible} follow,
+*	false: don't follow,
+*	true: follow (position+zoom),
 *	'position': follow only position,
 *	'auto': start following until user move the map,
 *	'visible': center when position gets out of the visible extent
@@ -14125,7 +14125,7 @@ ol.interaction.GeolocationDraw.prototype.setFollowTrack = function(follow) {
       });
     }
   }
-  this.lastPosition_ = false;				
+  this.lastPosition_ = false;
   this.dispatchEvent({ type:'follow', following: follow!==false });
 };
 /** Add a new point to the current path
@@ -14156,13 +14156,13 @@ ol.interaction.GeolocationDraw.prototype.draw_ = function() {
       map.getView().setCenter( pos );
       break;
     }
-    // Follow  position 
+    // Follow  position
     case 'position': {
       // modify center
       map.getView().setCenter( pos );
       break;
     }
-    // Keep on following 
+    // Keep on following
     case 'auto': {
       if (this.lastPosition_) {
         var center = map.getView().getCenter();
@@ -14171,11 +14171,11 @@ ol.interaction.GeolocationDraw.prototype.draw_ = function() {
           //this.dispatchEvent({ type:'follow', following: false });
           this.setFollowTrack (false);
         } else {
-          map.getView().setCenter( pos );	
+          map.getView().setCenter( pos );
           this.lastPosition_ = pos;
         }
       } else {
-        map.getView().setCenter( pos );	
+        map.getView().setCenter( pos );
         if (this.get("zoom")) map.getView().setZoom( this.get("zoom") );
         this.lastPosition_ = pos;
       }
@@ -14241,9 +14241,9 @@ ol.interaction.GeolocationDraw.prototype.draw_ = function() {
  * @constructor
  * @extends {ol.interaction.Interaction}
  * @fires hover, enter, leave
- * @param {olx.interaction.HoverOptions} 
+ * @param {olx.interaction.HoverOptions}
  *	@param { string | undefined } options.cursor css cursor propertie or a function that gets a feature, default: none
- *	@param {function | undefined} optionsfeatureFilter filter a function with two arguments, the feature and the layer of the feature. Return true to select the feature 
+ *	@param {function | undefined} optionsfeatureFilter filter a function with two arguments, the feature and the layer of the feature. Return true to select the feature
  *	@param {function | undefined} options.layerFilter filter a function with one argument, the layer to test. Return true to test the layer
  *	@param {number | undefined} options.hitTolerance Hit-detection tolerance in pixels.
  *	@param { function | undefined } options.handleEvent Method called by the map to notify the interaction that a browser event was dispatched to the map. The function may return false to prevent the propagation of the event to other interactions in the map's interactions chain.
@@ -14253,9 +14253,9 @@ ol.interaction.Hover = function(options)
 	var self = this;
 	ol.interaction.Interaction.call(this,
 	{	handleEvent: function(e)
-		{	if (e.type=="pointermove") { self.handleMove_(e); } 
+		{	if (e.type=="pointermove") { self.handleMove_(e); }
 			if (options.handleEvent) return options.handleEvent(e);
-			return true; 
+			return true;
 		}
 	});
 	this.setFeatureFilter (options.featureFilter);
@@ -14290,7 +14290,7 @@ ol.interaction.Hover.prototype.setCursor = function(cursor)
 	this.cursor_ = cursor;
 };
 /** Feature filter to get only one feature
-* @param {function} filter a function with two arguments, the feature and the layer of the feature. Return true to select the feature 
+* @param {function} filter a function with two arguments, the feature and the layer of the feature. Return true to select the feature
 */
 ol.interaction.Hover.prototype.setFeatureFilter = function(filter)
 {	if (typeof (filter) == 'function') this.featureFilter_ = filter;
@@ -14312,15 +14312,15 @@ ol.interaction.Hover.prototype.handleMove_ = function(e)
 	{	//var b = map.hasFeatureAtPixel(e.pixel);
 		var feature, layer;
 		var self = this;
-		var b = map.forEachFeatureAtPixel(e.pixel, 
+		var b = map.forEachFeatureAtPixel(e.pixel,
 					function(f, l)
-					{	if (self.layerFilter_.call(null, l) 
+					{	if (self.layerFilter_.call(null, l)
 						&& self.featureFilter_.call(null,f,l))
 						{	feature = f;
 							layer = l;
 							return true;
 						}
-						else 
+						else
 						{	feature = layer = null;
 							return false;
 						}
@@ -14335,15 +14335,15 @@ ol.interaction.Hover.prototype.handleMove_ = function(e)
 			if (feature) this.dispatchEvent({ type:"enter", feature:feature, layer:layer, coordinate:e.coordinate, pixel: e.pixel, map: e.map, dragging:e.dragging });
 			else this.dispatchEvent({ type:"leave", coordinate:e.coordinate, pixel: e.pixel, map: e.map, dragging:e.dragging });
 		}
-		if (this.cursor_) 
+		if (this.cursor_)
 		{	var style = map.getTargetElement().style;
-			if (b) 
-			{	if (style.cursor != this.cursor_) 
+			if (b)
+			{	if (style.cursor != this.cursor_)
 				{	this.previousCursor_ = style.cursor;
 					style.cursor = this.cursor_;
 				}
-			} 
-			else if (this.previousCursor_ !== undefined) 
+			}
+			else if (this.previousCursor_ !== undefined)
 			{	style.cursor = this.previousCursor_;
 				this.previousCursor_ = undefined;
 			}
@@ -14351,14 +14351,14 @@ ol.interaction.Hover.prototype.handleMove_ = function(e)
 	}
 };
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /** Interaction to handle longtouch events
  * @constructor
  * @extends {ol.interaction.Interaction}
- * @param {olx.interaction.LongTouchOptions} 
+ * @param {olx.interaction.LongTouchOptions}
  * 	@param {function | undefined} options.handleLongTouchEvent Function handling "longtouch" events, it will receive a mapBrowserEvent.
  *	@param {interger | undefined} options.delay The delay for a long touch in ms, default is 1000
  */
@@ -14371,17 +14371,17 @@ ol.interaction.LongTouch = function(options)
 	{	handleEvent: function(e)
 		{	if (this.getActive())
 			{	switch (e.type)
-				{	case 'pointerdown': 
+				{	case 'pointerdown':
 						if (_timeout) clearTimeout(_timeout);
 						_timeout = setTimeout (function()
 							{	e.type = "longtouch";
-								ltouch(e) 
+								ltouch(e)
 							}, this.delay_);
 						break;
 					/* case 'pointermove': */
 					case 'pointerdrag':
 					case 'pointerup':
-						if (_timeout) 
+						if (_timeout)
 						{	clearTimeout(_timeout);
 							_timeout = null;
 						}
@@ -14390,7 +14390,7 @@ ol.interaction.LongTouch = function(options)
 				}
 			}
 			else
-			{	if (_timeout) 
+			{	if (_timeout)
 				{	clearTimeout(_timeout);
 					_timeout = null;
 				}
@@ -14420,12 +14420,12 @@ ol.interaction.Modify.prototype.getModifiedFeatures = function() {
   return features;
 };
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /** Interaction for modifying feature geometries. Similar to the core ol/interaction/Modify.
- * The interaction is more suitable to use to handle feature modification: only features concerned 
+ * The interaction is more suitable to use to handle feature modification: only features concerned
  * by the modification are passed to the events (instead of all feature with ol/interaction/Modify)
  * - the modifystart event is fired before the feature is modified (no points still inserted)
  * - the modifyend event is fired after the modification
@@ -14550,8 +14550,8 @@ ol.interaction.ModifyFeature.prototype.setActive = function(active) {
   if (this.overlayLayer_) this.overlayLayer_.getSource().clear();
 };
 /** Get closest feature at pixel
- * @param {ol.Pixel} 
- * @return {*} 
+ * @param {ol.Pixel}
+ * @return {*}
  * @private
  */
 ol.interaction.ModifyFeature.prototype.getClosestFeature = function(e) {
@@ -14585,7 +14585,7 @@ ol.interaction.ModifyFeature.prototype.getClosestFeature = function(e) {
     }
   }
 }
-/** Get nearest coordinate in a list 
+/** Get nearest coordinate in a list
 * @param {ol.coordinate} pt the point to find nearest
 * @param {ol.geom} coords list of coordinates
 * @return {*} the nearest point with a coord (projected point), dist (distance to the geom), ring (if Polygon)
@@ -14671,7 +14671,7 @@ ol.interaction.ModifyFeature.prototype.getNearestCoord = function(pt, geom) {
     default: return false;
   }
 };
-/** Get arcs concerned by a modification 
+/** Get arcs concerned by a modification
  * @param {ol.geom} geom the geometry concerned
  * @param {ol.coordinate} coord pointed coordinates
  */
@@ -14681,8 +14681,8 @@ ol.interaction.ModifyFeature.prototype.getArcs = function(geom, coord) {
   switch(geom.getType()) {
     case 'Point': {
       if (ol.coordinate.equal(coord, geom.getCoordinates())) {
-        arcs = { 
-          geom: geom, 
+        arcs = {
+          geom: geom,
           type: geom.getType(),
           coord1: [],
           coord2: [],
@@ -14695,8 +14695,8 @@ ol.interaction.ModifyFeature.prototype.getArcs = function(geom, coord) {
       coords = geom.getCoordinates();
       for (i=0; i < coords.length; i++) {
         if (ol.coordinate.equal(coord, coords[i])) {
-          arcs = { 
-            geom: geom, 
+          arcs = {
+            geom: geom,
             type: geom.getType(),
             index: i,
             coord1: [],
@@ -14708,7 +14708,7 @@ ol.interaction.ModifyFeature.prototype.getArcs = function(geom, coord) {
       }
       break;
     }
-    case 'LinearRing': 
+    case 'LinearRing':
     case 'LineString': {
       var p = geom.getClosestPoint(coord);
       if (ol.coordinate.dist2d(p,coord) < 1.5*this.tolerance_) {
@@ -14737,10 +14737,10 @@ ol.interaction.ModifyFeature.prototype.getArcs = function(geom, coord) {
           var nbpt = c0.length + c1.length -1;
           c0.pop();
           c1.shift();
-          arcs = { 
-            geom: geom, 
+          arcs = {
+            geom: geom,
             type: geom.getType(),
-            coord1: c0, 
+            coord1: c0,
             coord2: c1,
             node: (geom.getCoordinates().length === nbpt),
             closed: false
@@ -14753,10 +14753,10 @@ ol.interaction.ModifyFeature.prototype.getArcs = function(geom, coord) {
           if (start) {
             s.shift();
             if (end) s.pop();
-            arcs = { 
-              geom: geom, 
+            arcs = {
+              geom: geom,
               type: geom.getType(),
-              coord1: [], 
+              coord1: [],
               coord2: s,
               node: true,
               closed: end
@@ -14764,10 +14764,10 @@ ol.interaction.ModifyFeature.prototype.getArcs = function(geom, coord) {
           } else if (end) {
             // Move last point
             s.pop()
-            arcs = { 
-              geom: geom, 
+            arcs = {
+              geom: geom,
               type: geom.getType(),
-              coord1: s, 
+              coord1: s,
               coord2: [],
               node: true,
               closed: false
@@ -14867,10 +14867,10 @@ ol.interaction.ModifyFeature.prototype.handleDownEvent = function(evt) {
     }.bind(this));
     if (this._modifiedFeatures.length) {
       if (this._deleteCondition(evt)) {
-        return !this._removePoint(current, evt); 
+        return !this._removePoint(current, evt);
       } else {
-        this.dispatchEvent({ 
-          type:'modifystart', 
+        this.dispatchEvent({
+          type:'modifystart',
           coordinate: current.coord,
           originalEvent: evt.originalEvent,
           features: this._modifiedFeatures
@@ -14980,8 +14980,8 @@ ol.interaction.ModifyFeature.prototype._removePoint = function(current, evt) {
   }.bind(this));
   // Almost one point is removed
   if (found) {
-    this.dispatchEvent({ 
-      type:'modifystart', 
+    this.dispatchEvent({
+      type:'modifystart',
       coordinate: current.coord,
       originalEvent: evt.originalEvent,
       features: this._modifiedFeatures
@@ -14997,8 +14997,8 @@ ol.interaction.ModifyFeature.prototype._removePoint = function(current, evt) {
         if (a.coords) a.geom.setCoordinates(a.coords);
       }
     }.bind(this));
-    this.dispatchEvent({ 
-      type:'modifyend', 
+    this.dispatchEvent({
+      type:'modifyend',
       coordinate: current.coord,
       originalEvent: evt.originalEvent,
       features: this._modifiedFeatures
@@ -15014,8 +15014,8 @@ ol.interaction.ModifyFeature.prototype.handleUpEvent = function(e) {
   if (!this.getActive()) return false;
   if (!this.arcs || !this.arcs.length) return true;
   this.overlayLayer_.getSource().clear();
-  this.dispatchEvent({ 
-    type:'modifyend', 
+  this.dispatchEvent({
+    type:'modifyend',
     coordinate: e.coordinate,
     originalEvent: e.originalEvent,
     features: this._modifiedFeatures
@@ -15091,8 +15091,8 @@ ol.interaction.ModifyFeature.prototype.handleDragEvent = function(e) {
     if (a.closed) coords.push(e.coordinate);
     this.setArcCoordinates(a, coords);
   }.bind(this));
-  this.dispatchEvent({ 
-    type:'modifying', 
+  this.dispatchEvent({
+    type:'modifying',
     coordinate: e.coordinate,
     originalEvent: e.originalEvent,
     features: this._modifiedFeatures
@@ -15127,7 +15127,7 @@ ol.interaction.ModifyFeature.prototype.handleMoveEvent = function(e) {
   }
 };
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -15174,7 +15174,7 @@ ol.interaction.ModifyTouch = function(options) {
         p1 = this.getMap().getCoordinateFromPixel(p1);
         var ext = ol.extent.boundingExtent([p0,p1]);
         search = this._source.getFeaturesInExtent(ext);
-      } 
+      }
       if (search.getArray) search = search.getArray();
       for (var i=0, f; f=features[i]; i++) {
         if (search.indexOf(f) >= 0) break;
@@ -15214,7 +15214,7 @@ ol.ext.inherits(ol.interaction.ModifyTouch, ol.interaction.Modify);
  * @param {ol.Map} map Map.
  * @api stable
  */
-ol.interaction.ModifyTouch.prototype.setMap = function(map) {	
+ol.interaction.ModifyTouch.prototype.setMap = function(map) {
   if (this.getMap()) {
     this.getMap().removeOverlay(this._popup);
   }
@@ -15226,15 +15226,15 @@ ol.interaction.ModifyTouch.prototype.setMap = function(map) {
 /** Activate the interaction and remove popup
  * @param {Boolean} b
  */
-ol.interaction.ModifyTouch.prototype.setActive = function(b) {	
+ol.interaction.ModifyTouch.prototype.setActive = function(b) {
   ol.interaction.Modify.prototype.setActive.call (this, b);
   this.showDeleteBt({ type:'hide' });
 };
 /**
  * Remove the current point
  */
-ol.interaction.ModifyTouch.prototype.removePoint = function() {	
-  // Prevent touch + click on popup 
+ol.interaction.ModifyTouch.prototype.removePoint = function() {
+  // Prevent touch + click on popup
   if (new Date() - this._timeout < 200) return;
   // Remove point
   ol.interaction.Modify.prototype.removePoint.call (this);
@@ -15258,7 +15258,7 @@ ol.interaction.ModifyTouch.prototype.showDeleteBt = function(e) {
 };
 /**
  * Change the popup content
- * @param {DOMElement} html 
+ * @param {DOMElement} html
  */
 ol.interaction.ModifyTouch.prototype.setPopupContent = function(html) {
   this._menu = html;
@@ -15271,7 +15271,7 @@ ol.interaction.ModifyTouch.prototype.getPopupContent = function() {
   return this._menu;
 }
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -15282,7 +15282,7 @@ ol.interaction.ModifyTouch.prototype.getPopupContent = function() {
  * @fires offsetting
  * @fires offsetend
  * @param {any} options
- *	@param {ol.layer.Vector | Array<ol.layer.Vector>} options.layers list of feature to transform 
+ *	@param {ol.layer.Vector | Array<ol.layer.Vector>} options.layers list of feature to transform
  *	@param {ol.Collection.<ol.Feature>} options.features collection of feature to transform
  *	@param {ol.source.Vector | undefined} options.source source to duplicate feature when ctrl key is down
  *	@param {boolean} options.duplicate force feature to duplicate (source must be set)
@@ -15339,7 +15339,7 @@ ol.interaction.Offset.prototype.getFeatureAtPixel_ = function(e) {
 			else if (self.features_) {
         self.features_.forEach (function(f) {
           if (f===feature) {
-            current = feature 
+            current = feature
           }
         });
 			}
@@ -15357,9 +15357,9 @@ ol.interaction.Offset.prototype.getFeatureAtPixel_ = function(e) {
         var dy = p[1]-e.coordinate[1];
         var d = Math.sqrt(dx*dx+dy*dy) / e.frameState.viewState.resolution;
         if (d<5) {
-          return { 
-            feature: current, 
-            hit: p, 
+          return {
+            feature: current,
+            hit: p,
             coordinates: current.getGeometry().getCoordinates(),
             geom: current.getGeometry().clone(),
             geomType: typeGeom
@@ -15377,7 +15377,7 @@ ol.interaction.Offset.prototype.getFeatureAtPixel_ = function(e) {
  * @return {boolean} `true` to start the drag sequence.
  * @private
  */
-ol.interaction.Offset.prototype.handleDownEvent_ = function(e) {	
+ol.interaction.Offset.prototype.handleDownEvent_ = function(e) {
   this.current_ = this.getFeatureAtPixel_(e);
   if (this.source_ && (this.get('duplicate') || e.originalEvent.ctrlKey)) {
     this.current_.feature = this.current_.feature.clone();
@@ -15437,21 +15437,21 @@ ol.interaction.Offset.prototype.handleDragEvent_ = function(e) {
       break;
     }
   }
-  this.dispatchEvent({ type:'offsetting', feature: this.current_.feature, offset: d, segment: [p, e.coordinate], coordinate: e.coordinate });  
+  this.dispatchEvent({ type:'offsetting', feature: this.current_.feature, offset: d, segment: [p, e.coordinate], coordinate: e.coordinate });
 };
 /**
  * @param {ol.MapBrowserEvent} e Map browser event.
  * @private
  */
 ol.interaction.Offset.prototype.handleUpEvent_ = function(e) {
-  this.dispatchEvent({ type:'offsetend', feature: this.current_.feature, coordinate: e.coordinate });  
+  this.dispatchEvent({ type:'offsetend', feature: this.current_.feature, coordinate: e.coordinate });
   this.current_ = false;
 };
 /**
  * @param {ol.MapBrowserEvent} e Event.
  * @private
  */
-ol.interaction.Offset.prototype.handleMoveEvent_ = function(e) {	
+ol.interaction.Offset.prototype.handleMoveEvent_ = function(e) {
   var f = this.getFeatureAtPixel_(e);
   if (f) {
     if (this.previousCursor_ === false) {
@@ -15464,14 +15464,14 @@ ol.interaction.Offset.prototype.handleMoveEvent_ = function(e) {
   }
 };
 
-/*	
+/*
   Water ripple effect.
-  Original code (Java) by Neil Wallis 
+  Original code (Java) by Neil Wallis
   @link http://www.neilwallis.com/java/water.html
   Original code (JS) by Sergey Chikuyonok (serge.che@gmail.com)
   @link http://chikuyonok.ru
   @link http://media.chikuyonok.ru/ripple/
-  Copyright (c) 2015 Jean-Marc VIGLINO, 
+  Copyright (c) 2015 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
   @link https://github.com/Viglino
@@ -15556,7 +15556,7 @@ ol.interaction.Ripple.prototype.postcompose_ = function(e) {
     }
   }
   this.texture = ctx.getImageData(0, 0, this.width, this.height);
-  this.ripple = ctx.getImageData(0, 0, this.width, this.height);	
+  this.ripple = ctx.getImageData(0, 0, this.width, this.height);
   // Run animation
   var a, b, data, cur_pixel, new_pixel;
     var t = this.oldind; this.oldind = this.newind; this.newind = t;
@@ -15568,9 +15568,9 @@ ol.interaction.Ripple.prototype.postcompose_ = function(e) {
           var _newind = this.newind + i,
       _mapind = this.oldind + i;
       data = (
-          this.ripplemap[_mapind - this.width] + 
-          this.ripplemap[_mapind + this.width] + 
-          this.ripplemap[_mapind - 1] + 
+          this.ripplemap[_mapind - this.width] +
+          this.ripplemap[_mapind + this.width] +
+          this.ripplemap[_mapind - 1] +
           this.ripplemap[_mapind + 1]) >> 1;
       data -= this.ripplemap[_newind];
       data -= data >> 5;
@@ -15594,7 +15594,7 @@ ol.interaction.Ripple.prototype.postcompose_ = function(e) {
         _rd[cur_pixel + 1] = _td[new_pixel + 1];
         _rd[cur_pixel + 2] = _td[new_pixel + 2];
         /*/
-        // only in blue pixels 
+        // only in blue pixels
                 if (_td[new_pixel + 2]>_td[new_pixel + 1]
           && _td[new_pixel + 2]>_td[new_pixel])
         {
@@ -15610,22 +15610,22 @@ ol.interaction.Ripple.prototype.postcompose_ = function(e) {
   }
   ctx.putImageData(this.ripple, 0, 0);
   // tell OL3 to continue postcompose animation
-  this.getMap().render(); 
+  this.getMap().render();
 };
 
 /*
-	Copyright (c) 2015 Jean-Marc VIGLINO, 
+	Copyright (c) 2015 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (http://www.cecill.info/).
 	ol.interaction.SelectCluster is an interaction for selecting vector features in a cluster.
 */
 /**
  * @classdesc
- * Interaction for selecting vector features in a cluster. 
- * It can be used as an ol.interaction.Select. 
+ * Interaction for selecting vector features in a cluster.
+ * It can be used as an ol.interaction.Select.
  * When clicking on a cluster, it springs apart to reveal the features in the cluster.
  * Revealed features are selectable and you can pick the one you meant.
  * Revealed features are themselves a cluster with an attribute features that contain the original feature.
- * 
+ *
  * @constructor
  * @extends {ol.interaction.Select}
  * @param {olx.interaction.SelectOptions=} options SelectOptions.
@@ -15640,9 +15640,9 @@ ol.interaction.Ripple.prototype.postcompose_ = function(e) {
  * @fires ol.interaction.SelectEvent
  * @api stable
  */
-ol.interaction.SelectCluster = function(options) 
+ol.interaction.SelectCluster = function(options)
 {	options = options || {};
-	var fn; 
+	var fn;
 	this.pointRadius = options.pointRadius || 12;
 	this.circleMaxObjects = options.circleMaxObjects || 10;
 	this.maxObjects = options.maxObjects || 60;
@@ -15650,7 +15650,7 @@ ol.interaction.SelectCluster = function(options)
 	this.animate = options.animate;
 	this.animationDuration = options.animationDuration || 500;
 	this.selectCluster_ = (options.selectCluster !== false);
-	// Create a new overlay layer for 
+	// Create a new overlay layer for
 	var overlay = this.overlayLayer_ = new ol.layer.Vector(
 		{	source: new ol.source.Vector({
 				features: new ol.Collection(),
@@ -15684,9 +15684,9 @@ ol.interaction.SelectCluster = function(options)
 			else return fn(f,l);
 		};
 	}
-	else options.filter = function(f,l) 
-	{	//if (l===overlay && f.get("selectclusterlink")) return false; 
-		if (!l && f.get("selectclusterlink")) return false; 
+	else options.filter = function(f,l)
+	{	//if (l===overlay && f.get("selectclusterlink")) return false;
+		if (!l && f.get("selectclusterlink")) return false;
 		else return true;
 	};
 	this.filter_ = options.filter;
@@ -15717,7 +15717,7 @@ ol.interaction.SelectCluster.prototype.setMap = function(map) {
  * Clear the selection, close the cluster and remove revealed features
  * @api stable
  */
-ol.interaction.SelectCluster.prototype.clear = function() 
+ol.interaction.SelectCluster.prototype.clear = function()
 {	this.getFeatures().clear();
 	this.overlayLayer_.getSource().clear();
 };
@@ -15725,15 +15725,15 @@ ol.interaction.SelectCluster.prototype.clear = function()
  * Get the layer for the revealed features
  * @api stable
  */
-ol.interaction.SelectCluster.prototype.getLayer = function() 
+ol.interaction.SelectCluster.prototype.getLayer = function()
 {	return this.overlayLayer_;
 };
 /**
- * Select a cluster 
+ * Select a cluster
  * @param {ol.Feature} a cluster feature ie. a feature with a 'features' attribute.
  * @api stable
  */
-ol.interaction.SelectCluster.prototype.selectCluster = function (e) 
+ol.interaction.SelectCluster.prototype.selectCluster = function (e)
 {	// Nothing selected
 	if (!e.selected.length)
 	{	this.clear();
@@ -15790,7 +15790,7 @@ ol.interaction.SelectCluster.prototype.selectCluster = function (e)
 			var dy = pix*r*Math.cos(a)
 			p = [ center[0]+dx, center[1]+dy ];
 			cf = new ol.Feature({ 'selectclusterfeature':true, 'features':[cluster[i]], geometry: new ol.geom.Point(p) });
-			cf.setStyle(cluster[i].getStyle()); 
+			cf.setStyle(cluster[i].getStyle());
 			features.push(cf);
 			lk = new ol.Feature({ 'selectclusterlink':true, geometry: new ol.geom.LineString([center,p]) });
 			features.push(lk);
@@ -15839,7 +15839,7 @@ ol.interaction.SelectCluster.prototype.animateCluster_ = function(center, featur
 				var imgs = ol.Map.prototype.getFeaturesAtPixel ? false : st[s].getImage();
 				if (imgs)
 				{	sc = imgs.getScale();
-					imgs.setScale(ratio); 
+					imgs.setScale(ratio);
 				}
 				// OL3 > v3.14
 				if (vectorContext.setStyle)
@@ -15872,14 +15872,14 @@ ol.interaction.SelectCluster.prototype.animateCluster_ = function(center, featur
 	this.overlayLayer_.getSource().addFeature(feature);
 };
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /** Interaction to snap to guidelines
  * @constructor
  * @extends {ol.interaction.Interaction}
- * @param {olx.interaction.SnapGuidesOptions} 
+ * @param {olx.interaction.SnapGuidesOptions}
  *	- pixelTolerance {number | undefined} distance (in px) to snap to a guideline, default 10 px
  *  - enableInitialGuides {bool | undefined} whether to draw initial guidelines based on the maps orientation, default false.
  *	- style {ol.style.Style | Array<ol.style.Style> | undefined} Style for the sektch features.
@@ -16091,7 +16091,7 @@ ol.interaction.SnapGuides.prototype.setDrawInteraction = function(drawi) {
 	}
 	// New drawing
 	drawi.on ("drawstart", function(e) {
-		// When geom is changing add a new orthogonal direction 
+		// When geom is changing add a new orthogonal direction
 		e.feature.getGeometry().on("change", setGuides);
 	});
 	// end drawing / deactivate => clear directions
@@ -16153,7 +16153,7 @@ ol.interaction.SnapGuides.prototype.setModifyInteraction = function (modifyi) {
 	modifyi.on("modifyend", drawEnd);
 };
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -16161,14 +16161,14 @@ ol.interaction.SnapGuides.prototype.setModifyInteraction = function (modifyi) {
  * @constructor
  * @extends {ol.interaction.Interaction}
  * @fires  beforesplit, aftersplit, pointermove
- * @param {*} 
+ * @param {*}
  *  @param {ol.source.Vector|Array<ol.source.Vector>} options.source a list of source to split (configured with useSpatialIndex set to true)
  *  @param {ol.Collection.<ol.Feature>} options.features collection of feature to split
  *  @param {integer} options.snapDistance distance (in px) to snap to an object, default 25px
  *	@param {string|undefined} options.cursor cursor name to display when hovering an objet
  *  @param {function|undefined} opttion.filter a filter that takes a feature and return true if it can be clipped, default always split.
  *  @param ol.style.Style | Array<ol.style.Style> | false | undefined} options.featureStyle Style for the selected features, choose false if you don't want feature selection. By default the default edit style is used.
- *  @param {ol.style.Style | Array<ol.style.Style> | undefined} options.sketchStyle Style for the sektch features. 
+ *  @param {ol.style.Style | Array<ol.style.Style> | undefined} options.sketchStyle Style for the sektch features.
  *  @param {function|undefined} options.tolerance Distance between the calculated intersection and a vertex on the source geometry below which the existing vertex will be used for the split.  Default is 1e-10.
  */
 ol.interaction.Split = function(options) {
@@ -16180,7 +16180,7 @@ ol.interaction.Split = function(options) {
           return this.handleDownEvent(e);
         case "pointermove":
           return this.handleMoveEvent(e);
-        default: 
+        default:
           return true;
       }
       //return true;
@@ -16272,8 +16272,8 @@ ol.interaction.Split.prototype.setMap = function(map) {
   this.overlayLayer_.setMap(map);
 };
 /** Get closest feature at pixel
- * @param {ol.Pixel} 
- * @return {ol.feature} 
+ * @param {ol.Pixel}
+ * @return {ol.feature}
  * @private
  */
 ol.interaction.Split.prototype.getClosestFeature = function(e) {
@@ -16301,7 +16301,7 @@ ol.interaction.Split.prototype.getClosestFeature = function(e) {
     return { source:source, feature:f, coord: c, link: g };
   }
 }
-/** Get nearest coordinate in a list 
+/** Get nearest coordinate in a list
 * @param {ol.coordinate} pt the point to find nearest
 * @param {Array<ol.coordinate>} coords list of coordinates
 * @return {ol.coordinate} the nearest coordinate in the list
@@ -16394,7 +16394,7 @@ ol.interaction.Split.prototype.handleMoveEvent = function(e) {
   }
 };
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -16403,7 +16403,7 @@ ol.interaction.Split.prototype.handleMoveEvent = function(e) {
  * @constructor
  * @extends {ol.interaction.Interaction}
  * @fires  beforesplit, aftersplit
- * @param {olx.interaction.SplitOptions} 
+ * @param {olx.interaction.SplitOptions}
  *	- source {ol.source.Vector|Array{ol.source.Vector}} The target source (or array of source) with features to be split (configured with useSpatialIndex set to true)
  *	- triggerSource {ol.source.Vector} Any newly created or modified features from this source will be used to split features on the target source. If none is provided the target source is used instead.
  *	- features {ol.Collection.<ol.Feature>} A collection of feature to be split (replace source target).
@@ -16425,7 +16425,7 @@ ol.interaction.Splitter = function(options)
 					this.moving_ = false;
 				}
 				else this.moving_ = true;
-				return true; 
+				return true;
 			},
 	});
 	// Features added / remove
@@ -16435,7 +16435,7 @@ ol.interaction.Splitter = function(options)
 	if (options.features)
 	{	this.source_ = new ol.source.Vector({ features: options.features });
 	}
-	else 
+	else
 	{	this.source_ = options.source ? options.source : new ol.source.Vector({ features: new ol.Collection() });
 	}
 	var trigger = this.triggerSource;
@@ -16576,7 +16576,7 @@ ol.interaction.Splitter.prototype.splitSource = function(feature)
 			splitOriginal = true;
 		}
 	}
-	// If the interaction is inserted after modify interaction, the objet is not consistant 
+	// If the interaction is inserted after modify interaction, the objet is not consistant
 	// > wait end of other interactions
 	setTimeout (function()
 	{	if (splitOriginal) self.source_.removeFeature(feature);
@@ -16585,11 +16585,11 @@ ol.interaction.Splitter.prototype.splitSource = function(feature)
 		self.splitting = false;
 	},0);
 };
-/** New feature source is added 
+/** New feature source is added
 */
 ol.interaction.Splitter.prototype.onAddFeature = function(e)
 {	this.splitSource(e.feature);
-	if (this.splitting) 
+	if (this.splitting)
 	{	this.added_.push(e.feature);
 	}
 	/*
@@ -16601,7 +16601,7 @@ ol.interaction.Splitter.prototype.onAddFeature = function(e)
 /** Feature source is removed > count features added/removed
 */
 ol.interaction.Splitter.prototype.onRemoveFeature = function(e)
-{	if (this.splitting) 
+{	if (this.splitting)
 	{	var n = this.added_.indexOf(e.feature);
 		if (n==-1)
 		{	this.removed_.push(e.feature);
@@ -16611,23 +16611,23 @@ ol.interaction.Splitter.prototype.onRemoveFeature = function(e)
 		}
 	}
 };
-/** Feature source is changing 
+/** Feature source is changing
 */
 ol.interaction.Splitter.prototype.onChangeFeature = function(e)
-{	if (this.moving_) 
+{	if (this.moving_)
 	{	this.lastEvent_ = e;
 	}
 	else this.splitSource(e.feature);
 };
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /** Interaction synchronize
  * @constructor
  * @extends {ol.interaction.Interaction}
- * @param {olx.interaction.SynchronizeOptions} 
+ * @param {olx.interaction.SynchronizeOptions}
  *  - maps {Array<ol.Map>} An array of maps to synchronize with the map of the interaction
  */
 ol.interaction.Synchronize = function(options)
@@ -16678,11 +16678,11 @@ ol.interaction.Synchronize.prototype.syncMaps = function(e)
 		{	switch (e.type)
 			{	case 'change:rotation':
 					if (this.maps[i].getView().getRotation() != map.getView().getRotation())
-						this.maps[i].getView().setRotation(map.getView().getRotation()); 
+						this.maps[i].getView().setRotation(map.getView().getRotation());
 					break;
 				case 'change:center':
 					if (this.maps[i].getView().getCenter() != map.getView().getCenter())
-						this.maps[i].getView().setCenter(map.getView().getCenter()); 
+						this.maps[i].getView().setCenter(map.getView().getCenter());
 					break;
 				case 'change:resolution':
 					if (this.maps[i].getView().getResolution() != map.getView().getResolution())
@@ -16745,9 +16745,9 @@ ol.Map.prototype.hideTarget = function()
 	this.targetOverlay_ = undefined;
 };
 
-/*	
+/*
   Tinker Bell effect on maps.
-  Copyright (c) 2015 Jean-Marc VIGLINO, 
+  Copyright (c) 2015 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
   @link https://github.com/Viglino
@@ -16822,17 +16822,17 @@ ol.interaction.TinkerBell.prototype.postcompose_ = function(e) {
     }
   ctx.restore();
   // continue postcompose animation
-  if (this.sparkles.length) this.getMap().render(); 
+  if (this.sparkles.length) this.getMap().render();
 };
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /** Interaction splitter: acts as a split feature agent while editing vector features (LineString).
  * @constructor
  * @extends {ol.interaction.Pointer}
- * @param {olx.interaction.TouchCompass} 
+ * @param {olx.interaction.TouchCompass}
  *	- onDrag {function|undefined} Function handling "drag" events. It provides a dpixel and a traction (in projection) vector form the center of the compas
  *	- size {Number} size of the compass in px, default 80
  *	- alpha {Number} opacity of the compass, default 0.5
@@ -16850,7 +16850,7 @@ ol.interaction.TouchCompass = function(options) {
 	};
 	// Pn drag
 	opt.handleDragEvent = function(e)
-	{	if (!this.pos) 
+	{	if (!this.pos)
 		{	this.pos = this.start;
 			this.getMap().renderSync();
 		}
@@ -16882,7 +16882,7 @@ ol.interaction.TouchCompass = function(options) {
 		ctx.stroke();
 		ctx.fillStyle = "#99f";
 		ctx.beginPath();
-		ctx.moveTo (0,0); 
+		ctx.moveTo (0,0);
 		ctx.lineTo (r,0); ctx.lineTo (r2,r2); ctx.moveTo (0,0);
 		ctx.lineTo (-r,0); ctx.lineTo (-r2,-r2); ctx.moveTo (0,0);
 		ctx.lineTo (0,r); ctx.lineTo (-r2,r2); ctx.moveTo (0,0);
@@ -16890,7 +16890,7 @@ ol.interaction.TouchCompass = function(options) {
 		ctx.fill();
 		ctx.fillStyle = "#eee";
 		ctx.beginPath();
-		ctx.moveTo (0,0); 
+		ctx.moveTo (0,0);
 		ctx.lineTo (r,0); ctx.lineTo (r2,-r2); ctx.moveTo (0,0);
 		ctx.lineTo (-r,0); ctx.lineTo (-r2,r2); ctx.moveTo (0,0);
 		ctx.lineTo (0,r); ctx.lineTo (r2,r2); ctx.moveTo (0,0);
@@ -16936,7 +16936,7 @@ ol.interaction.TouchCompass.prototype.setActive = function(b)
 ol.interaction.TouchCompass.prototype.getCenter_ = function()
 {	var margin = 10;
 	var s = this.size;
-	var c = this.getMap().getSize(); 
+	var c = this.getMap().getSize();
 	return [c[0]/2, c[1]-margin-s/2];
 }
 /**
@@ -16967,9 +16967,9 @@ ol.interaction.TouchCompass.prototype.drawCompass_ = function(e)
 	ctx.restore();
 	if (this.pos)
 	{	// Get delta
-		if (this.ondrag_) 
+		if (this.ondrag_)
 		{	var r = this.getMap().getView().getResolution();
-			var delta = 
+			var delta =
 				{	dpixel: [ this.pos.pixel[0] - this.start.pixel[0], this.pos.pixel[1] - this.start.pixel[1] ]
 				}
 			delta.traction = [ delta.dpixel[0]*r, -delta.dpixel[1]*r];
@@ -17338,7 +17338,7 @@ ol.interaction.Transform.prototype.select = function(feature, add) {
     this.selection_.push(feature);
   } else {
 	var index = this.selection_.getArray().indexOf(feature);
-	this.selection_.removeAt(index);	
+	this.selection_.removeAt(index);
   }
   this.ispt_ = (this.selection_.getLength()===1 ? (this.selection_.item(0).getGeometry().getType() == "Point") : false);
   this.iscircle_ = (this.selection_.getLength()===1 ? (this.selection_.item(0).getGeometry().getType() == "Circle") : false);
@@ -17656,9 +17656,9 @@ ol.interaction.Transform.prototype.getFeatures = function() {
  */
 ol.interaction.UndoRedo = function(options) {
   if (!options) options = {};
-	ol.interaction.Interaction.call(this, {	
-    handleEvent: function() { 
-      return true; 
+	ol.interaction.Interaction.call(this, {
+    handleEvent: function() {
+      return true;
     }
   });
   this._undoStack = [];
@@ -17723,7 +17723,7 @@ ol.interaction.UndoRedo.prototype._watchSources = function() {
     this._sourceListener.forEach(function(l) { ol.Observable.unByKey(l); })
   }
   this._sourceListener = [];
-  // Ges vector layers 
+  // Ges vector layers
   function getVectorLayers(layers, init) {
     if (!init) init = [];
     layers.forEach(function(l) {
@@ -17736,7 +17736,7 @@ ol.interaction.UndoRedo.prototype._watchSources = function() {
     return init;
   }
   if (map) {
-    // Watch the vector sources in the map 
+    // Watch the vector sources in the map
     var vectors = getVectorLayers(map.getLayers());
     vectors.forEach((function(l) {
       var s = l.getSource();
@@ -17759,16 +17759,16 @@ ol.interaction.UndoRedo.prototype._watchInteractions = function() {
   }
   this._interactionListener = [];
   if (map) {
-    // Watch the interactions in the map 
+    // Watch the interactions in the map
     map.getInteractions().forEach((function(i) {
       this._interactionListener.push(i.on(
-        ['setattributestart', 'modifystart', 'rotatestart', 'translatestart', 'scalestart', 'deletestart', 'deleteend', 'beforesplit', 'aftersplit'], 
+        ['setattributestart', 'modifystart', 'rotatestart', 'translatestart', 'scalestart', 'deletestart', 'deleteend', 'beforesplit', 'aftersplit'],
         this._onInteraction.bind(this)
       ));
     }).bind(this));
     // Watch new inserted / unwatch removed
     this._interactionListener.push( map.getInteractions().on(
-      ['add', 'remove'], 
+      ['add', 'remove'],
       this._watchInteractions.bind(this)
     ));
   }
@@ -17797,17 +17797,17 @@ ol.interaction.UndoRedo.prototype._onInteraction.setattributestart = function(e)
       oldp[p] = f.get(p);
     }
     this._undoStack.push({
-      type: 'changeattribute', 
-      feature: f, 
+      type: 'changeattribute',
+      feature: f,
       newProperties: newp,
       oldProperties: oldp
     });
   }.bind(this));
   this.blockEnd();
 };
-ol.interaction.UndoRedo.prototype._onInteraction.rotatestart = 
-ol.interaction.UndoRedo.prototype._onInteraction.translatestart = 
-ol.interaction.UndoRedo.prototype._onInteraction.scalestart = 
+ol.interaction.UndoRedo.prototype._onInteraction.rotatestart =
+ol.interaction.UndoRedo.prototype._onInteraction.translatestart =
+ol.interaction.UndoRedo.prototype._onInteraction.scalestart =
 ol.interaction.UndoRedo.prototype._onInteraction.modifystart = function (e) {
   this.blockStart();
   e.features.forEach(function(m) {
@@ -17899,7 +17899,7 @@ ol.interaction.UndoRedo.prototype._handleDo = function(e, undo) {
   }
   this._record = true;
   // Dispatch event
-  this.dispatchEvent( { 
+  this.dispatchEvent( {
     type: undo ? 'undo' : 'redo',
     action: e
   });
@@ -17930,7 +17930,7 @@ ol.interaction.UndoRedo.prototype.clear = function() {
   this._redoStack = [];
 };
 /** Check if undo is avaliable
- * @return {number} the number of undo 
+ * @return {number} the number of undo
  * @api
  */
 ol.interaction.UndoRedo.prototype.hasUndo = function() {
@@ -18047,10 +18047,10 @@ ol.source.BinBase.prototype.getBin = function (feature) {
   }
   return null;
 }
-/** Get the grid geometry at the coord 
+/** Get the grid geometry at the coord
  * @param {ol.Coordinate} coord
  * @param {Object} attributes add key/value to this object to add properties to the grid feature
- * @returns {ol.geom.Polygon} 
+ * @returns {ol.geom.Polygon}
  * @api
  */
 ol.source.BinBase.prototype.getGridGeomAt = function (coord /*, attributes */) {
@@ -18097,7 +18097,7 @@ ol.source.BinBase.prototype._onModifyFeature = function (e) {
   }
   this.changed();
 };
-/** Clear all bins and generate a new one. 
+/** Clear all bins and generate a new one.
  */
 ol.source.BinBase.prototype.reset = function () {
   this.clear();
@@ -18125,7 +18125,7 @@ ol.source.BinBase.prototype.getGridFeatures = function () {
   }.bind(this));
   return features;
 };
-/** Create bin attributes using the features it contains when exporting 
+/** Create bin attributes using the features it contains when exporting
  * @param {ol.Feature} bin the bin to export
  * @param {Array<ol.Features>} features the features it contains
  */
@@ -18139,13 +18139,13 @@ ol.source.BinBase.prototype.getSource = function () {
   return this._origin;
 };
 
-/*	Copyright (c) 2015 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2015 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
   @classdesc
   ol.source.DBPedia is a DBPedia layer source that load DBPedia located content in a vector layer.
   olx.source.DBPedia: olx.source.Vector
-  {	url: {string} Url for DBPedia SPARQL 
+  {	url: {string} Url for DBPedia SPARQL
   }
   Inherits from:
   <ol.source.Vector>
@@ -18212,7 +18212,7 @@ ol.source.DBPedia.prototype.querySubject = function () {
 ol.source.DBPedia.prototype.queryFilter = function () {
   return	 "lang(?label) = '"+this._lang+"' "
     + "&& lang(?abstract) = '"+this._lang+"'"
-  // Filter on type 
+  // Filter on type
   //+ "&& regex (?type, 'Monument|Sculpture|Museum', 'i')"
 }
 /** Loader function used to load features.
@@ -18255,7 +18255,7 @@ ol.source.DBPedia.prototype._loaderFn = function(extent, resolution, projection)
     }});
 };
 ol.style.clearDBPediaStyleCache;
-ol.style.dbPediaStyleFunction; 
+ol.style.dbPediaStyleFunction;
 (function(){
 // Style cache
 var styleCache = {};
@@ -18294,7 +18294,7 @@ ol.style.dbPediaStyleFunction = function(options) {
           else if (type.match("Island")) return "fa-leaf";
           else if (type.match("/Event")) return "fa-heart";
           else if (type.match("/Artwork")) return "fa-asterisk";
-          else if (type.match("/Stadium")) return "fa-futbol-o";
+          else if (type.match("/Stadium")) return "fa-futbol";
           else if (type.match("/Place")) return "fa-street-view";
         }
         return "fa-star";
@@ -18315,8 +18315,8 @@ ol.style.dbPediaStyleFunction = function(options) {
     if (!style) {
       styleCache[k] = style = new ol.style.Style ({
         image: new ol.style.FontSymbol({
-          glyph: glyph, 
-          radius: radius, 
+          glyph: glyph,
+          radius: radius,
           fill: fill,
           stroke: stroke
         })
@@ -18327,7 +18327,7 @@ ol.style.dbPediaStyleFunction = function(options) {
 };
 })();
 
-/*	Copyright (c) 2018 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2018 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -18351,7 +18351,7 @@ ol.source.DFCI = function(options) {
   this._bbox = [[0,1600000],[11*100000, 1600000+10*100000]];
   ol.source.Vector.call (this, options);
   this.set('resolutions', options.resolutions || [1000,100,20]);
-  // Add Lambert IIe proj 
+  // Add Lambert IIe proj
   if (!proj4.defs["EPSG:27572"]) proj4.defs("EPSG:27572","+proj=lcc +lat_1=46.8 +lat_0=46.8 +lon_0=0 +k_0=0.99987742 +x_0=600000 +y_0=2200000 +a=6378249.2 +b=6356515 +towgs84=-168,-60,320,0,0,0,0 +pm=paris +units=m +no_defs");
   ol.proj.proj4.register(proj4);
 };
@@ -18410,7 +18410,7 @@ ol.source.DFCI.prototype._trFeature = function(geom, id, level, projection) {
   return f;
 };
 /** Get features
- * 
+ *
  */
 ol.source.DFCI.prototype._getFeatures = function (level, extent, projection) {
   var features = [];
@@ -18419,11 +18419,11 @@ ol.source.DFCI.prototype._getFeatures = function (level, extent, projection) {
   if (level>0) step /= 5;
   if (level>1) step /= 10;
   var p0 = [
-    Math.max(this._bbox[0][0], Math.floor(extent[0]/step)*step), 
+    Math.max(this._bbox[0][0], Math.floor(extent[0]/step)*step),
     Math.max(this._bbox[0][1], Math.floor(extent[1]/step)*step)
   ];
   var p1 = [
-    Math.min(this._bbox[1][0]+99999, Math.floor(extent[2]/step)*step), 
+    Math.min(this._bbox[1][0]+99999, Math.floor(extent[2]/step)*step),
     Math.min(this._bbox[1][1]+99999, Math.floor(extent[3]/step)*step)
   ];
   for (var x=p0[0]; x<=p1[0]; x += step) {
@@ -18487,7 +18487,7 @@ ol.source.Delaunay.prototype._addTriangle = function(pts) {
   this.flip.push(triangle);
   return triangle;
 };
-/** Get nodes 
+/** Get nodes
  */
 ol.source.Delaunay.prototype.getNodes = function () {
   return this._nodes.getFeatures();
@@ -18499,7 +18499,7 @@ ol.source.Delaunay.prototype.getNodeSource = function () {
 };
 /**
  * A point has been removed
- * @param {ol/source/Vector.Event} evt 
+ * @param {ol/source/Vector.Event} evt
  */
 ol.source.Delaunay.prototype._onRemoveNode = function(evt) {
   // console.log(evt)
@@ -18542,7 +18542,7 @@ console.log('EDGES', se);
   }
   while (true) {
     var e = edges[i];
-    if ( testEdge(e[0], e[1], 0) 
+    if ( testEdge(e[0], e[1], 0)
       || testEdge(e[1], e[0], 0)
       || testEdge(e[0], e[1], pts.length-1)
       || testEdge(e[1], e[0], pts.length-1)
@@ -18572,7 +18572,7 @@ console.log('PTS', this.listpt(pts))
   }
   this.hull = ol.coordinate.convexHull(this.hull.concat(pts));
 // select.getFeatures().clear();
-  // 
+  //
   var clockwise = function (t) {
     var i1, s = 0;
     for (var i=0; i<t.length; i++) {
@@ -18584,7 +18584,7 @@ console.log('PTS', this.listpt(pts))
   };
   // Add ears
   // a l'interieur : Si surface ear et surface de l'objet ont meme signe
-  // extrieur ? ajoute le point et idem ? + ferme la 
+  // extrieur ? ajoute le point et idem ? + ferme la
   var clock;
 var enveloppe = pts.slice();
   if (closed) {
@@ -18601,7 +18601,7 @@ console.log('E=',this.listpt(enveloppe))
     var t = [
       pts[i % pts.length],
       pts[(i+1) % pts.length],
-      pts[(i+2) % pts.length] 
+      pts[(i+2) % pts.length]
     ];
     if (clockwise(t)===clock) {
       var ok = true;
@@ -18654,7 +18654,7 @@ for (var i=0; i<this.flip.length; i++) {
 };
 /**
  * A new point has been added
- * @param {ol/source/VectorEvent} e 
+ * @param {ol/source/VectorEvent} e
  */
 ol.source.Delaunay.prototype._onAddNode = function(e) {
   var finserted = e.feature;
@@ -18824,7 +18824,7 @@ ol.source.Delaunay.prototype.listpt = function (pts) {
   }
   return s;
 };
-/** Test if coord is within triangle's circumcircle 
+/** Test if coord is within triangle's circumcircle
  * @param {ol.coordinate} coord
  * @param {Array<ol.coordinate>} triangle
  * @return {boolean}
@@ -18851,8 +18851,8 @@ ol.source.Delaunay.prototype.getCircumCircle = function (triangle) {
   var cx = (b2-b1)/(m1-m2);
   var cy = m1*cx + b1;
   var center = [cx, cy];
-  return  { 
-    center: center, 
+  return  {
+    center: center,
     radius: ol.coordinate.dist2d(center,triangle[0])
   };
 };
@@ -18900,9 +18900,9 @@ ol.source.FeatureBin.prototype.setFeatures = function (features) {
   this._sourceFeature.addFeatures(features || []);
   this.reset();
 };
-/** Get the grid geometry at the coord 
+/** Get the grid geometry at the coord
  * @param {ol.Coordinate} coord
- * @returns {ol.geom.Polygon} 
+ * @returns {ol.geom.Polygon}
  * @api
  */
 ol.source.FeatureBin.prototype.getGridGeomAt = function (coord, attributes) {
@@ -18915,7 +18915,7 @@ ol.source.FeatureBin.prototype.getGridGeomAt = function (coord, attributes) {
   return f.getGeometry();
 };
 
-/*	Copyright (c) 2015 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2015 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
   ol.source.GeoImage is a layer source with georeferencement to place it on a map.
@@ -18930,20 +18930,20 @@ ol.source.FeatureBin.prototype.getGridGeomAt = function (coord, attributes) {
   }
 */
 /** Layer source with georeferencement to place it on a map
-* @constructor 
+* @constructor
 * @extends {ol.source.ImageCanvas}
 * @param {olx.source.GeoImageOptions=} options
 */
 ol.source.GeoImage = function(opt_options) {
-  var options = { 
+  var options = {
     attributions: opt_options.attributions,
     logo: opt_options.logo,
     projection: opt_options.projection
   };
   // options.projection = opt_options.projection;
-  // Coordinate of the image center 
+  // Coordinate of the image center
   this.center = opt_options.imageCenter;
-  // Scale of the image 
+  // Scale of the image
   this.scale = opt_options.imageScale;
   // Rotation of the image
   this.rotate = opt_options.imageRotate ? opt_options.imageRotate : 0;
@@ -18997,7 +18997,7 @@ ol.source.GeoImage = function(opt_options) {
     ctx.drawImage(this._image, this.crop[0], this.crop[1], this._imageSize[0], this._imageSize[1], -dx, -dy, sx,sy);
     return canvas;
   }
-  ol.source.ImageCanvas.call (this, options);	
+  ol.source.ImageCanvas.call (this, options);
   this.setCrop (this.crop);
   // Calculate extent on change
   this.on('change', function() {
@@ -19040,7 +19040,7 @@ ol.source.GeoImage.prototype.setScale = function(scale) {
     case 'number':
       scale = [scale,scale];
       break;
-    case 'object': 
+    case 'object':
       if (scale.length != 2) return;
       break;
     default: return;
@@ -19113,7 +19113,7 @@ ol.source.GeoImage.prototype.setCrop = function(crop) {
       case 'number':
         crop = [crop,crop,this._image.naturalWidth-crop,this._image.naturalHeight-crop];
         break;
-      case 'object': 
+      case 'object':
         if (crop.length != 4) return;
         break;
       default: return;
@@ -19166,12 +19166,12 @@ ol.source.GeoImage.prototype.calculateExtent = function(usemask) {
   return ext;
 };
 
-/*	Copyright (c) 2019 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2019 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /** ol.source.GeoRSS is a source that load Wikimedia Commons content in a vector layer.
- * @constructor 
+ * @constructor
  * @extends {ol.source.Vector}
  * @param {*} options source options
  *  @param {string} options.url GeoRSS feed url
@@ -19206,7 +19206,7 @@ ol.source.GeoRSS.prototype._loaderFn = function(extent, resolution, projection){
  * @constructor
  * @extends {ol.source.WMTS}
  * @param {String=} layer Layer name.
- * @param {olx.source.OSMOptions=} options WMTS options 
+ * @param {olx.source.OSMOptions=} options WMTS options
  *  @param {number} options.minZoom
  *  @param {number} options.maxZoom
  *  @param {string} options.server
@@ -19223,7 +19223,7 @@ ol.source.Geoportail = function (layer, options) {
   var resolutions = new Array();//[156543.03392804103,78271.5169640205,39135.75848201024,19567.879241005125,9783.939620502562,4891.969810251281,2445.9849051256406,1222.9924525628203,611.4962262814101,305.74811314070485,152.87405657035254,76.43702828517625,38.218514142588134,19.109257071294063,9.554628535647034,4.777314267823517,2.3886571339117584,1.1943285669558792,0.5971642834779396,0.29858214173896974,0.14929107086948493,0.07464553543474241];
   var size = ol.extent.getWidth(ol.proj.get('EPSG:3857').getExtent()) / 256;
   for (var z=0; z <= (options.maxZoom ? options.maxZoom : 20) ; z++) {
-    matrixIds[z] = z ; 
+    matrixIds[z] = z ;
     resolutions[z] = size / Math.pow(2, z);
   }
   var tg = new ol.tilegrid.WMTS ({
@@ -19255,7 +19255,7 @@ ol.source.Geoportail = function (layer, options) {
   }
 };
 ol.ext.inherits(ol.source.Geoportail, ol.source.WMTS);
-/** Standard IGN-GEOPORTAIL attribution 
+/** Standard IGN-GEOPORTAIL attribution
 */
 ol.source.Geoportail.prototype.attribution = '<a href="http://www.geoportail.gouv.fr/">Géoportail</a> &copy; <a href="http://www.ign.fr/">IGN-France</a>';
 /** Get service URL according to server url or standard url
@@ -19301,10 +19301,10 @@ ol.source.Geoportail.prototype.setGPPKey = function(key, authentication) {
 /** Return the GetFeatureInfo URL for the passed coordinate, resolution, and
  * projection. Return `undefined` if the GetFeatureInfo URL cannot be
  * constructed.
- * @param {ol.Coordinate} coord 
- * @param {Number} resolution 
+ * @param {ol.Coordinate} coord
+ * @param {Number} resolution
  * @param {ol.proj.Projection} projection default the source projection
- * @param {Object} options 
+ * @param {Object} options
  *  @param {string} options.INFO_FORMAT response format text/plain, text/html, application/json, default text/plain
  * @return {String|undefined} GetFeatureInfo URL.
  */
@@ -19325,10 +19325,10 @@ ol.source.Geoportail.prototype.getFeatureInfoUrl  = function(coord, resolution, 
     +'&J='+j;
 };
 /** Get feature info
- * @param {ol.Coordinate} coord 
- * @param {Number} resolution 
+ * @param {ol.Coordinate} coord
+ * @param {Number} resolution
  * @param {ol.proj.Projection} projection default the source projection
- * @param {Object} options 
+ * @param {Object} options
  *  @param {string} options.INFO_FORMAT response format text/plain, text/html, application/json, default text/plain
  *  @param {function} options.callback a function that take the response as parameter
  *  @param {function} options.error function called when an error occurred
@@ -19338,8 +19338,8 @@ ol.source.Geoportail.prototype.getFeatureInfo = function(coord, resolution, opti
   ol.ext.Ajax.get({
     url: url,
     dataType: options.format || 'text/plain',
-    options: { 
-      encode: false 
+    options: {
+      encode: false
     },
     success: function(resp) {
       if (options.callback) options.callback(resp);
@@ -19407,9 +19407,9 @@ ol.source.GridBin.prototype.setSize = function (size) {
   this.set('size', size);
   this.reset();
 };
-/** Get the grid geometry at the coord 
+/** Get the grid geometry at the coord
  * @param {ol.Coordinate} coord
- * @returns {ol.geom.Polygon} 
+ * @returns {ol.geom.Polygon}
  * @api
  */
 ol.source.GridBin.prototype.getGridGeomAt = function (coord) {
@@ -19445,9 +19445,9 @@ ol.source.HexBin = function (options) {
   ol.source.BinBase.call(this, options);
 };
 ol.ext.inherits(ol.source.HexBin, ol.source.BinBase);
-/** Get the hexagon geometry at the coord 
+/** Get the hexagon geometry at the coord
  * @param {ol.Coordinate} coord
- * @returns {ol.geom.Polygon} 
+ * @returns {ol.geom.Polygon}
  * @api
  */
 ol.source.HexBin.prototype.getGridGeomAt = function (coord) {
@@ -19544,15 +19544,15 @@ ol.source.InseeBin.prototype.setSize = function (size) {
 ol.source.InseeBin.prototype.getSize = function () {
   return this._grid.get('size');
 };
-/** Get the grid geometry at the coord 
+/** Get the grid geometry at the coord
  * @param {ol.Coordinate} coord
- * @returns {ol.geom.Polygon} 
+ * @returns {ol.geom.Polygon}
  * @api
  */
 ol.source.InseeBin.prototype.getGridGeomAt = function (coord) {
   return this._grid.getGridAtCoordinate(coord, this.getProjection());
 };
-/** Get grid extent 
+/** Get grid extent
  * @param {ol.ProjectionLike} proj
  * @return {ol.Extent}
  */
@@ -19560,7 +19560,7 @@ ol.source.InseeBin.prototype.getGridExtent = function (proj) {
   return this._grid.getExtent(proj);
 };
 
-/*	Copyright (c) 2017 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2017 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 	@classdesc
@@ -19619,8 +19619,8 @@ ol.source.Mapillary.prototype._loaderFn = function(extent, resolution, projectio
 	// Ajax request to get the tile
 	ol.ext.Ajax.get(
 	{	url: url,
-		dataType: 'jsonp', 
-		success: function(data) 
+		dataType: 'jsonp',
+		success: function(data)
 		{	console.log(data);
 			/*
 			var features = [];
@@ -19628,7 +19628,7 @@ ol.source.Mapillary.prototype._loaderFn = function(extent, resolution, projectio
 			if (data.query && data.query.pages) return;
 			for ( var i in data.query.pages)
 			{	att = data.query.pages[i];
-				if (att.coordinates && att.coordinates.length ) 
+				if (att.coordinates && att.coordinates.length )
 				{	pt = [att.coordinates[0].lon, att.coordinates[0].lat];
 				}
 				else
@@ -19642,7 +19642,7 @@ ol.source.Mapillary.prototype._loaderFn = function(extent, resolution, projectio
 					{	if (meta[k].name=="GPSLongitude") pt[0] = meta[k].value;
 						if (meta[k].name=="GPSLatitude") pt[1] = meta[k].value;
 					}
-					if (!pt.length) 
+					if (!pt.length)
 					{	//console.log(att);
 						continue;
 					}
@@ -19658,7 +19658,7 @@ ol.source.Mapillary.prototype._loaderFn = function(extent, resolution, projectio
     }});
 };
 
-/*	Copyright (c) 2018 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2018 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -19739,7 +19739,7 @@ ol.source.Overpass.prototype._loaderFn = function(extent, resolution, projection
 /**
  * Search if feature is allready loaded
  * @param {ol.Feature} feature
- * @return {boolean} 
+ * @return {boolean}
  * @private
  */
 ol.source.Overpass.prototype.hasFeature = function(feature) {
@@ -19765,7 +19765,7 @@ ol.source.Overpass.prototype.hasFeature = function(feature) {
   };
 })();
 
-/** 
+/**
  * @classdesc 3D vector layer rendering
  * @constructor
  * @extends {pl.layer.Image}
@@ -19782,18 +19782,18 @@ ol.layer.Vector3D = function (options) {
   this._source = options.source;
   this.height_ = options.height = this.getHfn (options.height);
   var canvas = document.createElement('canvas');
-  ol.layer.Image.call (this, { 
+  ol.layer.Image.call (this, {
     source: new ol.source.ImageCanvas({
       canvasFunction: function(extent, resolution, pixelRatio, size /*, projection*/ ) {
         canvas.width = size[0];
         canvas.height = size[1];
         return canvas;
       }
-    }), 
+    }),
     height: options.height,
     center: options.center || [.5,1],
     defaultHeight: options.defaultHeight || 0,
-    maxResolution: options.maxResolution || Infinity 
+    maxResolution: options.maxResolution || Infinity
   });
   this.setStyle(options.style);
   this.on (['postcompose', 'postrender'], this.onPostcompose_.bind(this));
@@ -19816,8 +19816,8 @@ ol.layer.Vector3D.prototype.setStyle = function(s) {
     this._style.setFill( new ol.style.Fill({ color: 'rgba(0,0,255,0.5)'}) );
   }
   if (!this._style.getText()) {
-    this._style.setText( new ol.style.Fill({ 
-      color: 'red'}) 
+    this._style.setText( new ol.style.Fill({
+      color: 'red'})
     );
   }
   // Get the geometry
@@ -19867,9 +19867,9 @@ ol.layer.Vector3D.prototype.onPostcompose_ = function(e) {
     m[4] = m[12];
     m[5] = m[13];
   }
-  this.center_ = [ 
-    ctx.canvas.width*this.get('center')[0]/ratio, 
-    ctx.canvas.height*this.get('center')[1]/ratio 
+  this.center_ = [
+    ctx.canvas.width*this.get('center')[0]/ratio,
+    ctx.canvas.height*this.get('center')[1]/ratio
   ];
   var f = this._source.getFeaturesInExtent(e.frameState.extent);
   ctx.save();
@@ -19896,7 +19896,7 @@ ol.layer.Vector3D.prototype.getHfn= function(h) {
     case 'string': {
       var dh = this.get('defaultHeight');
         return (function(f) {
-          return (Number(f.get(h)) || dh); 
+          return (Number(f.get(h)) || dh);
         });
       }
     case 'number': return (function(/*f*/) { return h; });
@@ -19928,7 +19928,7 @@ ol.layer.Vector3D.prototype.animating = function() {
   }
   return !!this.animate_;
 }
-/** 
+/**
 */
 ol.layer.Vector3D.prototype.getFeatureHeight = function (f) {
   if (this.animate_) {
@@ -19946,7 +19946,7 @@ ol.layer.Vector3D.prototype.hvector_ = function (pt, h) {
     pt[0]*this.matrix_[2] + pt[1]*this.matrix_[3] + this.matrix_[5]
   ];
   return {
-    p0: p0, 
+    p0: p0,
     p1: [
       p0[0] + h/this.res_ * (p0[0]-this.center_[0]),
       p0[1] + h/this.res_ * (p0[1]-this.center_[1])
@@ -19984,7 +19984,7 @@ ol.layer.Vector3D.prototype.getFeature3D_ = function (f, h) {
 ol.layer.Vector3D.prototype.drawFeature3D_ = function(ctx, build) {
   var i,j, b, k;
   // Construct
-  for (i=0; i<build.length; i++) {	
+  for (i=0; i<build.length; i++) {
     switch (build[i].type) {
       case "MultiPolygon": {
         for (j=0; j<build[i].geom.length; j++) {
@@ -20056,7 +20056,7 @@ ol.layer.Vector3D.prototype.drawFeature3D_ = function(ctx, build) {
   }
 }
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
   @classdesc
@@ -20166,10 +20166,10 @@ ol.source.WikiCommons.prototype._loaderFn = function(extent, resolution, project
 */
 /**
  *  A vector layer for animated cluster
- * @constructor 
+ * @constructor
  * @extends {ol.layer.Vector}
  * @param {olx.layer.AnimatedClusterOptions=} options extend olx.layer.Options
- * 	@param {Number} options.animationDuration animation duration in ms, default is 700ms 
+ * 	@param {Number} options.animationDuration animation duration in ms, default is 700ms
  * 	@param {ol.easingFunction} animationMethod easing method to use, default ol.easing.easeOut
  */
 ol.layer.AnimatedCluster = function(opt_options)
@@ -20202,16 +20202,16 @@ ol.layer.AnimatedCluster.prototype.saveCluster = function() {
 		}
 	}
 };
-/** 
+/**
  * Get the cluster that contains a feature
  * @private
 */
 ol.layer.AnimatedCluster.prototype.getClusterForFeature = function(f, cluster)
 {	for (var j=0, c; c=cluster[j]; j++)
 	{	var features = c.get('features');
-		if (features && features.length) 
+		if (features && features.length)
 		{	for (var k=0, f2; f2=features[k]; k++)
-			{	if (f===f2) 
+			{	if (f===f2)
 				{	return c;
 				}
 			}
@@ -20219,16 +20219,16 @@ ol.layer.AnimatedCluster.prototype.getClusterForFeature = function(f, cluster)
 	}
 	return false;
 };
-/** 
- * Stop animation 
- * @private 
+/**
+ * Stop animation
+ * @private
  */
 ol.layer.AnimatedCluster.prototype.stopAnimation = function()
 {	this.animation.start = false;
 	this.animation.cA = [];
 	this.animation.cB = [];
 };
-/** 
+/**
  * animate the cluster
  * @private
  */
@@ -20256,7 +20256,7 @@ ol.layer.AnimatedCluster.prototype.animate = function(e)
 		a.clusters = [];
 		for (i=0, c0; c0=a.cA[i]; i++)
 		{	var f = c0.get('features');
-			if (f && f.length) 
+			if (f && f.length)
 			{	var c = this.getClusterForFeature (f[0], a.cB);
 				if (c) a.clusters.push({ f:c0, pt:c.getGeometry().getCoordinates() });
 			}
@@ -20265,7 +20265,7 @@ ol.layer.AnimatedCluster.prototype.animate = function(e)
 		a.resolution = resolution;
 		this.sourceChanged = false;
 		// No cluster or too much to animate
-		if (!a.clusters.length || a.clusters.length>1000) 
+		if (!a.clusters.length || a.clusters.length>1000)
 		{	this.stopAnimation();
 			return;
 		}
@@ -20277,7 +20277,7 @@ ol.layer.AnimatedCluster.prototype.animate = function(e)
 		var vectorContext = e.vectorContext || ol.render.getVectorContext(e);
 		var d = (time - a.start) / duration;
 		// Animation ends
-		if (d > 1.0) 
+		if (d > 1.0)
 		{	this.stopAnimation();
 			d = 1;
 		}
@@ -20362,8 +20362,8 @@ ol.layer.AnimatedCluster.prototype.animate = function(e)
 				// OL < v4.3 : setImageStyle doesn't check retina
 				var imgs = ol.Map.prototype.getFeaturesAtPixel ? false : s.getImage();
 				if (imgs)
-				{	sc = imgs.getScale(); 
-					imgs.setScale(sc*ratio); 
+				{	sc = imgs.getScale();
+					imgs.setScale(sc*ratio);
 				}
 				// OL3 > v3.14
 				if (vectorContext.setStyle)
@@ -20399,7 +20399,7 @@ ol.layer.AnimatedCluster.prototype.animate = function(e)
 	}
 	return;
 };
-/**  
+/**
  * remove clipping after the layer is drawn
  * @private
  */
@@ -20439,9 +20439,9 @@ ol.layer.GeoImage.prototype.getExtent = function() {
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
-// 
+//
 /** IGN's Geoportail WMTS layer definition
- * @constructor 
+ * @constructor
  * @extends {ol.layer.Tile}
  * @param {string} layer Layer name
  * @param {olx.layer.WMTSOptions=} options WMTS options if not defined default are used
@@ -20499,7 +20499,7 @@ ol.layer.Geoportail = function(layer, options, tileoptions) {
     if (!counter) {
       var z = e.frameState.viewState.zoom;
       console.log(e)
-      if (z===currentZ 
+      if (z===currentZ
         && e.frameState.viewState.center[0]===currentCenter[0]
         && e.frameState.viewState.center[1]===currentCenter[1]){
           return;
@@ -20521,7 +20521,7 @@ ol.layer.Geoportail = function(layer, options, tileoptions) {
               && ol.extent.intersects(ex, o.constraint[i].bbox)) {
                 maxZoom = o.constraint[i].maxZoom;
             }
-          }	
+          }
         }
         if (maxZoom < z) z = maxZoom;
         if (this.getSource().getTileGrid() && z < this.getSource().getTileGrid().getMinZoom()) {
@@ -20533,8 +20533,8 @@ ol.layer.Geoportail = function(layer, options, tileoptions) {
             attrib.push (getAttrib(a, o));
           } else {
             for (i=0; i<o.constraint.length; i++) {
-              if ( z <= o.constraint[i].maxZoom 
-                && z >= o.constraint[i].minZoom 
+              if ( z <= o.constraint[i].maxZoom
+                && z >= o.constraint[i].minZoom
                 && ol.extent.intersects(ex, o.constraint[i].bbox)) {
                   attrib.push (getAttrib(a, o));
                   break;
@@ -20577,7 +20577,7 @@ ol.layer.Geoportail.loadCapabilities = function(gppKey, all) {
   this.getCapabilities(gppKey,all).then(function(c) {
     ol.layer.Geoportail.capabilities = c;
     onSuccess(c);
-  }).catch(function(e) { 
+  }).catch(function(e) {
     onError(e);
   }).finally(function(c) {
     onFinally(c);
@@ -20611,10 +20611,10 @@ ol.layer.Geoportail.getCapabilities = function(gppKey) {
   // Transform resolution to zoom
 	function getZoom(res) {
     res = Number(res) * 0.000281;
-		for (var r=0; r<geopresolutions.length; r++) 
+		for (var r=0; r<geopresolutions.length; r++)
 			if (res>geopresolutions[r]) return r;
   }
-  // Merge constraints 
+  // Merge constraints
   function mergeConstraints(ori) {
     for (var i=ori.constraint.length-1; i>0; i--) {
       for (var j=0; j<i; j++) {
@@ -20626,9 +20626,9 @@ ol.layer.Geoportail.getCapabilities = function(gppKey) {
           }
         }
         if (!bok) continue;
-        if (ori.constraint[i].maxZoom == ori.constraint[j].minZoom 
-         || ori.constraint[j].maxZoom == ori.constraint[i].minZoom 
-         || ori.constraint[i].maxZoom+1 == ori.constraint[j].minZoom 
+        if (ori.constraint[i].maxZoom == ori.constraint[j].minZoom
+         || ori.constraint[j].maxZoom == ori.constraint[i].minZoom
+         || ori.constraint[i].maxZoom+1 == ori.constraint[j].minZoom
          || ori.constraint[j].maxZoom+1 == ori.constraint[i].minZoom
          || ori.constraint[i].minZoom-1 == ori.constraint[j].maxZoom
          || ori.constraint[j].minZoom-1 == ori.constraint[i].maxZoom) {
@@ -20657,7 +20657,7 @@ ol.layer.Geoportail.getCapabilities = function(gppKey) {
         if (!/WMTS/.test(l.getElementsByTagName('Server')[0].attributes['service'].value)) continue;
 //        if (!all && !/geoportail\/wmts/.test(l.find("OnlineResource").attr("href"))) continue;
         var service = {
-          server: l.getElementsByTagName('gpp:Key')[0].innerHTML.replace(gppKey+"/",""), 
+          server: l.getElementsByTagName('gpp:Key')[0].innerHTML.replace(gppKey+"/",""),
           layer: l.getElementsByTagName('Name')[0].innerHTML,
           title: l.getElementsByTagName('Title')[0].innerHTML,
           format: l.getElementsByTagName('Format')[0].innerHTML,
@@ -20722,7 +20722,7 @@ ol.layer.Geoportail.getCapabilities = function(gppKey) {
   return response;
 };
 
-/*	Copyright (c) 2015 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2015 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -20765,7 +20765,7 @@ ol.source.TileWMS.prototype.getPreview = function(lonlat, resolution)
 	return fn.call(this, lonlat, this.getProjection());
 */
 	// Use getfeature info instead
-	var url = this.getGetFeatureInfoUrl ? 
+	var url = this.getGetFeatureInfoUrl ?
 		this.getGetFeatureInfoUrl(lonlat, resolution, this.getProjection() || 'EPSG:3857', {})
 		: this.getFeatureInfoUrl(lonlat, resolution, this.getProjection() || 'EPSG:3857', {});
 	url = url.replace(/getfeatureinfo/i,"GetMap");
@@ -20782,13 +20782,13 @@ ol.layer.Base.prototype.getPreview = function(lonlat, resolution)
 {	if (this.get("preview")) return [ this.get("preview") ];
 	if (!resolution) resolution = 150;
 	// Get middle resolution
-	if (resolution < this.getMinResolution() || resolution > this.getMaxResolution()) 
+	if (resolution < this.getMinResolution() || resolution > this.getMaxResolution())
 	{	var rmin = this.getMinResolution(),
 			rmax = this.getMaxResolution();
 		if (rmax>100000) rmax = 156543;	// min zoom : world
-		if (rmin<0.15) rmin = 0.15;	// max zoom 
+		if (rmin<0.15) rmin = 0.15;	// max zoom
 		resolution = rmax;
-		while (rmax>rmin) 
+		while (rmax>rmin)
 		{	rmin *= 2;
 			rmax /= 2;
 			resolution = rmin;
@@ -20810,9 +20810,9 @@ ol.layer.Base.prototype.getPreview = function(lonlat, resolution)
 ol.layer.Group.prototype.getPreview = function(lonlat, resolution)
 {	if (this.get("preview")) return [ this.get("preview") ];
 	var t = [];
-	if (this.getLayers) 
+	if (this.getLayers)
 	{	var l = this.getLayers().getArray();
-		for (var i=0; i<l.length; i++) 
+		for (var i=0; i<l.length; i++)
 		{	t = t.concat(l[i].getPreview(lonlat, resolution));
 		}
 	}
@@ -20828,7 +20828,7 @@ ol.layer.Group.prototype.getPreview = function(lonlat, resolution)
 ol.layer.Vector.prototype.setRender3D = function (r) {
   r.setLayer(this);
 }
-/** 
+/**
  * @classdesc
  *ol.render3D 3D vector layer rendering
  * @constructor
@@ -20931,8 +20931,8 @@ ol.render3D.prototype.onPostcompose_ = function(e) {
 */
 ol.render3D.prototype.setLayer = function(l) {
   if (this._listener) {
-    this._listener.forEach( function(l) { 
-      ol.Observable.unByKey(l); 
+    this._listener.forEach( function(l) {
+      ol.Observable.unByKey(l);
     });
   }
   this.layer_ = l;
@@ -20948,7 +20948,7 @@ ol.render3D.prototype.getHfn= function(h) {
     case 'string': {
       var dh = this.get('defaultHeight');
         return (function(f) {
-          return (Number(f.get(h)) || dh); 
+          return (Number(f.get(h)) || dh);
         });
       }
     case 'number': return (function(/*f*/) { return h; });
@@ -20980,7 +20980,7 @@ ol.render3D.prototype.animating = function() {
   }
   return !!this.animate_;
 }
-/** 
+/**
 */
 ol.render3D.prototype.getFeatureHeight = function (f) {
   if (this.animate_) {
@@ -20998,7 +20998,7 @@ ol.render3D.prototype.hvector_ = function (pt, h) {
     pt[0]*this.matrix_[2] + pt[1]*this.matrix_[3] + this.matrix_[5]
   ];
   return {
-    p0: p0, 
+    p0: p0,
     p1: [
       p0[0] + h/this.res_ * (p0[0]-this.center_[0]),
       p0[1] + h/this.res_ * (p0[1]-this.center_[1])
@@ -21036,7 +21036,7 @@ ol.render3D.prototype.getFeature3D_ = function (f, h) {
 ol.render3D.prototype.drawFeature3D_ = function(ctx, build) {
   var i,j, b, k;
   // Construct
-  for (i=0; i<build.length; i++) {	
+  for (i=0; i<build.length; i++) {
     switch (build[i].type) {
       case "MultiPolygon": {
         for (j=0; j<build[i].geom.length; j++) {
@@ -21110,7 +21110,7 @@ ol.render3D.prototype.drawFeature3D_ = function(ctx, build) {
   }
 }
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -21127,13 +21127,13 @@ popup.hide();
 *
 * @constructor
 * @extends {ol.Overlay}
-* @param {} options Extend Overlay options 
+* @param {} options Extend Overlay options
 *	@param {String} options.popupClass the a class of the overlay to style the popup.
 *	@param {bool} options.closeBox popup has a close box, default false.
 *	@param {function|undefined} options.onclose: callback function when popup is closed
 *	@param {function|undefined} options.onshow callback function when popup is shown
 *	@param {Number|Array<number>} options.offsetBox an offset box
-*	@param {ol.OverlayPositioning | string | undefined} options.positioning 
+*	@param {ol.OverlayPositioning | string | undefined} options.positioning
 *		the 'auto' positioning var the popup choose its positioning to stay on the map.
 * @api stable
 */
@@ -21151,7 +21151,7 @@ ol.Overlay.Popup = function (options) {
   anchorElement.classList.add("anchor");
   element.appendChild(anchorElement);
   // Content
-  this.content = ol.ext.element.create("div", { 
+  this.content = ol.ext.element.create("div", {
     html: options.html || '',
     className: "ol-popup-content",
     parent: element
@@ -21257,7 +21257,7 @@ ol.Overlay.Popup.prototype.removePopupClass = function (c) {
 };
 /**
  * Set positionning of the popup
- * @param {ol.OverlayPositioning | string | undefined} pos an ol.OverlayPositioning 
+ * @param {ol.OverlayPositioning | string | undefined} pos an ol.OverlayPositioning
  * 		or 'auto' to var the popup choose the best position
  * @api stable
  */
@@ -21309,7 +21309,7 @@ popup.show("New informations");
 */
 ol.Overlay.Popup.prototype.show = function (coordinate, html) {
   if (!html && typeof(coordinate)=='string') {
-    html = coordinate; 
+    html = coordinate;
     coordinate = null;
   }
   if (coordinate===true) {
@@ -21361,7 +21361,7 @@ ol.Overlay.Popup.prototype.show = function (coordinate, html) {
     this._elt.parentElement.style.display = '';
     if (typeof (this.onshow) == 'function') this.onshow();
     this._tout = setTimeout (function() {
-      self._elt.classList.add("visible"); 
+      self._elt.classList.add("visible");
     }, 0);
   }
 };
@@ -21377,18 +21377,18 @@ ol.Overlay.Popup.prototype.hide = function () {
   this._elt.classList.remove("visible");
 };
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /**
  * @classdesc
- *	The Magnify overlay add a "magnifying glass" effect to an OL3 map that displays 
+ *	The Magnify overlay add a "magnifying glass" effect to an OL3 map that displays
  *	a portion of the map in a different zoom (and actually display different content).
  *
  * @constructor
  * @extends {ol.Overlay}
- * @param {olx.OverlayOptions} options Overlay options 
+ * @param {olx.OverlayOptions} options Overlay options
  * @api stable
  */
 ol.Overlay.Magnify = function (options) {
@@ -21492,7 +21492,7 @@ ol.Overlay.Magnify.prototype.setView_ = function(e)
 	}
 };
 
-/*	Copyright (c) 2018 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2018 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -21509,7 +21509,7 @@ popup.hide();
 *
 * @constructor
 * @extends {ol.Overlay}
-* @param {} options Extend ol/Overlay/Popup options 
+* @param {} options Extend ol/Overlay/Popup options
 *	@param {String} options.color placemark color
 *	@param {String} options.backgroundColor placemark color
 *	@param {String} options.contentColor placemark color
@@ -21571,7 +21571,7 @@ ol.Overlay.Placemark.prototype.setContentColor = function(color) {
  */
 ol.Overlay.Placemark.prototype.setClassName = function(name) {
   var oldclass = this.element.className;
-  this.element.className = 'ol-popup placemark ol-popup-bottom ol-popup-center ' 
+  this.element.className = 'ol-popup placemark ol-popup-bottom ol-popup-center '
     + (/visible/.test(oldclass) ? 'visible ' : '')
     + (/anim/.test(oldclass) ? 'anim ' : '')
     + name;
@@ -21584,7 +21584,7 @@ ol.Overlay.Placemark.prototype.setRadius = function(size) {
   this.element.style.fontSize = size + 'px';
 };
 
-/*	Copyright (c) 2018 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2018 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -21596,23 +21596,23 @@ ol.Overlay.Placemark.prototype.setRadius = function(size) {
  * @property {string} after string to instert after the attribute (sudfix)
  * @property {boolean|function} visible boolean or a function (feature, value) that decides the visibility of a attribute entry
  */
-/** Template 
+/** Template
  * @typedef {Object} Template
  * @property {string|function} title title of the popup, attribute name or a function that takes a feature and returns the title
- * @property {Object.<TemplateAttributes>} attributes a list of template attributes 
+ * @property {Object.<TemplateAttributes>} attributes a list of template attributes
  */
 /**
  * A popup element to be displayed on a feature.
  *
  * @constructor
  * @extends {ol.Overlay.Popup}
- * @param {} options Extend Popup options 
+ * @param {} options Extend Popup options
  *  @param {String} options.popupClass the a class of the overlay to style the popup.
  *  @param {bool} options.closeBox popup has a close box, default false.
  *  @param {function|undefined} options.onclose: callback function when popup is closed
  *  @param {function|undefined} options.onshow callback function when popup is shown
  *  @param {Number|Array<number>} options.offsetBox an offset box
- *  @param {ol.OverlayPositioning | string | undefined} options.positionning 
+ *  @param {ol.OverlayPositioning | string | undefined} options.positionning
  *    the 'auto' positioning var the popup choose its positioning to stay on the map.
  *  @param {Template} options.template A template with a list of properties to use in the popup
  *  @param {boolean} options.canFix Enable popup to be fixed, default false
@@ -21654,7 +21654,7 @@ ol.Overlay.PopupFeature.prototype.setTemplate = function(template) {
  * @param {ol.Feature|Array<ol.Feature>} features The features on the popup
  */
 ol.Overlay.PopupFeature.prototype.show = function(coordinate, features) {
-  if (coordinate instanceof ol.Feature 
+  if (coordinate instanceof ol.Feature
     || (coordinate instanceof Array && coordinate[0] instanceof ol.Feature)) {
     features = coordinate;
     coordinate = null;
@@ -21759,28 +21759,28 @@ ol.Overlay.PopupFeature.prototype._getHtml = function(feature) {
   // Counter
   if (this._features.length > 1) {
     var div = ol.ext.element.create('DIV', { className: 'ol-count', parent: html });
-    ol.ext.element.create('DIV', { 
-      className: 'ol-prev', 
+    ol.ext.element.create('DIV', {
+      className: 'ol-prev',
       parent: div,
       click: function() {
         this._count--;
         if (this._count<1) this._count = this._features.length;
         html = this._getHtml(this._features[this._count-1]);
-        setTimeout(function() { 
-          ol.Overlay.Popup.prototype.show.call(this, this.getPosition(), html); 
+        setTimeout(function() {
+          ol.Overlay.Popup.prototype.show.call(this, this.getPosition(), html);
         }.bind(this), 350 );
       }.bind(this)
     });
     ol.ext.element.create('TEXT', { html:this._count+'/'+this._features.length, parent: div });
-    ol.ext.element.create('DIV', { 
-      className: 'ol-next', 
+    ol.ext.element.create('DIV', {
+      className: 'ol-next',
       parent: div,
       click: function() {
         this._count++;
         if (this._count>this._features.length) this._count = 1;
         html = this._getHtml(this._features[this._count-1]);
-        setTimeout(function() { 
-          ol.Overlay.Popup.prototype.show.call(this, this.getPosition(), html); 
+        setTimeout(function() {
+          ol.Overlay.Popup.prototype.show.call(this, this.getPosition(), html);
         }.bind(this), 350 );
       }.bind(this)
     });
@@ -21802,7 +21802,7 @@ ol.Overlay.PopupFeature.prototype.setFix = function (fix) {
   else this.element.classList.remove('ol-fixed');
 };
 /** Is a popup fixed
- * @return {boolean} 
+ * @return {boolean}
  */
 ol.Overlay.PopupFeature.prototype.getFix = function () {
   return this.element.classList.contains('ol-fixed');
@@ -21828,21 +21828,21 @@ ol.Overlay.PopupFeature.localString = function (locales , options) {
   };
 };
 
-/*	Copyright (c) 2018 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2018 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /** A tooltip element to be displayed over the map and attached on the cursor position.
  * @constructor
  * @extends {ol.Overlay.Popup}
- * @param {} options Extend Popup options 
+ * @param {} options Extend Popup options
  *	@param {String} options.popupClass the a class of the overlay to style the popup.
  *  @param {number} options.maximumFractionDigits maximum digits to display on measure, default 2
  *  @param {function} options.formatLength a function that takes a number and returns the formated value, default length in meter
  *  @param {function} options.formatArea a function that takes a number and returns the formated value, default length in square-meter
  *  @param {function} options.getHTML a function that takes a feature and the info string and return a formated info to display in the tooltip, default display feature measure & info
  *	@param {Number|Array<number>} options.offsetBox an offset box
- *	@param {ol.OverlayPositioning | string | undefined} options.positionning 
+ *	@param {ol.OverlayPositioning | string | undefined} options.positionning
  *		the 'auto' positioning var the popup choose its positioning to stay on the map.
  * @api stable
  */
@@ -21894,7 +21894,7 @@ ol.Overlay.Tooltip.prototype.getHTML = function(feature, info) {
 /** Set the Tooltip info
  * If information is not null it will be set with a delay,
  * thus watever the information is inserted, the significant information will be set.
- * ie. ttip.setInformation('ok'); ttip.setInformation(null); will set 'ok' 
+ * ie. ttip.setInformation('ok'); ttip.setInformation(null); will set 'ok'
  * ttip.set('info','ok'); ttip.set('info', null); will set null
  * @param {string} what The information to display in the tooltip, default remove information
  */
@@ -21903,18 +21903,18 @@ ol.Overlay.Tooltip.prototype.setInfo = function(what) {
     this.set('info','');
     this.hide();
   }
-  else setTimeout(function() { 
-    this.set('info', what); 
+  else setTimeout(function() {
+    this.set('info', what);
     this.show(this._coord, this.get('info'));
   }.bind(this));
 };
-/** Remove the current featue attached to the tip 
+/** Remove the current featue attached to the tip
  * Similar to setFeature() with no argument
  */
 ol.Overlay.Tooltip.prototype.removeFeature = function() {
   this.setFeature();
 };
-/** Format area to display in the popup. 
+/** Format area to display in the popup.
  * Can be overwritten to display measure in a different unit (default: square-metter).
  * @param {number} area area in m2
  * @return {string} the formated area
@@ -21964,7 +21964,7 @@ ol.Overlay.Tooltip.prototype.setFeature = function(feature) {
   this._listener = [];
   this.set('measure', '');
   if (feature) {
-    this._listener.push(feature.getGeometry().on('change', function(e){ 
+    this._listener.push(feature.getGeometry().on('change', function(e){
       var geom = e.target;
       var measure;
       if (geom.getArea) {
@@ -22075,7 +22075,7 @@ ol.coordinate.toDFCI = function (coord, level, projection) {
   if (!level && level !==0) level = 3;
   if (projection) {
     if (!ol.proj.get('EPSG:27572')) {
-      // Add Lambert IIe proj 
+      // Add Lambert IIe proj
       if (!proj4.defs["EPSG:27572"]) proj4.defs("EPSG:27572","+proj=lcc +lat_1=46.8 +lat_0=46.8 +lon_0=0 +k_0=0.99987742 +x_0=600000 +y_0=2200000 +a=6378249.2 +b=6356515 +towgs84=-168,-60,320,0,0,0,0 +pm=paris +units=m +no_defs");
       ol.proj.proj4.register(proj4);
     }
@@ -22175,7 +22175,7 @@ ol.coordinate.fromDFCI = function (index, projection) {
   // Convert ?
   if (projection) {
     if (!ol.proj.get('EPSG:27572')) {
-      // Add Lambert IIe proj 
+      // Add Lambert IIe proj
       if (!proj4.defs["EPSG:27572"]) proj4.defs("EPSG:27572","+proj=lcc +lat_1=46.8 +lat_0=46.8 +lon_0=0 +k_0=0.99987742 +x_0=600000 +y_0=2200000 +a=6378249.2 +b=6356515 +towgs84=-168,-60,320,0,0,0,0 +pm=paris +units=m +no_defs");
       ol.proj.proj4.register(proj4);
     }
@@ -22208,7 +22208,7 @@ ol.coordinate.validDFCI = function (index) {
   }
   return true;
 }
-/** Coordinate is valid for DFCI 
+/** Coordinate is valid for DFCI
  * @param {ol/coordinate} coord
  * @param {ol/proj/Projection} projection result projection, default EPSG:27572
  * @return {boolean}
@@ -22216,7 +22216,7 @@ ol.coordinate.validDFCI = function (index) {
 ol.coordinate.validDFCICoord = function (coord, projection) {
   if (projection) {
     if (!ol.proj.get('EPSG:27572')) {
-      // Add Lambert IIe proj 
+      // Add Lambert IIe proj
       if (!proj4.defs["EPSG:27572"]) proj4.defs("EPSG:27572","+proj=lcc +lat_1=46.8 +lat_0=46.8 +lon_0=0 +k_0=0.99987742 +x_0=600000 +y_0=2200000 +a=6378249.2 +b=6356515 +towgs84=-168,-60,320,0,0,0,0 +pm=paris +units=m +no_defs");
       ol.proj.proj4.register(proj4);
     }
@@ -22235,21 +22235,21 @@ ol.coordinate.validDFCICoord = function (coord, projection) {
 /* Define namespace
  */
 ol.graph = {};
-/** 
- * @classdesc 
+/**
+ * @classdesc
  * Compute the shortest paths between nodes in a graph source
  * The source must only contains LinesString.
- * 
+ *
  * It uses a A* optimisation.
  * You can overwrite methods to customize the result.
  * @see https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
  * @constructor
- * @fires calculating 
+ * @fires calculating
  * @fires start
  * @fires finish
  * @fires pause
  * @param {any} options
- *  @param {ol/source/Vector} options.source the source for the edges 
+ *  @param {ol/source/Vector} options.source the source for the edges
  *  @param {integer} [options.maxIteration=20000] maximum iterations before a pause event is fired, default 20000
  *  @param {integer} [options.stepIteration=2000] number of iterations before a calculating event is fired, default 2000
  *  @param {number} [options.epsilon=1E-6] geometric precision (min distance beetween 2 points), default 1E-6
@@ -22272,10 +22272,10 @@ ol.ext.inherits(ol.graph.Dijskra, ol.Object);
  * The function returns a value beetween ]0,1]
  * - 1   = no weighting
  * - 0.5 = goes twice more faster on this road
- * 
+ *
  * If no feature is provided you must return the lower weighting you're using
  * @param {ol/Feature} feature
- * @return {number} a number beetween 0-1 
+ * @return {number} a number beetween 0-1
  * @api
  */
 ol.graph.Dijskra.prototype.weight = function(/* feature */) {
@@ -22287,7 +22287,7 @@ ol.graph.Dijskra.prototype.weight = function(/* feature */) {
  * - -1 : revers way
  * -  2 : both way
  * @param {ol/Feature} feature
- * @return {Number} 0: blocked, 1: direct way, -1: revers way, 2:both way 
+ * @return {Number} 0: blocked, 1: direct way, -1: revers way, 2:both way
  * @api
  */
 ol.graph.Dijskra.prototype.direction = function(/* feature */) {
@@ -22365,11 +22365,11 @@ ol.graph.Dijskra.prototype.addNode = function(p, wdist, dist, from, prev) {
     // New candidat
     node =  new ol.Feature({
       geometry: new ol.geom.Point(p),
-      from: from, 
-      prev: prev, 
-      dist: dist || 0, 
-      wdist: wdist, 
-      dtotal: dtotal, 
+      from: from,
+      prev: prev,
+      dist: dist || 0,
+      wdist: wdist,
+      dtotal: dtotal,
     });
     if (wdist<0) {
       node.set('wdist', false);
@@ -22382,7 +22382,7 @@ ol.graph.Dijskra.prototype.addNode = function(p, wdist, dist, from, prev) {
 };
 /** Get the closest coordinate of a node in the graph source (an edge extremity)
  * @param {ol/coordinate} p
- * @return {ol/coordinate} 
+ * @return {ol/coordinate}
  * @private
  */
 ol.graph.Dijskra.prototype.closestCoordinate = function(p) {
@@ -22402,7 +22402,7 @@ ol.graph.Dijskra.prototype.path = function(start, end) {
   // Starting nodes
   start = this.closestCoordinate(start);
   this.end = this.closestCoordinate(end);
-  if (start[0]===this.end[0] 
+  if (start[0]===this.end[0]
     && start[1]===this.end[1]) {
       this.dispatchEvent({
         type: 'finish',
@@ -22440,7 +22440,7 @@ ol.graph.Dijskra.prototype.resume = function() {
     this._resume();
   }
 };
-/** Pause 
+/** Pause
  */
 ol.graph.Dijskra.prototype.pause = function() {
   if (!this.running) return;
@@ -22542,7 +22542,7 @@ ol.graph.Dijskra.prototype.getRoute = function(node) {
   return route;
 };
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
   Usefull function to handle geometric operations
@@ -22580,7 +22580,7 @@ ol.coordinate.getFeatureCenter = function(f) {
 */
 ol.coordinate.getGeomCenter = function(geom) {
   switch (geom.getType()) {
-    case 'Point': 
+    case 'Point':
       return geom.getCoordinates();
     case "MultiPolygon":
             geom = geom.getPolygon(0);
@@ -22795,7 +22795,7 @@ ol.geom.LineString.prototype.splitAt = function(pt, tol) {
     else return [this];
 }
 // import('ol-ext/geom/LineStringSplitAt')
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 	Usefull function to handle geometric operations
@@ -22815,7 +22815,7 @@ ol.geom.MultiPolygon.prototype.scribbleFill = function (options) {
   for (i=0; p=poly[i]; i++) {
     var mls = p.scribbleFill(options);
     if (mls) scribbles.push(mls);
-  } 
+  }
   if (!scribbles.length) return null;
   // Merge scribbles
   var scribble = scribbles[0];
@@ -22851,7 +22851,7 @@ ol.geom.Polygon.prototype.scribbleFill = function (options) {
     // Add the hole
     coord = coord.concat(coords[i]);
   }
-  // Extent 
+  // Extent
 	var ext = geom.getExtent();
 	// Split polygon with horizontal lines
   var lines = [];
@@ -22929,7 +22929,7 @@ ol.sphere.greatCircleBearing = function(origin, destination) {
   );
   return bearing;
 };
-/** 
+/**
  * Computes the destination point given an initial point, a distance and a bearing
  * @See http://www.movable-type.co.uk/scripts/latlong.html for the original code
  * @param {ol.coordinate} origin stating point in lonlat coords
@@ -22956,7 +22956,7 @@ ol.sphere.computeDestinationPoint = function(origin, distance, bearing, options)
       Math.cos(delta) - Math.sin(phi1) * Math.sin(phi2)
     );
   var lon = lambda2 / toRad;
-  // normalise to >=-180 and <=180° 
+  // normalise to >=-180 and <=180°
   if (options.normalize!==false && (lon < -180 || lon > 180)) {
     lon = ((lon * 540) % 360) - 180;
   }
@@ -22984,12 +22984,12 @@ ol.sphere.greatCircleTrack = function(origin, destination, options) {
   if (Math.abs(pt[0]-destination[0]) > 1) {
     if (pt[0] > destination[0]) destination[0] += 360;
     else destination[0] -= 360;
-  } 
+  }
   geom.push(destination);
   return geom;
 };
 
-/*	Copyright (c) 2015 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2015 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -23015,7 +23015,7 @@ ol.Map.prototype.animExtent = function(extent, options)
 	var width = options.style ? options.style.getWidth() || 2 : 2;
 	var color = options.style ? options.style.getColr() || 'red' : 'red';
 	// Animate function
-	function animate(event) 
+	function animate(event)
 	{	var frameState = event.frameState;
 		var ratio = frameState.pixelRatio;
 		var elapsed = frameState.time - start;
@@ -23058,7 +23058,7 @@ ol.Map.prototype.animExtent = function(extent, options)
 ol.geom.Geometry.prototype.cspline = function(options)
 {	// Calculate cspline
 	if (this.calcCSpline_)
-	{	if (this.csplineGeometryRevision != this.getRevision() 
+	{	if (this.csplineGeometryRevision != this.getRevision()
 			|| this.csplineOption != JSON.stringify(options))
 		{	this.csplineGeometry_ = this.calcCSpline_(options)
 			this.csplineGeometryRevision = this.getRevision();
@@ -23118,11 +23118,11 @@ ol.geom.LineString.prototype.calcCSpline_ = function(options)
 	// Check if we will draw closed or open curve.
 	// If closed, copy end points to beginning and first points to end
 	// If open, duplicate first points to befinning, end points to end
-	if (line.length>2 && line[0][0]==line[line.length-1][0] && line[0][1]==line[line.length-1][1]) 
+	if (line.length>2 && line[0][0]==line[line.length-1][0] && line[0][1]==line[line.length-1][1])
 	{	pts.unshift(line[line.length-2]);
 		pts.push(line[1]);
 	}
-	else 
+	else
 	{	pts.unshift(line[0]);
 		pts.push(line[line.length-1]);
 	}
@@ -23134,7 +23134,7 @@ ol.geom.LineString.prototype.calcCSpline_ = function(options)
 	}
 	// 1. loop goes through point array
 	// 2. loop goes through each segment between the 2 pts + 1e point before and after
-	for (i=1; i < (pts.length - 2); i++) 
+	for (i=1; i < (pts.length - 2); i++)
 	{	var d1 = dist2d (pts[i][0], pts[i][1], pts[i+1][0], pts[i+1][1]);
 		var numOfSegments = Math.round(d1/resolution);
 		var d=1;
@@ -23149,13 +23149,13 @@ ol.geom.LineString.prototype.calcCSpline_ = function(options)
 		t2x = (pts[i+2][0] - pts[i][0]) * tension *d;
 		t1y = (pts[i+1][1] - pts[i-1][1]) * tension *d;
 		t2y = (pts[i+2][1] - pts[i][1]) * tension *d;
-		for (t=0; t <= numOfSegments; t++) 
+		for (t=0; t <= numOfSegments; t++)
 		{	// calc step
 			st = t / numOfSegments;
 			// calc cardinals
-			c1 =   2 * Math.pow(st, 3) 	- 3 * Math.pow(st, 2) + 1; 
-			c2 = -(2 * Math.pow(st, 3)) + 3 * Math.pow(st, 2); 
-			c3 = 	   Math.pow(st, 3)	- 2 * Math.pow(st, 2) + st; 
+			c1 =   2 * Math.pow(st, 3) 	- 3 * Math.pow(st, 2) + 1;
+			c2 = -(2 * Math.pow(st, 3)) + 3 * Math.pow(st, 2);
+			c3 = 	   Math.pow(st, 3)	- 2 * Math.pow(st, 2) + st;
 			c4 = 	   Math.pow(st, 3)	- 	  Math.pow(st, 2);
 			// calc x and y cords with common control vectors
 			x = c1 * pts[i][0]	+ c2 * pts[i+1][0] + c3 * t1x + c4 * t2x;
@@ -23168,7 +23168,7 @@ ol.geom.LineString.prototype.calcCSpline_ = function(options)
 }
 //NB: (Not confirmed)To use this module, you just have to :
 //   import('ol-ext/utils/cspline')
-/*	Copyright (c) 2017 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2017 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -23199,26 +23199,26 @@ ol.ext.inherits(ol.HexGrid, ol.Object);
 /** Layout
 */
 ol.HexGrid.prototype.layout =
-{	pointy: 
-	[	Math.sqrt(3), Math.sqrt(3)/2, 0, 3/2, 
-		Math.sqrt(3)/3, -1/3, 0, 2/3, 
+{	pointy:
+	[	Math.sqrt(3), Math.sqrt(3)/2, 0, 3/2,
+		Math.sqrt(3)/3, -1/3, 0, 2/3,
 		// corners
-		Math.cos(Math.PI / 180 * (60 * 0 + 30)), Math.sin(Math.PI / 180 * (60 * 0 + 30)), 
-		Math.cos(Math.PI / 180 * (60 * 1 + 30)), Math.sin(Math.PI / 180 * (60 * 1 + 30)), 
-		Math.cos(Math.PI / 180 * (60 * 2 + 30)), Math.sin(Math.PI / 180 * (60 * 2 + 30)), 
-		Math.cos(Math.PI / 180 * (60 * 3 + 30)), Math.sin(Math.PI / 180 * (60 * 3 + 30)), 
-		Math.cos(Math.PI / 180 * (60 * 4 + 30)), Math.sin(Math.PI / 180 * (60 * 4 + 30)), 
+		Math.cos(Math.PI / 180 * (60 * 0 + 30)), Math.sin(Math.PI / 180 * (60 * 0 + 30)),
+		Math.cos(Math.PI / 180 * (60 * 1 + 30)), Math.sin(Math.PI / 180 * (60 * 1 + 30)),
+		Math.cos(Math.PI / 180 * (60 * 2 + 30)), Math.sin(Math.PI / 180 * (60 * 2 + 30)),
+		Math.cos(Math.PI / 180 * (60 * 3 + 30)), Math.sin(Math.PI / 180 * (60 * 3 + 30)),
+		Math.cos(Math.PI / 180 * (60 * 4 + 30)), Math.sin(Math.PI / 180 * (60 * 4 + 30)),
 		Math.cos(Math.PI / 180 * (60 * 5 + 30)), Math.sin(Math.PI / 180 * (60 * 5 + 30))
 	],
-	flat: 
-	[	3/2, 0, Math.sqrt(3)/2, Math.sqrt(3), 2/3, 
-		0, -1/3, Math.sqrt(3) / 3, 
+	flat:
+	[	3/2, 0, Math.sqrt(3)/2, Math.sqrt(3), 2/3,
+		0, -1/3, Math.sqrt(3) / 3,
 		// corners
-		Math.cos(Math.PI / 180 * (60 * 0)), Math.sin(Math.PI / 180 * (60 * 0)), 
-		Math.cos(Math.PI / 180 * (60 * 1)), Math.sin(Math.PI / 180 * (60 * 1)), 
-		Math.cos(Math.PI / 180 * (60 * 2)), Math.sin(Math.PI / 180 * (60 * 2)), 
-		Math.cos(Math.PI / 180 * (60 * 3)), Math.sin(Math.PI / 180 * (60 * 3)), 
-		Math.cos(Math.PI / 180 * (60 * 4)), Math.sin(Math.PI / 180 * (60 * 4)), 
+		Math.cos(Math.PI / 180 * (60 * 0)), Math.sin(Math.PI / 180 * (60 * 0)),
+		Math.cos(Math.PI / 180 * (60 * 1)), Math.sin(Math.PI / 180 * (60 * 1)),
+		Math.cos(Math.PI / 180 * (60 * 2)), Math.sin(Math.PI / 180 * (60 * 2)),
+		Math.cos(Math.PI / 180 * (60 * 3)), Math.sin(Math.PI / 180 * (60 * 3)),
+		Math.cos(Math.PI / 180 * (60 * 4)), Math.sin(Math.PI / 180 * (60 * 4)),
 		Math.cos(Math.PI / 180 * (60 * 5)), Math.sin(Math.PI / 180 * (60 * 5))
 	]
 };
@@ -23358,7 +23358,7 @@ ol.HexGrid.prototype.getHexagon = function (hex)
 */
 ol.HexGrid.prototype.hex2coord = function (hex)
 {	return [
-		this.origin_[0] + this.size_ * (this.layout_[0] * hex[0] + this.layout_[1] * hex[1]), 
+		this.origin_[0] + this.size_ * (this.layout_[0] * hex[0] + this.layout_[1] * hex[1]),
 		this.origin_[1] + this.size_ * (this.layout_[2] * hex[0] + this.layout_[3] * hex[1])
 	];
 };
@@ -23390,8 +23390,8 @@ function lerp(a, b, t)
 }
 function cube_lerp(a, b, t)
 {	// for hexes
-    return [ 
-		lerp (a[0]+1e-6, b[0], t), 
+    return [
+		lerp (a[0]+1e-6, b[0], t),
 		lerp (a[1]+1e-6, b[1], t),
 		lerp (a[2]+1e-6, b[2], t)
 	];
@@ -23405,7 +23405,7 @@ ol.HexGrid.prototype.cube_line = function (a, b)
 {	var d = this.cube_distance(a, b);
 	if (!d) return [a];
     var results = []
-    for (var i=0; i<=d; i++) 
+    for (var i=0; i<=d; i++)
 	{	results.push ( this.cube_round ( cube_lerp(a, b, i/d) ) );
 	}
     return results;
@@ -23451,17 +23451,17 @@ ol.HexGrid.prototype.cube_neighbors = function (c, d)
 	}
 };
 
-/*	Copyright (c) 2017 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2017 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
 /**
  * French INSEE grids
- * @classdesc a class to compute French INSEE grids, ie. fix area (200x200m) square grid, 
+ * @classdesc a class to compute French INSEE grids, ie. fix area (200x200m) square grid,
  * based appon EPSG:3035
  *
  * @requires proj4
- * @constructor 
+ * @constructor
  * @extends {ol.Object}
  * @param {Object} [options]
  *  @param {number} [options.size] size grid size in meter, default 200 (200x200m)
@@ -23502,7 +23502,7 @@ ol.InseeGrid.prototype.getGridAtCoordinate = function (coord, proj) {
   return geom;
 };
 
-/*	Copyright (c) 2015 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2015 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -23535,14 +23535,14 @@ ol.Map.prototype.markup = function(coords, options)
 	if (style instanceof ol.style.Image) style = new ol.style.Style({ image: style });
 	if (!(style instanceof Array)) style = [style];
 	// Animate function
-	function animate(event) 
+	function animate(event)
 	{	var frameState = event.frameState;
 		var elapsed = frameState.time - start;
-		if (elapsed > delay+duration) 
+		if (elapsed > delay+duration)
 		{	ol.Observable.unByKey(listenerKey);
 			listenerKey = null;
 		}
-		else 
+		else
 		{	if (delay>elapsed && this.getView().getZoom()>maxZoom) delay = elapsed;
 			var ratio = frameState.pixelRatio;
 			var elapsedRatio = 0;
@@ -23553,7 +23553,7 @@ ol.Map.prototype.markup = function(coords, options)
 			context.globalAlpha = easing(1 - elapsedRatio);
 			for (var i=0; i<style.length; i++)
 			{	var imgs = style[i].getImage();
-				var sc = imgs.getScale(); 
+				var sc = imgs.getScale();
 				imgs.setScale(sc*ratio);
 				event.vectorContext.setStyle(style[i]);
 				event.vectorContext.drawGeometry(new ol.geom.Point(coords));
@@ -23565,7 +23565,7 @@ ol.Map.prototype.markup = function(coords, options)
 		}
 	}
 	setTimeout (function()
-		{	if (listenerKey) self.renderSync(); 
+		{	if (listenerKey) self.renderSync();
 		}, delay);
 	// Launch animation
 	listenerKey = this.on('postcompose', animate.bind(this));
@@ -23576,7 +23576,7 @@ ol.Map.prototype.markup = function(coords, options)
 	};
 	return listenerKey;
 }
-/*	Copyright (c) 2015 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2015 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -23617,7 +23617,7 @@ ol.ordering.zIndex = function(options)
 	}
 };
 
-/*	Copyright (c) 2015 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2015 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -23657,7 +23657,7 @@ ol.Map.prototype.pulse = function(coords, options)
 	console.log("pulse")
 	*/
 	// Animate function
-	function animate(event) 
+	function animate(event)
 	{	var frameState = event.frameState;
 		var ratio = frameState.pixelRatio;
 		var elapsed = frameState.time - start;
@@ -23672,7 +23672,7 @@ ol.Map.prototype.pulse = function(coords, options)
 			console.log("anim")
 			for (var i=0; i<style.length; i++)
 			{	var imgs = style[i].getImage();
-				var sc = imgs.getScale(); 
+				var sc = imgs.getScale();
 				imgs.setScale(ratio*sc*(1+amplitude*(e-1)));
 				event.vectorContext.setStyle(style[i]);
 				event.vectorContext.drawGeometry(new ol.geom.Point(coords));
@@ -23688,11 +23688,11 @@ ol.Map.prototype.pulse = function(coords, options)
 	this.renderSync();
 }
 
-/*	Copyright (c) 2015 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2015 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 *
-*  Add a chart style to display charts (pies or bars) on a map 
+*  Add a chart style to display charts (pies or bars) on a map
 */
 /**
  * @requires ol.style.Circle
@@ -23724,7 +23724,7 @@ ol.style.Chart = function(opt_options) {
   var strokeWidth = 0;
   if (opt_options.stroke) strokeWidth = opt_options.stroke.getWidth();
   ol.style.RegularShape.call (this, {
-    radius: options.radius + strokeWidth, 
+    radius: options.radius + strokeWidth,
     fill: new ol.style.Fill({color: [0,0,0]}),
     rotation: options.rotation,
     snapToPixel: options.snapToPixel
@@ -23753,11 +23753,11 @@ ol.style.Chart.colors = {
   "classic":	["#ffa500","blue","red","green","cyan","magenta","yellow","#0f0"],
   "dark":		["#960","#003","#900","#060","#099","#909","#990","#090"],
   "pale":		["#fd0","#369","#f64","#3b7","#880","#b5d","#666"],
-  "pastel":	["#fb4","#79c","#f66","#7d7","#acc","#fdd","#ff9","#b9b"], 
+  "pastel":	["#fb4","#79c","#f66","#7d7","#acc","#fdd","#ff9","#b9b"],
   "neon":		["#ff0","#0ff","#0f0","#f0f","#f00","#00f"]
 }
 /**
- * Clones the style. 
+ * Clones the style.
  * @return {ol.style.Chart}
  */
 ol.style.Chart.prototype.clone = function() {
@@ -23804,7 +23804,7 @@ ol.style.Chart.prototype.setRadius = function(radius, ratio) {
   this.donuratio_ = ratio || this.donuratio_;
   this.renderChart_();
 }
-/** Set animation step 
+/** Set animation step
 *	@param {false|number} false to stop animation or the step of the animation [0,1]
 */
 ol.style.Chart.prototype.setAnimation = function(step) {
@@ -23940,7 +23940,7 @@ ol.style.Chart.prototype.getChecksum = function() {
     this.radius_ != this.checksums_[3] ||
     this.data_.join('|') != this.checksums_[4]);
   if (recalculate) {
-    var checksum = 'c' + strokeChecksum + fillChecksum 
+    var checksum = 'c' + strokeChecksum + fillChecksum
       + ((this.radius_ !== void 0) ? this.radius_.toString() : '-')
       + this.data_.join('|');
     this.checksums_ = [checksum, strokeChecksum, fillChecksum, this.radius_, this.data_.join('|')];
@@ -23948,7 +23948,7 @@ ol.style.Chart.prototype.getChecksum = function() {
   return this.checksums_[0];
 };
 
-/*	Copyright (c) 2016 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2016 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -23967,7 +23967,7 @@ ol.style.Chart.prototype.getChecksum = function() {
  *	@param {number} options.size line size for hash/dot/circle/cross pattern
  *	@param {number} options.spacing spacing for hash/dot/circle/cross pattern
  *	@param {number|bool} options.angle angle for hash pattern / true for 45deg dot/circle/cross
- *	@param {number} options.scale pattern scale 
+ *	@param {number} options.scale pattern scale
  * @extends {ol.style.Fill}
  * @implements {ol.structs.IHasChecksum}
  * @api
@@ -23990,7 +23990,7 @@ ol.style.FillPattern = function(options)
 			ctx.drawImage(img, 0,0, img.width, img.height, 0, 0, canvas.width, canvas.height);
 			pattern = ctx.createPattern(canvas, 'repeat');
 		}
-		else 
+		else
 		{	var self = this;
 			pattern = [0,0,0,0];
 			img.onload = function ()
@@ -24008,7 +24008,7 @@ ol.style.FillPattern = function(options)
 		canvas.width = Math.round(pat.width *ratio);
 		canvas.height = Math.round(pat.height *ratio);
 		ctx.beginPath();
-		if (options.fill) 
+		if (options.fill)
 		{	ctx.fillStyle = ol.color.asString(options.fill.getColor());
 			ctx.fillRect(0,0, canvas.width, canvas.height);
 		}
@@ -24018,7 +24018,7 @@ ol.style.FillPattern = function(options)
 		ctx.fillStyle = ol.color.asString(options.color||"#000");
 		ctx.strokeStyle = ol.color.asString(options.color||"#000");
 		if (pat.circles) for (i=0; i<pat.circles.length; i++)
-		{	var ci = pat.circles[i]; 
+		{	var ci = pat.circles[i];
 			ctx.beginPath();
 			ctx.arc(ci[0], ci[1], ci[2], 0,2*Math.PI);
 			if (pat.fill) ctx.fill();
@@ -24029,7 +24029,7 @@ ol.style.FillPattern = function(options)
 		{	ctx.font = pat.font || (pat.width)+"px Arial";
 			ctx.textAlign = 'center';
 			ctx.textBaseline = 'middle';
-			if (pat.angle) 
+			if (pat.angle)
 			{	ctx.fillText(pat.char, pat.width/4, pat.height/4);
 				ctx.fillText(pat.char, 5*pat.width/4, 5*pat.height/4);
 				ctx.fillText(pat.char, pat.width/4, 5*pat.height/4);
@@ -24060,7 +24060,7 @@ ol.style.FillPattern = function(options)
 		if (options.offset)
 		{	var offset = options.offset;
 			if (typeof(offset) == "number") offset = [offset,offset];
-			if (offset instanceof Array) 
+			if (offset instanceof Array)
 			{	var dx = Math.round((offset[0]*ratio));
 				var dy = Math.round((offset[1]*ratio));
 				// New pattern
@@ -24077,7 +24077,7 @@ ol.style.FillPattern = function(options)
 };
 ol.ext.inherits(ol.style.FillPattern, ol.style.Fill);
 /**
- * Clones the style. 
+ * Clones the style.
  * @return {ol.style.FillPattern}
  */
 ol.style.FillPattern.prototype.clone = function()
@@ -24127,7 +24127,7 @@ ol.style.FillPattern.prototype.getPattern_ = function(options)
 						[ d/4, d/4+d, size ],
 						[ 3*d/4-d, 3*d/4, size ],
 						[ 3*d/4, 3*d/4-d, size ],
-						[ d/4+d, d/4+d, size ], 
+						[ d/4+d, d/4+d, size ],
 						[ 3*d/4-d, 3*d/4-d, size ] ]);
 				}
 			}
@@ -24160,15 +24160,15 @@ ol.style.FillPattern.prototype.getPattern_ = function(options)
 			var cos = Math.cos(a);
 			var sin = Math.sin(a);
 			if (Math.abs(sin)<0.0001)
-			{	pat.width = pat.height = d;	
+			{	pat.width = pat.height = d;
 				pat.lines = [ [ 0,0.5, d, 0.5 ] ];
 				pat.repeat = [ [0,0], [0,d] ];
 			}
 			else  if (Math.abs(cos)<0.0001)
-			{	pat.width = pat.height = d;	
+			{	pat.width = pat.height = d;
 				pat.lines = [ [ 0.5,0, 0.5, d] ];
 				pat.repeat = [ [0,0], [d,0] ];
-				if (options.pattern=='cross') 
+				if (options.pattern=='cross')
 				{	pat.lines.push ([ 0,0.5, d, 0.5 ]);
 					pat.repeat.push([0,d]);
 				}
@@ -24180,11 +24180,11 @@ ol.style.FillPattern.prototype.getPattern_ = function(options)
 				{	pat.lines = [ [-w,-h, 2*w,2*h], [2*w,-h, -w,2*h] ];
 					pat.repeat = [ [0,0] ];
 				}
-				else if (cos*sin>0) 
+				else if (cos*sin>0)
 				{	pat.lines = [ [-w,-h, 2*w,2*h] ];
 					pat.repeat = [ [0,0], [w,0], [0,h] ];
 				}
-				else 
+				else
 				{	pat.lines = [ [2*w,-h, -w,2*h] ];
 					pat.repeat = [ [0,0], [-w,0], [0,h] ];
 				}
@@ -24197,7 +24197,7 @@ ol.style.FillPattern.prototype.getPattern_ = function(options)
 	return pat
 }
 /** Static fuction to add char patterns
-*	@param {title} 
+*	@param {title}
 *	@param {olx.fillpattern.Option}
 *		- size {integer} default 10
 *		- width {integer} default 10
@@ -24324,8 +24324,8 @@ ol.style.FillPattern.prototype.patterns =
 	{	width:30,
 		height:20,
 		circles:[[2,4,1],[17,3,1],[26,18,1],[12,17,1],[5,17,2],[28,11,2]],
-		lines:[[7,5, 6,7, 9,9, 11,8, 11,6, 9,5, 7,5], 
-			[16,10, 15,13, 16,14, 19,15, 21,13, 22,9, 20,8, 19,8, 16,10], 
+		lines:[[7,5, 6,7, 9,9, 11,8, 11,6, 9,5, 7,5],
+			[16,10, 15,13, 16,14, 19,15, 21,13, 22,9, 20,8, 19,8, 16,10],
 			[24,6, 26,7, 27,5, 26,4, 24,4, 24,6]],
 		stroke:1
 	},
@@ -24375,19 +24375,19 @@ ol.style.FillPattern.prototype.patterns =
 	"chaos":
 	{	width:40,
 		height:40,
-		lines:[[40,2, 40,0, 38,0, 40,2], 
-			[4,0, 3,2, 2,5, 0,0, 0,3, 2,7, 5,6, 7,7, 8,10, 9,12, 9,13, 9,14, 8,14, 6,15, 2,15, 0,20, 0,22, 2,20, 5,19, 
+		lines:[[40,2, 40,0, 38,0, 40,2],
+			[4,0, 3,2, 2,5, 0,0, 0,3, 2,7, 5,6, 7,7, 8,10, 9,12, 9,13, 9,14, 8,14, 6,15, 2,15, 0,20, 0,22, 2,20, 5,19,
 				8,15, 10,14, 11,12.25, 10,12, 10,10, 12,9, 13,7, 12,6, 13,4, 16,7, 17,4, 20,0, 18,0, 15,3, 14,2, 14,0,
 				12,1, 11,0, 10,1, 11,4, 10,7, 9,8, 8,5, 6,4, 5,3, 5,1, 5,0, 4,0],
-			[7,1, 7,3, 8,3, 8,2, 7,1], [4,3, 5,5, 4,5, 4,3], [34,5, 33,7, 38,10, 38,8, 36,5, 34,5], 
-			[ 27,0, 23,2, 21,8, 30,0, 27,0], 
-			[25,8, 26,12, 26,16, 22.71875,15.375, 20,13, 18,15, 17,18, 13,22, 17,21, 19,22, 21,20, 19,18, 22,17, 30,25, 
-			26,26, 24,28, 21.75,33.34375, 20,36, 18,40, 20,40, 24,37, 25,32, 27,31, 26,38, 27,37, 30,32, 32,35, 36,37, 
-			38,40, 38,39, 40,40, 37,36, 34,32, 37,31, 36,29, 33,27, 34,24, 39,21, 40,21, 40,16, 37,20, 31,22, 32,25, 
-			27,20, 29,15, 30,20, 32,20, 34,18, 33,12, 31,11, 29,14, 26,9, 25,8], [39,24, 37,26, 40,28, 39,24], 
-			[13,15, 9,19, 14,18, 13,15], [18,23, 14,27, 16,27, 17,25, 20,26, 18,23], 
-			[6,24, 2,26, 1,28, 2,30, 5,28, 12,30, 16,32, 18,30, 15,30, 12,28, 9,25, 7,27, 6,24], 
-			[29,27, 32,28, 33,31, 30,29, 27,28, 29,27], 
+			[7,1, 7,3, 8,3, 8,2, 7,1], [4,3, 5,5, 4,5, 4,3], [34,5, 33,7, 38,10, 38,8, 36,5, 34,5],
+			[ 27,0, 23,2, 21,8, 30,0, 27,0],
+			[25,8, 26,12, 26,16, 22.71875,15.375, 20,13, 18,15, 17,18, 13,22, 17,21, 19,22, 21,20, 19,18, 22,17, 30,25,
+			26,26, 24,28, 21.75,33.34375, 20,36, 18,40, 20,40, 24,37, 25,32, 27,31, 26,38, 27,37, 30,32, 32,35, 36,37,
+			38,40, 38,39, 40,40, 37,36, 34,32, 37,31, 36,29, 33,27, 34,24, 39,21, 40,21, 40,16, 37,20, 31,22, 32,25,
+			27,20, 29,15, 30,20, 32,20, 34,18, 33,12, 31,11, 29,14, 26,9, 25,8], [39,24, 37,26, 40,28, 39,24],
+			[13,15, 9,19, 14,18, 13,15], [18,23, 14,27, 16,27, 17,25, 20,26, 18,23],
+			[6,24, 2,26, 1,28, 2,30, 5,28, 12,30, 16,32, 18,30, 15,30, 12,28, 9,25, 7,27, 6,24],
+			[29,27, 32,28, 33,31, 30,29, 27,28, 29,27],
 			[5,35, 1,33, 3,36, 13,38, 15,35, 10,36, 5,35]],
 		fill:1,
 	},
@@ -24454,9 +24454,9 @@ ol.style.FillPattern.prototype.patterns =
 	"rock":
 	{	width:20,
 		height:20,
-		lines:[	[1,0,1,9],[4,0,4,9],[7,0,7,9], 
+		lines:[	[1,0,1,9],[4,0,4,9],[7,0,7,9],
 				[10,1,19,1],[10,4,19,4],[10,7,19,7],
-				[0,11,9,11],[0,14,9,14],[0,17,9,17], 
+				[0,11,9,11],[0,14,9,14],[0,17,9,17],
 				[12,10,12,19],[15,10,15,19],[18,10,18,19] ],
 		repeat:[[0.5,0.5]],
 		stroke:1
@@ -24468,14 +24468,14 @@ ol.style.FillPattern.prototype.patterns =
 			0,13, 0,13, 0,14, 0,14, 5,16, 5,18, 3,19, 0,19, -0.25,19.9375, 5,20, 10,19, 10,20, 11,20, 12,19,
 			14,20, 15,20, 17,19, 20,20, 20,19, 19,16, 20,15, 20,11, 20,10, 19,8, 20,5, 20,0, 19,0, 20,2, 19,4,
 			17,4, 16,3, 15,0, 14,0, 15,4, 11,5, 10,4, 11,0, 10,0, 9,4, 6,5, 5,0,],
-			[18,5, 19,6, 18,10, 16,10, 14,9, 16,5, 18,5], 
-			[5,6, 9,5, 10,6, 10,9, 6,10, 5,6], 
-			[14,5, 14,8, 13,9, 12,9, 11,7, 12,5, 14,5], 
-			[ 5,11, 8,10, 9,11, 10,14, 6,15, 6,15, 5,11], 
-			[13,10, 14,11, 15,14, 15,14, 15,14, 11,15, 10,11, 11,10, 13,10], 
-			[15,12, 16,11, 19,11, 19,15, 16,14, 16,14, 15,12], 
-			[6,16, 9,15, 10,18, 5,19, 6,16], 
-			[10,16, 14,16, 14,18, 13,19, 11,18, 10,16], 
+			[18,5, 19,6, 18,10, 16,10, 14,9, 16,5, 18,5],
+			[5,6, 9,5, 10,6, 10,9, 6,10, 5,6],
+			[14,5, 14,8, 13,9, 12,9, 11,7, 12,5, 14,5],
+			[ 5,11, 8,10, 9,11, 10,14, 6,15, 6,15, 5,11],
+			[13,10, 14,11, 15,14, 15,14, 15,14, 11,15, 10,11, 11,10, 13,10],
+			[15,12, 16,11, 19,11, 19,15, 16,14, 16,14, 15,12],
+			[6,16, 9,15, 10,18, 5,19, 6,16],
+			[10,16, 14,16, 14,18, 13,19, 11,18, 10,16],
 			[15,15, 18,16, 18,18, 16,19, 15,18, 15,15]],
 		stroke:1
 	}
@@ -24494,7 +24494,7 @@ ol.style.FillPattern.prototype.getChecksum = function()
 		this.radius_ != this.checksums_[3] ||
 		this.form_+"-"+this.glyphs_ != this.checksums_[4]);
 	if (recalculate) {
-		var checksum = 'c' + strokeChecksum + fillChecksum 
+		var checksum = 'c' + strokeChecksum + fillChecksum
 			+ ((this.radius_ !== void 0) ? this.radius_.toString() : '-')
 			+ this.form_+"-"+this.glyphs_;
 		this.checksums_ = [checksum, strokeChecksum, fillChecksum, this.radius_, this.form_+"-"+this.glyphs_];
@@ -24503,7 +24503,7 @@ ol.style.FillPattern.prototype.getChecksum = function()
 };
 /**/
 
-/*	Copyright (c) 2019 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2019 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -24521,7 +24521,7 @@ ol.style.FillPattern.prototype.getChecksum = function()
  */
 ol.style.FlowLine = function(options) {
   if (!options) options = {};
-  ol.style.Style.call (this, { 
+  ol.style.Style.call (this, {
     renderer: this._render.bind(this),
     geometry: options.geometry
   });
@@ -24565,8 +24565,8 @@ ol.style.FlowLine.prototype.setLineCap = function(cap) {
 };
 /** Get the current width at step
  * @param {ol.feature} feature
- * @param {number} step current drawing step beetween [0,1] 
- * @return {number} 
+ * @param {number} step current drawing step beetween [0,1]
+ * @return {number}
  */
 ol.style.FlowLine.prototype.getWidth = function(feature, step) {
   if (this._widthFn) return this._widthFn(feature, step);
@@ -24590,13 +24590,13 @@ ol.style.FlowLine.prototype.setColor2 = function(color) {
   try {
     this._color2 = ol.color.asArray(color);
   } catch(e) {
-    this._color2 = null;    
+    this._color2 = null;
   }
 };
 /** Get the current color at step
  * @param {ol.feature} feature
- * @param {number} step current drawing step beetween [0,1] 
- * @return {string} 
+ * @param {number} step current drawing step beetween [0,1]
+ * @return {string}
  */
 ol.style.FlowLine.prototype.getColor = function(feature, step) {
   if (this._colorFn) return ol.color.asString(this._colorFn(feature, step));
@@ -24674,13 +24674,13 @@ ol.style.FlowLine.prototype._splitInto = function(geom, nb, min) {
     dl = Math.sqrt(dx*dx + dy*dy);
     if (l+dl > length) {
       var d = (length-l) / dl;
-      g.push([ 
-        p0[0] + dx * d,  
-        p0[1] + dy * d 
+      g.push([
+        p0[0] + dx * d,
+        p0[1] + dy * d
       ]);
       geoms.push(g);
-      p0 =[ 
-        p0[0] + dx * d*.9,  
+      p0 =[
+        p0[0] + dx * d*.9,
         p0[1] + dy * d*.9
       ];
       g = [p0];
@@ -24697,7 +24697,7 @@ ol.style.FlowLine.prototype._splitInto = function(geom, nb, min) {
   return geoms;
 }
 
-/*	Copyright (c) 2015 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2015 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -24707,9 +24707,9 @@ ol.style.FlowLine.prototype._splitInto = function(geom, nb, min) {
  *
  * @constructor
  * @param {} options Options.
- *  @param {number} options.glyph the glyph name or a char to display as symbol. 
+ *  @param {number} options.glyph the glyph name or a char to display as symbol.
  * 		The name must be added using the {@link ol.style.FontSymbol.addDefs} function.
- *  @param {string} options.form 
+ *  @param {string} options.form
  * 		none|circle|poi|bubble|marker|coma|shield|blazon|bookmark|hexagon|diamond|triangle|sign|ban|lozenge|square
  * 		a form that will enclose the glyph, default none
  *  @param {number} options.radius
@@ -24749,27 +24749,27 @@ ol.ext.inherits(ol.style.FontSymbol, ol.style.RegularShape);
 */
 ol.style.Image.prototype.getImagePNG = function()
 {	var canvas = this.getImage();
-	if (canvas) 
+	if (canvas)
 	{	try { return canvas.toDataURL("image/png"); }
 		catch(e) { return false; }
 	}
 	else return false;
 }
-/** 
+/**
  *	Font defs
  */
 ol.style.FontSymbol.prototype.defs = { 'fonts':{}, 'glyphs':{} };
-/** Static function : add new font defs 
+/** Static function : add new font defs
  * @param {String|Object} font the font desciption
- * @param {} glyphs a key / value list of glyph definitions. 
- * 		Each key is the name of the glyph, 
- * 		the value is an object that code the font, the caracter code, 
+ * @param {} glyphs a key / value list of glyph definitions.
+ * 		Each key is the name of the glyph,
+ * 		the value is an object that code the font, the caracter code,
  * 		the name and a search string for the glyph.
  */
  ol.style.FontSymbol.addDefs = function(font, glyphs)
  {	var thefont = font;
 	if (typeof(font) == "string") thefont = {"font":font, "name":font, "copyright":"" };
-	if (!thefont.font || typeof(thefont.font) != "string") 
+	if (!thefont.font || typeof(thefont.font) != "string")
 	{	console.log("bad font def");
 		return;
 	}
@@ -24788,7 +24788,7 @@ ol.style.FontSymbol.prototype.defs = { 'fonts':{}, 'glyphs':{} };
 	}
  };
 /**
- * Clones the style. 
+ * Clones the style.
  * @return {ol.style.FontSymbol}
  */
 ol.style.FontSymbol.prototype.clone = function()
@@ -24864,7 +24864,7 @@ ol.style.FontSymbol.prototype.renderMarker_ = function()
 {
 	var strokeStyle;
 	var strokeWidth = 0;
-	if (this.stroke_) 
+	if (this.stroke_)
 	{	strokeStyle = ol.color.asString(this.stroke_.getColor());
 		strokeWidth = this.stroke_.getWidth();
 	}
@@ -24937,46 +24937,46 @@ ol.style.FontSymbol.prototype.drawPath_ = function(renderOptions, context)
 		default:
 		{	var pts;
 			switch (this.form_)
-			{	case "shield": 
-					pts = [ 0.05,0, 0.95,0, 0.95,0.8, 0.5,1, 0.05,0.8, 0.05,0 ]; 
+			{	case "shield":
+					pts = [ 0.05,0, 0.95,0, 0.95,0.8, 0.5,1, 0.05,0.8, 0.05,0 ];
 					transfo.posY = 0.45*s+w ;
 					break;
-				case "blazon": 
-					pts = [ 0.1,0, 0.9,0, 0.9,0.8, 0.6,0.8, 0.5,1, 0.4,0.8, 0.1,0.8, 0.1,0 ]; 
+				case "blazon":
+					pts = [ 0.1,0, 0.9,0, 0.9,0.8, 0.6,0.8, 0.5,1, 0.4,0.8, 0.1,0.8, 0.1,0 ];
 					transfo.fac = 0.8;
 					transfo.posY = 0.4*s+w ;
 					break;
-				case "bookmark": 
-					pts = [ 0.05,0, 0.95,0, 0.95,1, 0.5,0.8, 0.05,1, 0.05,0 ]; 
+				case "bookmark":
+					pts = [ 0.05,0, 0.95,0, 0.95,1, 0.5,0.8, 0.05,1, 0.05,0 ];
 					transfo.fac = 0.9;
 					transfo.posY = 0.4*s+w ;
 					break;
-				case "hexagon": 
-					pts = [ 0.05,0.2, 0.5,0, 0.95,0.2, 0.95,0.8, 0.5,1, 0.05,0.8, 0.05,0.2 ]; 
+				case "hexagon":
+					pts = [ 0.05,0.2, 0.5,0, 0.95,0.2, 0.95,0.8, 0.5,1, 0.05,0.8, 0.05,0.2 ];
 					transfo.fac = 0.9;
 					transfo.posY = 0.5*s+w ;
 					break;
-				case "diamond": 
-					pts = [ 0.25,0, 0.75,0, 1,0.2, 1,0.4, 0.5,1, 0,0.4, 0,0.2, 0.25,0 ]; 
+				case "diamond":
+					pts = [ 0.25,0, 0.75,0, 1,0.2, 1,0.4, 0.5,1, 0,0.4, 0,0.2, 0.25,0 ];
 					transfo.fac = 0.75 ;
 					transfo.posY = 0.35*s+w ;
 					break;
-				case "triangle": 
-					pts = [ 0,0, 1,0, 0.5,1, 0,0 ]; 
+				case "triangle":
+					pts = [ 0,0, 1,0, 0.5,1, 0,0 ];
 					transfo.fac = 0.6 ;
 					transfo.posY = 0.3*s+w ;
 					break;
-				case "sign": 
-					pts = [ 0.5,0.05, 1,0.95, 0,0.95, 0.5,0.05 ]; 
+				case "sign":
+					pts = [ 0.5,0.05, 1,0.95, 0,0.95, 0.5,0.05 ];
 					transfo.fac = 0.7 ;
 					transfo.posY = 0.65*s+w ;
 					break;
-				case "lozenge": 
-					pts = [ 0.5,0, 1,0.5, 0.5,1, 0,0.5, 0.5,0 ]; 
+				case "lozenge":
+					pts = [ 0.5,0, 1,0.5, 0.5,1, 0,0.5, 0.5,0 ];
 					transfo.fac = 0.7;
 					break;
-				case "square": 
-				default: 
+				case "square":
+				default:
 					pts = [ 0,0, 1,0, 1,1, 0,1, 0,0 ]; break;
 			}
 			for (var i=0; i<pts.length; i+=2) context.lineTo ( pts[i]*s+w, pts[i+1]*s+w);
@@ -25004,7 +25004,7 @@ ol.style.FontSymbol.prototype.drawMarker_ = function(renderOptions, context, x, 
 	// then move to (x, y)
 	context.translate(x, y);
 	var tr = this.drawPath_(renderOptions, context);
-	if (this.fill_) 
+	if (this.fill_)
 	{	if (this.gradient_ && this.form_!="none")
 		{	var grd = context.createLinearGradient(0,0,renderOptions.size/2,renderOptions.size);
 			grd.addColorStop (1, ol.color.asString(fcolor));
@@ -25033,7 +25033,7 @@ ol.style.FontSymbol.prototype.drawMarker_ = function(renderOptions, context, x, 
 		if (renderOptions.strokeWidth && scolor!="transparent") context.strokeText(t, tr.posX, tr.posY);
 		context.fillText(t, tr.posX, tr.posY);
 	}
-	if (this.form_=="ban" && this.stroke_ && renderOptions.strokeWidth) 
+	if (this.form_=="ban" && this.stroke_ && renderOptions.strokeWidth)
 	{	context.strokeStyle = renderOptions.strokeStyle;
 		context.lineWidth = renderOptions.strokeWidth;
 		var r = this.radius_ + renderOptions.strokeWidth;
@@ -25058,7 +25058,7 @@ ol.style.FontSymbol.prototype.getChecksum = function()
 		this.radius_ != this.checksums_[3] ||
 		this.form_+"-"+this.glyphs_ != this.checksums_[4]);
 	if (recalculate) {
-		var checksum = 'c' + strokeChecksum + fillChecksum 
+		var checksum = 'c' + strokeChecksum + fillChecksum
 			+ ((this.radius_ !== void 0) ? this.radius_.toString() : '-')
 			+ this.form_+"-"+this.glyphs_;
 		this.checksums_ = [checksum, strokeChecksum, fillChecksum, this.radius_, this.form_+"-"+this.glyphs_];
@@ -25066,7 +25066,7 @@ ol.style.FontSymbol.prototype.getChecksum = function()
 	return this.checksums_[0];
 };
 
-/*	Copyright (c) 2015 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2015 Jean-Marc VIGLINO,
   released under the CeCILL-B license (French BSD license)
   (http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 *
@@ -25104,7 +25104,7 @@ ol.style.Photo = function(options) {
   if (options.kind=='folio') strokeWidth += 6;
   options.stroke.setWidth(strokeWidth);
   ol.style.RegularShape.call (this, {
-    radius: options.radius + strokeWidth + this.sanchor_/2 + this.shadow_/2, 
+    radius: options.radius + strokeWidth + this.sanchor_/2 + this.shadow_/2,
     points:0
   //	fill:new ol.style.Fill({color:"red"}) // No fill to create a hit detection Image
   });
@@ -25137,7 +25137,7 @@ ol.style.Photo = function(options) {
 };
 ol.ext.inherits(ol.style.Photo, ol.style.RegularShape);
 /**
- * Clones the style. 
+ * Clones the style.
  * @return {ol.style.Photo}
  */
 ol.style.Photo.prototype.clone = function() {
@@ -25157,11 +25157,11 @@ ol.style.Photo.prototype.clone = function() {
   });
 };
 /**
- * Draws a rounded rectangle using the current state of the canvas. 
+ * Draws a rounded rectangle using the current state of the canvas.
  * Draw a rectangle if the radius is null.
  * @param {Number} x The top left x coordinate
- * @param {Number} y The top left y coordinate 
- * @param {Number} width The width of the rectangle 
+ * @param {Number} y The top left y coordinate
+ * @param {Number} width The width of the rectangle
  * @param {Number} height The height of the rectangle
  * @param {Number} radius The corner radius.
  */
@@ -25358,7 +25358,7 @@ function drawTextPath (e)
 	var k;
 	function getPath(c, readable)
 	{	var path1 = [];
-		for (k=0; k<c.length; k++) 
+		for (k=0; k<c.length; k++)
 		{	path1.push(c2p[0]*c[k][0]+c2p[1]*c[k][1]+c2p[4]);
 			path1.push(c2p[2]*c[k][0]+c2p[3]*c[k][1]+c2p[5]);
 		}
@@ -25380,7 +25380,7 @@ function drawTextPath (e)
 	for (var i=0, f; f=features[i]; i++)
 	{	{	var style = this.textPathStyle_(f,e.frameState.viewState.resolution);
 			for (var s,j=0; s=style[j]; j++)
-			{	
+			{
 				var g = s.getGeometry() || f.getGeometry();
 				var c;
 				switch (g.getType())
@@ -25407,10 +25407,10 @@ function drawTextPath (e)
 	}
 	ctx.restore();
 }
-/** Set the style for features. 
-*	This can be a single style object, an array of styles, or a function that takes a feature and resolution and 
-*	returns an array of styles. If it is undefined the default style is used. 
-*	If it is null the layer has no style (a null style). 
+/** Set the style for features.
+*	This can be a single style object, an array of styles, or a function that takes a feature and resolution and
+*	returns an array of styles. If it is undefined the default style is used.
+*	If it is null the layer has no style (a null style).
 *	See ol.style for information on the default style.
 *	@param {ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction} style
 *	@param {Number} maxResolution to display text, default: 0
@@ -25453,10 +25453,10 @@ ol.style.TextPath = function(options)
 }
 ol.ext.inherits(ol.style.TextPath, ol.style.Text);
 ol.style.TextPath.prototype.getTextOverflow = function()
-{	return this.textOverflow_; 
+{	return this.textOverflow_;
 };
 ol.style.TextPath.prototype.getMinWidth = function()
-{	return this.minWidth_; 
+{	return this.minWidth_;
 };
 /**/
 })();
@@ -25485,10 +25485,10 @@ CanvasRenderingContext2D.prototype.textPath = function (text, path)
 			}
 		}
 		var x, y, a, dt = dl-dpos;
-		if (pos>=path.length) 
+		if (pos>=path.length)
 		{	pos = path.length-2;
 		}
-		if (!dt) 
+		if (!dt)
 		{	x = path[pos-2];
 			y = path[pos-1];
 			a = Math.atan2(path[pos+1]-path[pos-1], path[pos]-path[pos-2]);
@@ -25525,7 +25525,7 @@ CanvasRenderingContext2D.prototype.textPath = function (text, path)
 		case "end":
 		case "right":
 		{	// Text align
-			if (ctx.textJustify) 
+			if (ctx.textJustify)
 			{	start = 0;
 				letterPadding = (d - ctx.measureText(text).width) / (text.length-1 + nbspace);
 			}
@@ -25553,7 +25553,7 @@ CanvasRenderingContext2D.prototype.textPath = function (text, path)
 };
 //NB: (Not confirmed)To use this module, you just have to :
 //   import('ol-ext/layer/getpreview')
-/*	Copyright (c) 2015 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2015 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 *
@@ -25590,7 +25590,7 @@ ol.style.Shadow = function(options)
 };
 ol.ext.inherits(ol.style.Shadow, ol.style.RegularShape);
 /**
- * Clones the style. 
+ * Clones the style.
  * @return {ol.style.Shadow}
  */
 ol.style.Shadow.prototype.clone = function()
@@ -25609,7 +25609,7 @@ ol.style.Shadow.prototype.clone = function()
  * @private
  */
 ol.style.Shadow.prototype.renderShadow_ = function()
-{	
+{
 	var radius = this.radius_;
 	var canvas = this.getImage();
 	var s = [canvas.width, canvas.height];
@@ -25648,7 +25648,7 @@ ol.style.Shadow.prototype.getChecksum = function()
 		this.radius_ != this.checksums_[3] ||
 		this.form_+"-"+this.glyphs_ != this.checksums_[4]);
 	if (recalculate) {
-		var checksum = 'c' + strokeChecksum + fillChecksum 
+		var checksum = 'c' + strokeChecksum + fillChecksum
 			+ ((this.radius_ !== void 0) ? this.radius_.toString() : '-')
 			+ this.form_+"-"+this.glyphs_;
 		this.checksums_ = [checksum, strokeChecksum, fillChecksum, this.radius_, this.form_+"-"+this.glyphs_];
@@ -25656,7 +25656,7 @@ ol.style.Shadow.prototype.getChecksum = function()
 	return this.checksums_[0];
 };
 
-/*	Copyright (c) 2018 Jean-Marc VIGLINO, 
+/*	Copyright (c) 2018 Jean-Marc VIGLINO,
 	released under the CeCILL-B license (French BSD license)
 	(http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.txt).
 */
@@ -25675,7 +25675,7 @@ ol.style.Shadow.prototype.getChecksum = function()
  *	@param {number} options.size line size for hash/dot/circle/cross pattern
  *	@param {number} options.spacing spacing for hash/dot/circle/cross pattern
  *	@param {number|bool} options.angle angle for hash pattern / true for 45deg dot/circle/cross
- *	@param {number} options.scale pattern scale 
+ *	@param {number} options.scale pattern scale
  * @extends {ol.style.Fill}
  * @implements {ol.structs.IHasChecksum}
  * @api
@@ -25697,7 +25697,7 @@ ol.style.StrokePattern = function(options)
 			ctx.drawImage(img, 0,0, img.width, img.height, 0, 0, canvas.width, canvas.height);
 			pattern = ctx.createPattern(canvas, 'repeat');
 		}
-		else 
+		else
 		{	var self = this;
 			pattern = [0,0,0,0];
 			img.onload = function ()
@@ -25715,7 +25715,7 @@ ol.style.StrokePattern = function(options)
 		canvas.width = Math.round(pat.width *ratio);
 		canvas.height = Math.round(pat.height *ratio);
 		ctx.beginPath();
-		if (options.fill) 
+		if (options.fill)
 		{	ctx.fillStyle = ol.color.asString(options.fill.getColor());
 			ctx.fillRect(0,0, canvas.width, canvas.height);
 		}
@@ -25725,7 +25725,7 @@ ol.style.StrokePattern = function(options)
 		ctx.fillStyle = ol.color.asString(options.color||"#000");
 		ctx.strokeStyle = ol.color.asString(options.color||"#000");
 		if (pat.circles) for (i=0; i<pat.circles.length; i++)
-		{	var ci = pat.circles[i]; 
+		{	var ci = pat.circles[i];
 			ctx.beginPath();
 			ctx.arc(ci[0], ci[1], ci[2], 0,2*Math.PI);
 			if (pat.fill) ctx.fill();
@@ -25736,7 +25736,7 @@ ol.style.StrokePattern = function(options)
 		{	ctx.font = pat.font || (pat.width)+"px Arial";
 			ctx.textAlign = 'center';
 			ctx.textBaseline = 'middle';
-			if (pat.angle) 
+			if (pat.angle)
 			{	ctx.fillText(pat.char, pat.width/4, pat.height/4);
 				ctx.fillText(pat.char, 5*pat.width/4, 5*pat.height/4);
 				ctx.fillText(pat.char, pat.width/4, 5*pat.height/4);
@@ -25767,7 +25767,7 @@ ol.style.StrokePattern = function(options)
 		if (options.offset)
 		{	var offset = options.offset;
 			if (typeof(offset) == "number") offset = [offset,offset];
-			if (offset instanceof Array) 
+			if (offset instanceof Array)
 			{	var dx = Math.round((offset[0]*ratio));
 				var dy = Math.round((offset[1]*ratio));
 				// New pattern
@@ -25785,7 +25785,7 @@ ol.style.StrokePattern = function(options)
 };
 ol.ext.inherits(ol.style.StrokePattern, ol.style.Stroke);
 /**
- * Clones the style. 
+ * Clones the style.
  * @return {ol.style.StrokePattern}
  */
 ol.style.StrokePattern.prototype.clone = function() {
@@ -25836,7 +25836,7 @@ ol.style.StrokePattern.prototype.getPattern_ = function(options)
 						[ d/4, d/4+d, size ],
 						[ 3*d/4-d, 3*d/4, size ],
 						[ 3*d/4, 3*d/4-d, size ],
-						[ d/4+d, d/4+d, size ], 
+						[ d/4+d, d/4+d, size ],
 						[ 3*d/4-d, 3*d/4-d, size ] ]);
 				}
 			}
@@ -25869,15 +25869,15 @@ ol.style.StrokePattern.prototype.getPattern_ = function(options)
 			var cos = Math.cos(a);
 			var sin = Math.sin(a);
 			if (Math.abs(sin)<0.0001)
-			{	pat.width = pat.height = d;	
+			{	pat.width = pat.height = d;
 				pat.lines = [ [ 0,0.5, d, 0.5 ] ];
 				pat.repeat = [ [0,0], [0,d] ];
 			}
 			else  if (Math.abs(cos)<0.0001)
-			{	pat.width = pat.height = d;	
+			{	pat.width = pat.height = d;
 				pat.lines = [ [ 0.5,0, 0.5, d] ];
 				pat.repeat = [ [0,0], [d,0] ];
-				if (options.pattern=='cross') 
+				if (options.pattern=='cross')
 				{	pat.lines.push ([ 0,0.5, d, 0.5 ]);
 					pat.repeat.push([0,d]);
 				}
@@ -25889,11 +25889,11 @@ ol.style.StrokePattern.prototype.getPattern_ = function(options)
 				{	pat.lines = [ [-w,-h, 2*w,2*h], [2*w,-h, -w,2*h] ];
 					pat.repeat = [ [0,0] ];
 				}
-				else if (cos*sin>0) 
+				else if (cos*sin>0)
 				{	pat.lines = [ [-w,-h, 2*w,2*h] ];
 					pat.repeat = [ [0,0], [w,0], [0,h] ];
 				}
-				else 
+				else
 				{	pat.lines = [ [2*w,-h, -w,2*h] ];
 					pat.repeat = [ [0,0], [-w,0], [0,h] ];
 				}

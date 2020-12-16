@@ -101,7 +101,7 @@ getFeatureInfo.prototype.handler = function(e) {
 
 	} else {
 		viewer.core.disableTools(this.id);
-		
+
 		this.popup = new ol.Overlay.Popup();
 		this.map.addOverlay(this.popup);
 
@@ -399,7 +399,7 @@ getFeatureInfo.prototype.clickHandler = function(evt) {
 						  					layer: qLayer
 						  				});
 					  				}
-					  				
+
 					  			} else if (response.features[k].type == 'plain_or_html') {
 					  				var qLayer = null;
 					  				for (var i=0; i<queryLayers.length; i++) {
@@ -414,7 +414,7 @@ getFeatureInfo.prototype.clickHandler = function(evt) {
 						  					layer: qLayer
 						  				});
 					  				}
-					  				
+
 					  			} else {
 				  					var qLayer = null;
 					  				for (var j=0; j<queryLayers.length; j++) {
@@ -508,7 +508,7 @@ getFeatureInfo.prototype.showPopup = function(){
 
 	html += '</ul>';
 	this.popup.show(self.mapCoordinates, '<div class="popup-wrapper getfeatureinfo-popup">' + html + '</div>');
-	
+
 	$('#coord-to-clipboard').on('click', function() {
 		var cutTextarea = document.querySelector('.coords-to-copy');
 		cutTextarea.select();
@@ -520,7 +520,7 @@ getFeatureInfo.prototype.showPopup = function(){
 		    console.log('Oops, unable to cut');
 		  }
 	});
-	
+
 	$(".getfeatureinfo-popup").parent().parent().children(".ol-popup-closer").unbind("click").click(function() {
 		var detailsTab = $('#details-tab');
 	 	detailsTab.empty();
@@ -543,14 +543,14 @@ getFeatureInfo.prototype.showPopup = function(){
 getFeatureInfo.prototype.getElevation = function(elevationControl){
 	var self = this;
 	var elevation = '';
-	
+
 	var featureInfoUrl = elevationControl.getZLayer().getSource().getGetFeatureInfoUrl(
     	this.mapCoordinates,
 		this.map.getView().getResolution(),
 		this.map.getView().getProjection().getCode(),
 		{'INFO_FORMAT': 'text/html'}
 	);
-    
+
 	$.ajax({
 		type: 'GET',
 		async: false,
@@ -594,13 +594,13 @@ getFeatureInfo.prototype.appendInfo = function(features, count){
 				var is_first_configured = true;
 				var item_shown = false;
 				var selectedLayer = features[i].layer;
-				
+
 				if (!selectedLayer.external) {
 					var feature_id = "<a href=\"javascript:void(0)\" class=\"feature-info-label-title"+count+"\" style=\"font-weight:bold; color:#0b6bd1; margin:0px 5px;\">"+features[i].layer.title +"."+features[i].feature.feature + "</a>";
 					feature_id += 		'<div class="feature-buttons" style="margin-right:-10px;"><span class="label feature-info-button feature-info-label-info'+count+'" title="'+gettext('More element info')+'"><i class="fa fa-list-ul" aria-hidden="true"></i></span>';
-					feature_id += 		'<span class="label feature-info-button feature-info-label-resource'+count+'" title="'+gettext('Multimedia resources')+'"><i class="fa fa-picture-o" aria-hidden="true"></i></span></div><br />';
+					feature_id += 		'<span class="label feature-info-button feature-info-label-resource'+count+'" title="'+gettext('Multimedia resources')+'"><i class="fa fa-image" aria-hidden="true"></i></span></div><br />';
 					feature_id += "<br />";
-		
+
 					var language = $("#select-language").val();
 					if (selectedLayer != null) {
 						if (selectedLayer.conf != null) {
@@ -609,10 +609,10 @@ getFeatureInfo.prototype.appendInfo = function(features, count){
 								var fields = fields_trans["fields"];
 								var feature_id2 = "<span style=\"font-weight:bold; color:#0b6bd1; margin:0px 5px;\">"+selectedLayer.title + "</span>";
 								feature_id2 += 		'<div class="feature-buttons" style="margin-right:-10px;"><span class="label feature-info-button feature-info-label-info'+count+'" title="'+gettext("Attribute details")+'"><i class="fa fa-list-ul" aria-hidden="true"></i></span>';
-								feature_id2 += 		'<span class="label feature-info-button feature-info-label-resource'+count+'" title="'+gettext("Show resources")+'"><i class="fa fa-picture-o" aria-hidden="true"></i></span></div><div style=\"clear:both; margin-bottom:10px;\"></div>';
-		
+								feature_id2 += 		'<span class="label feature-info-button feature-info-label-resource'+count+'" title="'+gettext("Show resources")+'"><i class="fa fa-image" aria-hidden="true"></i></span></div><div style=\"clear:both; margin-bottom:10px;\"></div>';
+
 								var feature_added = 0;
-		
+
 								var feature_fields = "";
 								var feature_fields2 = "";
 								for(var ix=0; ix<fields.length; ix++){
@@ -629,7 +629,7 @@ getFeatureInfo.prototype.appendInfo = function(features, count){
 									}
 									if(item_shown && key && features[i].feature.properties && (typeof features[i].feature.properties[key] == 'boolean' || features[i].feature.properties[key])){
 										var text = features[i].feature.properties[key];
-		
+
 										if(typeof features[i].feature.properties[key] == 'boolean' && text == true){
 											text = '<input disabled checked type="checkbox">';
 										}else{
@@ -637,7 +637,7 @@ getFeatureInfo.prototype.appendInfo = function(features, count){
 												text = '<input disabled type="checkbox">';
 											}
 										}
-		
+
 										var complex_data = false;
 										if(key.startsWith("cd_json_")){
 											try{
@@ -660,7 +660,7 @@ getFeatureInfo.prototype.appendInfo = function(features, count){
 												complex_data = false;
 											}
 										}
-		
+
 										if(!complex_data){
 											var aux_text = text;
 											var datetime_format = /^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(.[0-9]{3})?Z$/i;
@@ -692,10 +692,10 @@ getFeatureInfo.prototype.appendInfo = function(features, count){
 												feature_fields2 += "<span  style=\"font-weight:normal;\">" + key_trans + "</span><span class=\"pull-right\"><a href=\"" + text + "\" style=\"color: #00c0ef !important;\" target=\"_blank\" class=\"product-description\">"+ aux_text + "</a></span><div style=\"clear:both\"></div>";
 											}
 										}
-		
+
 									}
 								}
-		
+
 								if(feature_added > 0){
 									if(feature_added > 1){
 										feature_id2 += feature_fields2;
@@ -705,17 +705,17 @@ getFeatureInfo.prototype.appendInfo = function(features, count){
 									}
 									feature_id = feature_id2;
 								}
-		
+
 							}
 						}
 					}
-		
+
 					html += '<li class="item feature-item show_info">';
 					html += 	'<div class="feature-info">';
 					html += 		'<div href="javascript:void(0)" data-fid="' + fid + '" class="product-title item-fid" style="color: #444;padding: 5px;">' + feature_id + '</div>';
 					html += 	'</div>';
 					html += '</li>';
-		
+
 					if (features[i].crs) {
 						var newFeature = new ol.Feature();
 				  		var sourceCRS = 'EPSG:' + features[i].crs.properties.name.split('::')[1];
@@ -734,7 +734,7 @@ getFeatureInfo.prototype.appendInfo = function(features, count){
 				    	}
 				    	newFeature.setProperties(features[i].feature.properties);
 						newFeature.setId(fid);
-		
+
 						newFeature.getGeometry().transform(projection, 'EPSG:3857');
 						this.source.addFeature(newFeature);
 					}
@@ -751,14 +751,14 @@ getFeatureInfo.prototype.appendInfo = function(features, count){
 					html += 	'</div>';
 					html += '</li>';
 				}
-	
+
 			} else if (features[i].type == 'catastro') {
 				html += '<li class="item">';
 				html += 	'<div class="feature-info">';
 				html += 		'Ref. Catastral: <a target="_blank" href="' + features[i].href + '" class="product-title item-fid" style="color: #00c0ef;">' + features[i].text;
 				html += 	'</div>';
 				html += '</li>';
-				
+
 			}  else if (features[i].type == 'plain_or_html') {
 				var selectedLayer = features[i].layer;
 				html += '<li class="item feature-item show_info">';
@@ -776,7 +776,7 @@ getFeatureInfo.prototype.appendInfo = function(features, count){
 		}
 	}
 	$('#feature-info-results').append(html);
-	
+
 	$('.item-fid .feature-info-label-title' + count).click(function(){
 		self.showMoreInfo(this.parentNode.dataset.fid, features, 'features');
 	});
@@ -787,14 +787,14 @@ getFeatureInfo.prototype.appendInfo = function(features, count){
 	$('.item-fid .feature-info-label-resource' + count).click(function(){
 		self.showMoreInfo(this.parentNode.parentNode.dataset.fid, features, 'resources');
 	});
-	
+
 	$('.external-item-fid .feature-info-label-title' + count).click(function(){
 		self.externalShowMoreInfo(this.parentNode.dataset.fid, features, 'features');
 	});
 	$('.external-item-fid .feature-info-label-info' + count).click(function(){
 		self.externalShowMoreInfo(this.parentNode.parentNode.dataset.fid, features, 'features');
 	});
-	
+
 	$("#info-spinner").overlayout();
 };
 
@@ -841,7 +841,7 @@ getFeatureInfo.prototype.showMoreInfo = function(fid, features, tab_opened){
 							value = '<input disabled type="checkbox">';
 						}
 					}
-	
+
 					if (!key.startsWith(this.prefix)) {
 						var item_shown = true;
 						var key_original = key;
@@ -864,7 +864,7 @@ getFeatureInfo.prototype.showMoreInfo = function(fid, features, tab_opened){
 								}
 							}
 						}
-	
+
 						var complex_data = false;
 						if(key_original.startsWith("cd_json_")){
 							try{
@@ -877,7 +877,7 @@ getFeatureInfo.prototype.showMoreInfo = function(fid, features, tab_opened){
 									if (!value.toString().startsWith('http')) {
 										infoContent += 		'<span class="product-description">' + nkey + '</span>';
 										infoContent += 		'<a href="javascript:void(0)" class="product-title">' + data_json[nkey] + '</a>';
-	
+
 									} else {
 										infoContent += 		'<span class="product-description">' + nkey + '</span>';
 										infoContent += 		'<a href="' + data_json[nkey] + '" style="color: #00c0ef !important;" target="_blank" class="product-description">' + data_json[nkey] + '</a>';
@@ -895,7 +895,7 @@ getFeatureInfo.prototype.showMoreInfo = function(fid, features, tab_opened){
 								var match = datetime_format.exec(value);
 								value = match[3]+"/"+match[2]+"/"+match[1]+" "+match[4]+":"+match[5]+":"+match[6];
 							}
-	
+
 							var date_format = /^([0-9]{4})-([0-9]{2})-([0-9]{2})Z$/i;
 							if(date_format.test(value)){
 								var match = date_format.exec(value);
@@ -912,7 +912,7 @@ getFeatureInfo.prototype.showMoreInfo = function(fid, features, tab_opened){
 								if (!value.toString().startsWith('http')) {
 									infoContent += 		'<span class="product-description">' + key + '</span>';
 									infoContent += 		'<span class="product-title">' + value + '</span>';
-	
+
 								} else {
 									infoContent += 		'<span class="product-description">' + key + '</span>';
 									infoContent += 		'<a href="' + value + '" style="color: #00c0ef !important;" target="_blank" class="product-description">' + value + '</a>';
@@ -938,7 +938,7 @@ getFeatureInfo.prototype.showMoreInfo = function(fid, features, tab_opened){
 					else {
 						infoContent +=		'<span class="product-title"></span>';
 					}
-					
+
 					infoContent += 	'</div>';
 					infoContent += '</li>';
 				}
@@ -1094,7 +1094,7 @@ getFeatureInfo.prototype.externalShowMoreInfo = function(fid, features, tab_open
 				else {
 					infoContent +=		'<span class="product-title"></span>';
 				}
-				
+
 				infoContent += 	'</div>';
 				infoContent += '</li>';
 			}
@@ -1119,7 +1119,7 @@ getFeatureInfo.prototype.externalShowMoreInfo = function(fid, features, tab_open
 			$('.nav-tabs a[href="#details-tab"]').tab('show');
 			detailsTab.append(ui);
 		}
-		
+
 	} else {
 		var ui = '';
 		ui += '<div class="nav-tabs-custom">';
@@ -1137,7 +1137,7 @@ getFeatureInfo.prototype.externalShowMoreInfo = function(fid, features, tab_open
 		$.gvsigOL.controlSidebar.open();
 		$('.nav-tabs a[href="#details-tab"]').tab('show');
 		detailsTab.append(ui);
-		
+
 	}
 };
 

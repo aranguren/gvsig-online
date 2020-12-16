@@ -27,16 +27,16 @@ var ChartsView = function(map) {
 	var self = this;
 	this.olmap = map;
 	this.initialize();
-	
+
 	$('body').on('change-to-2D-event', function() {
 		self.hide();
 		self.olmap.updateSize();
 	});
-	
+
 	$('body').on('change-to-3D-event', function() {
 		self.hide();
 	});
-	
+
 	$('body').on('show-catalog-event', function() {
 		self.hide();
 	});
@@ -58,14 +58,14 @@ ChartsView.prototype.initialize = function() {
 
 ChartsView.prototype.createUI = function(layer, charts) {
 	var self = this;
-	
+
 	this.layer = layer;
 	this.jsonCharts = charts;
 	this.charts = new Array();
-	
+
 	var title = '<span id="dashboard-layer-tile" style="position: relative;top: 5px;font-size: 24px;color: #ffffff;">' + gettext('Layer') + ': ' + this.layer.layer_title + '</span>';
 	$('#viewer-navbar').append(title);
-	
+
 	this.chartsContainer.empty();
 	var ui = '';
 	ui += 	'<li class="ui-state-default" style="float: left; width: 47%; text-align: center; margin: 5px;">';
@@ -91,7 +91,7 @@ ChartsView.prototype.createUI = function(layer, charts) {
 	ui += 	'</li>';
 	this.chartsContainer.append(ui);
 	this.chartsContainer.show();
-	
+
 	this.map = new ol.Map({
 		layers : [ new ol.layer.Tile({
 			source : new ol.source.OSM({
@@ -107,7 +107,7 @@ ChartsView.prototype.createUI = function(layer, charts) {
 	this.map.on("movestart", function(e) {
 		e.preventDefault();
 	});
-	
+
 	this.source = new ol.source.Vector({
         format: new ol.format.GeoJSON(),
         features: []
@@ -126,7 +126,7 @@ ChartsView.prototype.createUI = function(layer, charts) {
 		style: this.styleFunction.bind(this)
 	});
 	this.map.addLayer(this.vectorLayer);
-	
+
 	$.ajax({
 		type: 'POST',
 		async: false,
@@ -146,13 +146,13 @@ ChartsView.prototype.createUI = function(layer, charts) {
 				//CHANGE
 				//var geom = feat.getGeometry().transform('EPSG:4326', 'EPSG:3857');
 	  			var geom = feat.getGeometry().transform(self.layer.layer_native_srs, 'EPSG:3857');
-	  			feat.setGeometry(geom.clone());	
+	  			feat.setGeometry(geom.clone());
 	  			var props = feat.getProperties();
 	  			props['custom_color'] = self.getRandomColor();
 	  			feat.setProperties(props);
 	  			self.vectorLayer.getSource().addFeature(feat);
 	  		}
-	  		
+
 	  		var extent = self.vectorLayer.getSource().getExtent();
 	    	self.map.getView().fit(extent, self.map.getSize());
 		},
@@ -160,7 +160,7 @@ ChartsView.prototype.createUI = function(layer, charts) {
 	  		console.log(e);
 	  	}
 	});
-	
+
 	this.selected = [];
 	this.map.on('singleclick', function(e) {
 		self.map.forEachFeatureAtPixel(e.pixel, function(f) {
@@ -190,13 +190,13 @@ ChartsView.prototype.createUI = function(layer, charts) {
 					self.selected.push(f);
 					f.setStyle(selectedStyle);
 					self.refreshCharts(self.selected);
-					
+
 				} else {
 					self.selected.splice(selIndex, 1);
 					f.setStyle(null);
 					self.refreshCharts(self.selected);
 				}
-				
+
 			} else {
 				for (var i=0; i < self.source.getFeatures().length; i++) {
 					self.source.getFeatures()[i].setStyle(null);
@@ -207,7 +207,7 @@ ChartsView.prototype.createUI = function(layer, charts) {
 			}
 		});
 	});
-	
+
 	var search = new ol.control.SearchFeature({
 		placeholder: gettext('Search') + ' ...',
 		source: this.source,
@@ -215,7 +215,7 @@ ChartsView.prototype.createUI = function(layer, charts) {
 	});
 	this.map.addControl (search);
 	// Select feature when click on the reference index
-	search.on('select', function(e){	
+	search.on('select', function(e){
 		var f = e.search;
 		var selIndex = self.selected.indexOf(f);
 		var selectedStyle = new ol.style.Style({
@@ -238,13 +238,13 @@ ChartsView.prototype.createUI = function(layer, charts) {
 	    		rotation: 0
 	    	})
 		});
-		
+
 		if (self.enableMultipleSelection()) {
 			if (selIndex < 0) {
 				self.selected.push(f);
 				f.setStyle(selectedStyle);
 				self.refreshCharts(self.selected);
-				
+
 			} else {
 				self.selected.splice(selIndex, 1);
 				f.setStyle(null);
@@ -298,41 +298,41 @@ ChartsView.prototype.loadCharts = function() {
 			download += 	'<i style="margin-right: 10px;" class="fa fa-download"></i>';
 			download += '</a>';
 			download += '<a class="download-pdf-chart" data-chartid="' + firstChart.chart_id + '" id="download-pdf-' + firstChart.chart_id + '" href="" class="btn btn-primary float-right bg-flat-color-1">';
-			download += 	'<i class="fa fa-file-pdf-o"></i>';
+			download += 	'<i class="fa fa-file-pdf"></i>';
 			download += '</a>';
 			$('#first-tools').append(download);
-			
+
 			if (firstChart.chart_type == 'barchart') {
 				if (firstChart.chart_conf.dataset_type == 'aggregated') {
 					this.createAggregatedBarChart(firstChart);
-					
+
 				} else {
 					this.createBarChart(firstChart);
-				}			
-				
+				}
+
 			} else if (firstChart.chart_type == 'linechart') {
 				if (firstChart.chart_conf.dataset_type == 'aggregated') {
 					this.createAggregatedLineChart(firstChart);
-					
+
 				} else {
 					this.createLineChart(firstChart);
 				}
-				
+
 			} else if (firstChart.chart_type == 'piechart') {
 				if (firstChart.chart_conf.dataset_type == 'aggregated') {
 					this.createAggregatedPieChart(firstChart);
-					
+
 				} else {
 					this.createPieChart(firstChart, true);
 				}
 			}
-			
+
 		} else {
-			
+
 			var chart = this.jsonCharts[i];
 
 			var ui = '';
-			
+
 			ui += 	'<li class="ui-state-default" style="float: left; width: 47%; text-align: center;margin: 5px;">';
 			ui += 		'<div class="box">';
 			ui += 			'<div class="box-header with-border">';
@@ -342,7 +342,7 @@ ChartsView.prototype.loadCharts = function() {
 			ui += 						'<i style="margin-right: 10px;" class="fa fa-download"></i>';
 			ui += 					'</a>';
 			ui += 					'<a class="download-pdf-chart" data-chartid="' + chart.chart_id + '" id="download-pdf-' + chart.chart_id + '" href="" class="btn btn-primary float-right bg-flat-color-1">';
-			ui += 						'<i class="fa fa-file-pdf-o"></i>';
+			ui += 						'<i class="fa fa-file-pdf"></i>';
 			ui += 					'</a>';
 			ui += 				'</div>';
 			ui += 			'</div>';
@@ -352,32 +352,32 @@ ChartsView.prototype.loadCharts = function() {
 			ui += 		'</div>';
 			ui += 	'</li>';
 			$('#charts-container').append(ui);
-			
+
 			if (chart.chart_type == 'barchart') {
 				if (chart.chart_conf.dataset_type == 'aggregated') {
 					this.createAggregatedBarChart(chart);
-					
+
 				} else {
 					this.createBarChart(chart);
-				}			
-				
+				}
+
 			} else if (chart.chart_type == 'linechart') {
 				if (chart.chart_conf.dataset_type == 'aggregated') {
 					this.createAggregatedLineChart(chart);
-					
+
 				} else {
 					this.createLineChart(chart);
 				}
-				
+
 			} else if (chart.chart_type == 'piechart') {
 				if (chart.chart_conf.dataset_type == 'aggregated') {
 					this.createAggregatedPieChart(chart);
-					
+
 				} else {
 					this.createPieChart(chart, false);
 				}
 			}
-			
+
 		}
 		$('.download-chart').on('click', function(){
 			var chartId = this.dataset.chartid;
@@ -385,8 +385,8 @@ ChartsView.prototype.loadCharts = function() {
 			var a =  document.getElementById('download-' + chartId);
 			a.href = url_base64jp;
 		});
-		
-		
+
+
 		$('.download-pdf-chart').unbind('click').on('click', function(e){
 			e.preventDefault();
 			var chartId = this.dataset.chartid;
@@ -394,62 +394,62 @@ ChartsView.prototype.loadCharts = function() {
 			var canvas = document.querySelector('#chart-' + chartId);
 			//creates image
 			var canvasImg = self.canvasToImage(canvas, '#ffffff');
-		  
+
 			//creates PDF from img
 			var doc = new jsPDF('landscape');
 			doc.setFontSize(20);
 			doc.text(15, 15, chartConf.chart_title);
 			doc.addImage(canvasImg, 'PNG', 10, 10, 280, 150 );
-			
+
 			var uri = doc.output('dataurlstring');
 	        self.openDataUriWindow(uri);
 		});
-		
+
 	}
 };
 
 ChartsView.prototype.canvasToImage = function(canvas, backgroundColor) {
-	//cache height and width		
+	//cache height and width
 	var w = canvas.width;
 	var h = canvas.height;
-	
+
 	var context = canvas.getContext("2d");
- 
+
 	var data;
- 
+
 	if(backgroundColor)
 	{
 		//get the current ImageData for the canvas.
 		data = context.getImageData(0, 0, w, h);
- 
+
 		//store the current globalCompositeOperation
 		var compositeOperation = context.globalCompositeOperation;
- 
+
 		//set to draw behind current content
 		context.globalCompositeOperation = "destination-over";
- 
+
 		//set background color
 		context.fillStyle = backgroundColor;
- 
+
 		//draw background / rect on entire canvas
 		context.fillRect(0,0,w,h);
 	}
- 
+
 	//get the image data from the canvas
 	var imageData = canvas.toDataURL("image/png", 1.0);
- 
+
 	if(backgroundColor)
 	{
 		//clear the canvas
 		context.clearRect (0,0,w,h);
- 
+
 		//restore it with original / cached ImageData
 		context.putImageData(data, 0,0);
- 
+
 		//reset the globalCompositeOperation to what it was
 		context.globalCompositeOperation = compositeOperation;
 	}
- 
+
 	//return the Base64 encoded data url string
 	return imageData;
 };
@@ -468,7 +468,7 @@ ChartsView.prototype.refreshCharts = function(selectedFeatures) {
 	for (var i=0; i<this.charts.length; i++) {
 		var chart = this.charts[i];
 		var chartConf = this.getChartConf(chart.chart_id);
-		
+
 		if (chartConf.chart_type == 'barchart' || chartConf.chart_type == 'linechart') {
 			if (chartConf.chart_conf.dataset_type == 'single_selection') {
 				chart.data.datasets = [];
@@ -480,7 +480,7 @@ ChartsView.prototype.refreshCharts = function(selectedFeatures) {
 					borderColor: color,
 					borderWidth: 1,
 					data: []
-				};		
+				};
 				if (chartConf.chart_type == 'linechart') {
 					newDataset.fill = false;
 				}
@@ -489,7 +489,7 @@ ChartsView.prototype.refreshCharts = function(selectedFeatures) {
 				}
 				chart.data.datasets.push(newDataset);
 				chart.update();
-				
+
 			} else if (chartConf.chart_conf.dataset_type == 'multiple_selection') {
 				chart.data.datasets = [];
 				for (var j=0; j<selectedFeatures.length; j++) {
@@ -501,7 +501,7 @@ ChartsView.prototype.refreshCharts = function(selectedFeatures) {
 						borderColor: color,
 						borderWidth: 1,
 						data: []
-					};		
+					};
 					if (chartConf.chart_type == 'linechart') {
 						newDataset.fill = false;
 					}
@@ -512,7 +512,7 @@ ChartsView.prototype.refreshCharts = function(selectedFeatures) {
 					chart.update();
 				}
 			}
-			
+
 		} else if (chartConf.chart_type == 'piechart'){
 			if (chartConf.chart_conf.dataset_type == 'single_selection') {
 				chart.data.datasets = [];
@@ -522,12 +522,12 @@ ChartsView.prototype.refreshCharts = function(selectedFeatures) {
 				} else {
 					$('#view-chart-title-' + chartConf.chart_id).text(chartConf.chart_title + ': ' + feature.getProperties()[chartConf.chart_conf.geographic_names_column]);
 				}
-				
+
 				var newDataset = {
 					label: feature.getProperties()[chartConf.chart_conf.geographic_names_column],
 					backgroundColor: [],
 					data: []
-				};		
+				};
 				for (var k=0; k<chartConf.chart_conf.columns.length; k++) {
 					newDataset.data.push(feature.getProperties()[chartConf.chart_conf.columns[k].name]);
 					newDataset.backgroundColor.push(this.getRandomColor());
@@ -542,7 +542,7 @@ ChartsView.prototype.refreshCharts = function(selectedFeatures) {
 			}
 		}
 	}
-	
+
 };
 
 ChartsView.prototype.getChartConf = function(chartId) {
@@ -555,7 +555,7 @@ ChartsView.prototype.getChartConf = function(chartId) {
 
 ChartsView.prototype.createBarChart = function(c) {
 	var ctx = document.getElementById('chart-' + c.chart_id).getContext('2d');
-	
+
 	var labels = new Array();
 	for (var i=0; i<c.chart_conf.columns.length; i++) {
 		labels.push(c.chart_conf.columns[i].title);
@@ -594,18 +594,18 @@ ChartsView.prototype.createBarChart = function(c) {
 		}
 	});
 	chart.chart_id = c.chart_id;
-	
+
 	this.charts.push(chart);
 };
 
 ChartsView.prototype.createAggregatedBarChart = function(c) {
 	var ctx = document.getElementById('chart-' + c.chart_id).getContext('2d');
-	
+
 	var labels = new Array();
 	for (var i=0; i<c.chart_conf.columns.length; i++) {
 		labels.push(c.chart_conf.columns[i].title);
 	}
-	
+
 	var features = this.vectorLayer.getSource().getFeatures();
 	var color = this.getRandomColor();
 	var newDataset = {
@@ -614,7 +614,7 @@ ChartsView.prototype.createAggregatedBarChart = function(c) {
 		borderColor: color,
 		borderWidth: 1,
 		data: []
-	};		
+	};
 	for (var k=0; k<c.chart_conf.columns.length; k++) {
 		var data = 0;
 		for (var j=0; j<features.length; j++) {
@@ -662,7 +662,7 @@ ChartsView.prototype.createAggregatedBarChart = function(c) {
 
 ChartsView.prototype.createLineChart = function(c) {
 	var ctx = document.getElementById('chart-' + c.chart_id).getContext('2d');
-	
+
 	var labels = new Array();
 	for (var i=0; i<c.chart_conf.columns.length; i++) {
 		labels.push(c.chart_conf.columns[i].title);
@@ -701,7 +701,7 @@ ChartsView.prototype.createLineChart = function(c) {
 		}
 	});
 	chart.chart_id = c.chart_id;
-	
+
 	this.charts.push(chart);
 };
 
@@ -710,7 +710,7 @@ ChartsView.prototype.createAggregatedLineChart = function(c) {
 
 ChartsView.prototype.createPieChart = function(c, isFirst) {
 	var ctx = document.getElementById('chart-' + c.chart_id).getContext('2d');
-	
+
 	var labels = new Array();
 	for (var i=0; i<c.chart_conf.columns.length; i++) {
 		labels.push(c.chart_conf.columns[i].title);
@@ -740,7 +740,7 @@ ChartsView.prototype.createPieChart = function(c, isFirst) {
 						var currentValue = dataset.data[tooltipItem.index];
 						//calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
 						var percentage = Math.floor(((currentValue/total) * 100)+0.5);
-				  
+
 						return percentage + "%";
 					}
 				}
@@ -749,25 +749,25 @@ ChartsView.prototype.createPieChart = function(c, isFirst) {
 	});
 	chart.chart_id = c.chart_id;
 	chart.isFirst = isFirst;
-	
+
 	this.charts.push(chart);
 };
 
 ChartsView.prototype.createAggregatedPieChart = function(c) {
 	var ctx = document.getElementById('chart-' + c.chart_id).getContext('2d');
-	
+
 	var labels = new Array();
 	for (var i=0; i<c.chart_conf.columns.length; i++) {
 		labels.push(c.chart_conf.columns[i].title);
 	}
-	
+
 	var features = this.vectorLayer.getSource().getFeatures();
 	var color = this.getRandomColor();
 	var newDataset = {
 		label: c.chart_title,
 		backgroundColor: [],
 		data: []
-	};		
+	};
 	for (var k=0; k<c.chart_conf.columns.length; k++) {
 		var data = 0;
 		for (var j=0; j<features.length; j++) {
@@ -801,7 +801,7 @@ ChartsView.prototype.createAggregatedPieChart = function(c) {
 						var currentValue = dataset.data[tooltipItem.index];
 						//calculate the precentage based on the total and current item, also this does a rough rounding to give a whole number
 						var percentage = Math.floor(((currentValue/total) * 100)+0.5);
-				  
+
 						return percentage + "%";
 					}
 				}
@@ -839,7 +839,7 @@ ChartsView.prototype.hexToRgb = function(hex) {
 
 ChartsView.prototype.styleFunction = function(feature, resolution) {
 	//var color = this.getRandomColor();
-	
+
 	var fillColor = this.hexToRgb(feature.getProperties()['custom_color']);
 	var fill = new ol.style.Fill({
 		color: 'rgba(' + fillColor.r + ',' + fillColor.g + ',' + fillColor.b + ',0.2)'
@@ -861,12 +861,12 @@ ChartsView.prototype.styleFunction = function(feature, resolution) {
 		placement: 'point',
 		rotation: 0
 	});
-	
+
 	var style = new ol.style.Style({
 		fill: fill,
     	stroke: stroke,
     	text: text
-    });	
+    });
 
 	return [style];
 };

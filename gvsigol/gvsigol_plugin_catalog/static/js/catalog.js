@@ -484,7 +484,7 @@ CatalogView.prototype.getMetadataEntry = function(metadata){
 		met += '			</div>';
 		met += '			<div class="catalog_content_button_place col-sm-3">';
 		met += '				<a name="'+ metadata['geonet:info']['uuid'] +'" href="#" class="btn btn-block btn-social catalog_content_button btn-custom-tool catalog_linkmap">';
-		met += ' 					<i class="fa fa-map-o" aria-hidden="true"></i><span>' + gettext('Map') + '</span>';
+		met += ' 					<i class="fa fa-map" aria-hidden="true"></i><span>' + gettext('Map') + '</span>';
 		met += '				</a>';
 		met += '			</div>';
 		met += '			<div class="catalog_content_button_place col-sm-3">';
@@ -494,7 +494,7 @@ CatalogView.prototype.getMetadataEntry = function(metadata){
 		met += '			</div>';
 		met += '			<div class="catalog_content_button_place col-sm-3">';
 		met += '				<a target="_blank" name="'+ metadata['geonet:info']['uuid'] +'" href="' + md_url + '" class="btn btn-block btn-social btn-custom-tool catalog_content_button catalog_catalogmd">';
-		met += ' 					<i class="fa fa-newspaper-o" aria-hidden="true"></i><span>' + gettext('Metadatum') + '</span>';
+		met += ' 					<i class="fa fa-newspaper" aria-hidden="true"></i><span>' + gettext('Metadatum') + '</span>';
 		met += '				</a>';
 		met += '			</div>';
 		met += '	</div>';
@@ -558,7 +558,7 @@ CatalogView.prototype.createResourceLink = function(links){
 			content += '<li class="catalog-link">';
 			content += '<div class="row">';
 			content += '<div class="col-md-4 form-group">';
-			content += '<i class="fa fa-file-archive-o" aria-hidden="true"></i>';
+			content += '<i class="fa fa-file-archive" aria-hidden="true"></i>';
 			content += '<span class="catalog-link-resource"><p>' + layer_title + '<br/><span class="catalog-entry-subtitle">' + layer_name + '</span></p></span>';
 			content += '</div>';
 			content += 	'<div class="col-md-2 form-group">';
@@ -577,7 +577,7 @@ CatalogView.prototype.createResourceLink = function(links){
 			content += '<li class="catalog-link">';
 			content += '<div class="row">';
 			content += '<div class="col-md-4 form-group">';
-			content += '<i class="fa fa-file-archive-o" aria-hidden="true"></i>';
+			content += '<i class="fa fa-file-archive" aria-hidden="true"></i>';
 			content += '<span class="catalog-link-resource"><p>' + layer_title + '<br/><span class="catalog-entry-subtitle">' + layer_name + '</span></p></span>';
 			content += '</div>';
 			content += 	'<div class="col-md-2 form-group">';
@@ -590,7 +590,7 @@ CatalogView.prototype.createResourceLink = function(links){
 			content += '<li class="catalog-link">';
 			content += '<div class="row">';
 			content += '<div class="col-md-6 form-group">';
-			content += '<i class="fa fa-file-archive-o" aria-hidden="true"></i>';
+			content += '<i class="fa fa-file-archive" aria-hidden="true"></i>';
 			content += '<span class="catalog-link-resource"><p>' + layer_title + '<br/><span class="catalog-entry-subtitle">' + layer_name + '</span></p></span>';
 			content += '</div>';
 			content += 	'<div class="col-md-2 form-group">';

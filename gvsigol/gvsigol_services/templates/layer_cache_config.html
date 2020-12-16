@@ -7,7 +7,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="row" style="padding-left: 30px;">
-				{% csrf_token %}													
+				{% csrf_token %}
 				{% if message %}
 				<div id="form-error" style="color:#ff0000;">
 					<p>* {{ message }}</p>
@@ -15,23 +15,23 @@
 				{% endif %}
 			</div>
 		</div>
-					
+
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#tab-create-new-task" data-toggle="tab">{% trans "Create a new task" %}</a></li>
 	    	<li><a href="#tab-currently-executing-tasks" data-toggle="tab">{% trans "Currently executing tasks" %}</a></li>
 	    </ul>
-	            	
-		<div class="tab-content">  	
+
+		<div class="tab-content">
 	       	<div class="tab-pane active" id="tab-create-new-task">
 	       		<div class="box">
 	       			<div class="box-body">
 	       				<div class="row">
 							<div class="col-md-12 form-group">
 								<div class="box-tools pull-right">
-									<button id="execute_button" type="submit" class="btn btn-default btn-sm"><i class="fa fa-cogs margin-r-5"></i> {% trans "Execute" %}</button>					
+									<button id="execute_button" type="submit" class="btn btn-default btn-sm"><i class="fa fa-cogs margin-r-5"></i> {% trans "Execute" %}</button>
 								</div>
-							</div>				
-						</div> 
+							</div>
+						</div>
 	       				<div class="row">
 							<div class="col-md-3 form-group">
 								<label for="input_number_of_task">{% trans "Number of tasks to use" %}</label>
@@ -52,7 +52,7 @@
 									<option value="14">14</option>
 									<option value="15">15</option>
 									<option value="16">16</option>
-								</select>														
+								</select>
 							</div>
 							<div class="col-md-9 form-group">
 								<label for="input_operation_type">{% trans "Type of operation" %}</label>
@@ -103,19 +103,19 @@
 						<div class="row">
 							<div class="col-md-3 form-group">
 								<label for="input_min_x">{% trans "MinX" %}</label>
-								<input readonly name="input_min_x" id="input_min_x" type="text" class="form-control" value="null">						
+								<input readonly name="input_min_x" id="input_min_x" type="text" class="form-control" value="null">
 							</div>
 							<div class="col-md-3 form-group">
 								<label for="input_min_y">{% trans "MinY" %}</label>
-								<input readonly name="input_min_y" id="input_min_y" type="text" class="form-control" value="null">						
+								<input readonly name="input_min_y" id="input_min_y" type="text" class="form-control" value="null">
 							</div>
 							<div class="col-md-3 form-group">
 								<label for="input_max_x">{% trans "MaxX" %}</label>
-								<input readonly name="input_max_x" id="input_max_x" type="text" class="form-control" value="null">						
+								<input readonly name="input_max_x" id="input_max_x" type="text" class="form-control" value="null">
 							</div>
 							<div class="col-md-3 form-group">
 								<label for="input_max_y">{% trans "MaxY" %}</label>
-								<input readonly name="input_max_y" id="input_max_y" type="text" class="form-control" value="null">						
+								<input readonly name="input_max_y" id="input_max_y" type="text" class="form-control" value="null">
 							</div>
 						</div>
 	       				<div class="row">
@@ -124,7 +124,7 @@
 					</div>
 	       		</div>
 	       	</div>
-	       	
+
 	       	<div class="tab-pane" id="tab-currently-executing-tasks">
 	       		<div class="box">
 	       			<div class="box-body">
@@ -132,15 +132,15 @@
 							<div class="col-md-12 form-group">
 								<div class="box-tools pull-right">
 									<button id="refresh_tasks" type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh margin-r-5"></i> {% trans "Refresh tasks" %}</button>
-									<button id="kill_all_tasks" type="button" class="btn btn-default btn-sm"><i class="fa fa-times margin-r-5"></i> {% trans "kill all tasks" %}</button>					
+									<button id="kill_all_tasks" type="button" class="btn btn-default btn-sm"><i class="fa fa-times margin-r-5"></i> {% trans "kill all tasks" %}</button>
 								</div>
-							</div>				
+							</div>
 						</div>
 						<div class="row">
 	       					<table id="table-tasks" class="table table-bordered" style="margin-left: 20px;">
 	       						<tr>
 									<th>{% trans "Tiles processed" %}</th>
-								    <th>{% trans "Total of tiles to process" %}</th> 
+								    <th>{% trans "Total of tiles to process" %}</th>
 								    <th>{% trans "Total of remaining tiles" %}</th>
 								    <th>{% trans "Task ID" %}</th>
 								    <th>{% trans "Task status" %}</th>
@@ -148,7 +148,7 @@
 								{% for task in tasks %}
 								<tr>
 								    <td>{{task.0}}</td>
-								    <td>{{task.1}}</td> 
+								    <td>{{task.1}}</td>
 								    <td>{{task.2}}</td>
 								    <td>{{task.3}}</td>
 								    <td>{{task.4}}</td>
@@ -159,7 +159,7 @@
 					</div>
 	       		</div>
 	       	</div>
-	       	
+
 		</div>
 	</div>
 </form>
@@ -170,10 +170,10 @@
 $('#menu-manage-services').addClass("active");
 $('#submenu-cache').addClass("active");
 $().ready(function() {
-	
+
 	var latLongExtentString = '{{ latlong_extent }}';
 	var latLongExtent = latLongExtentString.split(',');
-      
+
 	/**
 	  * Create the map.
 	  */
@@ -187,7 +187,7 @@ $().ready(function() {
 			zoom : 2
 		})
 	});
-	
+
 	var interaction = new ol.interaction.Extent({
 		condition: ol.events.condition.allways
 	});
@@ -196,27 +196,27 @@ $().ready(function() {
 			$('#input_min_x').val(e.b[0]);
 			$('#input_min_y').val(e.b[1]);
 			$('#input_max_x').val(e.b[2]);
-			$('#input_max_y').val(e.b[3]);	
+			$('#input_max_y').val(e.b[3]);
 		}
 	});
-	
+
 	var dragBoxCtrl = new ol.control.Toggle({
-		html: '<i class="fa fa-pencil-square-o"></i>',
+		html: '<i class="fa fa-edit"></i>',
 		className: "dragbox-custom",
 		title: "Select extent",
 		//interaction: interaction,
 		active: false,
-		onToggle: function(active){	
+		onToggle: function(active){
 			if (active) {
 				map.addInteraction(interaction);
-				
+
 			} else {
 				map.removeInteraction(interaction);
 			}
 		}
 	});
 	map.addControl(dragBoxCtrl);
-	
+
 	if (Array.isArray(latLongExtent) && latLongExtent.length==4) { // use extent from metadata if available
 		var extent = ol.proj.transformExtent([parseFloat(latLongExtent[0]), parseFloat(latLongExtent[1]), parseFloat(latLongExtent[2]), parseFloat(latLongExtent[3])], ol.proj.get('EPSG:4326'), ol.proj.get('EPSG:3857'));
 		map.getView().fit(extent, map.getSize());
@@ -225,13 +225,13 @@ $().ready(function() {
 		$('#input_max_x').val(extent[2]);
 		$('#input_max_y').val(extent[3]);*/
 	}
-	
+
 	/*var extent = map.getView().calculateExtent(map.getSize());
 	$('#input_min_x').val(extent[0]);
 	$('#input_min_y').val(extent[1]);
 	$('#input_max_x').val(extent[2]);
 	$('#input_max_y').val(extent[3]);*/
-	
+
 	/*map.on('moveend', function (){
 		var extent = map.getView().calculateExtent(map.getSize());
 		$('#input_min_x').val(extent[0]);
@@ -239,7 +239,7 @@ $().ready(function() {
 		$('#input_max_x').val(extent[2]);
 		$('#input_max_y').val(extent[3]);
 	});*/
-	
+
 	var gridSubsets = {{json_grid_subsets|safe}};
 	for (var i=0; i<gridSubsets.length; i++) {
 		if (gridSubsets[i].gridSetName == $("#input_grid_set option:first").val()) {
@@ -257,7 +257,7 @@ $().ready(function() {
 			}
 		}
 	}
-	
+
 	for (var i=0; i<gridSubsets.length; i++) {
 		if (gridSubsets[i].gridSetName == 'EPSG:3857') {
 			if (gridSubsets[i].extent) {
@@ -265,7 +265,7 @@ $().ready(function() {
 			}
 		}
 	}
-	
+
 	$('#input_grid_set').change(function(e) {
 		for (var i=0; i<gridSubsets.length; i++) {
 			if (gridSubsets[i].gridSetName == $("#input_grid_set option:selected").val()) {
@@ -280,7 +280,7 @@ $().ready(function() {
 			}
 		}
   	});
-	
+
 	$("#refresh_tasks").click(function() {
 		$.ajax({
 	        type: "POST",
@@ -321,7 +321,7 @@ $().ready(function() {
 			}
 		});
 	});
-	
+
 	$("#kill_all_tasks").click(function() {
 		$.ajax({
 	        type: "POST",
@@ -341,23 +341,23 @@ $().ready(function() {
 			}
 		});
 	});
-	
+
 	$('#cache-config-form').submit(function(event) {
 		event.preventDefault();
-		 
+
 		var minX = $('#input_min_x').val();
 		var minY = $('#input_min_y').val();
 		var maxX = $('#input_max_x').val();
 		var maxY = $('#input_max_y').val();
-		 
+
 		 if (minX == 'null' || minY == 'null' || maxX == 'null' || maxY == 'null') {
 			 messageBox.show('warning', gettext('You must select an extent on the map using the control'));
-			 
+
 		 } else {
-			 $(this).unbind('submit').submit();	 
+			 $(this).unbind('submit').submit();
 		 }
 	})
-	
+
 });
 </script>
 {% endblock %}

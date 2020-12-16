@@ -36,7 +36,7 @@ var SearchFeaturesInCatalog = function(map, conf, extraParams) {
 	button.setAttribute("class", "toolbar-button");
 	button.setAttribute("title", gettext('Search in catalog'));
 	var icon = document.createElement('i');
-	icon.setAttribute("class", "fa fa-newspaper-o");
+	icon.setAttribute("class", "fa fa-newspaper");
 	button.appendChild(icon);
 
 	this.$button = $(button);
@@ -106,7 +106,7 @@ SearchFeaturesInCatalog.prototype.toggle = function(e) {
 		this.$button.addClass('button-active');
 		this.active = true;
 		this.$button.trigger('control-active', [this]);
-		
+
 		var selectClick = new ol.interaction.Select({
 			condition: ol.events.condition.click
 			});
@@ -117,10 +117,10 @@ SearchFeaturesInCatalog.prototype.toggle = function(e) {
 		});
 		this.selectInteraction = selectClick;
 		this.map.addInteraction(this.selectInteraction);
-		
+
 		this.map.un('click', this.clickHandler, this);
 		this.map.on('click', this.clickHandler, this);
-		
+
 	}
 };
 
@@ -181,7 +181,7 @@ SearchFeaturesInCatalog.prototype.showPopup = function(features, coordinates){
 	var self = this;
 	this.activePage = 1;
 	this.selectedFeatures = features.getArray();
-	
+
 	var html = '<div class="container-fluid">';
 	html += '<div class="row"><div class="col-12"><h4>' + gettext('Catalog search') + '</h4></div></div>';
 	html += '<div class="row"><div class="col-xs-8" style="padding-left: 0px; padding-right: 0px"><input id="input_search_feat_in_catalog" type="text" class="form-control"></div><div class="col-xs-4" style="padding-left: 0px"><button id="search_feat_in_catalog_button" class="btn btn-default" type="button">Search</button></div></div>';
@@ -199,7 +199,7 @@ SearchFeaturesInCatalog.prototype.showPopup = function(features, coordinates){
 		else {
 			html += '<div class="search_feat_in_catalog_page row" data-featid="' + i + '"><div class="col-12">';
 		}
-		
+
 		var f = featArray[i];
 		html += '<table class="table table-condensed" style="margin-bottom: 0px"><tr><th>Field</th><th>Value</th><th></th></tr>'
 		var keys = f.getKeys();
@@ -244,7 +244,7 @@ SearchFeaturesInCatalog.prototype.showPopup = function(features, coordinates){
 		var newPage = self.activePage + 1;
 		self._updatePages(newPage, featArray.length);
 	});
-	
+
 	$('.add-to-search-button').off('click').on('click', function(evt){
 		var value = new $(this).parent().siblings('.field-value').first().text();
 		var oldSearchString = $('#input_search_feat_in_catalog').val();
@@ -253,9 +253,9 @@ SearchFeaturesInCatalog.prototype.showPopup = function(features, coordinates){
 		}
 		else {
 			$('#input_search_feat_in_catalog').val(value);
-		}  
+		}
 	});
-	
+
 	$('#search_feat_in_catalog_button').off('click').on('click', function(evt){
 		var value = $('#input_search_feat_in_catalog').val();
 		var geom = null;

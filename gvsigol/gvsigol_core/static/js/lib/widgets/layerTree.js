@@ -1914,7 +1914,7 @@ layerTree.prototype.createOverlayUI = function(layer, group_visible) {
 		if (layer.metadata && (!layer.external)) {
 			if (!layer.imported) {
 				ui += '	<a id="show-metadata-' + id + '" href="#" class="btn btn-block btn-social btn-custom-tool show-metadata-link">';
-				ui += '		<i class="fa fa-newspaper-o" aria-hidden="true"></i> ' + gettext('Metadata');
+				ui += '		<i class="fa fa-newspaper" aria-hidden="true"></i> ' + gettext('Metadata');
 				ui += '	</a>';
 			}
 		}

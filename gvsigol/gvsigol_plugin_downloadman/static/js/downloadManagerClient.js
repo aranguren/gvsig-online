@@ -55,11 +55,11 @@ DownloadManagerClient.prototype.queryAvailableResources = function(layer_id, wor
 	else {
 		queryUrl = self.config.baseQueryUrl + "layer/" + layer_id + "/";
 	}
-	
+
 	//console.log(queryUrl);
 	/*
 	 * We expect an array of objects like this:
-	 * 
+	 *
           [{
             "layer_id": "asfasfasf234dfasfsa",
             "layer_name": "ortofoto_nvt2010",
@@ -166,7 +166,7 @@ DownloadManagerClient.prototype.sendGenericRequest = function(request, success_c
 			else {
 				error_callback.apply(callback_context, [result, false]);
 			}
-	
+
 		})
 		.fail(function(err) {
 			$('#send-request-btn i').removeClass('fa-spinner fa-spin').addClass('fa-download');
@@ -205,7 +205,7 @@ DownloadManagerClient.prototype.startDownloadRequest = function(email, usage, or
 			else {
 				error_callback.apply(callback_context, [result, false]);
 			}
-	
+
 		})
 		.fail(function(err) {
 			$('#start-download-btn i').removeClass('fa-spinner fa-spin').addClass('fa-download');
@@ -236,7 +236,7 @@ DownloadManagerClient.prototype.getConfig = function(){
 DownloadManagerClient.prototype.addLayer = function(resourceDescriptor, param_values) {
 	var descriptor = new gvsigol.downman.LayerDownloadDescriptor(this.nextDescriptorId++, resourceDescriptor, param_values);
 	this.layerList.push(descriptor);
-	
+
 	this.downloadListUpdated();
 	return descriptor;
 }
@@ -267,11 +267,11 @@ if (typeof DownloadManagerUI === 'undefined') {
 
 DownloadManagerUI.prototype.setClient = function(client) {
 	this.downloadClient = client;
-} 
+}
 
 DownloadManagerUI.prototype.setModalSelector = function(selector) {
 	this.modalSelector = selector;
-} 
+}
 
 DownloadManagerUI.prototype.createDownloadResource = function(downloadDescriptor) {
 	var resource = downloadDescriptor.resource_descriptor;
@@ -280,12 +280,12 @@ DownloadManagerUI.prototype.createDownloadResource = function(downloadDescriptor
 	var value, valueTitle;
 	var content = '<tr class="downman-download-resource" data-downloadid="' + downloadDescriptor.download_id + '">';
 	if (resource.restricted) {
-		content += '<td style="width: 80px"><div class="form-inline"><div class="form-group"><i class="fa fa-3x fa-file-archive-o" aria-hidden="true"><i class="fa fa-lock"></i></i></span></div></div></td>';
+		content += '<td style="width: 80px"><div class="form-inline"><div class="form-group"><i class="fa fa-3x fa-file-archive" aria-hidden="true"><i class="fa fa-lock"></i></i></span></div></div></td>';
 	}
 	else {
-		content += '<td style="width: 80px"><div class="form-inline"><div class="form-group"><i class="fa fa-3x fa-file-archive-o" aria-hidden="true"></i></div></div></td>';
+		content += '<td style="width: 80px"><div class="form-inline"><div class="form-group"><i class="fa fa-3x fa-file-archive" aria-hidden="true"></i></div></div></td>';
 	}
-	
+
 	content += '<td style="width: 120px;"><div class="col"><label class="form-label">'+ resource.title + '</label>';
 	content += '<div style="padding: 6px 4px 6px 0px">' + resource.name + '</div></div></td>';
 	content += '<td><div class="col"><label class="form-label">'+ gettext("Approval") + '</label>';
@@ -399,14 +399,14 @@ DownloadManagerUI.prototype.createAvailableResource = function(resource) {
 		sizeBadge = '<div style="padding-top:8px"><span class="badge">' + this._getHumanReadableSize(resource.size) + '</span></div>';
 	}
 	if (resource.restricted) {
-		content += '<td style="width: 80px"><div class="form-inline"><div class="form-group"><i class="fa fa-3x fa-file-archive-o" aria-hidden="true"><i class="fa fa-lock"></i></i></span></div></div>';
+		content += '<td style="width: 80px"><div class="form-inline"><div class="form-group"><i class="fa fa-3x fa-file-archive" aria-hidden="true"><i class="fa fa-lock"></i></i></span></div></div>';
 		content += sizeBadge + '</td>';
 	}
 	else {
-		content += '<td style="width: 80px"><div class="form-inline"><div class="form-group"><i class="fa fa-3x fa-file-archive-o" aria-hidden="true"></i></div></div>';
+		content += '<td style="width: 80px"><div class="form-inline"><div class="form-group"><i class="fa fa-3x fa-file-archive" aria-hidden="true"></i></div></div>';
 		content += sizeBadge + '</td>';
 	}
-	
+
 	content += '<td style="width: 120px;"><div class="col"><label class="form-label">'+ resource.title + '</label>';
 	content += '<div style="padding: 6px 4px 6px 0px">' + resource.name + '</div></div></td>';
 	content += '<td style="vertical-align: top; padding-left: 12px; padding-right: 20px"><div class="form-horizontal"><div class="form-group">';
@@ -461,26 +461,26 @@ DownloadManagerUI.prototype.initAvailableResources = function(downloadResources)
 	footer += '		<div style="clear:both"></div>';
 	$(self.modalSelector).find('.modal-footer').html(footer);
 	$(self.modalSelector).find('.modal-title').html(gettext("Available downloads"));
-	
+
 	$(".catalog-download-list-btn").unbind("click").click(function(){
 		self.showDownloadList();
 	});
 	$(".add-to-download-btn").unbind("click").click(function(event){
-		
+
 		if (self.getClient().getConfig().shopping_cart_max_items > 0 &&
 			self.getClient().getDownloadListCount() >= self.getClient().getConfig().shopping_cart_max_items) {
 			messageBox.show('warning', gettext('The limit of allowed download items per request has been reached. You can start a new request to download additional items.'));
 			return;
 		}
 		var layer_id = event.currentTarget.getAttribute("data-layerid");
-		
+
 		var resource_name = event.currentTarget.getAttribute("data-resourcename");
 		var resource_type = event.currentTarget.getAttribute("data-resourcetype");
 		var resource_url = event.currentTarget.getAttribute("data-resourceurl");
 		var clickedResource = self._getSelectedResource(resource_name, resource_type, resource_url);
 		clickedResource = $.extend({}, clickedResource);
 		var values = [];
-		
+
 		$(event.currentTarget).closest('.downman-download-resource').find('select').each(function() {
 			var currentParam = self._getParam(clickedResource, this.getAttribute("data-paramname"));
 			var value = $(this).val();
@@ -566,7 +566,7 @@ DownloadManagerUI.prototype.initAvailableResourcesError = function(){
 	content += '<div style="clear:both"></div>';
 	content += '</div>';
 	$(this.modalSelector).find('.modal-body').html(content);
-	$(this.modalSelector).find('.modal-title').html(gettext("Available downloads"));	
+	$(this.modalSelector).find('.modal-title').html(gettext("Available downloads"));
 	$(this.modalSelector + " .modal-dialog").LoadingOverlay("hide");
 }
 
@@ -605,7 +605,7 @@ DownloadManagerUI.prototype._updateSendGenericStartDownloadButton = function(){
 		}
 		catch {}
 	}
-	
+
 	try {
 		var downloadRequestDescription =  document.getElementById("downloadRequestDescription").value;
 		if (downloadRequestDescription.length==0 ) {
@@ -646,7 +646,7 @@ DownloadManagerUI.prototype.initGenericDownloadRequest = function(){
 	footer += '		<div style="clear:both"></div>';
 	$(self.modalSelector).find('.modal-footer').html(footer);
 	self._updateSendGenericStartDownloadButton();
-	
+
 	$(".send-request-btn").unbind("click").click(function(){
 		try {
 			var email =  document.getElementById("contactemail").value;
@@ -684,7 +684,7 @@ DownloadManagerUI.prototype.initGenericDownloadRequest = function(){
 			if (email !== null) {
 				request["email"] = email;
 			}
-		self.getClient().sendGenericRequest(request, DownloadManagerUI.prototype.showGenericRequestSent, DownloadManagerUI.prototype.showGenericRequestSent, self);	
+		self.getClient().sendGenericRequest(request, DownloadManagerUI.prototype.showGenericRequestSent, DownloadManagerUI.prototype.showGenericRequestSent, self);
 	});
 	$("#downloadRequestDescription").change(function(){
 		self._updateSendGenericStartDownloadButton();
@@ -749,9 +749,9 @@ DownloadManagerUI.prototype.initDownloadList = function(){
 	footer += '	<button  id="start-download-btn" class="btn btn-default downman-footer-button start-downloading-btn" type="button"><i class="fa fa-download fa-icon-button-left" aria-hidden="true"></i></span>'+gettext("Start downloading")+'</button>';
 	footer += '		<div style="clear:both"></div>';
 	$(self.modalSelector).find('.modal-footer').html(footer);
-	
+
 	this._updateStartDownloadButton();
-	
+
 	$(".remove-resource-btn").unbind("click").click(function(){
 		var download_id = event.currentTarget.getAttribute("data-downloadid");
 		self.getClient().removeLayer(download_id);
@@ -766,7 +766,7 @@ DownloadManagerUI.prototype.initDownloadList = function(){
 	$(".show-generic-request-btn").unbind("click").click(function(){
 		self.initGenericDownloadRequest();
 	});
-	
+
 	$(".start-downloading-btn").unbind("click").click(function(){
 		try {
 			var email =  document.getElementById("contactemail").value;
@@ -786,9 +786,9 @@ DownloadManagerUI.prototype.initDownloadList = function(){
 		catch(e) {
 			var organization = null;
 		}
-		self.getClient().startDownloadRequest(email, intendedUsage, organization,DownloadManagerUI.prototype.showDownloadQueued, DownloadManagerUI.prototype.showDownloadQueued, self);	
+		self.getClient().startDownloadRequest(email, intendedUsage, organization,DownloadManagerUI.prototype.showDownloadQueued, DownloadManagerUI.prototype.showDownloadQueued, self);
 	});
-	
+
 	$("#contactemail").change(function(){
 		self._updateStartDownloadButton();
 	});
@@ -806,7 +806,7 @@ DownloadManagerUI.prototype.getClient = function() {
 	if (this.downloadClient === null) {
 		this.downloadClient = new DownloadManagerClient();
 	}
-	return this.downloadClient; 
+	return this.downloadClient;
 }
 
 
@@ -902,4 +902,3 @@ DownloadManagerUI.prototype.layerAvailableDownloads = function(layer) {
 		$(self.modalSelector).LoadingOverlay("hide");
 	}, this.getClient().config.timeout);
 }
-

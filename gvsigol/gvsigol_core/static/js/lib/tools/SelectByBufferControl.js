@@ -29,10 +29,10 @@ var SelectByBufferControl = function(map, toolbar) {
 	this.toolbar = toolbar;
 	this.popup = null;
 	this.selectionTable = viewer.core.getSelectionTable();
-	
+
 	this.distance = 1000;
 	this.circleFeature = null;
-	
+
 	this.source = new ol.source.Vector();
 	this.layer = new ol.layer.Vector({
 		source: this.source,
@@ -52,9 +52,9 @@ var SelectByBufferControl = function(map, toolbar) {
 	    	})
 	  	})
 	});
-	
-	this.control = new ol.control.Toggle({	
-		html: '<i class="fa fa-dot-circle-o" ></i>',
+
+	this.control = new ol.control.Toggle({
+		html: '<i class="fa fa-dot-circle" ></i>',
 		className: "edit",
 		title: gettext('Select by buffer'),
 		onToggle: function(active){
@@ -99,7 +99,7 @@ SelectByBufferControl.prototype.addLayer = function() {
 };
 
 SelectByBufferControl.prototype.addPopup = function() {
-	this.popup = new ol.Overlay.Popup ({	
+	this.popup = new ol.Overlay.Popup ({
 		popupClass: "default",
 		closeBox: true,
 		onshow: function(){ console.log("You opened the box"); },
@@ -113,7 +113,7 @@ SelectByBufferControl.prototype.addPopup = function() {
 
 SelectByBufferControl.prototype.showPopup =function(evt) {
 	var self = this;
-	
+
 	$("body").overlay();
 	$("#jqueryEasyOverlayDiv").css("opacity", "0.5");
 	$('#jqueryEasyOverlayDiv').hide().show(0);
@@ -125,7 +125,7 @@ SelectByBufferControl.prototype.showPopup =function(evt) {
 	html += '<span>' + gettext('Select buffer radius (meters)') + ':</span><br/>';
 	html += '<input type="number" min="0" step="100" id="select-buffer-radius" value="' + self.distance + '">';
 	html += '<button id="select-buffer-button">' + gettext("Search") + '</button>';
-	
+
 	self.popup.show(self.mapCoordinates, '<div class="popup-wrapper getfeatureinfo-popup">' + html + '</div>');
 
 
@@ -200,7 +200,7 @@ SelectByBufferControl.prototype.clickHandler = function(geom, isArea) {
 			if (wfsURL.indexOf('http') == -1) {
 				wfsURL = window.location.origin + wfsURL;
 			}
-			
+
 			fetch(wfsURL, {
 				method: 'POST',
 				body: new XMLSerializer().serializeToString(featureRequest)
@@ -219,7 +219,7 @@ SelectByBufferControl.prototype.clickHandler = function(geom, isArea) {
 						if (p != 'wkb_geometry') {
 							row[p] = features[i].getProperties()[p];
 						}
-						
+
 					}
 					row['featureid'] = features[i].getId();
 					tableFeatures.push(row)
@@ -229,7 +229,7 @@ SelectByBufferControl.prototype.clickHandler = function(geom, isArea) {
 					self.selectionTable.addTable(tableFeatures, qLayer.layer_name, qLayer.workspace, qLayer.wfs_url);
 					self.selectionTable.show();
 					self.selectionTable.registerEvents();
-					
+
 				}
 			});
 		}

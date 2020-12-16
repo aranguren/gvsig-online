@@ -14,12 +14,12 @@
         {% endfor %}
     </ul>
 	{% endif %}
-	
+
 	<div id="delete-error" style="color: #ff0000;margin-bottom:15px;padding:15px;background-color:rgba(255,0,0,0.2);display:none">
 	</div>
-	
+
 	{% include "filemanager_breadcrumbs.html" %}
-	
+
 	<table class="table">
 	 	<thead>
 	    	<tr>
@@ -70,22 +70,22 @@
 	                    	</button>
 	                    	<ul class="dropdown-menu dropdown-menu-right" role="menu">
 	                    	{% if file.filetype == "Directory" %}
-	                    		<li><a href="#" data-filepath="{{file.filepath}}" class="delete-file"><i class="fa fa-times" style="color: #f56954;"></i> {% trans "Delete directory" %}</a></li>                 		
+	                    		<li><a href="#" data-filepath="{{file.filepath}}" class="delete-file"><i class="fa fa-times" style="color: #f56954;"></i> {% trans "Delete directory" %}</a></li>
 	                  		{% else %}
 	                  			{% if file.extension|lower == "shp" or file.extension|lower == "dbf" %}
 				      				<li><a href="{% url 'filemanager:export-to-database' %}?path={{file.filepath}}" class="export-to-database" ><i class="fa fa-upload" style="color: #3c8dbc;"></i> {% trans "Export to database" %}</a></li>
 				      				<li class="divider"></li>
-				      			{% endif %}  
+				      			{% endif %}
 				      			{% if is_etl_plugin_installed %}
 				      			{% if file.extension|lower == "xlsx" or file.extension|lower == "csv" %}
 				      				<li><a href="{% url 'transform-to-database' %}?path={{file.filepath}}" class="transform-to-database" ><i class="fa fa-upload" style="color: #3c8dbc;"></i> {% trans "Transform to database" %}</a></li>
 				      				<li class="divider"></li>
-				      			{% endif %}    
-				      			{% endif %}   
+				      			{% endif %}
+				      			{% endif %}
 				      			{% if file.extension|lower == "zip" %}
-				      				<li><a href="#" data-filepath="{{file.filepath}}" class="unzip-file"><i class="fa fa-file-archive-o" style="color: #f56954;"></i> {% trans "Unzip file" %}</a></li>
+				      				<li><a href="#" data-filepath="{{file.filepath}}" class="unzip-file"><i class="fa fa-file-archive" style="color: #f56954;"></i> {% trans "Unzip file" %}</a></li>
 				      				<li class="divider"></li>
-				      			{% endif %}               		
+				      			{% endif %}
 	                    		<li><a href="#" data-filepath="{{file.filepath}}" class="delete-file"><i class="fa fa-times" style="color: #f56954;"></i> {% trans "Delete file" %}</a></li>
 				      		{% endif %}
 				      		</ul>
@@ -115,14 +115,14 @@
 	{% if popup %}
 		<script src="{% static "js/filemanager.js" %}"></script>
 	{% endif %}
-	
+
 {% endblock %}
 
-{% block extra-scripts %}	
+{% block extra-scripts %}
 	<script>
 	$('#menu-manage-files').addClass("active");
-	$(document).ready(function(){	  	
-	  	$('.delete-file').on('click', function () {				
+	$(document).ready(function(){
+	  	$('.delete-file').on('click', function () {
 	  		$("body").overlay();
 			$.ajax({
 				type: 'POST',
@@ -147,8 +147,8 @@
 				error: function(){}
 			});
 		});
-	  	
-	  	$('.unzip-file').on('click', function () {				
+
+	  	$('.unzip-file').on('click', function () {
 	  		$("body").overlay();
 			$.ajax({
 				type: 'POST',

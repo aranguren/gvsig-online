@@ -3,14 +3,14 @@
 {% load i18n %}
 {% load l10n %}
 
-{% block content %}	
+{% block content %}
 	<div class="row">
 		<div class="col-md-12">
 			<form id="project-form" enctype="multipart/form-data" role="form" method="post" action="/gvsigonline/core/project_update/{{pid}}/">
 				<div class="row">
 					<div class="col-md-12 form-group">
 						<div class="box-tools pull-right">
-							<button id="save_button" class="save_button btn btn-default btn-sm"><i class="fa fa-floppy-o margin-r-5"></i> {% trans "Update" %}</button>					
+							<button id="save_button" class="save_button btn btn-default btn-sm"><i class="fa fa-floppy-o margin-r-5"></i> {% trans "Update" %}</button>
 						</div>
 					</div>
 					<div class="row" style="padding-left: 30px;">
@@ -44,13 +44,13 @@
               		<li><a  data-id="3" href="#tab-project-usergroups" data-toggle="tab">{% trans "User groups" %}</a></li>
               		<li><a  data-id="4" href="#tab-project-packagebaselayer" data-toggle="tab">{% trans "Package the base layer" %}</a></li>
             	</ul>
-            	
+
             	<div class="tab-content">
               		<div class="tab-pane active" id="tab-project-main">
               			<div class="box">
               				<div class="box-body">
               					<input type="hidden" id="project-name" name="project-name" value="{{project.name}}"/>
-						
+
 								<div class="row">
 									<div class="col-md-6" style="margin-bottom: 20px;">
 										<div class="provider-img">
@@ -58,15 +58,15 @@
 										</div>
 										<div class="provider-img-change">
 											<label>{% trans "Select main logo" %}</label>({% trans "Supported formats" %}: .jpg, .jpeg, .png)
-											<input id="project-logo" name="project-logo" accept=".jpg, .jpeg, .png" onchange="readLogoURL(this);" type="file" class="file" data-show-preview="true">						
+											<input id="project-logo" name="project-logo" accept=".jpg, .jpeg, .png" onchange="readLogoURL(this);" type="file" class="file" data-show-preview="true">
 										</div>
-									</div>	
+									</div>
 									<div class="col-md-6" style="margin-bottom: 20px;">
 										<label for="project-logo-link">{% trans "Link for logo" %}</label>
 										<input name="project-logo-link" id="project-logo-link" type="text" class="form-control" value="{{project.logo_link}}">
 									</div>
 								</div>
-								
+
 								<div class="row">
 									<div class="col-md-3 form-group">
 										<label for="is_public">{% trans "Is public?" %}</label>&nbsp;&nbsp;
@@ -74,24 +74,24 @@
 										<input type="checkbox" name="is_public"  id="is_public" checked/>
 										{% else %}
 										<input type="checkbox" name="is_public"  id="is_public"/>
-										{% endif %}								
+										{% endif %}
 									</div>
 								</div>
-								
+
 								<div class="row">
 									<div class="col-md-12 form-group">
 										<label for="project-title">{% trans "Title" %}</label>
-										<input placeholder="{% trans 'Project title' %}" name="project-title" id="project-title" type="text" class="form-control" value="{{project.title}}">						
+										<input placeholder="{% trans 'Project title' %}" name="project-title" id="project-title" type="text" class="form-control" value="{{project.title}}">
 									</div>
 								</div>
-										
+
 								<div class="row">
 									<div class="col-md-12 form-group">
 										<label for="project-description">{% trans "Description" %}</label>
-										<input placeholder="{% trans 'Project description' %}" name="project-description" id="project-description" type="text" class="form-control" value="{{project.description}}">						
+										<input placeholder="{% trans 'Project description' %}" name="project-description" id="project-description" type="text" class="form-control" value="{{project.description}}">
 									</div>
-								</div>	
-								
+								</div>
+
 								<div class="row">
 									<div class="col-md-6 form-group">
 										<label for="is_public">{% trans "Toc panel presentation" %}</label>
@@ -100,17 +100,17 @@
 												<option value="toc_hidden" selected>{% trans "Toc hidden" %}</option>
 											{% else %}
 												<option value="toc_hidden">{% trans "Toc hidden" %}</option>
-											{% endif %}	
+											{% endif %}
 											{% if project.toc_mode == "toc_groups" %}
 												<option value="toc_groups" selected>{% trans "Show toc and groups" %}</option>
 											{% else %}
 												<option value="toc_groups">{% trans "Show toc and groups" %}</option>
-											{% endif %}	
+											{% endif %}
 											{% if project.toc_mode == "toc_layers" %}
 												<option value="toc_layers" selected>{% trans "Show toc, groups and layers" %}</option>
 											{% else %}
 												<option value="toc_layers">{% trans "Show toc, groups and layers" %}</option>
-											{% endif %}	
+											{% endif %}
 										</select>
 									</div>
 									<div class="col-md-3 form-group">
@@ -119,7 +119,7 @@
 										<input type="checkbox" name="selectable_groups"  id="selectable_groups" checked/>
 										{% else %}
 										<input type="checkbox" name="selectable_groups"  id="selectable_groups"/>
-										{% endif %}								
+										{% endif %}
 									</div>
 								</div>
 								<div class="row">
@@ -141,7 +141,7 @@
 									</div>
 								</div>
 								<div class="row">
-									{% if has_geocoding_plugin %}	
+									{% if has_geocoding_plugin %}
 									<div id="project-map" class="mini-map shps-folder-project-map">
 										<div class="col-md-3 form-group float-search-tool">
 											<input placeholder="{% trans 'Locate place...' %}" name="location-autocomplete" id="location-autocomplete" type="text" class="form-control">
@@ -149,7 +149,7 @@
 									</div>
 									{% else %}
 										<div id="project-map" class="mini-map"></div>
-									{% endif %}	
+									{% endif %}
 								</div>
 								<input type="hidden" name="center-lat" id="center-lat" value="{{project.center_lat}}">
 								<input type="hidden" name="center-lon" id="center-lon" value="{{project.center_lon}}">
@@ -162,9 +162,9 @@
 										<input type="checkbox" name="restricted_extent"  id="restricted_extent" checked/>
 										{% else %}
 										<input type="checkbox" name="restricted_extent"  id="restricted_extent"/>
-										{% endif %}								
+										{% endif %}
 									</div>
-								</div>	
+								</div>
 								<div class="row">
 									<div class="col-md-12" style="margin-bottom: 20px;">
 										<div class="provider-img">
@@ -172,11 +172,11 @@
 										</div>
 										<div class="provider-img-change">
 											<label>{% trans "Change image?" %}</label>({% trans "Supported formats" %}: .jpg, .jpeg, .png)
-											<input id="project-image" name="project-image" accept=".jpg, .jpeg, .png" type="file" class="file" data-show-preview="true">						
+											<input id="project-image" name="project-image" accept=".jpg, .jpeg, .png" type="file" class="file" data-show-preview="true">
 										</div>
-									</div>	
+									</div>
 								</div>
-								
+
 								<div class="row">
 									<div class="col-md-6 form-group">
 										<label for="show_project_icon">{% trans "Show project icon in TOC" %}</label>&nbsp;&nbsp;
@@ -184,18 +184,18 @@
 										<input checked type="checkbox" name="show_project_icon" id="show_project_icon"/>
 										{% else %}
 										<input type="checkbox" name="show_project_icon" id="show_project_icon"/>
-										{% endif %}															
+										{% endif %}
 									</div>
 								</div>
-								
-								
-				
-								
-								
+
+
+
+
+
 							</div>
               			</div>
               		</div>
-              		
+
               		<div class="tab-pane" id="tab-project-layergroups">
               			<div class="row">
 							<div class="col-md-9">
@@ -215,7 +215,7 @@
 												</div>
 												<div class="product-info">
 													<a href="javascript:void(0)" class="product-title"><span class="searchable-layer">{{layergroup.title}}</span>
-														<div style="margin-right: 10px;" class="radio pull-right">													
+														<div style="margin-right: 10px;" class="radio pull-right">
 															<label>
 																{% if layergroup.baselayer_group %}
 																	<input type="radio" class="selected-base-group" data-id="{{layergroup.id}}" data-name="{{layergroup.name}}" data-title="{{layergroup.title}}" name="selected-base-group" id="selected-base-group-{{layergroup.id}}" value="{{layergroup.id}}" checked/>{% trans "Base group" %}
@@ -224,7 +224,7 @@
 																{% endif %}
 															</label>
 														</div>
-														<div style="margin-right: 10px;" class="checkbox pull-right">													
+														<div style="margin-right: 10px;" class="checkbox pull-right">
 															<label>
 																{% if layergroup.checked %}
 																	<input type="checkbox" class="layergroup-input" data-id="{{layergroup.id}}" data-name="{{layergroup.name}}" data-title="{{layergroup.title}}" name="layergroup-{{layergroup.id}}" id="layergroup-{{layergroup.id}}" checked/>{% trans "Add" %}
@@ -233,7 +233,7 @@
 																{% endif %}
 															</label>
 														</div>
-													</a> 
+													</a>
 													<span class="product-description"><span class="searchable-layer-desc">{{layergroup.name}}</span></span>
 												</div>
 												<div class="box-body">
@@ -246,10 +246,10 @@
 														<li class="item">
 															<div class="product-info">
 																<a href="javascript:void(0)" class="product-title">
-																	<div class="checkbox pull-left">	
+																	<div class="checkbox pull-left">
 																		<span class="searchable-base-layer">{{l.title}}</span><br />
 																	</div>
-																	<div class="checkbox pull-right">													
+																	<div class="checkbox pull-right">
 																		<label>
 																			{% if l.baselayer %}
 																				<input type="radio" class="baselayers-default" name="baselayers-default" value="{{l.id}}" id="baselayer-{{l.id}}-default" checked/><span style="width:150px;">{% trans "Mark as default" %}</span>
@@ -258,14 +258,14 @@
 																			{% endif %}
 																		</label>
 																	</div>
-																</a> 
+																</a>
 <!-- 																<span class="product-description"><span class="searchable-layer">{{base_layers.type}}</span></span> -->
 															</div>
-														</li> 
+														</li>
 														{% endfor %}
 													</ul>
 												</div>
-											</li> 
+											</li>
 											{% endfor %}
 										</ul>
 										<ul class="pagination"></ul>
@@ -281,15 +281,15 @@
 										{% for g in toc %}
 											<div id="lg_{{g.1.name}}" data-name="{{g.1.name}}" data-title="{{g.1.title}}" data-order="{{g.1.order}}" class="box box-default collapsed-box toc-layergroup">
 												<div class="box-header with-border">
-													<span class="handle" style="margin-right: 20px;"> 
+													<span class="handle" style="margin-right: 20px;">
 														<i class="fa fa-ellipsis-v"></i>
 														<i class="fa fa-ellipsis-v"></i>
 													</span>
 													<span class="text">{{g.1.title}}</span>
-												</div>	
+												</div>
 											</div>
 							        	{% endfor %}
-							        	
+
 							        	</div>
 			        				</div>
 			        			</div>
@@ -297,7 +297,7 @@
 			        		<input type="hidden" id="toc_value" name="toc_value" value=""/>
 			        	</div>
               		</div>
-              		
+
               		<div class="tab-pane" id="tab-project-tools">
               			<div class="row">
 							<div class="col-md-12">
@@ -314,7 +314,7 @@
 												</div>
 												<div class="product-info">
 													<a href="javascript:void(0)" class="product-title"><span class="searchable-user">{{tool.title}}</span>
-														<div class="checkbox pull-right">													
+														<div class="checkbox pull-right">
 															<label>
 																{% if tool.checked %}
 																	<input type="checkbox" class="project-tool" type="checkbox" data-title="{{tool.title}}" data-name="{{tool.name}}" data-description="{{tool.description}}" name="tool-{{tool.name}}" id="tool-{{tool.name}}" checked/>{% trans "Assign tool" %}
@@ -323,10 +323,10 @@
 																{% endif %}
 															</label>
 														</div>
-													</a> 
+													</a>
 													<span class="product-description">{{tool.description}}</span>
 												</div>
-											</li> 
+											</li>
 											{% endfor %}
 										</ul>
 										<ul class="pagination"></ul>
@@ -336,7 +336,7 @@
 							</div>
 						</div>
               		</div>
-              		
+
               		<div class="tab-pane" id="tab-project-usergroups">
               			<div class="row">
 							<div class="col-md-12">
@@ -353,7 +353,7 @@
 												</div>
 												<div class="product-info">
 													<a href="javascript:void(0)" class="product-title"><span class="searchable-user">{{group.name}}</span>
-														<div class="checkbox pull-right">													
+														<div class="checkbox pull-right">
 															<label>
 																{% if group.checked %}
 																	<input type="checkbox" name="usergroup-{{group.id}}" id="usergroup-{{group.id}}" checked/>{% trans "Assign user group" %}
@@ -362,10 +362,10 @@
 																{% endif %}
 															</label>
 														</div>
-													</a> 
+													</a>
 													<span class="product-description">{{group.description}}</span>
 												</div>
-											</li> 
+											</li>
 											{% endfor %}
 										</ul>
 										<ul class="pagination"></ul>
@@ -374,14 +374,14 @@
 							</div>
 						</div>
               		</div>
-              		
+
               		{% if superuser %}
               		<div class="tab-pane" id="tab-project-packagebaselayer">
               			<div class="row">
               				<div class="col-md-12">
               					<div id="user-list-box" class="box searchable-list-box">
               						<div class="box-body">
-              						
+
               							<div id="processing_header" style="border: 1px solid #3c8dbc;">
 	              							<div class="row">
 	              								<div class="col-md-6" style="margin-left: 20px">
@@ -423,90 +423,90 @@
 												</div>
 											</div>
 										</div>
-										
+
 										<!-- Enlace para descarga cuando hay una versión -->
-										
+
 											<div class="row">
 												<div class="col-md-3 form-group" style="margin-top:10px;">
 													<label>{% trans "Download version" %}</label>
-													<label id="download_version">({% if project.baselayer_version != None and project.baselayer_version > 0 %}{{project.baselayer_version}}{% else %}Ninguna disponible{% endif %}):</label>&nbsp;&nbsp;	
+													<label id="download_version">({% if project.baselayer_version != None and project.baselayer_version > 0 %}{{project.baselayer_version}}{% else %}Ninguna disponible{% endif %}):</label>&nbsp;&nbsp;
 												</div>
 
 												<div class="col-md-2 form-group" style="top:15px;">
 													<a id="processing_url" href="{{url_base_lyr}}" style="color:#3c8dbc" >{% trans "Download" %}</a>&nbsp;&nbsp;
 												</div>
 											</div>
-										
 
-									
+
+
 										<div class="row" style="margin-top:10px;">
 											<div class="col-md-3 form-group" >
-												<label>{% trans "Extent" %}</label>&nbsp;&nbsp;															
+												<label>{% trans "Extent" %}</label>&nbsp;&nbsp;
 											</div>
 											<div class="col-md-1 form-group" >
 												<input type="radio" id="project" name="extentbaselyr" value="project" checked>{% trans "Proyecto" %}<br>
 											</div>
 											<div class="col-md-1 form-group" >
-												<input type="radio" id="layer" name="extentbaselyr" value="layer">{% trans "Capa" %}<br>														
+												<input type="radio" id="layer" name="extentbaselyr" value="layer">{% trans "Capa" %}<br>
 											</div>
 										</div>
 
 
-										<div class="row" style="margin-top:10px;"> 
+										<div class="row" style="margin-top:10px;">
 											<div class="col-md-3 form-group" >
-												<label>{% trans "Format" %}</label>&nbsp;&nbsp;															
+												<label>{% trans "Format" %}</label>&nbsp;&nbsp;
 											</div>
 											<div class="col-md-1 form-group" >
 												<input type="radio" id="png" name="imgtype" value="image/png" checked>{% trans "PNG" %}<br>
 											</div>
 											<div class="col-md-1 form-group" >
-												<input type="radio" id="jpg" name="imgtype" value="image/jpeg">{% trans "JPG" %}<br>														
+												<input type="radio" id="jpg" name="imgtype" value="image/jpeg">{% trans "JPG" %}<br>
 											</div>
 										</div>
 
-				
+
 										<div class="row" style="margin-top:10px;">
 											<div class="col-md-3 form-group" >
-												<label>{% trans "Niveles de zoom" %}</label>&nbsp;&nbsp;															
+												<label>{% trans "Niveles de zoom" %}</label>&nbsp;&nbsp;
 											</div>
 											<div class="col-md-1 form-group" >
-												<input placeholder="{% trans 'Tiles per side' %}" name="tiles-side" id="tiles-side" type="text" class="form-control" value="21">															
+												<input placeholder="{% trans 'Tiles per side' %}" name="tiles-side" id="tiles-side" type="text" class="form-control" value="21">
 											</div>
 										</div>
-									
-											
+
+
 										<div class="row" style="margin-top:10px;">
 											<div class="col-md-3 form-group" >
-												<label>{% trans "Tilematrixset (WMTS)" %}</label>&nbsp;&nbsp;															
+												<label>{% trans "Tilematrixset (WMTS)" %}</label>&nbsp;&nbsp;
 											</div>
 											<div class="col-md-2 form-group">
-												<input placeholder="{% trans 'Tilematrixset' %}" name="tilematrixset" id="tilematrixset" type="text" class="form-control" value="EPSG:3857" disabled />															
+												<input placeholder="{% trans 'Tilematrixset' %}" name="tilematrixset" id="tilematrixset" type="text" class="form-control" value="EPSG:3857" disabled />
 											</div>
 										</div>
 
 										<div class="row">
 											<div class="col-md-3" style="top:25px;padding-bottom: 25px">
 												<button type="button" id="button-create-base-layer"> {% trans "Create layer" %}</button>
-												<button type="button" id="button-retry-base-layer"> {% trans "Continue download" %}</button>	
-												<button type="button" id="button-stop-process"> {% trans "Stop Process" %}</button>														
+												<button type="button" id="button-retry-base-layer"> {% trans "Continue download" %}</button>
+												<button type="button" id="button-stop-process"> {% trans "Stop Process" %}</button>
 											</div>
 										</div>
 
-										
-										
+
+
 									</div>
 								</div>
 							</div>
 						</div>
               		</div>
               		{% endif %}
-              		
+
           		</div>
           	</form>
-          	
+
 		</div>
 	</div>
-	
+
 	<!-- Modal -->
 	<div class="modal fade" id="modal-add-layer-group" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		<div class="modal-dialog" role="document">
@@ -538,20 +538,20 @@
 	 function readURL(input) {
 	        if (input.files && input.files[0]) {
 	            var reader = new FileReader();
-	            
+
 	            reader.onload = function (e) {
 	                $('#image-preview').attr('src', e.target.result);
 	            }
-	            
+
 	            reader.readAsDataURL(input.files[0]);
 	        }
 	    }
-	
-	
+
+
 	$("#project-image").change(function(){
 	  readURL(this);
 	});
-	
+
 	function readLogoURL(input) {
   	    if (input.files && input.files[0]) {
   	        var reader = new FileReader();
@@ -559,10 +559,10 @@
   	            $('#logo-preview').attr('src', e.target.result);
   	        };
   	        reader.readAsDataURL(input.files[0]);
-  	        
+
   	    }
   	}
-	
+
 	var epsg3857Bounds = [-20037508.34, -20037508.34, 20037508.34, 20037508.34];
 	var epsg4326Bounds = [-180.0, -90.0, 180.0, 90.0];
 
@@ -574,12 +574,12 @@
 		var crs_min_y = crsBounds[1];
 		var crs_max_x = crsBounds[2];
 		var crs_max_y = crsBounds[3];
-		
+
 		var min_x = extent[0];
 		var min_y = extent[1];
 		var max_x = extent[2];
 		var max_y = extent[3];
-		
+
 		var bounds_width = crs_max_x - crs_min_x;
 		var extent_width = max_x - min_x;
 		if (extent_width > bounds_width) { // wrong extent
@@ -587,7 +587,7 @@
 			max_x = crs_max_x;
 			extent_width = max_x - min_x;
 		}
-		
+
 		var center_x = min_x + extent_width / 2.0;
 		var center_xx = null;
 		if (center_x < crs_min_x) {
@@ -603,7 +603,7 @@
 			min_x = center_xx - extent_width / 2.0;
 			max_x = center_xx + extent_width / 2.0;
 		}
-		
+
 		var extent_height = max_y - min_y;
 		var center_y = min_y + extent_height / 2.0;
 
@@ -620,7 +620,7 @@
 		}
 		return [min_x, min_y, max_x, max_y];
 	}
-	
+
 	function updateDerivedExtentFields(newExtent, map) {
 		var centerX = newExtent[0] + (newExtent[2]-newExtent[0])/2.0;
 		var centerY = newExtent[1] + (newExtent[3]-newExtent[1])/2.0;
@@ -631,13 +631,13 @@
 		$("#extent").val(newExtent);
 		$("#zoom").val(zoom);
 	}
-	
+
 	function fixNonValidExtents() {
 		var minx_4326 = parseFloat($("#extent4326_minx").val());
 		var maxx_4326 = parseFloat($("#extent4326_maxx").val());
 		var miny_4326 = parseFloat($("#extent4326_miny").val());
 		var maxy_4326 = parseFloat($("#extent4326_maxy").val());
-		
+
 		// don't allow extents outside -90, 90 bounds on the Y axis
 		if (miny_4326 < epsg4326Bounds[1]) {
 			$("#extent4326_miny").val(epsg4326Bounds[1].toFixed(6));
@@ -645,14 +645,14 @@
 		if (maxy_4326 > epsg4326Bounds[3]) {
 			$("#extent4326_maxy").val(epsg4326Bounds[3].toFixed(6));
 		}
-		
+
 		// don't allow extents wider than CRS max width
 		if ((maxx_4326-minx_4326) > (epsg4326Bounds[2]-epsg4326Bounds[0])) {
 			$("#extent4326_minx").val(epsg4326Bounds[0].toFixed(6));
 			$("#extent4326_maxx").val(epsg4326Bounds[2].toFixed(6));
 		}
 	}
-	
+
 	function updateMapSelectedExtent(map, vector_source) {
 		try {
 			fixNonValidExtents();
@@ -665,7 +665,7 @@
 			newExtent4326 = getCanonicalExtent(newExtent4326, epsg4326Bounds);
 			var newExtent3857 = ol.proj.transformExtent(newExtent4326, 'EPSG:4326', 'EPSG:3857');
 			var newExtent = getCanonicalExtent(newExtent3857, epsg3857Bounds);
-			
+
 			var selected_feat = new ol.Feature({
 				name: "selected_area",
 				geometry: ol.geom.Polygon.fromExtent(newExtent)
@@ -719,7 +719,7 @@
 
 		map.addLayer(vector_layer);
 		var drawRectangleInteraction = new ol.interaction.DragBox();
-		
+
 		drawRectangleInteraction.on('boxstart', function (evt) {
 			vector_source.clear();
 		});
@@ -740,8 +740,8 @@
 			updateDerivedExtentFields(normalizedExtent, map);
 		});
 
-		var control =  new ol.control.Toggle({	
-			html: '<i class="fa fa fa-pencil-square-o" ></i>',
+		var control =  new ol.control.Toggle({
+			html: '<i class="fa fa-edit" ></i>',
 			active: false,
 			className: "dragbox-custom",
 			title: gettext('Draw rectangle'),
@@ -754,7 +754,7 @@
 				}
 			}
 		});
-		
+
 		map.addControl(control);
 
 		$("#extent4326_minx").on('change', function(evt) {
@@ -769,7 +769,7 @@
 		$("#extent4326_maxy").on('change', function(evt) {
 			updateMapSelectedExtent(map, vector_source);
 		});
-		
+
 		var searcheableList = new List('user-list-box', {
 	  		  valueNames: ['searchable-user'],
 	  		  listClass:'list',
@@ -777,7 +777,7 @@
 	  		  page: 6,
 	  		  pagination: false
 	  		});
-		
+
 		var searcheableList2 = new List('layer-list-box', {
 		  valueNames: ['searchable-layer', 'searchable-layer-desc'],
 		  listClass:'list2',
@@ -785,12 +785,12 @@
 		  page: 6,
 		  pagination: false
 		});
-		
+
 		var process_status = null
 		$("#processing_header").hide()
 		$("#button-stop-process").hide()
-		
-		
+
+
 		$('#project-update-tabs').on("click", function (e) {
 			//Al pulsar cualquier tab desactiva la llamada de actualización de progreso de la capa base
 			var target = $(e.target).attr("data-id");
@@ -800,7 +800,7 @@
 
 			//Al pulsar el tab de Empaquetar capa base se manda una llamada ajax cada x segundos para actualizar el progreso
 			if (target != null && target == 4) {
-				process_status = setInterval(function() { 
+				process_status = setInterval(function() {
 					$.ajax({
 						type: 'POST',
 						async: true,
@@ -820,7 +820,7 @@
 								$("#format_processed").text(response.format_processed);
 								$("#extent_processed").text(response.extent_processed);
 								$("#zoom_levels_processed").text(response.zoom_levels_processed);
-								
+
 							} else {
 								$("#processing_header").hide()
 								$("#button-stop-process").hide()
@@ -829,8 +829,8 @@
 									var index = oldUrl.lastIndexOf("_")
 									var strToReplace = oldUrl.substring(index + 1, oldUrl.length - 4)
 									var newUrl = oldUrl.replace(strToReplace, response.version)
-									$("#processing_url").attr("href", newUrl); 
-									$("#download_version").text("(" + response.version + ")"); 
+									$("#processing_url").attr("href", newUrl);
+									$("#download_version").text("(" + response.version + ")");
 								}
 							}
 						},
@@ -845,19 +845,19 @@
 						}
 					});
 				}, 2500);
-			}       
+			}
 		})
-		
 
-		
-		
+
+
+
 		searcheableList2.on("updated", function(){
 			$(".layergroup-input").unbind("click").click(function(){
-		  		if($(this).is(':checked')){	
+		  		if($(this).is(':checked')){
 			  		var data_id = $(this).attr("data-id");
 			  		var data_name = $(this).attr("data-name");
 			  		var data_title = $(this).attr("data-title");
-			  		
+
 			  		if(!$("#selected-base-group-" + data_id).is(':checked')){
 			  			var newdata = '<div id="lg_'+data_name+'" data-name="'+data_name+'" data-title="'+data_title+'" data-order="'+500+'" class="box box-default collapsed-box toc-layergroup">'+
 						'<div class="box-header with-border">'+
@@ -866,61 +866,61 @@
 						'		<i class="fa fa-ellipsis-v"></i>'+
 						'	</span>'+
 						'	<span class="text">'+data_title+'</span>'+
-						'</div>'+	
-						'</div>';	
-						$("#toc").append(newdata);	
+						'</div>'+
+						'</div>';
+						$("#toc").append(newdata);
 			  		}
-			  		
+
 		  		}else{
 		  			var data_id = $(this).attr("data-id");
 			  		var data_name = $(this).attr("data-name");
-			  		
+
 			  		if ($("#selected-base-group-" + data_id).is(':checked')) {
 			  			$("#selected-base-group-" + data_id).prop("checked", false);
 			  			$('.basegroup-layers').css("display", "none");
 			  		}
-			  		
+
 					$("#lg_"+data_name).remove();
 		  		}
 		  	});
-			
+
 			$('input[name=selected-base-group]').change(function(e) {
 		  		var data_id = $(this).attr("data-id");
 		  		var data_name = $(this).attr("data-name");
 		  		var data_title = $(this).attr("data-title");
-		  		
+
 		  		var visibleItems = searcheableList2.visibleItems;
 		  		for(var i=0; i<searcheableList2.items.length; i++){
 	    			var item = searcheableList2.items[i];
 	    			item.show();
 	    		}
-		  		
+
 		  		$('.baselayers-default').each(function( index ) {
 		  			$(this).prop("checked", false);
 		  		});
-		  		
+
 		  		$('.selected-base-group').each(function( index ) {
 		  			$(this).prop("checked", false);
 		  		});
-		  		
+
 		  		$('#selected-base-group-' + this.dataset.id).prop("checked", true);
-		  		
+
 				$('.basegroup-layers').css("display", "none");
 				$('#basegroup-layers-' + this.dataset.id).css("display", "block");
-				
+
 				$('#basegroup-layers-' + this.dataset.id + " li").first().find( "input" ).prop("checked", true);
-				
+
 				if(!$("#layergroup-" + data_id).is(':checked')){
 		  			$("#layergroup-" + data_id).prop("checked", true);
 		  		}
-				
+
 				$("#lg_"+data_name).remove();
-				
+
 				$('.layergroup-input').each(function( index ) {
 					var id = $(this).attr("data-id");
 			  		var name = $(this).attr("data-name");
 			  		var title = $(this).attr("data-title");
-			  		
+
 			  		if (id != data_id) {
 			  			if ($("#layergroup-" + id).is(':checked')) {
 			  				var exists = false;
@@ -935,11 +935,11 @@
 								'		<i class="fa fa-ellipsis-v"></i>'+
 								'	</span>'+
 								'	<span class="text">'+title+'</span>'+
-								'</div>'+	
-								'</div>';	
-								$("#toc").append(newdata);	
+								'</div>'+
+								'</div>';
+								$("#toc").append(newdata);
 			  				}
-			  				
+
 			  			}
 			  		}
 				});
@@ -950,10 +950,10 @@
 				for(var i=0; i<visibleItems.length; i++){
 	    			var item = visibleItems[i].show();
 	    		}
-				
+
 		  	});
 		});
-		
+
 		$(".save_button").click(function(e){
     		e.preventDefault(); // prevents default
     		for(var i=0; i<searcheableList.items.length; i++){
@@ -964,8 +964,8 @@
     			var item = searcheableList2.items[i];
     			item.show();
     		}
-    		
-	  		
+
+
 			var toc = {}
 			var root = $('#toc');
 			var groupList = root.children();
@@ -974,7 +974,7 @@
 				var groupOrder = (groupList.length - i) * 1000;
 				var groupName = g.dataset.name;
 				var groupTitle = g.dataset.title;
-				
+
 				var layers = {};
 				var group = {
 					'name': groupName,
@@ -985,7 +985,7 @@
 				toc[groupName] = group;
 			}
 			$("#toc_value").val(JSON.stringify(toc));
-			
+
 			var toolList = $('.project-tool');
 			var projectTools = new Array();
 			for (var k=0; k<toolList.length; k++) {
@@ -993,18 +993,18 @@
 					'name': toolList[k].dataset.name,
 				    'checked': toolList[k].checked,
 				    'title': toolList[k].dataset.title,
-				    'description': toolList[k].dataset.description	
+				    'description': toolList[k].dataset.description
 				};
 				projectTools.push(tool);
-				
+
 			}
 			$("#project_tools").val(JSON.stringify(projectTools));
-			
+
     		$("#project-form").submit();
-    	    return false; 
+    	    return false;
 
     	});
-	  	
+
 	  	$('#add-layer-group-button').click(function() {
 			$('#button-add-layer-group-accept').click( function() {
 				for(var i=0; i<searcheableList.items.length; i++){
@@ -1019,7 +1019,7 @@
 				$('#save_button').trigger('click');
 			});
 		});
-	  	
+
 	  	$('#button-create-base-layer').click(function() {
 	  		$("#button-stop-process").text(gettext('Parar proceso'))
 	  		$.ajax({
@@ -1061,7 +1061,7 @@
 				}
 			});
 		});
-	  	
+
 	  	$('#button-stop-process').click(function() {
 	  		$("#button-stop-process").text(gettext('Parando') + "...")
 	  		$.ajax({
@@ -1073,7 +1073,7 @@
 				}
 			});
 		});
-	  	
+
 		$('#project-form').submit(function() {
 			console.log('#project-form');
 			$("body").overlay();
@@ -1100,10 +1100,10 @@
 			$("#selected_base_layer").val(selectedBaseLayer);
 			$("#selected_base_group").val(selectedBaseGroup);
 		});
-	  	
-	  	{% if has_geocoding_plugin %}	
+
+	  	{% if has_geocoding_plugin %}
 	  	$(".ol-zoom").css("margin-top","50px")
-	  	
+
 	  	$('#location-autocomplete').autocomplete({
     		serviceUrl: '/gvsigonline/geocoding/search_candidates/',
     		paramName: 'q',
@@ -1117,10 +1117,10 @@
     			if (jsonResponse.suggestions.length > 0) {
     				return {
     					suggestions: $.map(jsonResponse.suggestions, function(item) {
-    						return { 
+    						return {
     							value: item.address,
     							type: item.type,
-    							data: item 
+    							data: item
     						};
     					})
     				};
@@ -1143,12 +1143,12 @@
     						var address = response.address;
     						if(address != null){
     							if(!("status" in address) || address.status != "OVER_QUERY_LIMIT"){
-	    							var coordinate = ol.proj.transform([parseFloat(address.lng), parseFloat(address.lat)], 'EPSG:4326', 'EPSG:3857');	
+	    							var coordinate = ol.proj.transform([parseFloat(address.lng), parseFloat(address.lat)], 'EPSG:4326', 'EPSG:3857');
 	    							map.getView().setCenter(coordinate);
 	    							map.getView().setZoom(14);
     							}else{
     								alert("Error " + address.status + ": " + address.error_message)
-    							}	
+    							}
     						}
     					}
     				},
@@ -1158,20 +1158,20 @@
 
     	});
 	  	{% endif %}
-	  	
+
 	  	$(".toc").sortable({
 			placeholder: "sort-highlight",
 			handle: ".handle",
 			forcePlaceholderSize: true,
 			zIndex: 999999
 		});
-	  	
+
 	  	$(".layergroup-input").unbind("click").click(function(){
-	  		if($(this).is(':checked')){	
+	  		if($(this).is(':checked')){
 		  		var data_id = $(this).attr("data-id");
 		  		var data_name = $(this).attr("data-name");
 		  		var data_title = $(this).attr("data-title");
-		  		
+
 		  		if(!$("#selected-base-group-" + data_id).is(':checked')){
 		  			var newdata = '<div id="lg_'+data_name+'" data-name="'+data_name+'" data-title="'+data_title+'" data-order="'+500+'" class="box box-default collapsed-box toc-layergroup">'+
 					'<div class="box-header with-border">'+
@@ -1180,62 +1180,62 @@
 					'		<i class="fa fa-ellipsis-v"></i>'+
 					'	</span>'+
 					'	<span class="text">'+data_title+'</span>'+
-					'</div>'+	
-					'</div>';	
-					$("#toc").append(newdata);	
+					'</div>'+
+					'</div>';
+					$("#toc").append(newdata);
 		  		}
-		  		
+
 	  		}else{
 	  			var data_id = $(this).attr("data-id");
 		  		var data_name = $(this).attr("data-name");
-		  		
+
 		  		if ($("#selected-base-group-" + data_id).is(':checked')) {
 		  			$("#selected-base-group-" + data_id).prop("checked", false);
 		  			$('.basegroup-layers').css("display", "none");
 		  		}
-		  		
+
 				$("#lg_"+data_name).remove();
 	  		}
 	  	});
-	  	
-	  	
+
+
 	  	$('input[name=selected-base-group]').change(function(e) {
 	  		var data_id = $(this).attr("data-id");
 	  		var data_name = $(this).attr("data-name");
 	  		var data_title = $(this).attr("data-title");
-	  		
+
 	  		var visibleItems = searcheableList2.visibleItems;
 	  		for(var i=0; i<searcheableList2.items.length; i++){
     			var item = searcheableList2.items[i];
     			item.show();
     		}
-	  		
+
 	  		$('.baselayers-default').each(function( index ) {
 	  			$(this).prop("checked", false);
 	  		});
-	  		
+
 	  		$('.selected-base-group').each(function( index ) {
 	  			$(this).prop("checked", false);
 	  		});
-	  		
+
 	  		$('#selected-base-group-' + this.dataset.id).prop("checked", true);
-	  		
+
 			$('.basegroup-layers').css("display", "none");
 			$('#basegroup-layers-' + this.dataset.id).css("display", "block");
-			
+
 			$('#basegroup-layers-' + this.dataset.id + " li").first().find( "input" ).prop("checked", true);
-			
+
 			if(!$("#layergroup-" + data_id).is(':checked')){
 	  			$("#layergroup-" + data_id).prop("checked", true);
 	  		}
-			
+
 			$("#lg_"+data_name).remove();
-			
+
 			$('.layergroup-input').each(function( index ) {
 				var id = $(this).attr("data-id");
 		  		var name = $(this).attr("data-name");
 		  		var title = $(this).attr("data-title");
-		  		
+
 		  		if (id != data_id) {
 		  			if ($("#layergroup-" + id).is(':checked')) {
 		  				var exists = false;
@@ -1250,15 +1250,15 @@
 							'		<i class="fa fa-ellipsis-v"></i>'+
 							'	</span>'+
 							'	<span class="text">'+title+'</span>'+
-							'</div>'+	
-							'</div>';	
-							$("#toc").append(newdata);	
+							'</div>'+
+							'</div>';
+							$("#toc").append(newdata);
 		  				}
-		  				
+
 		  			}
 		  		}
 			});
-			
+
 			for(var i=0; i<searcheableList2.items.length; i++){
     			var item = searcheableList2.items[i];
     			item.hide();
@@ -1266,7 +1266,7 @@
 			for(var i=0; i<visibleItems.length; i++){
     			var item = visibleItems[i].show();
     		}
-			
+
 	  	});
 	});
 </script>

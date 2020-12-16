@@ -26,7 +26,7 @@
 var geolocation = function(map) {
 
 	this.map = map;
-	
+
 	this.id = "geolocation";
 	var td = document.createElement('td');
 	var button = document.createElement('button');
@@ -34,16 +34,16 @@ var geolocation = function(map) {
 	button.setAttribute("class", "toolbar-button");
 	button.setAttribute("title", gettext('Get current location'));
 	var icon = document.createElement('i');
-	icon.setAttribute("class", "fa fa-dot-circle-o");
+	icon.setAttribute("class", "fa fa-dot-circle");
 	button.appendChild(icon);
 	td.appendChild(button);
-	
+
 	this.$button = $(button);
-	
+
 	document.getElementById('mouse-position').children[0].children[0].appendChild(td);
 
 	var this_ = this;
-  
+
 	var handler = function(e) {
 		this_.handler(e);
 	};
@@ -71,12 +71,12 @@ geolocation.prototype.handler = function(e) {
 	var self = this;
 	if (this.active) {
 		this.deactivate();
-		
+
 	} else {
 		this.$button.addClass('button-active');
 		this.active = true;
 		this.$button.trigger('control-active', [this]);
-		
+
 		var options = {
 			enableHighAccuracy: true,
 			timeout: 5000,
@@ -88,14 +88,14 @@ geolocation.prototype.handler = function(e) {
 				var transformedCoordinate = ol.proj.transform([parseFloat(crd.longitude), parseFloat(crd.latitude)], 'EPSG:4326', 'EPSG:3857');
 				self.map.getView().setCenter(transformedCoordinate);
 				self.map.getView().setZoom(18);
-				
-			}, 
+
+			},
 			function(err) {
 				console.warn('ERROR(' + err.code + '): ' + err.message);
-			}, 
+			},
 			options
 		);
-		
+
 		this.deactivate();
 	}
 };

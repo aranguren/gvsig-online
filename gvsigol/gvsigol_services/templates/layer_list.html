@@ -122,7 +122,7 @@
 <script>
 $(document).ready(function() {
 	var projects = {{ projects|safe }};
-	
+
 	var table = $('#layers-table').DataTable({
 		responsive: true,
 	    language: {
@@ -176,7 +176,7 @@ $(document).ready(function() {
 	  	},{
 	      	"targets": -4,
 	       	"data": null,
-	        "defaultContent": '<button type="button" name="button-update-thumbnail" data-toggle="tooltip" data-placement="bottom" title="' + '{% trans "Update thumbnail" %}' + '" class="btn btn-primary"><i class="fa fa-file-image-o"></i></button>'
+	        "defaultContent": '<button type="button" name="button-update-thumbnail" data-toggle="tooltip" data-placement="bottom" title="' + '{% trans "Update thumbnail" %}' + '" class="btn btn-primary"><i class="fa fa-file-image"></i></button>'
 	  	}],
 	    "dom": 'T<"clear">lfrtip',
 		"bLengthChange": false
@@ -195,7 +195,7 @@ $(document).ready(function() {
 
 		} else if (this.name == "button-delete-layer"){
 	        deleteLayer(data, row);
-	        
+
 	    } else if (this.name == "button-refresh-extent"){
 	        refreshExtent(data, row, $(this));
 	    }
@@ -207,11 +207,11 @@ $(document).ready(function() {
 	$('#button-create-layer').click( function() {
 		location.href = "{% url 'layer_create'%}";
 	});
-	
+
 	var clearButton = '';
 	clearButton += '<button id="button-clean-filter" style="padding: 7px; margin: 0px; margin-left: 5px;" class="btn btn-sm btn-default"><i class="fa fa-eye margin-r-5"></i>' + gettext('Show all layers') + '</button>';
 	$('#layers-table_wrapper').prepend(clearButton);
-	
+
 	var selectHtml = '';
 	selectHtml += '<select id="select-project" style="float: left; width: 200px;" name="select-project" class="form-control">';
 	selectHtml += 	'<option value="__none__">' + gettext('Filter by project') + ' ...</option>';
@@ -227,13 +227,13 @@ $(document).ready(function() {
 		var regex = ";" + project + "(?<=;)a[^;]+(?=;)";
 		dataTable.columns(6).search(project, "(?<=;)a[^;]+(?=;)", true, false).draw();
 	});
-	
+
 	$('#button-clean-filter').on('click', function() {
 		var dataTable = $('#layers-table').DataTable();
 		dataTable.columns(6).search('', true, false).draw();
 		$('#select-project option[value=__none__]').attr('selected','selected');
 	});
-	
+
 	function updateThumbnail(data){
 		var _this = this;
 		var layerId = data[0];
@@ -262,7 +262,7 @@ $(document).ready(function() {
 		var _this = this;
 		var layerId = data[0];
 		button.find("i").addClass('fa-spin');
-		
+
 		$.ajax({
 			type: 'POST',
 			async: false,

@@ -132,7 +132,7 @@ var EditionBar = function(layerTree, map, featureType, selectedLayer) {
 	modifyControl.setAttribute("class", "toolbar-button");
 	modifyControl.setAttribute("title", gettext('Edit feature'));
 	var modifyIcon = document.createElement('i');
-	modifyIcon.setAttribute("class", "fa fa-pencil-square-o");
+	modifyIcon.setAttribute("class", "fa fa-edit");
 	modifyControl.appendChild(modifyIcon);
 	var modHandler = function(e) {
 		this_.modifyHandler(e);
@@ -597,7 +597,7 @@ EditionBar.prototype.showInfo = function(evt, layer, features, selectInteraction
 	var fids = new Array();
 	for (var i in features) {
 		var fid = features[i].getId();
-			
+
 		var exists = false;
 		for (var k=0; k<fids.length; k++) {
 			if (fid == fids[k]) {
@@ -729,7 +729,7 @@ EditionBar.prototype.showInfo = function(evt, layer, features, selectInteraction
 
 			fids.push(fid);
 		}
-			
+
 	}
 	html += '</ul>';
 	this.popup.show(evt.mapBrowserEvent.coordinate, '<div class="popup-wrapper getfeatureinfo-popup">' + html + '</div>');
@@ -1288,7 +1288,7 @@ EditionBar.prototype.createFeatureForm = function(feature) {
 							'format': dateformat
 						});
 						featureProperties += '<div id="datetimepicker-' + this.featureType[i].name + '"><input id="' + this.featureType[i].name + '" class="form-control"/></div>';
-					
+
 					} else if (this.featureType[i].type.endsWith("enumeration")) {
 						var name = this.featureType[i].name;
 						var has_multiple = false;
@@ -1300,10 +1300,10 @@ EditionBar.prototype.createFeatureForm = function(feature) {
 							enumeration_names.push(this.featureType[i].name);
 							featureProperties += '<div id="div-' + this.featureType[i].name + '" data-type="single"></div>';
 						}
-					
+
 					} else if (this.isStringType(this.featureType[i].type)) {
 						if (this.featureType[i].name.startsWith("form_")) {
-							featureProperties += '<br/><a target="_blank" class="form-link form-link-open form-control" href="" data-orig="'+ this.featureType[i].name +'" data-value=""><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp;&nbsp;' + gettext("Show form") + '</a>';
+							featureProperties += '<br/><a target="_blank" class="form-link form-link-open form-control" href="" data-orig="'+ this.featureType[i].name +'" data-value=""><i class="fa fa-check-square" aria-hidden="true"></i>&nbsp;&nbsp;' + gettext("Show form") + '</a>';
 							featureProperties += '<input id="' + this.featureType[i].name + '" type="hidden" value="">';
 						} else if (this.featureType[i].name.startsWith("cd_json_")) {
 							featureProperties += '<textarea id="' + this.featureType[i].name + '" rows="4" class="form-control"></textarea>';
@@ -1525,7 +1525,7 @@ EditionBar.prototype.createFeatureForm = function(feature) {
 				if (!self.selectedLayer.getSource() instanceof ol.source.WMTS) {
 					self.selectedLayer.getSource().updateParams({"_time": Date.now()});
 				}
-				
+
 				if (checkversion > 0) {
 					self.featureVersionManagement(self.selectedLayer, null, transaction.fid, 1, feature, null);
 				}
@@ -1752,7 +1752,7 @@ EditionBar.prototype.editFeatureForm = function(feature) {
 						}
 					} else if (this.isStringType(this.featureType[i].type)) {
 						if (this.featureType[i].name.startsWith("form_")) {
-							featureProperties += '<br/><a target="_blank" class="form-link form-link-open form-control" href="" data-orig="'+ this.featureType[i].name +'" data-value="' + value + '"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp;&nbsp;' + gettext("Show form") + '</a>';
+							featureProperties += '<br/><a target="_blank" class="form-link form-link-open form-control" href="" data-orig="'+ this.featureType[i].name +'" data-value="' + value + '"><i class="fa fa-check-square" aria-hidden="true"></i>&nbsp;&nbsp;' + gettext("Show form") + '</a>';
 							featureProperties += '<input id="' + this.featureType[i].name + '" type="hidden" value="' + value + '">';
 						} else if (this.featureType[i].name.startsWith("cd_json_")) {
 							featureProperties += '<textarea id="' + this.featureType[i].name + '" rows="4" class="form-control">' + value + '</textarea>';
@@ -1941,7 +1941,7 @@ EditionBar.prototype.editFeatureForm = function(feature) {
 						}
 					}
 				}
-				
+
 				if(self.featureType[i].name == 'modified_by') {
 					properties['modified_by'] = self.layerTree.conf.user.credentials.username;
 				}
@@ -2101,7 +2101,7 @@ EditionBar.prototype.removeFeatureForm = function(evt, feature) {
 				} else if (this.isStringType(this.featureType[i].type)) {
 					var value = feature.getProperties()[this.featureType[i].name];
 					if (this.featureType[i].name.startsWith("form_")) {
-						ui += '<br/><a target="_blank" class="form-link form-link-open form-control" href="" data-orig="'+ this.featureType[i].name +'" data-value="'+value+'"><i class="fa fa-check-square-o" aria-hidden="true"></i>&nbsp;&nbsp;' + gettext("Show form") + '</a>';
+						ui += '<br/><a target="_blank" class="form-link form-link-open form-control" href="" data-orig="'+ this.featureType[i].name +'" data-value="'+value+'"><i class="fa fa-check-square" aria-hidden="true"></i>&nbsp;&nbsp;' + gettext("Show form") + '</a>';
 					} else{
 						ui += '<input disabled id="' + this.featureType[i].name + '" type="text" class="form-control" value="' + value + '">';
 					}
@@ -2373,7 +2373,7 @@ EditionBar.prototype.verifyGeometryField = function(feature) {
 EditionBar.prototype.featureVersionManagement = function(selectedLayer, lyrid, featid, operation, feat, path) {
 	if(lyrid) {
 		data = {
-				"lyrid":lyrid,	
+				"lyrid":lyrid,
 				"featid":featid,
 				"operation":operation,
 				"path":path
@@ -2396,7 +2396,7 @@ EditionBar.prototype.featureVersionManagement = function(selectedLayer, lyrid, f
 		    xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
 		},
 		success	:function(response) {
-			//Actualiza las propiedades de versión de la feature en el  
+			//Actualiza las propiedades de versión de la feature en el
 			//cliente ya que se han cambiado en el servidor
 			feat_version_gvol = response.feat_version_gvol
 			feat_date_gvol = response.feat_date_gvol
@@ -2421,7 +2421,7 @@ EditionBar.prototype.checkFeatureVersion = function(selectedLayer, featid, versi
 			"version":version,
 			"operation":operation
 		}
-	
+
 	$.ajax({
 		type: 'POST',
 		async: false,
@@ -2446,6 +2446,6 @@ EditionBar.prototype.checkFeatureVersion = function(selectedLayer, featid, versi
 			return;
 		}
 	});
-	
+
 	return success;
 };

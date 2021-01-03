@@ -370,7 +370,8 @@ SITE_ID=1
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-BASE_URL = 'https://localhost'
+# BASE_URL = 'https://localhost'
+BASE_URL = 'https://inventariovial.denebinc.com/'
 MEDIA_ROOT = '/usr/local/var/www/media/'
 # MEDIA_URL = 'https://localhost/media/'
 MEDIA_URL = '/media/'
@@ -393,7 +394,7 @@ STATICFILES_FINDERS = (
     #'compressor.finders.CompressorFinder',
 )
 
-GVSIGOL_VERSION = '2.3.4'
+GVSIGOL_VERSION = '2.7.3'
 
 GVSIGOL_USERS_CARTODB = {
     'dbhost': 'localhost',

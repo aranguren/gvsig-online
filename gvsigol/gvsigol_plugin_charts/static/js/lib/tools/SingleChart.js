@@ -108,6 +108,9 @@ SingleChart.prototype.loadVectorLayer = function() {
 	  		typename: this.layer.layer_workspace + ':' + this.layer.layer_name,
 	  		outputFormat: 'application/json'
 	  	},
+      // These lines must be modified
+      username:'admin',
+      password:'myawesomegeoserver',
 	  	success	:function(response){
 	  		var geojson = new ol.format.GeoJSON();
 	  		features = geojson.readFeatures(response);

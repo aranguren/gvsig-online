@@ -2217,6 +2217,9 @@ EditionBar.prototype.transactWFS = function(p,f) {
 		type: 'POST',
 		async: false,
 	    dataType: 'xml',
+      // These lines must be modified
+      username:'admin',
+      password:'myawesomegeoserver',
 	    processData: false,
 	    contentType: 'text/xml',
 	    data: str,

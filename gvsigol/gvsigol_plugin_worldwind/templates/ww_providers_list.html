@@ -1,12 +1,12 @@
-{% extends "base.html" %} 
-{% load staticfiles %} 
-{% load i18n %} 
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
 
 {% block content %}
 <div class="row">
 	<div class="col-md-12">
 		<div class="box">
-		
+
 			<div class="box-header with-border">
 				<h3 class="box-title">{% trans "Providers list" %}</h3>
 				{% if user.is_superuser %}
@@ -15,12 +15,12 @@
 				</div>
 				{% endif %}
 			</div>
-			
+
 			<div class="box-body">
 				<table class="table" id="providers-table">
 					<thead>
 						<tr>
-							<th>ID</th>	
+							<th>ID</th>
 							<th>{% trans "Project" %}</th>
 							<th>{% trans "Type" %}</th>
 							<th>{% trans "Height URL" %}</th>
@@ -46,7 +46,7 @@
 			</div>
 		</div>
 	</div>
-</div>      
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="modal-delete-provider" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -109,7 +109,7 @@ $(document).ready(function() {
 	    }/*,{
 	        "targets": -2,
 	        "data": null,
-	        "defaultContent": '<button type="button" name="button-update-toc" data-toggle="tooltip" data-placement="bottom" title="' + '{% trans "TOC order" %}' + '" class="btn btn-warning"><i class="fa fa-sort-numeric-asc"></i></button>'
+	        "defaultContent": '<button type="button" name="button-update-toc" data-toggle="tooltip" data-placement="bottom" title="' + '{% trans "TOC order" %}' + '" class="btn btn-warning"><i class="fa fa-sort-numeric-down"></i></button>'
 	    },{
 	        "targets": -3,
 	        "data": null,
@@ -118,27 +118,27 @@ $(document).ready(function() {
 	    "dom": 'T<"clear">lfrtip',
 		"bLengthChange": false
 	});
-		 
+
 	$('#providers-table tbody').on('click', 'button', function (){
 		var row = table.row($(this).parents('tr'));
-	    var data = row.data();     
+	    var data = row.data();
 	    if (this.name == "button-update-provider") {
 	    	updateProvider(data);
-	    	
+
 	    } else if (this.name == "button-delete-provider"){
-	        deleteProvider(data, row);   
+	        deleteProvider(data, row);
 	    }
 	});
-	
+
 	$('#button-add-provider').click( function() {
 		location.href = '/gvsigonline/ww_provider_add/';
 	});
 
-	function updateProvider(data){			
+	function updateProvider(data){
 		location.href = '/gvsigonline/ww/provider_update/' + data[0] + '/';
 	}
-	
-	/*function updateToc(data){			
+
+	/*function updateToc(data){
 		location.href = '/gvsigonline/ww/toc_update/' + data[0] + '/';
 	}*/
 
@@ -159,7 +159,7 @@ $(document).ready(function() {
 			});
 		});
 	}
-	    
+
 });
 </script>
 {% endblock %}

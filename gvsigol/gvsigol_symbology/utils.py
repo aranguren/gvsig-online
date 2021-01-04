@@ -53,7 +53,7 @@ def __compress_folder(file_path):
         #(fd, zip_path) = tempfile.mkstemp(prefix='tmp-library-', suffix=".zip")
         #os.close(fd)
         s = tempfile.TemporaryFile()
-        
+
         relroot = file_path
         with zipfile.ZipFile(s, "w", zipfile.ZIP_DEFLATED) as zip:
             for root, dirs, files in os.walk(file_path):
@@ -81,12 +81,12 @@ def remove_accents(string):
     string = re.sub(u"[òóôõö]", 'o', string)
     string = re.sub(u"[ùúûü]", 'u', string)
     string = re.sub(u"[ýÿ]", 'y', string)
-    
+
     string = re.sub('[^a-z0-9 \_\.]', '', string)
     string = string.replace(' ','_')
 
     return string
-   
+
 def copyrecursively(source_folder, destination_folder):
     for root, dirs, files in os.walk(source_folder):
         for item in files:
@@ -110,7 +110,7 @@ def copyrecursively(source_folder, destination_folder):
             dst_path = os.path.join(destination_folder, src_path.replace(source_folder, ""))
             if not os.path.exists(dst_path):
                 os.mkdir(dst_path)
-                
+
 def copy_resources(symbol, resource_path):
     symbolizers = Symbolizer.objects.filter(rule = symbol)
     for symbolizer in symbolizers:
@@ -143,12 +143,13 @@ def sortFontsArray(array):
     output = {}
     seen = set()
     for val in sortedArray:
-        value = str(val)
-        index = value.find(".") 
-        
+        # value = str(val)
+        value = val.encode('utf-8')
+        index = value.find(".")
+
         if index != -1:
             value = value[0:index]
-        
+
         if value not in seen:
             output[value] = value
             seen.add(value)
@@ -158,7 +159,7 @@ def create_style_name(layer):
     layer_styles = StyleLayer.objects.filter(layer=layer)
     index = len(layer_styles)
     style_name = layer.name + '_' + str(index)
-    
+
     return style_name
 
 def get_symbolizer_type(r):
@@ -171,85 +172,85 @@ def get_symbolizer_type(r):
         type = 'PolygonSymbolizer'
     elif r.TextSymbolizer is not None:
         type = 'TextSymbolizer'
-        
+
     return type
-    
-            
+
+
 def check_library_path(library):
     library_path = settings.MEDIA_ROOT + "symbol_libraries/" + library.name + "/"
-    try:        
+    try:
         os.mkdir(library_path)
         return library_path
-     
+
     except OSError as e:
         print('Info: %s' % e)
         return library_path
-    
+
 def check_custom_legend_path():
     legend_path = settings.MEDIA_ROOT + "custom_legends/"
-    try:        
+    try:
         os.mkdir(legend_path)
         return legend_path
-     
+
     except OSError as e:
         print('Info: %s' % e)
         return legend_path
-    
-def save_custom_legend(legend_path, file, file_name):    
-    try: 
+
+def save_custom_legend(legend_path, file, file_name):
+    try:
         file_path = legend_path + file_name
         if os.path.exists(file_path):
             os.remove(file_path)
         with open(file_path, 'wb+') as destination:
             for chunk in file.chunks():
                 destination.write(chunk)
-        
-        legend_url = settings.MEDIA_URL + "custom_legends/" + file_name   
+
+        legend_url = settings.MEDIA_URL + "custom_legends/" + file_name
         return legend_url
-     
+
     except Exception as e:
         return False
-    
-            
-def save_external_graphic(library_path, file, file_name):    
-    try: 
+
+
+def save_external_graphic(library_path, file, file_name):
+    try:
         file_path = library_path + file_name
         if os.path.exists(file_path):
             os.remove(file_path)
         with open(file_path, 'wb+') as destination:
             for chunk in file.chunks():
                 destination.write(chunk)
-                
+
         return True
-     
+
     except Exception:
         return False
-    
-def delete_external_graphic_img(library, file_name):    
-    try: 
+
+def delete_external_graphic_img(library, file_name):
+    try:
         library_path = settings.MEDIA_ROOT + "symbol_libraries/" + library.name + "/"
         file_path = library_path + file_name
         if os.path.exists(file_path):
             os.remove(file_path)
-                
+
         return True
-     
+
     except Exception as e:
         print('Error: %s' % e)
         return False
-    
-def delete_library_dir(library):    
-    try: 
+
+def delete_library_dir(library):
+    try:
         library_path = settings.MEDIA_ROOT + "symbol_libraries/" + library.name
         if os.path.exists(library_path):
             shutil.rmtree(library_path)
-                
+
         return True
-     
+
     except Exception as e:
         print('Error: %s' % e)
         return False
-    
+
 def get_online_resource(library, file_name):
     return settings.MEDIA_URL + "symbol_libraries/" + library.name + "/" + file_name
 
@@ -257,7 +258,7 @@ def get_fields(resource):
     fields = None
     if resource != None:
         fields = resource.get('featureType').get('attributes').get('attribute')
-        
+
     return fields
 
 def get_alphanumeric_fields(fields):
@@ -265,13 +266,13 @@ def get_alphanumeric_fields(fields):
     for field in fields:
         if not 'jts.geom' in field.get('binding'):
             alphanumeric_fields.append(field)
-            
+
     return alphanumeric_fields
 
 def get_numeric_fields(fields):
     numeric_fields = []
     for field in fields:
-        if (field.get('binding').startswith('java.math') or 
+        if (field.get('binding').startswith('java.math') or
         field.get('binding') == ('java.lang.Number') or
         field.get('binding') == ('java.lang.Byte') or
         field.get('binding') == ('java.lang.Float') or
@@ -280,7 +281,7 @@ def get_numeric_fields(fields):
         field.get('binding') == ('java.lang.Short') or
         field.get('binding') == ('java.lang.Double')):
             numeric_fields.append(field)
-            
+
     return numeric_fields
 
 def get_feature_type(fields):
@@ -294,97 +295,97 @@ def get_feature_type(fields):
                 featureType = "LineSymbolizer"
             if auxType == "Polygon" or auxType == "MultiPolygon":
                 featureType = "PolygonSymbolizer"
-                
+
     return featureType
 
 def symbolizer_to_json(symbolizer):
     json_symbolizer = {}
-    
+
     if hasattr(symbolizer, 'polygonsymbolizer'):
         json_symbolizer['type'] = 'PolygonSymbolizer'
         json_symbolizer['order'] = symbolizer.order
         json_symbolizer['json'] = serializers.serialize('json', [ symbolizer.polygonsymbolizer, ])
-        
+
     elif hasattr(symbolizer, 'linesymbolizer'):
         json_symbolizer['type'] = 'LineSymbolizer'
         json_symbolizer['order'] = symbolizer.order
         json_symbolizer['json'] = serializers.serialize('json', [ symbolizer.linesymbolizer, ])
-        
+
     elif hasattr(symbolizer, 'marksymbolizer'):
         json_symbolizer['type'] = 'MarkSymbolizer'
         json_symbolizer['order'] = symbolizer.order
         json_symbolizer['json'] = serializers.serialize('json', [ symbolizer.marksymbolizer])
-        
+
     elif hasattr(symbolizer, 'externalgraphicsymbolizer'):
         json_symbolizer['type'] = 'ExternalGraphicSymbolizer'
         json_symbolizer['order'] = symbolizer.order
         json_symbolizer['json'] = serializers.serialize('json', [ symbolizer.externalgraphicsymbolizer])
-        
+
     elif hasattr(symbolizer, 'textsymbolizer'):
         json_symbolizer['type'] = 'TextSymbolizer'
         json_symbolizer['order'] = symbolizer.order
         json_symbolizer['json'] = serializers.serialize('json', [ symbolizer.textsymbolizer, ])
-        
+
     return json_symbolizer
 
 def entry_to_json(entry):
-    json_entry = serializers.serialize('json', [ entry, ])       
+    json_entry = serializers.serialize('json', [ entry, ])
     return json_entry
 
 def filter_to_json(filter):
     json_filter = {}
-    
+
     if filter.comparisonOps.original_tagname_ == 'PropertyIsEqualTo':
         json_filter['type'] = 'is_equal_to'
         json_filter['property_name'] = filter.comparisonOps.PropertyName
         json_filter['value1'] = filter.comparisonOps.Literal
-        
+
     elif filter.comparisonOps.original_tagname_ == 'PropertyIsNull':
         json_filter['type'] = 'is_null'
         json_filter['property_name'] = filter.comparisonOps.PropertyName
-        
+
     elif filter.comparisonOps.original_tagname_ == 'PropertyIsLike':
         json_filter['type'] = 'is_like'
         json_filter['property_name'] = filter.comparisonOps.PropertyName
         json_filter['value1'] = filter.comparisonOps.Literal
-        
+
     elif filter.comparisonOps.original_tagname_ == 'PropertyIsNotEqualTo':
         json_filter['type'] = 'is_not_equal_to'
         json_filter['property_name'] = filter.comparisonOps.PropertyName
         json_filter['value1'] = filter.comparisonOps.Literal
-        
+
     elif filter.comparisonOps.original_tagname_ == 'PropertyIsGreaterThan':
         json_filter['type'] = 'is_greater_than'
         json_filter['property_name'] = filter.comparisonOps.PropertyName
         json_filter['value1'] = filter.comparisonOps.Literal
-        
+
     elif filter.comparisonOps.original_tagname_ == 'PropertyIsGreaterThanOrEqualTo':
         json_filter['type'] = 'is_greater_than_or_equal_to'
         json_filter['property_name'] = filter.comparisonOps.PropertyName
         json_filter['value1'] = filter.comparisonOps.Literal
-        
+
     elif filter.comparisonOps.original_tagname_ == 'PropertyIsLessThan':
         json_filter['type'] = 'is_less_than'
         json_filter['property_name'] = filter.comparisonOps.PropertyName
         json_filter['value1'] = filter.comparisonOps.Literal
-        
+
     elif filter.comparisonOps.original_tagname_ == 'PropertyIsLessThanOrEqualTo':
         json_filter['type'] = 'is_less_than_or_equal_to'
         json_filter['property_name'] = filter.comparisonOps.PropertyName
         json_filter['value1'] = filter.comparisonOps.Literal
-        
+
     elif filter.comparisonOps.original_tagname_ == 'PropertyIsBetween':
         json_filter['type'] = 'is_between'
         json_filter['property_name'] = filter.comparisonOps.PropertyName
         json_filter['value1'] = filter.comparisonOps.LowerBoundary.expression
         json_filter['value2'] = filter.comparisonOps.UpperBoundary.expression
-        
+
     else:
         json_filter = None
-        
+
     return json_filter
 
-    
+
 def get_geometry_field(layer):
     if layer.type == 'v_PostGIS':
         params = json.loads(layer.datastore.connection_params)
@@ -395,19 +396,19 @@ def get_geometry_field(layer):
         passwd = params['passwd']
         schema = params.get('schema', 'public')
         i = Introspect(database=dbname, host=host, port=port, user=user, password=passwd)
-        
+
         layer_name_split = layer.name.split(':')
         layer_name = layer.name
-        if layer_name_split.__len__() > 1: 
+        if layer_name_split.__len__() > 1:
             layer_name = layer_name_split[1]
         if layer_name:
             geom_fields = i.get_geometry_columns_info(layer_name, schema)
             i.close()
-            if geom_fields.__len__() > 0: 
+            if geom_fields.__len__() > 0:
                 return {
                     'field_name': geom_fields[0][2],
                     'field_type': geom_fields[0][5],
-                    } 
+                    }
     return ''
 
 def get_next_index(layer):
@@ -416,7 +417,7 @@ def get_next_index(layer):
     for style_layer in styleLayers:
         aux_name = style_layer.style.name
         aux_name = aux_name.replace(layer.datastore.workspace.name + '_' + layer.name + '_' , '')
-        
+
         try:
             aux_index = int(aux_name)
             if index < aux_index+1:
@@ -435,14 +436,14 @@ def has_default_style(layer, style=None):
             return True
     return False
 
-    
+
 def set_not_default_styles(layer):
     layer_styles = StyleLayer.objects.filter(layer=layer)
     for ls in layer_styles:
         s = Style.objects.get(id=ls.style.id)
         s.is_default = False
         s.save()
-    
+
 def set_default_style(layer, gs, style=None, is_preview=False, is_default=False):
     if is_preview:
         is_default = False
@@ -451,7 +452,7 @@ def set_default_style(layer, gs, style=None, is_preview=False, is_default=False)
             set_not_default_styles(layer)
         elif not has_default_style(layer):
             is_default = True
-        
+
         if is_default and style:
             if not gs.setLayerStyle(layer, style.name, style.is_default):
                 # try to recover from inconsistent gvsigol - geoserver status
@@ -462,4 +463,3 @@ def set_default_style(layer, gs, style=None, is_preview=False, is_default=False)
 def reset_geoserver_style(gs, layer, style):
     sld_body = sld_builder.build_sld(layer, style)
     return gs.createStyle(style.name, sld_body)
-    

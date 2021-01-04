@@ -2854,7 +2854,7 @@ def get_feature_info(request):
                                         break
 
                     # auth2 = ('admin', 'myawesomegeoserver')
-                    auth2 = (request.session['username'], request.session['password']) #Testing this line
+                    # auth2 = (request.session['username'], request.session['password']) #Testing this line
 
                     aux_response = fut_session.get(url, auth=auth2, verify=False, timeout=(CONNECT_TIMEOUT, READ_TIMEOUT), proxies=settings.PROXIES)
                     rs.append(is_grouped_symbology_request(request, url, aux_response, styles, fut_session))
@@ -3143,7 +3143,7 @@ def get_datatable_data(request):
             print wfs_url + "?" + params
 
             # req.auth = ('admin', 'myawesomegeoserver')
-            req.auth = (request.session['username'], request.session['password']) #Testing this line
+            # req.auth = (request.session['username'], request.session['password']) #Testing this line
 
             response = req.post(wfs_url, data=values, verify=False, proxies=settings.PROXIES)
             jsonString = response.text
@@ -3228,7 +3228,7 @@ def get_feature_wfs(request):
             print wfs_url + "?" + params
 
             # req.auth = ('admin', 'myawesomegeoserver')
-            req.auth = (request.session['username'], request.session['password']) #Testing this line
+            # req.auth = (request.session['username'], request.session['password']) #Testing this line
 
             response = req.post(wfs_url, data=data, verify=False, proxies=settings.PROXIES)
             jsonString = response.text

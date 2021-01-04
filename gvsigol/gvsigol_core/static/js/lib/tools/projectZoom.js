@@ -28,7 +28,7 @@ var projectZoom = function(map, conf) {
 
 	this.map = map;
 	this.conf = conf;
-	
+
 	this.id = "project-zoom";
 
 	var button = document.createElement('button');
@@ -36,16 +36,16 @@ var projectZoom = function(map, conf) {
 	button.setAttribute("class", "toolbar-button");
 	button.setAttribute("title", gettext('Project zoom'));
 	var icon = document.createElement('i');
-	icon.setAttribute("class", "fa fa-arrows-alt");
+	icon.setAttribute("class", "fa fa-expand-arrows-alt");
 	icon.setAttribute("aria-hidden", "true");
 	button.appendChild(icon);
-	
+
 	this.$button = $(button);
-	
+
 	$('.ol-zoom').append(button);
 
 	var this_ = this;
-  
+
 	var handler = function(e) {
 		this_.handler(e);
 	};
@@ -134,7 +134,7 @@ projectZoom.prototype.handler = function(e) {
 	var transformedCoordinate = ol.proj.transform([parseFloat(this.conf.view.center_lon), parseFloat(this.conf.view.center_lat)], 'EPSG:4326', 'EPSG:3857');
 	this.map.getView().setCenter(transformedCoordinate);
 	this.map.getView().setZoom(this.conf.view.zoom);
-	
+
 	this.deactivate();
 };
 
@@ -179,7 +179,7 @@ projectZoom.prototype.formatArea = null;
 /**
  * TODO
  */
-projectZoom.prototype.deactivate = function() {			
+projectZoom.prototype.deactivate = function() {
 //	this.removeOverlays();
 //	this.map.removeLayer(this.drawLayer);
 //	this.map.removeInteraction(this.draw);

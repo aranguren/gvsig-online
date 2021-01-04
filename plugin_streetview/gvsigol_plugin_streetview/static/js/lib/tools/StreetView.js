@@ -35,7 +35,7 @@ var StreetView = function(conf, map, apiKey) {
 	button.setAttribute("class", "toolbar-button");
 	button.setAttribute("title", gettext('Google Street View'));
 	var icon = document.createElement('i');
-	icon.setAttribute("class", "fa fa-google");
+	icon.setAttribute("class", "fab fa-google");
 	button.appendChild(icon);
 
 	this.$button = $(button);
@@ -47,7 +47,7 @@ var StreetView = function(conf, map, apiKey) {
 	var handler = function(e) {
 		this_.handler(e);
 	};
-	
+
 	this.createModal();
 
 	button.addEventListener('click', handler, false);
@@ -70,7 +70,7 @@ StreetView.prototype.handler = function(e) {
 
 	} else {
 		viewer.core.disableTools(this.id);
-		
+
 		this.$button.addClass('button-active');
 		this.active = true;
 		this.$button.trigger('control-active', [this]);
@@ -89,12 +89,12 @@ StreetView.prototype.handler = function(e) {
 
 StreetView.prototype.clickHandler = function(evt) {
 	this.showStreetView(evt.coordinate);
-	
+
 };
 
 StreetView.prototype.createModal = function() {
-	var self = this; 
-	
+	var self = this;
+
 	self.modal = '';
 	self.modal += '<div class="modal fade" id="modal-streetview" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">';
 	self.modal += 	'<div class="modal-dialog" role="document">';

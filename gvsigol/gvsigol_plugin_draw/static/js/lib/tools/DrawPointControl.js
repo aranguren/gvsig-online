@@ -36,7 +36,7 @@ var DrawPointControl = function(drawBar, map, styleSettings) {
 		stroke_color: '#f15511',
 		stroke_width: 2
 	};
-	
+
 	this.source = new ol.source.Vector();
 	this.drawLayer = new ol.layer.Vector({
 		source: this.source
@@ -45,9 +45,9 @@ var DrawPointControl = function(drawBar, map, styleSettings) {
 	this.drawLayer.printable = true;
 	this.drawLayer.drawType = 'point';
 	map.addLayer(this.drawLayer);
-	
+
 	this.drawLayer.drawStyleSettings = styleSettings;
-	
+
 	this.drawInteraction = new ol.interaction.Draw({
 		source: this.drawLayer.getSource(),
 		type: 'Point'
@@ -58,12 +58,12 @@ var DrawPointControl = function(drawBar, map, styleSettings) {
 			drawed.setProperties({'style_name': this.styleName});
 			var style = self.getStyle(drawed);
 			drawed.setStyle(style);
-			
+
 		}, this);
-	
-	
-	this.control = new ol.control.Toggle({	
-		html: '<i class="fa fa-map-marker" ></i>',
+
+
+	this.control = new ol.control.Toggle({
+		html: '<i class="fas fa-map-marker-alt" ></i>',
 		className: "edit",
 		title: gettext('Draw point'),
 		interaction: this.drawInteraction,
@@ -77,8 +77,8 @@ var DrawPointControl = function(drawBar, map, styleSettings) {
 		}
 	});
 	this.drawBar.addControl(this.control);
-	
-	
+
+
 
 };
 
@@ -101,7 +101,7 @@ DrawPointControl.prototype.deactivate = function() {
 
 DrawPointControl.prototype.getStyle = function(feature) {
 	var self = this;
-	
+
 	var fillColor = this.hexToRgb(this.style.fill_color);
 	var style = new ol.style.Style({
 		fill: new ol.style.Fill({
@@ -113,7 +113,7 @@ DrawPointControl.prototype.getStyle = function(feature) {
     	}),
     	image: self.getImageStyle()
     });
-	
+
 	return style;
 };
 
@@ -139,7 +139,7 @@ DrawPointControl.prototype.hexToRgb = function(hex) {
 
 DrawPointControl.prototype.getImageStyle = function() {
 	var fillColor = this.hexToRgb(this.style.fill_color);
-	
+
 	var fill = new ol.style.Fill({
 		color: 'rgba(' + fillColor.r + ',' + fillColor.g + ',' + fillColor.b + ',' + this.style.fill_opacity + ')'
 	});
@@ -147,9 +147,9 @@ DrawPointControl.prototype.getImageStyle = function() {
   		color: this.style.stroke_color,
   		width: this.style.stroke_width
 	})
-	
+
 	var wkn = this.style.well_known_name;
-	
+
 	var style = new ol.style.Circle({
   		radius: this.style.size,
   		fill: fill
@@ -162,7 +162,7 @@ DrawPointControl.prototype.getImageStyle = function() {
 			radius: this.style.size,
 			angle: Math.PI / 4
 	    });
-		
+
 	} else if (wkn == 'triangle') {
 		style = new ol.style.RegularShape({
 			fill: fill,
@@ -172,7 +172,7 @@ DrawPointControl.prototype.getImageStyle = function() {
 			rotation: Math.PI / 4,
 			angle: 0
 	    });
-		
+
 	} else if (wkn == 'star') {
 		style = new ol.style.RegularShape({
 			fill: fill,
@@ -182,7 +182,7 @@ DrawPointControl.prototype.getImageStyle = function() {
 		    radius2: 4,
 		    angle: 0
 	    });
-		
+
 	} else if (wkn == 'cross') {
 		style = new ol.style.RegularShape({
 			fill: fill,
@@ -192,7 +192,7 @@ DrawPointControl.prototype.getImageStyle = function() {
 			radius2: 0,
 			angle: 0
 	    });
-		
+
 	} else if (wkn == 'x') {
 		style = new ol.style.RegularShape({
 			fill: fill,
@@ -202,9 +202,9 @@ DrawPointControl.prototype.getImageStyle = function() {
 		    radius2: 0,
 		    angle: Math.PI / 4
 	    });
-		
+
 	}
-	
+
 	return style;
 };
 

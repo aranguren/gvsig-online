@@ -18,7 +18,7 @@
 
 	if (viewer.core.ifToolInConf('gvsigol_plugin_draw')) {
 
-		var button = '<li role="presentation"><a id="show_draw" role="menuitem" tabindex="-1" href="#"><i class="fa fa-pencil m-r-5"></i>'+gettext("Show draw tools")+'</a></li>';
+		var button = '<li role="presentation"><a id="show_draw" role="menuitem" tabindex="-1" href="#"><i class="fas fa-pencil-alt m-r-5"></i>'+gettext("Show draw tools")+'</a></li>';
 		$('#gvsigol-navbar-file-menu').append(button);
 
 		var drawBar = new ol.control.Bar({ toggleOne: true, group:true });
@@ -97,7 +97,7 @@
 							popupContent += '</div>';
 							popupContent += '<div class="row">';
 							popupContent += 	'<div class="col-md-6 form-group pull-right">';
-							popupContent +=     	'<button data-dtype="' + feature.dtype + '" data-fid="' + feature.getId() + '" class="drawed-text-remove-button btn-default btn-sm"><i style="display:inline;margin-right:5px;" class="fa fa-remove"></i>' + gettext('Delete') + '</button>';
+							popupContent +=     	'<button data-dtype="' + feature.dtype + '" data-fid="' + feature.getId() + '" class="drawed-text-remove-button btn-default btn-sm"><i style="display:inline;margin-right:5px;" class="fa fa-times"></i>' + gettext('Delete') + '</button>';
 							popupContent += 	'</div>';
 							popupContent += 	'<div class="col-md-6 form-group pull-right">';
 							popupContent +=     	'<button data-dtype="' + feature.dtype + '" data-fid="' + feature.getId() + '" class="drawed-text-save-button btn-default btn-sm"><i style="display:inline;margin-right:5px;" class="fa fa-save"></i>' + gettext('Save') + '</button>';				

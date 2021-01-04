@@ -115,7 +115,7 @@ CatalogMap.prototype.getDrawRectangleControl = function(toolbar, map){
 	});
 
 	return new ol.control.Toggle({	
-		html: '<i class="fa fa-object-group" ></i>',
+		html: '<i class="far fa-object-group" ></i>',
 		active: false,
 		className: "edit",
 		title: gettext('Draw rectangle'),
@@ -151,7 +151,7 @@ CatalogMap.prototype.getDrawPolygonControl = function(toolbar, map){
 	
 	
 	return new ol.control.Toggle({	
-		html: '<i class="fa fa-code-fork" ></i>',
+		html: '<i class="fa fa-code-branch" ></i>',
 		active: false,
 		title: gettext('Draw polygon'),
 		interaction: self.drawPolygonInteraction,

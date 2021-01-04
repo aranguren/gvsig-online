@@ -2,35 +2,35 @@
 {% load staticfiles %}
 {% load i18n %}
 
-{% block content %}	  	  
+{% block content %}
 <div class="row">
 	<div class="col-md-12">
 		<div class="box">
-		
+
 			<div class="box-header with-border step-2">
 				<h3 class="box-title">{% trans "Add new style" %}</h3>
 				<div class="box-tools pull-right">
-					<button id="refresh-preview" class="btn btn-sm btn-default refresh-preview"><i class="fa fa-refresh margin-r-5"></i> {% trans "Update preview" %}</button>
+					<button id="refresh-preview" class="btn btn-sm btn-default refresh-preview"><i class="fa fa-sync margin-r-5"></i> {% trans "Update preview" %}</button>
 					<button id="show-label" class="btn btn-sm btn-default refresh-preview"><i class="fa fa-tags margin-r-5"></i> {% trans "Labeling" %}</button>
-					<button id="save-legend" class="btn btn-sm btn-default save-legend"><i class="fa fa-floppy-o margin-r-5"></i> {% trans "Save" %}</button>					
+					<button id="save-legend" class="btn btn-sm btn-default save-legend"><i class="fa fa-save margin-r-5"></i> {% trans "Save" %}</button>
 				</div>
 			</div>
 
 			<div class="box-body">
-			
+
 				<div class="row">
 					<div class="col-md-6">
 						<div id="form-error" style="color:#ff0000;"></div>
 						<div class="row">
 							<div class="col-md-12 form-group">
 								<label>{% trans "Name" %}</label>
-								<input disabled placeholder="{% trans 'Style name' %}" name="style-name" id="style-name" value="{{style_name}}" type="text" class="form-control">	
+								<input disabled placeholder="{% trans 'Style name' %}" name="style-name" id="style-name" value="{{style_name}}" type="text" class="form-control">
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-12 form-group">
 								<label>{% trans "Title" %}</label>
-								<input placeholder="{% trans 'Style title' %}" name="style-title" id="style-title" type="text" class="form-control">	
+								<input placeholder="{% trans 'Style title' %}" name="style-title" id="style-title" type="text" class="form-control">
 							</div>
 						</div>
 						<div class="row">
@@ -47,7 +47,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="checkbox col-md-12">								
+							<div class="checkbox col-md-12">
 								<label>
 									<input type="checkbox" name="style-is-default" id="style-is-default"/>{% trans "Set as default style" %}
 								</label>
@@ -56,12 +56,12 @@
 					</div>
 					<div class="col-md-6">
 						<div id="map" class="preview-map"></div>
-					</div>						
+					</div>
 				</div>
-				
+
 				<div id="rules" class="row">
 				</div>
-				
+
 			</div>
 		</div>
 	</div>
@@ -120,7 +120,7 @@
 			</div>
 		</div>
 	</div>
-</div>    	
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="modal-symbolizer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -131,7 +131,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 				<div class="nav-tabs-custom">
-	            	<ul id="tab-menu" class="nav nav-tabs">				                        
+	            	<ul id="tab-menu" class="nav nav-tabs">
 	            	</ul>
 	            	<div id="tab-content" class="tab-content">
 	            	</div>
@@ -139,7 +139,7 @@
 			</div>
 		</div>
 	</div>
-</div> 
+</div>
 {% endblock %}
 
 {% block extra-scripts %}
@@ -160,7 +160,7 @@ function imagePostFunction(image, src) {
 	  for (var i = 0 ; i< dataEntries.length ; i++){
 // 	      console.log("dataEntries[i]",dataEntries[i]);
 	      if (i===0){
-	      url = dataEntries[i];    
+	      url = dataEntries[i];
 	      }
 	      else{
 	      params = params + "&"+dataEntries[i];
@@ -184,7 +184,7 @@ function imagePostFunction(image, src) {
 	      }
 	    }
 	  };
-	  //SET THE PROPER HEADERS AND FINALLY SEND THE PARAMETERS 
+	  //SET THE PROPER HEADERS AND FINALLY SEND THE PARAMETERS
 	  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	  xhr.send(params);
 	} else {
@@ -193,7 +193,7 @@ function imagePostFunction(image, src) {
 }
 
 $(document).ready(function() {
-	
+
 	var layerId = "{{layer_id}}";
 	var layerUrl = "{{layer_url}}";
 	var wfsUrl = "{{layer_wfs_url}}";
@@ -205,11 +205,11 @@ $(document).ready(function() {
 	var rule_opts = "";
 	var previewUrl = "{{preview_url}}";
 	var supported_crs = {{supported_crs|safe}};
-	
+
 	for (var crs in supported_crs) {
-		proj4.defs(supported_crs[crs].code, supported_crs[crs].definition);	
+		proj4.defs(supported_crs[crs].code, supported_crs[crs].definition);
 	}
-	
+
 	var map = new ol.Map({
 		layers: [
 		    new ol.layer.Tile({
@@ -237,31 +237,31 @@ $(document).ready(function() {
 		visible: true
 	});
 	map.addLayer(wmsLayer);
-	
+
 	var utils = new SymbologyUtils(map, layerId, wmsLayer, featureType, previewUrl, fonts, jsonAlphanumericFields);
 	var uniqueSymbol = new UniqueSymbol(featureType, layerName, utils, null);
 	uniqueSymbol.addDefault();
-	
+
 	utils.centerMap(layerName, wfsUrl);
-	
+
 	$("#show-label").on('click', function(e){
 		uniqueSymbol.showLabel();
 	});
-	
+
 	$("#style-title").on('change', function(e){
 		var rules = uniqueSymbol.getRules();
 		for (var i=0; i<rules.length; i++) {
 			rules[i].title = this.value;
 		}
 	});
-	
+
 	$("#symbol-minscale").on('change', function(e){
 		var rules = uniqueSymbol.getRules();
 		for (var i=0; i<rules.length; i++) {
 			rules[i].minscale = this.value;
 		}
 	});
-	
+
 	$("#symbol-maxscale").on('change', function(e){
 		var rules = uniqueSymbol.getRules();
 		for (var i=0; i<rules.length; i++) {
@@ -272,19 +272,19 @@ $(document).ready(function() {
 	$("#save-legend").on('click', function(e){
 		if ($("#style-name").val() != '') {
 			uniqueSymbol.save(layerId);
-			
+
 		} else {
 			$("#form-error").append('<p>*{% trans "Field name is required" %}</p>');
-			
+
 		}
-		
+
 	});
-	
+
 	$("#refresh-preview").on('click', function(e){
 		uniqueSymbol.updatePreview(layerId);
 	});
-	
-	
+
+
 	$(window).unload(function(){
 		console.log("Trying to exit from this page");
 		$.ajax({
@@ -299,12 +299,12 @@ $(document).ready(function() {
 				layer_id: "{{layer_id}}"
 			},
 			success: function(response){
-				
+
 			},
 		    error: function(){}
 		});
 	});
-	
+
 });
 </script>
 {% endblock %}

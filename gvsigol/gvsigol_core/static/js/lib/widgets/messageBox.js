@@ -48,7 +48,7 @@ messageBox.prototype.show = function(type, msg) {
 	} else if (type == 'warning') {
 		title = gettext('Warning');
 		style = 'alert-warning';
-		icon = 'fa-warning';
+		icon = 'fa-exclamation-triangle';
 		
 	} else if (type == 'error') {
 		title = 'Error';
@@ -99,7 +99,7 @@ messageBox.prototype.showMultiLine = function(type, messages) {
 	} else if (type == 'warning') {
 		title = gettext('Warning');
 		style = 'alert-warning';
-		icon = 'fa-warning';
+		icon = 'fa-exclamation-triangle';
 		
 	} else if (type == 'error') {
 		title = 'Error';

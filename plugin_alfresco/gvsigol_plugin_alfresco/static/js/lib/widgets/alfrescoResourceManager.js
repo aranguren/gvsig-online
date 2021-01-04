@@ -63,9 +63,9 @@ AlfrescoResourceManager.prototype.getUI = function(feature) {
 			showRemove = true;
 			rid = resources[0].rid;
 		}
-		
+
 	}
-	
+
 	var ui = '';
 	ui += '<div class="box box-primary">';
 	ui += 	'<div class="box-body">';
@@ -83,13 +83,13 @@ AlfrescoResourceManager.prototype.getUI = function(feature) {
 	ui += 	'</div>';
 	ui += 	'<div class="box-footer text-center">';
 	ui += 		'<a id="open-explorer" href="javascript:void(0)" style="margin-right: 10px;"><i class="fa fa-folder-open"></i> ' + gettext('Select resource folder') + '</a>';
-	ui += 		'<a id="view-resources" data-url="' + resourceFolderUrl + '" href="javascript:void(0)" style="margin-right: 10px;"><i class="fa fa-eye"></i> ' + gettext('View resources') + '</a>';
+	ui += 		'<a id="view-resources" data-url="' + resourceFolderUrl + '" href="javascript:void(0)" style="margin-right: 10px;"><i class="fas fa-eye"></i> ' + gettext('View resources') + '</a>';
 	if (showRemove) {
-		ui += 	'<a id="remove-resource" data-rid="' + rid + '" href="javascript:void(0)" style="margin-right: 10px;"><i class="fa fa-trash"></i> ' + gettext('Delete') + '</a>';
+		ui += 	'<a id="remove-resource" data-rid="' + rid + '" href="javascript:void(0)" style="margin-right: 10px;"><i class="fa fa-trash-alt"></i> ' + gettext('Delete') + '</a>';
 	}
 	ui += 	'</div>';
 	ui += '</div>';
-	
+
 	return ui;
 };
 
@@ -102,7 +102,7 @@ AlfrescoResourceManager.prototype.registerEvents = function() {
 		e.preventDefault();
 		self.openExplorer();
 	});
-	
+
 	$('#view-resources').on('click', function (e) {
 		e.preventDefault();
 		var url = this.dataset.url
@@ -110,7 +110,7 @@ AlfrescoResourceManager.prototype.registerEvents = function() {
 			window.open(url,'_blank','width=780,height=600,left=150,top=200,toolbar=0,status=0');
 		}
 	});
-	
+
 	$('#remove-resource').on('click', function (e) {
 		e.preventDefault();
 		if (self.deleteResource(this.dataset.rid)) {
@@ -118,7 +118,7 @@ AlfrescoResourceManager.prototype.registerEvents = function() {
 			$('#resource-description').text('');
 			$('#view-resources').attr('data-url', '#');
 		}
-		
+
 	});
 };
 
@@ -128,7 +128,7 @@ AlfrescoResourceManager.prototype.registerEvents = function() {
 AlfrescoResourceManager.prototype.openExplorer = function() {
 	var self = this;
 	var sites = this.getSites();
-	
+
 	var select = '';
 	select += '<div class="row">';
 	select += 	'<div class="form-group">';
@@ -141,32 +141,32 @@ AlfrescoResourceManager.prototype.openExplorer = function() {
 	select += 		'</select>';
 	select += 	'</div>';
 	select += '</div>';
-	
+
 	var explorer = '';
 	explorer += '<div class="row">';
 	explorer += 	'<div id="explorer-content">';
 	explorer += 	'</div>';
 	explorer += '</div>';
-	
+
 	var container = '';
 	container += '<div style="padding: 10px 40px 10px 40px;">';
 	container += 	select;
 	container += 	explorer;
 	container += '</div>';
-	
+
 	$('#float-modal .modal-body').empty();
 	$('#float-modal .modal-body').append(container);
-	
+
 	var buttons = '';
 	buttons += '<button id="float-modal-close-explorer" type="button" class="btn btn-default" data-dismiss="modal">' + gettext('Close') + '</button>';
-	
+
 	$('#float-modal .modal-footer').empty();
 	$('#float-modal .modal-footer').append(buttons);
-	
+
 	$("#float-modal").modal('show');
-	
+
 	$('#select-site').on('change', function(e) {
-		
+
 		var siteId = $('#select-site').val();
 		var selectedSite = null;
 		for (var i=0; i<sites.length; i++) {
@@ -272,10 +272,10 @@ AlfrescoResourceManager.prototype.deleteResources = function(feature) {
 	  		if (response.deleted) {
 	  			deleted = true;
 	  		}
-	  	}, 
+	  	},
 	  	error: function(){}
 	});
-	
+
 	return deleted;
 };
 
@@ -295,10 +295,10 @@ AlfrescoResourceManager.prototype.deleteResource = function(rid) {
 	  		if (response.deleted) {
 	  			deleted = true;
 	  		}
-	  	}, 
+	  	},
 	  	error: function(){}
 	});
-	
+
 	return deleted;
 };
 
@@ -371,8 +371,8 @@ AlfrescoResourceManager.prototype.createContent = function(isSite, parent, curre
 		content += 			'</div>';
 		content += 			'<div class="product-info">';
 		content += 				'<a href="javascript:void(0)" data-objectid="' + folders[i].objectId + '" class="open-folder product-title">' + folders[i].name + ' <span style="font-size: 100%; font-weight: 500; padding: .5em .5em .5em;" class="pull-right"><i class="fa fa-folder-open margin-r-5"></i> ' + gettext('Open') + '</span></a>';
-		content += 				'<a href="javascript:void(0)" data-externallink="' + folders[i].url + '" class="alfresco-link"><span style="font-size: 100%; font-weight: 500; padding: .5em .5em .5em;" class="pull-right"><i class="fa fa-external-link margin-r-5"></i> ' + gettext('Open in alfresco') + '</span></a>';
-		content += 				'<a href="javascript:void(0)" data-resourcepath="' + folders[i].path + '" data-externallink="' + folders[i].url + '" class="select-resource-link"><span style="font-size: 100%; font-weight: 500; padding: .5em .5em .5em;" class="pull-right"><i class="fa fa-hand-pointer-o margin-r-5"></i> ' + gettext('Select') + '</span></a>';
+		content += 				'<a href="javascript:void(0)" data-externallink="' + folders[i].url + '" class="alfresco-link"><span style="font-size: 100%; font-weight: 500; padding: .5em .5em .5em;" class="pull-right"><i class="fa fa-external-link-alt margin-r-5"></i> ' + gettext('Open in alfresco') + '</span></a>';
+		content += 				'<a href="javascript:void(0)" data-resourcepath="' + folders[i].path + '" data-externallink="' + folders[i].url + '" class="select-resource-link"><span style="font-size: 100%; font-weight: 500; padding: .5em .5em .5em;" class="pull-right"><i class="fa fa-hand-pointer margin-r-5"></i> ' + gettext('Select') + '</span></a>';
 		content += 				'<span class="product-description"> ' + folders[i].description + '</span>';
 		content += 			'</div>';
 		content += 		'</li>';
@@ -380,10 +380,10 @@ AlfrescoResourceManager.prototype.createContent = function(isSite, parent, curre
 	content += 		'</ul>';
 	content += 	'</div>';
 	content += '</div>';
-	
+
 	$('#explorer-content').empty();
 	$('#explorer-content').append(content);
-	
+
 	this.registerFolderEvents();
 };
 
@@ -392,27 +392,27 @@ AlfrescoResourceManager.prototype.createContent = function(isSite, parent, curre
  */
 AlfrescoResourceManager.prototype.registerFolderEvents = function() {
 	var self = this;
-	
+
 	$('#button-parent-directory').click(function(e){
 		e.preventDefault();
 		var parentId = this.dataset.parentid;
 		var folderContent = self.getFolderContent(parentId);
 		self.createContent(folderContent['isSite'], folderContent['cmis:parentId'], folderContent['cmis:path'], folderContent.folders);
 	});
-	
+
 	$('.open-folder').click(function(e){
 		e.preventDefault();
 		var objectId = this.dataset.objectid;
 		var folderContent = self.getFolderContent(objectId);
 		self.createContent(folderContent['isSite'], folderContent['cmis:parentId'], folderContent['cmis:path'], folderContent.folders);
 	});
-	
+
 	$('.alfresco-link').click(function(e){
 		e.preventDefault();
 		var externalLink = this.dataset.externallink;
 		window.open(externalLink,'_blank','width=780,height=600,left=150,top=200,toolbar=0,status=0');
 	});
-	
+
 	$('.select-resource-link').click(function(e){
 		e.preventDefault();
 		var resourcePath = this.dataset.resourcepath;

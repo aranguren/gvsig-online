@@ -9,7 +9,7 @@
 			<div class="col-md-12 form-group">
 				<div class="box-tools pull-right">
 					<button id="button-create-layer" class="btn btn-sm btn-default"><i class="fa fa-database margin-r-5"></i> {% trans "Create empty layer" %}</button>
-					<button id="button-import-layer" class="btn btn-sm btn-default"><i class="fa fa-cloud-upload margin-r-5"></i> {% trans "Publish layer" %}</button>
+					<button id="button-import-layer" class="btn btn-sm btn-default"><i class="fa fa-cloud-upload-alt margin-r-5"></i> {% trans "Publish layer" %}</button>
 				</div>
 			</div>
 		</div>
@@ -172,7 +172,7 @@ $(document).ready(function() {
 	  	},{
 	      	"targets": -3,
 	       	"data": null,
-	        "defaultContent": '<button type="button" name="button-refresh-extent" data-toggle="tooltip" data-placement="bottom" title="' + '{% trans "Refresh extent and layer definition" %}' + '" class="btn btn-info"><i class="fa fa-arrows-alt"></i></button>'
+	        "defaultContent": '<button type="button" name="button-refresh-extent" data-toggle="tooltip" data-placement="bottom" title="' + '{% trans "Refresh extent and layer definition" %}' + '" class="btn btn-info"><i class="fa fa-expand-arrows-alt"></i></button>'
 	  	},{
 	      	"targets": -4,
 	       	"data": null,
@@ -209,7 +209,7 @@ $(document).ready(function() {
 	});
 
 	var clearButton = '';
-	clearButton += '<button id="button-clean-filter" style="padding: 7px; margin: 0px; margin-left: 5px;" class="btn btn-sm btn-default"><i class="fa fa-eye margin-r-5"></i>' + gettext('Show all layers') + '</button>';
+	clearButton += '<button id="button-clean-filter" style="padding: 7px; margin: 0px; margin-left: 5px;" class="btn btn-sm btn-default"><i class="fas fa-eye margin-r-5"></i>' + gettext('Show all layers') + '</button>';
 	$('#layers-table_wrapper').prepend(clearButton);
 
 	var selectHtml = '';

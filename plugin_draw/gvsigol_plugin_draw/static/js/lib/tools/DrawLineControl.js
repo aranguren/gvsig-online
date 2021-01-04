@@ -60,7 +60,7 @@ var DrawLineControl = function(drawBar, map, styleSettings) {
 		}, this);
 	
 	this.control = new ol.control.Toggle({	
-		html: '<i class="fa fa-code-fork" ></i>',
+		html: '<i class="fa fa-code-branch" ></i>',
 		className: "edit",
 		title: gettext('Draw line'),
 		interaction: this.drawInteraction,

@@ -117,13 +117,13 @@ GvsigolResourceManager.prototype.loadResources = function(feature) {
 			resource += '</a>';
 		} else if  (resources[i].type == 'pdf') {
 			resource += '<a href="' + resources[i].url + '" target="_blank">';
-			resource += 	'<i style="font-size:24px;" class="fa fa-file-pdf-o margin-r-5"></i>';
+			resource += 	'<i style="font-size:24px;" class="fa fa-file-pdf margin-r-5"></i>';
 			resource += 	'<span style="color:#00c0ef;">' + resources[i].name + '</span>';
 			resource += '</a>';
 			
 		}  else if  (resources[i].type == 'video') {
 			resource += '<a href="' + resources[i].url + '" target="_blank">';
-			resource += 	'<i style="font-size:24px;" class="fa fa-file-video-o margin-r-5"></i>';
+			resource += 	'<i style="font-size:24px;" class="fa fa-file-video margin-r-5"></i>';
 			resource += 	'<span style="color:#00c0ef;">' + resources[i].name + '</span>';
 			resource += '</a>';
 			

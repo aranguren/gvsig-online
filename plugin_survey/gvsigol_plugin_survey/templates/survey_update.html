@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% load staticfiles %} {% load i18n %} 
+{% extends "base.html" %} {% load staticfiles %} {% load i18n %}
 {% block content %}
 <div class="row">
 	<div class="col-md-12">
@@ -24,13 +24,13 @@
 					{% if form.errors %}
 					<div id="form-error" style="color: #ff0000;">
 						<ul>
-							{% for field in form %} 
+							{% for field in form %}
 							{% if field.errors %}
-							<li>{{field.label}}. {{ field.errors|striptags }}</li> 
-							{% endif %} 
-							{% endfor %} 
+							<li>{{field.label}}. {{ field.errors|striptags }}</li>
+							{% endif %}
+							{% endfor %}
 							{% for field, msg in form.errors.iteritems %}
-							<li>{{ msg|striptags }}</li> 
+							<li>{{ msg|striptags }}</li>
 							{% endfor %}
 						</ul>
 					</div>
@@ -42,14 +42,14 @@
 							<label for="id_name">{% trans "Name" %}</label> {{ form.name }}
 						</div>
 					</div>
-					
+
 					<div class="row">
 						<div class="col-md-12 form-group">
 							<label for="id_name">{% trans "Title" %}</label> {{ form.title }}
 						</div>
 					</div>
 					</div>
-					
+
 					<div class="col-md-3">
 					<div class="project_linked">
 						<div class="col-md-12 form-group">
@@ -61,34 +61,34 @@
 										<img src="{{image}}" height="75" alt="Project Image">
 									</div>
 									<div class="product-info">
-										{{survey.project.title}} 
+										{{survey.project.title}}
 									</div>
 								</div>
 							</a>
 							{% else %}
 							<div class="product-case no-link">
 								<div class="product-img">
-									<i class="fa fa-chain-broken" aria-hidden="true"></i>
+									<i class="fa fa-unlink" aria-hidden="true"></i>
 								</div>
 								<div class="product-info">
-									<span class="product-title">{% trans "Not linked"%}</span> 
+									<span class="product-title">{% trans "Not linked"%}</span>
 								</div>
 							</div>
 							{% endif %}
-							
+
 						</div>
 					</div>
 					</div>
-					
+
 					</div>
-					
+
 					<div class="row">
-						<div class="col-md-12 form-group">	
+						<div class="col-md-12 form-group">
 							<label for="id_datastore">{% trans "Datastore" %}</label>
-							{{ form.datastore }}									
+							{{ form.datastore }}
 						</div>
 					</div>
-					
+
 					<div class="box-body">
 						<span class="box-title" style="font-size:18px;">{% trans "Feature types (layers)" %}
 						<div class="box-tools pull-right">
@@ -112,7 +112,7 @@
 							<tbody class="toc">
 								{% for tr in sections %}
 								<tr class="section-tr" data-value="{{ tr.id }}">
-									<td><span class="handle" style="margin-right: 20px;"> 
+									<td><span class="handle" style="margin-right: 20px;">
 										<i class="fa fa-ellipsis-v"></i>
 										<i class="fa fa-ellipsis-v"></i>
 									</span></td>
@@ -120,7 +120,7 @@
 									<td>{{ tr.name }}</td>
 									<td>{{ tr.title }}</td>
 									<td><div name="button-update-section-survey" data-value="{{ tr.id }}" data-toggle="tooltip" data-placement="bottom" title="{% trans "Update section survey" %}" class="btn btn-success btn-update-feature"><i class="fa fa-edit"></i></div></td>
-									<td><div name="button-update-section" data-value="{{ tr.id }}" data-toggle="modal" data-target="#modal-update-survey" data-placement="bottom" title="{% trans "Update section definition" %}" class="btn btn-warning btn-update-layer"><i class="fa fa-refresh"></i></div></td>
+									<td><div name="button-update-section" data-value="{{ tr.id }}" data-toggle="modal" data-target="#modal-update-survey" data-placement="bottom" title="{% trans "Update section definition" %}" class="btn btn-warning btn-update-layer"><i class="fa fa-sync"></i></div></td>
 									<td><div name="button-delete-survey" data-value="{{ tr.id }}" data-toggle="modal" data-target="#modal-delete-survey" data-placement="bottom" title="{% trans "Remove section survey" %}" class="btn btn-danger btn-delete-feature"><i class="fa fa-times"></i></div></td>
 								</tr>
 								{% endfor %}
@@ -231,28 +231,28 @@
 	$('#submenu-survey').addClass("active");
 </script>
 <script type="text/javascript">
-$().ready(function(){ 
-	
+$().ready(function(){
+
 	$("#id_name").prop('disabled', true);
-	
-	
+
+
 	$(".product-case.no-link").click(function(){
 		$('#modal-link-survey').modal('show');
 	});
-	
-	
+
+
 	$(".btn-add-feature").click(function(){
 		location.href = '/gvsigonline/survey/survey_section_add/{{ survey.id }}/';
 	});
-	
+
 	$(".btn-update-feature").click(function(){
 		var section_id = $(this).attr("data-value");
 		location.href = '/gvsigonline/survey/survey_section_update/'+ section_id +'/';
 	});
-	
+
 	$(".btn-update-layer").click(function(){
 		var section_id = $(this).attr("data-value");
-		
+
 		$('#button-update-survey-accept').unbind("click").click( function() {
 			$.ajax({
 				type: 'POST',
@@ -269,7 +269,7 @@ $().ready(function(){
 			});
 		});
 	});
-	
+
 	$(".btn-delete-feature").click(function(){
 		var section_id = $(this).attr("data-value");
 		$('#button-delete-survey-accept').click( function() {
@@ -288,15 +288,15 @@ $().ready(function(){
 			});
 		});
 	});
-	
+
 	$(".toc").sortable({
 		placeholder: "sort-highlight",
 		handle: ".handle",
 		forcePlaceholderSize: true,
 		zIndex: 999999
 	});
-	
-	
+
+
 	function order_tr(){
 		$("#order").val("");
 		$(".section-tr").each(function(){
@@ -309,22 +309,22 @@ $().ready(function(){
 			$("#order").val(value);
 		})
 	}
-	
+
 	var self = this;
 	$(".toc").on("sortupdate", function(event, ui){
 		order_tr();
 	});
-	
-	
+
+
 	$(".btn-save-form").click(function(){
 		order_tr();
 		$("#survey-form").submit();
 	});
-	
+
 	var datastore_id = "{{survey.datastore_id}}";
 	$("#id_datastore").val(datastore_id).trigger('change');
 	//$('#id_datastore option[value="'+datastore_id+'"]').prop('selected', true);
-	
+
 });
 </script>
 {% endblock %}

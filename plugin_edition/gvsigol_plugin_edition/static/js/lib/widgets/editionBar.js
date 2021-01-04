@@ -95,7 +95,7 @@ var EditionBar = function(layerTree, map, featureType, selectedLayer) {
 
 	} else if (this.geometryType == 'LineString' || this.geometryType == 'MultiLineString') {
 		drawControl.setAttribute("title", gettext('Add line'));
-		icon.setAttribute("class", "fa fa-code-fork");
+		icon.setAttribute("class", "fa fa-code-branch");
 		drawControl.appendChild(icon);
 		drawHandler = function(e) {
 			this_.drawLineHandler(e);
@@ -103,7 +103,7 @@ var EditionBar = function(layerTree, map, featureType, selectedLayer) {
 
 	} else if (this.geometryType == 'Polygon' || this.geometryType == 'MultiPolygon') {
 		drawControl.setAttribute("title", gettext('Add polygon'));
-		icon.setAttribute("class", "fa fa-object-ungroup");
+		icon.setAttribute("class", "far fa-object-ungroup");
 		drawControl.appendChild(icon);
 		drawHandler = function(e) {
 			this_.drawPolygonHandler(e);
@@ -143,7 +143,7 @@ var EditionBar = function(layerTree, map, featureType, selectedLayer) {
 	removeControl.setAttribute("class", "toolbar-button");
 	removeControl.setAttribute("title", gettext('Remove feature'));
 	var removeIcon = document.createElement('i');
-	removeIcon.setAttribute("class", "fa fa-trash");
+	removeIcon.setAttribute("class", "fa fa-trash-alt");
 	removeControl.appendChild(removeIcon);
 	var rmvHandler = function(e) {
 		this_.removeHandler(e);
@@ -610,7 +610,7 @@ EditionBar.prototype.showInfo = function(evt, layer, features, selectInteraction
 			var selectedLayer = layer;
 
 			var feature_id = "<span style=\"font-weight:bold; color:#0b6bd1; margin:0px 5px;\">"+features[i].getId() + "</span>";
-			feature_id += 		'<div class="feature-buttons" style="margin-right:-10px;"><span class="label feature-info-button feature-info-label-info " title="'+gettext('More element info')+'"><i class="fa fa-pencil" aria-hidden="true"></i></span></div><br />';
+			feature_id += 		'<div class="feature-buttons" style="margin-right:-10px;"><span class="label feature-info-button feature-info-label-info " title="'+gettext('More element info')+'"><i class="fas fa-pencil-alt" aria-hidden="true"></i></span></div><br />';
 			feature_id += "<br />";
 
 			var language = $("#select-language").val();
@@ -620,7 +620,7 @@ EditionBar.prototype.showInfo = function(evt, layer, features, selectInteraction
 					if(fields_trans["fields"]){
 						var fields = fields_trans["fields"];
 						var feature_id2 = "<span style=\"font-weight:bold; color:#0b6bd1; margin:0px 5px;\">"+selectedLayer.title + "</span>";
-						feature_id2 += 		'<div class="feature-buttons" style="margin-right:-10px;"><span class="label feature-info-button feature-info-label-info " title="'+gettext("Detalles de atributos")+'"><i class="fa fa-pencil" aria-hidden="true"></i></span></div><div style=\"clear:both; margin-bottom:10px;\"></div>';
+						feature_id2 += 		'<div class="feature-buttons" style="margin-right:-10px;"><span class="label feature-info-button feature-info-label-info " title="'+gettext("Detalles de atributos")+'"><i class="fas fa-pencil-alt" aria-hidden="true"></i></span></div><div style=\"clear:both; margin-bottom:10px;\"></div>';
 
 						var feature_added = 0;
 

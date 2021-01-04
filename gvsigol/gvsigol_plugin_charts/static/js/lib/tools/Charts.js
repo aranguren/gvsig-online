@@ -29,16 +29,16 @@ var Charts = function(conf, map, chartLayers) {
 	this.map = map;
 	this.chartLayers = chartLayers;
 	this.chartsView = new ChartsView(this.map);
-	
+
 	this.initialize();
 	this.registerEvents();
-	
+
 };
 
 Charts.prototype.initialize = function() {
 	var self = this;
 	var layers = this.map.getLayers();
-	
+
 	layers.forEach(function(layer){
 		if (layer.baselayer == false) {
 			if (layer.is_vector) {
@@ -47,7 +47,7 @@ Charts.prototype.initialize = function() {
 					if (chartLayer.charts.length > 0) {
 						var ui = '';
 						ui += '<div style="padding: 0px 12px !important;" class="btn btn-block btn-social btn-select btn-custom-tool">';
-						ui += 	'<i class="fa fa-bar-chart" aria-hidden="true"></i>';
+						ui += 	'<i class="fa fa-chart-bar" aria-hidden="true"></i>';
 						ui += 	'<select id="chart-layer-' + chartLayer.id + '" class="select-chart btn btn-block btn-custom-tool">';
 						ui += 		'<option value="__none__"><i class="aria-hidden="true"></i>'+ gettext('Select chart') +'...</option>';
 						for(var i=0; i<chartLayer.charts.length; i++){
@@ -61,8 +61,8 @@ Charts.prototype.initialize = function() {
 	    			var selector = '#layer-box-' + layer.get('id') + ' .box-body';
 	    			$(selector).prepend(ui);
 				}
-    			
-		    }				
+
+		    }
 		}
 	}, this);
 };
@@ -79,20 +79,20 @@ Charts.prototype.getChartLayer = function(mapLayer) {
 
 Charts.prototype.registerEvents = function() {
 	var self = this;
-	
+
 	$(".select-chart").change(function(e){
 		var _this = this;
 		var chartId = $('option:selected', $(this)).val();
 		if (chartId == '__none__') {
 			console.log('None');
-			
+
 		} else if (chartId == '__charts_dashboard__') {
 			$('body').overlay();
 			setTimeout(function(){
 				var layerId = $('option:selected', $(_this)).data().layerid;
 				self.showChartsView(layerId);
-			}, 2000);	
-			
+			}, 2000);
+
 		} else {
 			$('body').overlay();
 			setTimeout(function(){
@@ -122,15 +122,15 @@ Charts.prototype.showChartsView = function(layerId) {
   				layer_title: response.layer_title,
   				layer_workspace: response.layer_workspace,
 				layer_wfs_url: response.layer_wfs_url,
-				layer_native_srs: response.layer_native_srs  
+				layer_native_srs: response.layer_native_srs
   			};
 	  		var charts = response.charts;
-	  		
+
 	  		$('#container').hide();
 	  		$('.viewer-search-form').css("display","none");
 	  		$('#gvsigol-navbar-tools-dropdown').css("display","none");
 			$('#chart-layer-' + layerId + ' option[value=__none__]').prop("selected", true);
-			  
+
 	  		self.chartsView.createUI(layer, charts);
 			self.chartsView.loadCharts();
 			$.overlayout();
@@ -152,7 +152,7 @@ Charts.prototype.showSingleChart = function(layerId, chartId) {
 		},
 	  	data: {
 			layer_id: layerId,
-			chart_id: chartId  
+			chart_id: chartId
 	  	},
 	  	success	:function(response){
 	  		var layer = {
@@ -161,7 +161,7 @@ Charts.prototype.showSingleChart = function(layerId, chartId) {
   				layer_title: response.layer_title,
   				layer_workspace: response.layer_workspace,
 				layer_wfs_url: response.layer_wfs_url,
-				layer_native_srs: response.layer_native_srs  
+				layer_native_srs: response.layer_native_srs
   			};
 	  		var chart = response.chart;
 

@@ -130,7 +130,7 @@ Expressions.prototype.getFilterFormUI = function(ruleid) {
 	ui += 					'<li><a id="add-or" data-ruleid="' + ruleid + '" href="#">'+gettext("OR expression")+'</a></li>';
 	ui += 				'</ul>';
 	ui += 			'</div>';
-	ui += 			'<button id="save-filter" data-ruleid="' + ruleid + '" class="btn btn-sm btn-default save-filter"><i class="fa fa-floppy-o margin-r-5"></i> ' + gettext('Save filter') + '</button>';
+	ui += 			'<button id="save-filter" data-ruleid="' + ruleid + '" class="btn btn-sm btn-default save-filter"><i class="fa fa-save margin-r-5"></i> ' + gettext('Save filter') + '</button>';
 	ui += 		'</div>';
 	ui += 	'</div>';
 	ui += 	'<div class="box-body">';

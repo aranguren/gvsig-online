@@ -62,7 +62,7 @@ var DrawPolygonControl = function(drawBar, map, styleSettings) {
 		}, this);
 	
 	this.control = new ol.control.Toggle({	
-		html: '<i class="fa fa-object-ungroup" ></i>',
+		html: '<i class="far fa-object-ungroup" ></i>',
 		className: "edit",
 		title: gettext('Draw polygon'),
 		interaction: this.drawInteraction

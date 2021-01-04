@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% load i18n %}
 
-{% block content %}	  
+{% block content %}
 <div class="row">
 	<div class="col-md-12">
 		<div class="box">
@@ -15,28 +15,28 @@
 						<ul class="products-list product-list-in-box">
 							<li class="item">
 								<div class="product-img">
-									<span class="new-style-options-icon"><i class="fa fa-bar-chart"></i></span>
+									<span class="new-style-options-icon"><i class="fa fa-chart-bar"></i></span>
 								</div>
 								<div class="product-info">
-									<a href="/gvsigonline/charts/barchart_add/{{layer.id}}/" class="product-title">{% trans "Bar Chart" %}</a> 
+									<a href="/gvsigonline/charts/barchart_add/{{layer.id}}/" class="product-title">{% trans "Bar Chart" %}</a>
 									<span class="product-description"> {% trans "Create new bar chart" %} </span>
 								</div>
 							</li>
 							<li class="item">
 								<div class="product-img">
-									<span class="new-style-options-icon"><i class="fa fa-line-chart"></i></span>
+									<span class="new-style-options-icon"><i class="fa fa-chart-line"></i></span>
 								</div>
 								<div class="product-info">
-									<a href="/gvsigonline/charts/linechart_add/{{layer.id}}/" class="product-title">{% trans "Line Chart" %}</a> 
+									<a href="/gvsigonline/charts/linechart_add/{{layer.id}}/" class="product-title">{% trans "Line Chart" %}</a>
 									<span class="product-description"> {% trans "Create new line chart" %} </span>
 								</div>
 							</li>
 							<li class="item">
 								<div class="product-img">
-									<span class="new-style-options-icon"><i class="fa fa-pie-chart"></i></span>
+									<span class="new-style-options-icon"><i class="fa fa-chart-pie"></i></span>
 								</div>
 								<div class="product-info">
-									<a href="/gvsigonline/charts/piechart_add/{{layer.id}}/" class="product-title">{% trans "Pie Chart" %}</a> 
+									<a href="/gvsigonline/charts/piechart_add/{{layer.id}}/" class="product-title">{% trans "Pie Chart" %}</a>
 									<span class="product-description"> {% trans "Create new pie chart" %} </span>
 								</div>
 							</li>
@@ -46,7 +46,7 @@
 			</div>
 		</div>
 	</div>
-</div> 		  	
+</div>
 {% endblock %}
 
 {% block extra-scripts %}

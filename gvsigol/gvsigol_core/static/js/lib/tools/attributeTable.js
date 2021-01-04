@@ -189,7 +189,7 @@ attributeTable.prototype.createTableUI = function(featureType) {
 	var tableButtons = new Array();
 	tableButtons.push({
 		extend: 'csvHtml5',
-		text: '<i class="fa fa-file-text-o margin-r-5"></i> CSV',
+		text: '<i class="fa fa-file-alt margin-r-5"></i> CSV',
 		exportOptions: {
             format: {
                 body: function ( data, row, column, node ) {
@@ -210,7 +210,7 @@ attributeTable.prototype.createTableUI = function(featureType) {
 	});
 	tableButtons.push({
    	 	extend: 'excelHtml5',
-   	 	text: '<i class="fa fa-file-excel-o margin-r-5"></i> Excel',
+   	 	text: '<i class="fa fa-file-excel margin-r-5"></i> Excel',
 		exportOptions: {
             format: {
                 body: function ( data, row, column, node ) {
@@ -232,7 +232,7 @@ attributeTable.prototype.createTableUI = function(featureType) {
 	});
 	/*tableButtons.push({
    	 	extend: 'print',
-		text: '<i class="fa fa-file-pdf-o margin-r-5"></i> Pdf',
+		text: '<i class="fa fa-file-pdf margin-r-5"></i> Pdf',
 		title: self.layer.title
 	});*/
 	var print = viewer.core.getTool('print');
@@ -277,33 +277,33 @@ attributeTable.prototype.createTableUI = function(featureType) {
 	});
 	if (self.conf.gvsigol_app == 'gvsigol_app_sav') {
 		tableButtons.push({
-			text: '<i class="fa fa-file-pdf-o margin-r-5"></i> ' + gettext('PDF Report'),
+			text: '<i class="fa fa-file-pdf margin-r-5"></i> ' + gettext('PDF Report'),
 			className: 'sav-report-button',
 			action: function ( e, dt, node, config ) {
 				var t = $('#table-' + self.layer.get("id")).DataTable();
 				var selectedRows = t.rows('.selected').data();
 				if (selectedRows.length > 0){
 					self.createPdfReport(selectedRows);
-	
+
 				} else {
 					messageBox.show('warning', gettext('You must select at least one row'));
 				}
 			}
 		});
-	}	
+	}
 
 	for (var i=0; i<self.conf.project_tools.length; i++) {
 		if (self.conf.project_tools[i].name == 'gvsigol_plugin_turiscan') {
 			if (self.conf.project_tools[i].checked) {
 				tableButtons.push({
-					text: '<i class="fa fa-list-alt margin-r-5"></i> ' + gettext('Mostrar fichas'),
+					text: '<i class="far fa-list-alt margin-r-5"></i> ' + gettext('Mostrar fichas'),
 					className: 'show-cards-button',
 					action: function ( e, dt, node, config ) {
 						var t = $('#table-' + self.layer.get("id")).DataTable();
 						var selectedRows = t.rows('.selected').data();
 						if (selectedRows.length > 0){
 							self.showCards(selectedRows);
-			
+
 						} else {
 							messageBox.show('warning', gettext('You must select at least one row'));
 						}
@@ -379,7 +379,7 @@ attributeTable.prototype.createTableUI = function(featureType) {
 	        self.selectFeatures();
 	    }
 	});
-	
+
 	/*$('.panel-wrapper').on('resize', function(event, ui){
 		var oSettings = self.table.fnSettings();
 		oSettings.oScroll.sY = ui.size.height;
@@ -1126,36 +1126,36 @@ attributeTable.prototype.getReport = function(reportInfo) {
  */
 attributeTable.prototype.createPdfReport = function(selectedRows) {
 	var self = this;
-	
+
 	this.checkCount = 0;
-	
+
 	var body = '';
 	body += '<div class="row">';
 	body += 	'<div class="col-md-12 form-group">';
 	body +=			'<label>' + gettext('Report title') + '</label>';
-	body += 		'<input name="report-title" id="report-title" type="text" value="' + gettext('Insert title') + ' ..." class="form-control">';					
+	body += 		'<input name="report-title" id="report-title" type="text" value="' + gettext('Insert title') + ' ..." class="form-control">';
 	body += 	'</div>';
 	body += '</div>';
-	
+
 	body += '<div class="row">';
 	body += 	'<div class="col-md-12 form-group">';
 	body +=			'<label>' + gettext('Report description') + '</label>';
-	body += 		'<input name="report-description" id="report-description" type="text" value="' + gettext('Insert description') + ' ..." class="form-control">';					
+	body += 		'<input name="report-description" id="report-description" type="text" value="' + gettext('Insert description') + ' ..." class="form-control">';
 	body += 	'</div>';
 	body += '</div>';
-	
+
 	body += '<div class="row">';
 	body += 	'<div class="col-md-12 form-group">';
 	body +=			'<input checked type="checkbox" name="report-option" value="report-include-images"> <label style="font-weight: normal;">' + gettext('Include images related to report elements') + '</label>';
 	body += 	'</div>';
 	body += '</div>';
-	
+
 	body += '<div class="row">';
 	body += 	'<div class="col-md-12 form-group">';
 	body +=			'<input checked type="checkbox" name="report-option" value="report-include-address"> <label style="font-weight: normal;">' + gettext('Include the address related to report elements') + '</label>';
 	body += 	'</div>';
 	body += '</div>';
-	
+
 	body += '<div class="row">';
 	body += 	'<div class="col-md-12 form-group">';
 	body +=			'<label>' + gettext('Fields to include') + '</label>';
@@ -1175,20 +1175,20 @@ attributeTable.prototype.createPdfReport = function(selectedRows) {
 		}
 	}
 	body += '</div>';
-	
+
 	$('#float-modal .modal-body').empty();
 	$('#float-modal .modal-body').append(body);
-	
+
 	var buttons = '';
 	buttons += '<button id="float-modal-cancel-print" type="button" class="btn btn-default" data-dismiss="modal">' + gettext('Cancel') + '</button>';
 	buttons += '<button id="float-modal-accept-print" style="border:none; color: white;background-color: #07579E !important" type="button" class="btn btn-default">' + gettext('Generate PDF') + '</button>';
-	
+
 	$('#float-modal .modal-footer').empty();
 	$('#float-modal .modal-footer').append(buttons);
-	
+
 	$("#float-modal").modal('show');
-	
-	var self = this;	
+
+	var self = this;
 	$('#float-modal-accept-print').on('click', function () {
 		var title = $('#report-title').val();
 		var description = $('#report-description').val();
@@ -1200,7 +1200,7 @@ attributeTable.prototype.createPdfReport = function(selectedRows) {
         $.each($("input[name='report-field']:checked"), function(){
         	fields.push($(this).val());
         });
-        
+
         var reportElements = new Array();
         for (var j=0; j<selectedRows.length; j++) {
         	var feat = self.getFeature(selectedRows[j]);
@@ -1228,7 +1228,7 @@ attributeTable.prototype.createPdfReport = function(selectedRows) {
         	});
         }
         self.source.clear();
-		
+
         self.imageUrls = new Array();
     	self.arrayImages = new Array();
     	self.count = 0;
@@ -1248,17 +1248,17 @@ attributeTable.prototype.createPdfReport = function(selectedRows) {
     	self.getImagesFromUrl();
 		$('#float-modal').modal('hide');
 	});
-	
+
 	$('input[name=report-field]').change(function(e) {
 		if ($(this).is(':checked')) {
 			if (self.checkCount >= 8) {
 				$(this).attr('checked', false);
 				messageBox.show('warning', gettext('El número máximo de campos a mostrar en la impresión es 8'));
-				
+
 			} else {
 				self.checkCount++;
 			}
-			
+
 		} else {
 			self.checkCount--;
 		}
@@ -1267,7 +1267,7 @@ attributeTable.prototype.createPdfReport = function(selectedRows) {
 
 attributeTable.prototype.getFieldTitle = function(fieldName) {
 	var language = $("#select-language").val();
-	
+
 	var title = fieldName;
 	for (var i=0; i<this.layer.conf.fields.length; i++) {
 		if (this.layer.conf.fields[i].name == fieldName) {
@@ -1281,11 +1281,11 @@ attributeTable.prototype.getFieldTitle = function(fieldName) {
 attributeTable.prototype.getImagesFromUrl = function() {
 	var self = this;
 	var img = new Image, data, ret={data: null, pending: true};
-	
+
     img.onError = function() {
     	throw new Error('Cannot load image: "' + url + '"');
     };
-        
+
     img.onload = function() {
     	if (self.count < self.imageUrls.length) {
     		var image = {
@@ -1293,15 +1293,15 @@ attributeTable.prototype.getImagesFromUrl = function() {
     			data	: img
     		};
     		self.arrayImages.push(image);
-	        self.getImagesFromUrl();	
-	    
-	    } else {	
+	        self.getImagesFromUrl();
+
+	    } else {
 	    	var image = {
     			type	: img.iType,
     			data	: img
     		};
     		self.arrayImages.push(image);
-    		
+
     		for (var i=0; i < self.arrayImages.length; i++) {
     			var auxImg = self.arrayImages[i].data;
     			var cv = document.createElement('canvas');
@@ -1319,13 +1319,13 @@ attributeTable.prototype.getImagesFromUrl = function() {
 	    		self.arrayImages[i].dataUrl = im;
 				document.body.removeChild(cv);
 			}
-			
+
 			self.createPDF();
     	}
     };
-    
+
     img.iType = this.imageUrls[this.count].type;
-    	        	
+
     img.src = this.imageUrls[this.count].url;
     this.count++;
 };
@@ -1335,14 +1335,14 @@ attributeTable.prototype.getImagesFromUrl = function() {
  */
 attributeTable.prototype.createPDF = function() {
 	var doc = new jsPDF();
-	
+
 	doc.setFontSize(32);
 	doc.text(10, 15, this.title);
 	doc.setFontSize(12);
 	doc.text(10, 22, this.description);
-	
+
 	var top = 35;
-	
+
 	var numItems = 0;
 	for (var i=0; i < this.registers.length; i++) {
 		if (numItems > 3) {
@@ -1383,7 +1383,7 @@ attributeTable.prototype.createPDF = function() {
 		top = top + 65;
 		numItems++;
 	}
-	
+
 	var url = doc.output('dataurlstring');
 	var html = '<html>' +
     '<style>html, body { padding: 0; margin: 0; } iframe { width: 100%; height: 100%; border: 0;}  </style>' +
@@ -1406,7 +1406,7 @@ attributeTable.prototype.getRegisterImage = function(register) {
 		}
 	}
 	return imgData;
-	
+
 };
 
 /**
@@ -1415,7 +1415,7 @@ attributeTable.prototype.getRegisterImage = function(register) {
 attributeTable.prototype.getFeature = function(row) {
 	var self = this;
 	var feature = null;
-	
+
 	var typename = row.featureid.split('.')[0];
 	$.ajax({
 		type: 'POST',
@@ -1493,11 +1493,11 @@ attributeTable.prototype.getAddress = function(feat) {
 		  	},
 		  	error: function(){}
 		});
-		
+
 	} else {
 		address = 'No encontrado';
 	}
-	
+
 	return address;
 };
 
@@ -1520,7 +1520,7 @@ attributeTable.prototype.getResources = function(feat) {
 	  	},
 	  	error: function(){}
 	});
-	
+
 	return resources;
 };
 
@@ -1529,7 +1529,7 @@ attributeTable.prototype.getResources = function(feat) {
  */
 attributeTable.prototype.showCards = function(selectedRows) {
 	var self = this;
-	
+
 	var features = new Array();
 	for (var j=0; j<selectedRows.length; j++) {
 		var feat = self.getFeature(selectedRows[j]);

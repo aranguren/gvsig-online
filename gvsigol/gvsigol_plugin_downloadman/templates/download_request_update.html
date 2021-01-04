@@ -62,7 +62,7 @@
 								<label>{% trans "Tracking URL" %}</label>
 								<div class="input-group">
 								<a target="_blank" href="{% url 'download-request-tracking' download_request.request_random_id %}"><input class="form-control" readonly type="text" value="{% url 'download-request-tracking' download_request.request_random_id %}"></a>
-								<a class="input-group-addon" target="_blank" href="{% url 'download-request-tracking' download_request.request_random_id %}"><i class="fa fa-external-link"></i></a>
+								<a class="input-group-addon" target="_blank" href="{% url 'download-request-tracking' download_request.request_random_id %}"><i class="fa fa-external-link-alt"></i></a>
 								</div>
 							</div>
 						</div>
@@ -120,7 +120,7 @@
 								<label>{% trans "Requested area" %}</label>
 								<div class="input-group">
 								<a target="_blank" href="{{download_request.shared_view_url}}"><input class="form-control" readonly name="shv-request-area" id="shv-request-area" type="text" value="{{download_request.shared_view_url}}"></a>
-								<a class="input-group-addon" target="_blank" href="{{download_request.shared_view_url}}"><i class="fa fa-external-link"></i></a>
+								<a class="input-group-addon" target="_blank" href="{{download_request.shared_view_url}}"><i class="fa fa-external-link-alt"></i></a>
 								</div>
 							</div>
 						</div>
@@ -159,7 +159,7 @@
 												<td>{{ download_link.valid_to }}</td>
 												<td>{{ download_link.download_count }}</td>
 												<td>{{ download_link.contents_details }}</td>
-												<td><a target="_blank" href="{% url 'downman-download-resource' download_request.request_random_id download_link.link_random_id %}"><i class="fa fa-external-link"></i></a></td>
+												<td><a target="_blank" href="{% url 'downman-download-resource' download_request.request_random_id download_link.link_random_id %}"><i class="fa fa-external-link-alt"></i></a></td>
 											{% if download_link.prepared_download_path %}
 												<!-- <td>{{ download_link.prepared_download_path }}</td> -->
 											{% else %}

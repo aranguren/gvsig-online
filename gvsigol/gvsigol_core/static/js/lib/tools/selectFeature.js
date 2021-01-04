@@ -42,7 +42,7 @@ var selectFeature = function(map, viewer) {
 	button.setAttribute("class", "toolbar-button");
 	button.setAttribute("title", gettext('Select Feature'));
 	var icon = document.createElement('i');
-	icon.setAttribute("class", "fa fa-object-group");
+	icon.setAttribute("class", "far fa-object-group");
 	button.appendChild(icon);
 
 	this.$button = $(button);

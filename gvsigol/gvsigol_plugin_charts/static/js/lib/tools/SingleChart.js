@@ -111,6 +111,7 @@ SingleChart.prototype.loadVectorLayer = function() {
       // These lines must be modified
       username:'admin',
       password:'myawesomegeoserver',
+      
 	  	success	:function(response){
 	  		var geojson = new ol.format.GeoJSON();
 	  		features = geojson.readFeatures(response);

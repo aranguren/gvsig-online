@@ -10,7 +10,7 @@
 	var conf = viewer.core.getConf();
 	
 	if (viewer.core.ifToolInConf('gvsigol_plugin_elevation')) {
-		var button = '<li role="presentation"><a id="elevation-control" role="menuitem" tabindex="-1" href="#"><i class="fa fa-line-chart m-r-5"></i>'+gettext("Elevation profile")+'</a></li>';
+		var button = '<li role="presentation"><a id="elevation-control" role="menuitem" tabindex="-1" href="#"><i class="fa fa-chart-line m-r-5"></i>'+gettext("Elevation profile")+'</a></li>';
 		$('#gvsigol-navbar-file-menu').append(button);
 		
 		$.ajax({

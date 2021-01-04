@@ -44,7 +44,7 @@ var SelectBoxControl = function(map, toolbar) {
 	});
 	
 	this.control = new ol.control.Toggle({	
-		html: '<i class="fa fa-object-group " ></i>',
+		html: '<i class="far fa-object-group " ></i>',
 		className: "edit",
 		title: gettext('Select features'),
 		interaction: this.interaction,

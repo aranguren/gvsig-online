@@ -9,7 +9,7 @@
 				<div class="row">
 					<div class="col-md-12 form-group">
 						<div class="box-tools pull-right">
-							<button id="save_button" class="save_button btn btn-default btn-sm"><i class="fa fa-floppy-o margin-r-5"></i> {% trans "Update" %}</button>					
+							<button id="save_button" class="save_button btn btn-default btn-sm"><i class="fa fa-save margin-r-5"></i> {% trans "Update" %}</button>					
 						</div>
 					</div>
 					<div class="row" style="padding-left: 30px;">
@@ -159,7 +159,7 @@
 			ui += 	'<td id="node-status-' + n.id + '">' + n.status + '</td>';
 			ui += 	'<td id="node-url-' + n.id + '">' + n.url + '</td>';
 			ui += 	'<td id="node-ismaster-' + n.id + '">' + n.is_master + '</td>';
-			ui += 	'<td><a class="reload-node-' + n.id + '" data-nodeid="' + n.id + '" href="javascript:void(0)"><i class="fa fa-refresh text-primary"></i></a></td>';
+			ui += 	'<td><a class="reload-node-' + n.id + '" data-nodeid="' + n.id + '" href="javascript:void(0)"><i class="fa fa-sync text-primary"></i></a></td>';
 			ui += 	'<td><a class="edit-node-' + n.id + '" data-nodeid="' + n.id + '" href="javascript:void(0)"><i class="fa fa-edit text-primary"></i></a></td>';
 			ui += 	'<td><a class="delete-node-' + n.id + '" data-nodeid="' + n.id + '" href="javascript:void(0)"><i class="fa fa-times text-danger"></i></a></td>';
 			ui += '</tr>';
@@ -192,7 +192,7 @@
 		ui += 	'<td id="node-status-' + node.id + '">' + node.status + '</td>';
 		ui += 	'<td id="node-url-' + node.id + '">' + node.url + '</td>';
 		ui += 	'<td id="node-ismaster-' + node.id + '">' + node.is_master + '</td>';
-		ui += 	'<td><a class="reload-node-' + node.id + '" data-nodeid="' + node.id + '" href="javascript:void(0)"><i class="fa fa-refresh text-primary"></i></a></td>';
+		ui += 	'<td><a class="reload-node-' + node.id + '" data-nodeid="' + node.id + '" href="javascript:void(0)"><i class="fa fa-sync text-primary"></i></a></td>';
 		ui += 	'<td><a class="edit-node-' + node.id + '" data-nodeid="' + node.id + '" href="javascript:void(0)"><i class="fa fa-edit text-primary"></i></a></td>';
 		ui += 	'<td><a class="delete-node-' + node.id + '" data-nodeid="' + node.id + '" href="javascript:void(0)"><i class="fa fa-times text-danger"></i></a></td>';
 		ui += '</tr>';

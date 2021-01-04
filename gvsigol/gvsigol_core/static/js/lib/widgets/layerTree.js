@@ -1931,7 +1931,7 @@ layerTree.prototype.createOverlayUI = function(layer, group_visible) {
 
 		if(layer.styles){
 			if (layer.styles.length > 1) {
-				ui += '		<div class="btn btn-block btn-social btn-select btn-custom-tool"><i class="fa fa-map-marker" aria-hidden="true"></i><select id="symbol-to-layer-' + id + '" class="symbol-to-layer btn btn-block btn-custom-tool">';
+				ui += '		<div class="btn btn-block btn-social btn-select btn-custom-tool"><i class="fas fa-map-marker-alt" aria-hidden="true"></i><select id="symbol-to-layer-' + id + '" class="symbol-to-layer btn btn-block btn-custom-tool">';
 				for(var i=0; i<layer.styles.length; i++){
 					var ttitle = layer.styles[i].title;
 					if(!ttitle || ttitle.length == 0){

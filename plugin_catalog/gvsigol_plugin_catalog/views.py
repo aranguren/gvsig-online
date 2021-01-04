@@ -132,7 +132,7 @@ def get_metadata_as_html(response, lang='eng'):
             for contact in response['contacts']['resource_contacts']:
                 if contact.get('organisation'):
                     if contact.get('onlineResource') and contact.get('onlineResource').get('url'):
-                        onlineResourceHtml = u'&nbsp;&nbsp;<a href="'+contact.get('onlineResource').get('url')+u'" target="_blank" class="fa fa-external-link"> ' + contact.get('onlineResource').get('name') + u'</a>'
+                        onlineResourceHtml = u'&nbsp;&nbsp;<a href="'+contact.get('onlineResource').get('url')+u'" target="_blank" class="fa fa-external-link-alt"> ' + contact.get('onlineResource').get('name') + u'</a>'
                     else:
                         onlineResourceHtml = u''
                     contactsHtml += u'<p><span class="catalog_detail_attr">' + _(contact.get('role', u'Contact')) + u": </span>"+contact.get('organisation')+onlineResourceHtml+u'</p>'
@@ -143,7 +143,7 @@ def get_metadata_as_html(response, lang='eng'):
             for contact in response['contacts']['metadata_contacts']:
                 if contact.get('organisation'):
                     if contact.get('onlineResource') and contact.get('onlineResource').get('url'):
-                        onlineResourceHtml = u'&nbsp;&nbsp;<a href="'+contact.get('onlineResource').get('url')+u'" target="_blank" class="fa fa-external-link"> ' + contact.get('onlineResource').get('name') + u'</a>'
+                        onlineResourceHtml = u'&nbsp;&nbsp;<a href="'+contact.get('onlineResource').get('url')+u'" target="_blank" class="fa fa-external-link-alt"> ' + contact.get('onlineResource').get('name') + u'</a>'
                     else:
                         onlineResourceHtml = u''
                     contactsHtml += u'<p><span class="catalog_detail_attr">' + _(contact.get('role', u'Contact')) + u": </span>"+contact.get('organisation')+onlineResourceHtml+u'</p>'
@@ -190,7 +190,7 @@ def get_metadata_as_html(response, lang='eng'):
                 gn_md_url = text(catalog_settings.CATALOG_BASE_URL) + u"/srv/" + text(lang) + u"/catalog.search#metadata/" + response.get('metadata_id', u'')
                 html += u'        <span class="catalog_detail_attr">' + _(u'Metadata identifier') + u':</span>'
                 html += u'        '+response.get('metadata_id', u'')
-                html += u'        &nbsp;&nbsp;<a class="fa fa-external-link" target="_blank" href="' + gn_md_url + u'">'+_(u' Show in Catalog')+u'</a>'
+                html += u'        &nbsp;&nbsp;<a class="fa fa-external-link-alt" target="_blank" href="' + gn_md_url + u'">'+_(u' Show in Catalog')+u'</a>'
                 html += u'        <br />'
             # online services
             ogcservices_html = ''

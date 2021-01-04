@@ -18288,7 +18288,7 @@ ol.style.dbPediaStyleFunction = function(options) {
           if (type.match("/Museum")) return "fa-camera";
           else if (type.match("/Monument")) return "fa-building";
           else if (type.match("/Sculpture")) return "fa-android";
-          else if (type.match("/Religious")) return "fa-institution";
+          else if (type.match("/Religious")) return "fa-university";
           else if (type.match("/Castle")) return "fa-key";
           else if (type.match("Water")) return "fa-tint";
           else if (type.match("Island")) return "fa-leaf";

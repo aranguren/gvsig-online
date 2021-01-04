@@ -1541,13 +1541,13 @@ CatalogView.prototype.installNavBars = function() {
 	html += 		gettext('Catalog') + ' <span class="caret"></span>';
 	html += 	'</a>';
 	html += 	'<ul id="gvsigol-navbar-views-menu" class="dropdown-menu">';
-	html += 		'<li id="show_catalog" role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="fa fa-newspaper-o m-r-5"></i>' + gettext('Catalog and downloads') + '</a></li>';
+	html += 		'<li id="show_catalog" role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="far fa-newspaper m-r-5"></i>' + gettext('Catalog and downloads') + '</a></li>';
 	html += 	'</ul>';
 	html += '</li>';
 
 	$("#gvsigol-navbar-menus").append(html);*/
 
-	var button = '<li id="show_catalog" role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="fa fa-newspaper-o m-r-5"></i>' + gettext('Catalog') + '</a></li>';
+	var button = '<li id="show_catalog" role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="far fa-newspaper m-r-5"></i>' + gettext('Catalog') + '</a></li>';
 	$('#gvsigol-navbar-views-menu').append(button);
 
 	$("#show_catalog").click(function(){

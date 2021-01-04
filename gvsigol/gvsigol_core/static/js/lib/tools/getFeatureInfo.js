@@ -500,7 +500,7 @@ getFeatureInfo.prototype.showPopup = function(){
 
 	html += '<li class="item">';
 	html += 	'<div class="feature-info">';
-	html += 		'<i id="coord-to-clipboard" style="margin-right: 5px; cursor: pointer;" class="fa fa-clipboard"></i><span style="font-size: 12px;">' + gettext('Coordinates') + ' ('+srs+')</span>' + '<br /><span style="font-weight: bold; font-size: 12px;"> ' + coord_2 + ', '+ coord_1 + '  ' + elevation + '</span>';
+	html += 		'<i id="coord-to-clipboard" style="margin-right: 5px; cursor: pointer;" class="far fa-clipboard"></i><span style="font-size: 12px;">' + gettext('Coordinates') + ' ('+srs+')</span>' + '<br /><span style="font-weight: bold; font-size: 12px;"> ' + coord_2 + ', '+ coord_1 + '  ' + elevation + '</span>';
 	html += 		'<div style="float: right;height: 20px;width: 20px; margin-bottom:10px;" id="info-spinner"></div>';
 	html += 		'<textarea style="display: block;height: 1px;width: 1px;" class="coords-to-copy">' + hiddenInput + '</textarea>';
 	html += 	'</div>';
@@ -598,7 +598,7 @@ getFeatureInfo.prototype.appendInfo = function(features, count){
 				if (!selectedLayer.external) {
 					var feature_id = "<a href=\"javascript:void(0)\" class=\"feature-info-label-title"+count+"\" style=\"font-weight:bold; color:#0b6bd1; margin:0px 5px;\">"+features[i].layer.title +"."+features[i].feature.feature + "</a>";
 					feature_id += 		'<div class="feature-buttons" style="margin-right:-10px;"><span class="label feature-info-button feature-info-label-info'+count+'" title="'+gettext('More element info')+'"><i class="fa fa-list-ul" aria-hidden="true"></i></span>';
-					feature_id += 		'<span class="label feature-info-button feature-info-label-resource'+count+'" title="'+gettext('Multimedia resources')+'"><i class="fa fa-image" aria-hidden="true"></i></span></div><br />';
+					feature_id += 		'<span class="label feature-info-button feature-info-label-resource'+count+'" title="'+gettext('Multimedia resources')+'"><i class="far fa-image" aria-hidden="true"></i></span></div><br />';
 					feature_id += "<br />";
 
 					var language = $("#select-language").val();
@@ -609,7 +609,7 @@ getFeatureInfo.prototype.appendInfo = function(features, count){
 								var fields = fields_trans["fields"];
 								var feature_id2 = "<span style=\"font-weight:bold; color:#0b6bd1; margin:0px 5px;\">"+selectedLayer.title + "</span>";
 								feature_id2 += 		'<div class="feature-buttons" style="margin-right:-10px;"><span class="label feature-info-button feature-info-label-info'+count+'" title="'+gettext("Attribute details")+'"><i class="fa fa-list-ul" aria-hidden="true"></i></span>';
-								feature_id2 += 		'<span class="label feature-info-button feature-info-label-resource'+count+'" title="'+gettext("Show resources")+'"><i class="fa fa-image" aria-hidden="true"></i></span></div><div style=\"clear:both; margin-bottom:10px;\"></div>';
+								feature_id2 += 		'<span class="label feature-info-button feature-info-label-resource'+count+'" title="'+gettext("Show resources")+'"><i class="far fa-image" aria-hidden="true"></i></span></div><div style=\"clear:both; margin-bottom:10px;\"></div>';
 
 								var feature_added = 0;
 
@@ -963,7 +963,7 @@ getFeatureInfo.prototype.showMoreInfo = function(fid, features, tab_opened){
 					} else if  (selectedFeature.resources[i].type == 'pdf') {
 						resourcesContent += '<li style="padding: 20px;">';
 						resourcesContent += '<a href="' + selectedFeature.resources[i].url + '" target="_blank">';
-						resourcesContent += 	'<i style="font-size:24px;" class="fa fa-file-pdf-o margin-r-5"></i>';
+						resourcesContent += 	'<i style="font-size:24px;" class="fa fa-file-pdf margin-r-5"></i>';
 						resourcesContent += 	'<span style="color:#00c0ef;">' + selectedFeature.resources[i].name + '</span>';
 						resourcesContent += '</a>';
 						resourcesContent += '</li>';
@@ -971,7 +971,7 @@ getFeatureInfo.prototype.showMoreInfo = function(fid, features, tab_opened){
 					} else if  (selectedFeature.resources[i].type == 'video') {
 						resourcesContent += '<li style="padding: 20px;">';
 						resourcesContent += '<a href="' + selectedFeature.resources[i].url + '" target="_blank">';
-						resourcesContent += 	'<i style="font-size:24px;" class="fa fa-file-video-o margin-r-5"></i>';
+						resourcesContent += 	'<i style="font-size:24px;" class="fa fa-file-video margin-r-5"></i>';
 						resourcesContent += 	'<span style="color:#00c0ef;">' + selectedFeature.resources[i].name + '</span>';
 						resourcesContent += '</a>';
 						resourcesContent += '</li>';
@@ -1006,7 +1006,7 @@ getFeatureInfo.prototype.showMoreInfo = function(fid, features, tab_opened){
 						resourcesContent += 		'</ul>';
 						resourcesContent += 	'</div>';
 						resourcesContent += 	'<div class="box-footer text-center">';
-						resourcesContent += 		'<a id="view-resources" data-url="' + selectedFeature.resources[i].url + '" href="javascript:void(0)" style="margin-right: 10px;"><i class="fa fa-eye"></i> ' + gettext('View resources') + '</a>';
+						resourcesContent += 		'<a id="view-resources" data-url="' + selectedFeature.resources[i].url + '" href="javascript:void(0)" style="margin-right: 10px;"><i class="fas fa-eye"></i> ' + gettext('View resources') + '</a>';
 						resourcesContent += 	'</div>';
 						resourcesContent += '</div>';
 						resourcesContent += '</li>';

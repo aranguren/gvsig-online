@@ -153,7 +153,7 @@ SelectionTable.prototype.createTableUI = function(featureType, features, layerNa
 	var properties = new Array();
 	var propertiesWithType = new Array();
 	var columns = new Array();
-	
+
 	featureType.sort(function(a, b) {
 	    var textA = a.name.toUpperCase();
 	    var textB = b.name.toUpperCase();
@@ -199,31 +199,31 @@ SelectionTable.prototype.createTableUI = function(featureType, features, layerNa
 
 	$('#tab-table-' + tabCount).empty();
 	$('#tab-table-' + tabCount).append(table);
-	
+
 	var orderedColumns = columns.sort(function(a, b) {
 	    var textA = a.data.toUpperCase();
 	    var textB = b.data.toUpperCase();
 	    return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
 	});
-	
-	
+
+
 	var rows = [];
 	for (var i=0; i<features.length; i++) {
 		var arrayFeats = features;
 		var row = [];
 		var sorted = Object.keys(arrayFeats[i])
 	    .sort()
-	    .reduce(function (acc, k) { 
+	    .reduce(function (acc, k) {
 	        acc[k] = arrayFeats[i][k];
 	        return acc;
 	    }, {});
 		rows.push(sorted);
 	}
-	
+
 	var tableButtons = new Array();
 	tableButtons.push({
 		extend: 'csvHtml5',
-		text: '<i class="fa fa-file-text-o margin-r-5"></i> CSV',
+		text: '<i class="fa fa-file-alt margin-r-5"></i> CSV',
 		exportOptions: {
             format: {
                 body: function ( data, row, column, node ) {
@@ -240,7 +240,7 @@ SelectionTable.prototype.createTableUI = function(featureType, features, layerNa
 	});
 	tableButtons.push({
    	 	extend: 'excelHtml5',
-   	 	text: '<i class="fa fa-file-excel-o margin-r-5"></i> Excel',
+   	 	text: '<i class="fa fa-file-excel margin-r-5"></i> Excel',
 		exportOptions: {
             format: {
                 body: function ( data, row, column, node ) {
@@ -299,24 +299,24 @@ SelectionTable.prototype.createTableUI = function(featureType, features, layerNa
 	        self.getFeatures(features, workspace, url);
 	    }
     });
-	
+
 	selectionTable.on('select', function(e, dt, type, indexes) {
 	    if (type === 'row') {
 	    	var selected = dt.rows({selected: true});
 	    	if ( selected.count() == 1 ) {
 	    		var featureid = dt.rows(selected[0]).data()[0]['featureid'];
-	    		 
+
 		        for (var i=0; i<self.selectionTableLayer.getSource().getFeatures().length; i++) {
-					if (self.selectionTableLayer.getSource().getFeatures()[i].getId() == featureid) {	
-						var feature = self.selectionTableLayer.getSource().getFeatures()[i];											
-			
+					if (self.selectionTableLayer.getSource().getFeatures()[i].getId() == featureid) {
+						var feature = self.selectionTableLayer.getSource().getFeatures()[i];
+
 						var featExtent = feature.getGeometry().getExtent();
 						self.map.getView().fit(featExtent, self.map.getSize());
 					}
 				}
-		        
-	    	}	   
-	        
+
+	    	}
+
 	    }
 	});
 };

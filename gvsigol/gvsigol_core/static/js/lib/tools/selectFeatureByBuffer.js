@@ -43,7 +43,7 @@ var selectFeatureByBuffer = function(map, viewer) {
 	button.setAttribute("class", "toolbar-button");
 	button.setAttribute("title", gettext('Select Feature By Buffer'));
 	var icon = document.createElement('i');
-	icon.setAttribute("class", "fa fa-times-circle");
+	icon.setAttribute("class", "far fa-times-circle");
 	button.appendChild(icon);
 
 	this.$button = $(button);

@@ -2853,7 +2853,7 @@ def get_feature_info(request):
                                         #auth2 = ('admin', 'geoserver')
                                         break
 
-                    # auth2 = ('admin', 'myawesomegeoserver')
+                    auth2 = ('admin', 'myawesomegeoserver')
                     # auth2 = (request.session['username'], request.session['password']) #Testing this line
 
                     aux_response = fut_session.get(url, auth=auth2, verify=False, timeout=(CONNECT_TIMEOUT, READ_TIMEOUT), proxies=settings.PROXIES)
@@ -3142,7 +3142,7 @@ def get_datatable_data(request):
 
             print wfs_url + "?" + params
 
-            # req.auth = ('admin', 'myawesomegeoserver')
+            req.auth = ('admin', 'myawesomegeoserver')
             # req.auth = (request.session['username'], request.session['password']) #Testing this line
 
             response = req.post(wfs_url, data=values, verify=False, proxies=settings.PROXIES)
@@ -3227,7 +3227,7 @@ def get_feature_wfs(request):
 
             print wfs_url + "?" + params
 
-            # req.auth = ('admin', 'myawesomegeoserver')
+            req.auth = ('admin', 'myawesomegeoserver')
             # req.auth = (request.session['username'], request.session['password']) #Testing this line
 
             response = req.post(wfs_url, data=data, verify=False, proxies=settings.PROXIES)

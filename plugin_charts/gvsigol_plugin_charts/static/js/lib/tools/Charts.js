@@ -47,7 +47,7 @@ Charts.prototype.initialize = function() {
 					if (chartLayer.charts.length > 0) {
 						var ui = '';
 						ui += '<div style="padding: 0px 12px !important;" class="btn btn-block btn-social btn-select btn-custom-tool">';
-						ui += 	'<i class="fa fa-chart-bar" aria-hidden="true"></i>';
+						ui += 	'<i class="far fa-chart-bar" aria-hidden="true"></i>';
 						ui += 	'<select id="chart-layer-' + chartLayer.id + '" class="select-chart btn btn-block btn-custom-tool">';
 						ui += 		'<option value="__none__"><i class="aria-hidden="true"></i>'+ gettext('Select chart') +'...</option>';
 						for(var i=0; i<chartLayer.charts.length; i++){

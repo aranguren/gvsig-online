@@ -22,6 +22,9 @@ from gvsigol import settings
 @author: Javier Rodrigo <jrodrigo@scolab.es>
 '''
 
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -74,14 +77,14 @@ def login_user(request):
                         return response
                     else:
                         return redirect('home')
-                
+
                 else:
                     errors.append({'message': _("Your account has been disabled")})
             else:
                 errors.append({'message': _("The username and password you have entered do not match our records")})
         else:
             errors.append({'message': _("The username and password you have entered do not match our records")})
-        
+
     else:
         if AUTH_WITH_REMOTE_USER:
             if "HTTP_REMOTE_USER" in request.META:
@@ -175,36 +178,52 @@ def logout_user(request):
     return redirect(LOGOUT_PAGE_URL)
 
 @login_required(login_url='/gvsigonline/auth/login_user/')
-def password_update(request):  
+def password_update(request):
     if request.method == 'POST':
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
-        
+
         if password1 == password2:
             user = User.objects.get(id=request.user.id)
             user.set_password(password1)
             user.save()
-            
+
             auth_services.get_services().ldap_change_user_password(user, password1)
-            
+
             response = {'success': True}
-            
+
         else:
-            response = {'success': False} 
-                
+            response = {'success': False}
+
         return HttpResponse(json.dumps(response, indent=4), content_type='application/json')
 
-  
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('change_password')
+        else:
+            messages.error(request, 'Please correct the error below.')
+        else:
+            form = PasswordChangeForm(request.user)
+            return render(request, 'change_password.html', {
+            'form': form
+            })
+
+
 def password_reset(request):
     if request.method == 'POST':
         errors = []
         username = request.POST.get('username')
         try:
             user = User.objects.get(username__exact=username)
-            
+
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             token =  default_token_generator.make_token(user)
-            
+
             auth_utils.send_reset_password_email(user.email, user.id, uid, token)
             return redirect('password_reset_success')
         except User.DoesNotExist:
@@ -215,7 +234,7 @@ def password_reset(request):
             logger.exception("Error resetting password")
             errors.append(_('That did not work'))
             return render(request, 'password_reset.html', {'errors': errors})
-            
+
     else:
         if 'AD' in GVSIGOL_LDAP and GVSIGOL_LDAP['AD'].__len__() > 0:
             return redirect('login_user')
@@ -229,9 +248,9 @@ def password_reset_confirmation(request, user_id, uid, token):
         'uid': uid,
         'token': token
         }
-            
+
     return render(request, 'registration/password_reset_confirm.html', context)
-       
+
 
 def password_reset_complete(request):
     """
@@ -244,14 +263,14 @@ def password_reset_complete(request):
     user = User.objects.get(id=user_id)
 
     errors = ''
-    
+
     if user is not None and default_token_generator.check_token(user, token):
         if request.method == 'POST':
             temp_pass = request.POST.get('password')
             user.set_password(temp_pass)
             user.save()
             auth_services.get_services().ldap_change_user_password(user, temp_pass)
-            
+
             request.session['username'] = user.username
             request.session['password'] = temp_pass
             user = authenticate(username=user.username, password=temp_pass)
@@ -259,7 +278,7 @@ def password_reset_complete(request):
                 if user.is_active:
                     login(request, user)
                     return redirect('home')
-                
+
                 else:
                     errors = _("Your account has been disabled")
             else:
@@ -268,9 +287,9 @@ def password_reset_complete(request):
 
     else:
         errors =  _('Invalid token. Your link has expired, you need to ask for another one.')
-            
+
     return render(request, 'registration/password_reset_confirm.html', {'errors': errors})
-       
+
 
 
 
@@ -280,18 +299,18 @@ def password_reset_success(request):
 @login_required(login_url='/gvsigonline/auth/login_user/')
 @staff_required
 def user_list(request):
-    
+
     users_list = User.objects.exclude(username='root')
-    
+
     users = []
     for u in users_list:
         groups_by_user = UserGroupUser.objects.filter(user_id=u.id)
-        
+
         groups = ''
         for usergroup_user in groups_by_user:
             user_group = UserGroup.objects.get(id=usergroup_user.user_group_id)
             groups += user_group.name + '; '
-            
+
         user = {}
         user['id'] = u.id
         user['username'] = u.username
@@ -302,44 +321,44 @@ def user_list(request):
         user['email'] = u.email
         user['groups'] = groups
         users.append(user)
-                      
+
     response = {
         'users': users
-    }     
+    }
     return render(request, 'user_list.html', response)
 
 @login_required(login_url='/gvsigonline/auth/login_user/')
 @superuser_required
-def user_add(request):        
+def user_add(request):
     ad_suffix = GVSIGOL_LDAP['AD']
     if not ad_suffix:
         show_pass_form = True
     else:
         show_pass_form = False
-        
+
     if request.method == 'POST':
         form = UserCreateForm(request.POST)
-        if form.is_valid():            
+        if form.is_valid():
             assigned_groups = []
-                
+
             is_staff = False
             if 'is_staff' in form.data:
                 is_staff = True
-                
+
             is_superuser = False
             if 'is_superuser' in form.data:
                 is_superuser = True
                 is_staff = True
-            
-            assigned_groups = []   
+
+            assigned_groups = []
             for key in form.data:
                 if 'group-' in key:
                     assigned_groups.append(int(key.split('-')[1]))
-            
-            try: 
+
+            try:
                 gs = geographic_servers.get_instance().get_default_server()
                 server_object = Server.objects.get(id=int(gs.id))
-                                
+
                 if form.data['password1'] == form.data['password2']:
                     user = User(
                         username = form.data['username'].lower(),
@@ -351,27 +370,27 @@ def user_add(request):
                     )
                     user.set_password(form.data['password1'])
                     user.save()
-                    
+
                     #admin_group = UserGroup.objects.get(name__exact='admin')
                     aux = UserGroup.objects.filter(name="admin")
                     if aux.count() > 1:
                         print "WARNING: table gvsigol_auth_usergroup inconsistent !!!!!!!!!!!"
-                    
+
                     admin_group = aux[0]
-                    
+
                     if user.is_superuser:
-                        auth_services.get_services().ldap_add_user(user, form.data['password1'], True)                        
+                        auth_services.get_services().ldap_add_user(user, form.data['password1'], True)
                         auth_services.get_services().ldap_add_group_member(user, admin_group)
                         usergroup_user = UserGroupUser(
                             user = user,
                             user_group = admin_group
                         )
                         usergroup_user.save()
-                        
+
                     else:
                         auth_services.get_services().ldap_add_user(user, form.data['password1'], False)
                         #auth_services.get_services().ldap_add_group_member(user, admin_group)
-                        
+
                     for ag in assigned_groups:
                         user_group = UserGroup.objects.get(id=ag)
                         usergroup_user = UserGroupUser(
@@ -380,29 +399,29 @@ def user_add(request):
                         )
                         usergroup_user.save()
                         auth_services.get_services().ldap_add_group_member(user, user_group)
-                     
-                    #User backend 
-                    if is_superuser or is_staff:  
+
+                    #User backend
+                    if is_superuser or is_staff:
                         ugroup = UserGroup(
                             name = 'ug_' + form.data['username'].lower(),
                             description = _(u'User group for') + ': ' + form.data['username'].lower()
                         )
                         ugroup.save()
-                        
+
                         ugroup_user = UserGroupUser(
                             user = user,
                             user_group = ugroup
                         )
                         ugroup_user.save()
-                            
+
                         auth_services.get_services().ldap_add_group(ugroup)
                         auth_services.get_services().add_data_directory(ugroup)
                         auth_services.get_services().ldap_add_group_member(user, ugroup)
-                        
+
                         url = server_object.frontend_url + '/'
                         ws_name = 'ws_' + form.data['username'].lower()
-                        
-                        if gs.createWorkspace(ws_name, url + ws_name):          
+
+                        if gs.createWorkspace(ws_name, url + ws_name):
                             # save it on DB if successfully created
                             newWs = Workspace(
                                 server = server_object,
@@ -418,20 +437,20 @@ def user_add(request):
                                 is_public = False
                             )
                             newWs.save()
-                            
+
                             ds_name = 'ds_' + form.data['username'].lower()
                             services_utils.create_datastore(user.username, ds_name, newWs)
-                            
+
                             gs.reload_nodes()
-                        
-                    try:    
+
+                    try:
                         auth_utils.sendMail(user, form.data['password1'])
                     except Exception as ex:
                         print str(ex)
                         pass
-    
+
                     return redirect('user_list')
-            
+
             except Exception as e:
                 print "ERROR: Problem creating user " + str(e)
                 errors = []
@@ -442,63 +461,63 @@ def user_add(request):
         else:
             groups = auth_utils.get_all_groups()
             return render(request, 'user_add.html', {'form': form, 'groups': groups, 'show_pass_form':show_pass_form})
-        
+
     else:
-        
+
         form = UserCreateForm()
         groups = auth_utils.get_all_groups()
         return render(request, 'user_add.html', {'form': form, 'groups': groups, 'show_pass_form':show_pass_form})
-    
-    
+
+
 @login_required(login_url='/gvsigonline/auth/login_user/')
 @superuser_required
-def user_update(request, uid):        
+def user_update(request, uid):
     if request.method == 'POST':
         user = User.objects.get(id=int(uid))
-        
+
         assigned_groups = []
         for key in request.POST:
             if 'group-' in key:
                 assigned_groups.append(int(key.split('-')[1]))
-            
+
         is_staff = False
         if 'is_staff' in request.POST:
             is_staff = True
-            
+
         is_superuser = False
         if 'is_superuser' in request.POST:
             is_superuser = True
             is_staff = True
-            
+
         user.first_name = request.POST.get('first_name')
         user.last_name = request.POST.get('last_name')
         user.email = request.POST.get('email')
         user.is_staff = is_staff
         user.save()
-        
+
         if user.is_superuser and is_superuser:
             admin_group = UserGroup.objects.get(name__exact='admin')
             assigned_groups.append(admin_group.id)
-            
+
         if not user.is_superuser and is_superuser:
             user.is_superuser = True
             user.save()
             admin_group = UserGroup.objects.get(name__exact='admin')
             auth_services.get_services().ldap_add_group_member(user, admin_group)
             assigned_groups.append(admin_group.id)
-        
+
         if user.is_superuser and not is_superuser:
             user.is_superuser = False
             user.save()
             admin_group = UserGroup.objects.get(name__exact='admin')
             auth_services.get_services().ldap_delete_group_member(user, admin_group)
-        
+
         groups_by_user = UserGroupUser.objects.filter(user_id=user.id)
         for ugu in  groups_by_user:
             user_group = UserGroup.objects.get(id=ugu.user_group.id)
             auth_services.get_services().ldap_delete_group_member(user, user_group)
             ugu.delete()
-                  
+
         for ag in assigned_groups:
             user_group = UserGroup.objects.get(id=ag)
             usergroup_user = UserGroupUser(
@@ -507,42 +526,42 @@ def user_update(request, uid):
             )
             usergroup_user.save()
             auth_services.get_services().ldap_add_group_member(user, user_group)
-            
+
         return redirect('user_list')
-                
-        
+
+
     else:
-        selected_user = User.objects.get(id=int(uid))    
+        selected_user = User.objects.get(id=int(uid))
         groups = auth_utils.get_all_groups_checked_by_user(selected_user)
         return render(request, 'user_update.html', {'uid': uid, 'selected_user': selected_user, 'user': request.user, 'groups': groups})
-        
-        
+
+
 @login_required(login_url='/gvsigonline/auth/login_user/')
 @superuser_required
-def user_delete(request, uid):        
+def user_delete(request, uid):
     if request.method == 'POST':
         user = User.objects.get(id=uid)
-        
+
         groups_by_user = UserGroupUser.objects.filter(user_id=user.id)
         for ugu in  groups_by_user:
             user_group = UserGroup.objects.get(id=ugu.user_group.id)
             auth_services.get_services().ldap_delete_group_member(user, user_group)
-        
-        auth_services.get_services().ldap_delete_default_group_member(user)   
-        auth_services.get_services().ldap_delete_user(user)           
+
+        auth_services.get_services().ldap_delete_default_group_member(user)
+        auth_services.get_services().ldap_delete_user(user)
         user.delete()
-            
+
         response = {
             'deleted': True
-        }     
+        }
         return HttpResponse(json.dumps(response, indent=4), content_type='application/json')
 
 @login_required(login_url='/gvsigonline/auth/login_user/')
 @superuser_required
 def group_list(request):
-    
+
     groups_list = UserGroup.objects.exclude(name='admin')
-    
+
     groups = []
     for g in groups_list:
         group = {}
@@ -550,16 +569,16 @@ def group_list(request):
         group['name'] = g.name
         group['description'] = g.description
         groups.append(group)
-                      
+
     response = {
         'groups': groups
-    }     
+    }
     return render(request, 'group_list.html', response)
 
 
 @login_required(login_url='/gvsigonline/auth/login_user/')
 @superuser_required
-def group_add(request):        
+def group_add(request):
     if request.method == 'POST':
         form = UserGroupForm(request.POST)
         message = None
@@ -568,46 +587,46 @@ def group_add(request):
                 if form.data['name'] == 'admin':
                     message = _("Admin is a reserved group")
                     raise Exception
-                
+
                 if _valid_name_regex.search(form.data['name']) == None:
                     message = _("Invalid user group name: '{value}'. Identifiers must begin with a letter or an underscore (_). Subsequent characters can be letters, underscores or numbers").format(value=form.data['name'])
                     raise Exception
-            
+
                 group = UserGroup(
                     name = form.data['name'],
                     description = form.data['description']
                 )
                 group.save()
-                    
+
                 auth_services.get_services().ldap_add_group(group)
-                auth_services.get_services().add_data_directory(group)                               
-                          
+                auth_services.get_services().add_data_directory(group)
+
                 return redirect('group_list')
-            
+
             except Exception as e:
                 print str(e)
                 return render(request, 'group_add.html', {'form': form, 'message': message})
-                
+
         else:
             return render(request, 'group_add.html', {'form': form})
-        
+
     else:
         form = UserGroupForm()
         return render(request, 'group_add.html', {'form': form})
-         
-        
+
+
 @login_required(login_url='/gvsigonline/auth/login_user/')
 @superuser_required
-def group_delete(request, gid):        
+def group_delete(request, gid):
     if request.method == 'POST':
         group = UserGroup.objects.get(id=int(gid))
-        
-        auth_services.get_services().ldap_delete_group(group)           
+
+        auth_services.get_services().ldap_delete_group(group)
         auth_services.get_services().delete_data_directory(group)
-        
+
         group.delete()
-            
+
         response = {
             'deleted': True
-        }     
+        }
         return HttpResponse(json.dumps(response, indent=4), content_type='application/json')

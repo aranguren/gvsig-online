@@ -187,8 +187,8 @@ def password_update(request):
             user = User.objects.get(id=request.user.id)
             user.set_password(password1)
             user.save()
-
             auth_services.get_services().ldap_change_user_password(user, password1)
+            update_session_auth_hash(request, user)  # Important!
 
             response = {'success': True}
 
@@ -196,7 +196,7 @@ def password_update(request):
             response = {'success': False}
 
         return HttpResponse(json.dumps(response, indent=4), content_type='application/json')
-        
+
 @login_required(login_url='/gvsigonline/auth/login_user/')
 def change_password(request):
     if request.method == 'POST':
@@ -495,7 +495,18 @@ def user_update(request, uid):
         user.first_name = request.POST.get('first_name')
         user.last_name = request.POST.get('last_name')
         user.email = request.POST.get('email')
+
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+
+
         user.is_staff = is_staff
+
+        if password1:
+            user.set_password(password1)
+            user.save()
+            auth_services.get_services().ldap_change_user_password(user, password1)
+
         user.save()
 
         if user.is_superuser and is_superuser:

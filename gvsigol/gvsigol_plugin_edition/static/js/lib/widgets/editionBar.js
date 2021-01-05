@@ -2208,6 +2208,7 @@ EditionBar.prototype.transactWFS = function(p,f) {
 			node = this.formatWFS.writeTransaction([feat],null,null,this.formatGML);
 			break;
 		case 'update':
+      feat.unset('bbox', true);
 			node = this.formatWFS.writeTransaction(null,[feat],null,this.formatGML);
 			break;
 	}
@@ -2220,7 +2221,7 @@ EditionBar.prototype.transactWFS = function(p,f) {
       // These lines must be modified
       username:'admin',
       password:'myawesomegeoserver',
-      
+
 	    processData: false,
 	    contentType: 'text/xml',
 	    data: str,

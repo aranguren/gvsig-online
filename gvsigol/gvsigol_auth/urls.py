@@ -1,6 +1,7 @@
 from django.conf.urls import url, include
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 from gvsigol_auth import views as auth_views
+
 import rest_framework_jwt
 
 urlpatterns = [
@@ -13,7 +14,8 @@ urlpatterns = [
     url(r'^password_update/$', auth_views.password_update, name='password_update'),
     url(r'^password_reset/$', auth_views.password_reset, name='password_reset'),
     url(r'^password_reset_success/$', auth_views.password_reset_success, name='password_reset_success'),
-    url(r'^password/$', auth_views.change_password, name='change_password'),
+    url(r'^change_password/$', auth_views.change_password, name='change_password'),
+    url(r'^password_change_success/$', auth_views.password_change_success, name='password_change_success'),
 
     url(r'^user_list/$', auth_views.user_list, name='user_list'),
     url(r'^user_add/$', auth_views.user_add, name='user_add'),

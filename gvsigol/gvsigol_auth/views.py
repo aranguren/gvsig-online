@@ -29,7 +29,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import ugettext as _
-from forms import UserCreateForm, UserGroupForm
+from forms import UserCreateForm, UserGroupForm, PasswordChangeCustomForm
 from models import UserGroupUser, UserGroup
 from django.contrib.auth.models import User
 from gvsigol_auth import services as auth_services
@@ -196,23 +196,26 @@ def password_update(request):
             response = {'success': False}
 
         return HttpResponse(json.dumps(response, indent=4), content_type='application/json')
-
+        
+@login_required(login_url='/gvsigonline/auth/login_user/')
 def change_password(request):
     if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
+        form = PasswordChangeCustomForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)  # Important!
             messages.success(request, 'Your password was successfully updated!')
-            return redirect('change_password')
+            return redirect('password_change_success')
         else:
             messages.error(request, 'Please correct the error below.')
-        else:
-            form = PasswordChangeForm(request.user)
-            return render(request, 'change_password.html', {
-            'form': form
-            })
+    else:
+        form = PasswordChangeCustomForm(request.user)
+    return render(request, 'change_password.html', {
+    'form': form
+    })
 
+def password_change_success(request):
+    return render(request, 'password_change_success.html', {})
 
 def password_reset(request):
     if request.method == 'POST':

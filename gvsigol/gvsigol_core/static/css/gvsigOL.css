@@ -3148,6 +3148,12 @@ table.text-center th {
   background-color: #ffffff;
   padding: 10px;
 }
+.password-change-box {
+  width: 460px;
+  margin: 7% auto;
+  background-color: #ffffff;
+  padding: 10px;
+}
 @media (max-width: 768px) {
   .login-box,
   .register-box {

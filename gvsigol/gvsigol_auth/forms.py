@@ -20,8 +20,7 @@
 '''
 @author: Javier Rodrigo <jrodrigo@scolab.es>
 '''
-
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 from django import forms
@@ -49,6 +48,12 @@ class UserCreateForm(UserCreationForm):
             user.save()
         return user
 
-class UserGroupForm(forms.Form):   
+class UserGroupForm(forms.Form):
     name = forms.CharField(required=True, max_length=150, widget=forms.TextInput(attrs={'class' : 'form-control', 'tabindex': '1'}))
-    description = forms.CharField(required=False, max_length=500, widget=forms.TextInput(attrs={'class' : 'form-control', 'tabindex': '2'})) 
+    description = forms.CharField(required=False, max_length=500, widget=forms.TextInput(attrs={'class' : 'form-control', 'tabindex': '2'}))
+
+class PasswordChangeCustomForm(PasswordChangeForm):
+    def __init__(self, user, *args, **kwargs):
+        super(PasswordChangeCustomForm, self).__init__(user,*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-control'

@@ -66,7 +66,7 @@ from forms_geoserver import CreateFeatureTypeForm
 from forms_services import ServerForm, WorkspaceForm, DatastoreForm, LayerForm, LayerUpdateForm, DatastoreUpdateForm, ExternalLayerForm, ServiceUrlForm
 from gdal_tools import gdalsrsinfo
 import geographic_servers
-from gvsigol import settings
+from gvsigol import settings, settings_passwords
 from gvsigol.settings import FILEMANAGER_DIRECTORY, LANGUAGES, INSTALLED_APPS, WMS_MAX_VERSION, WMTS_MAX_VERSION, BING_LAYERS
 from gvsigol.settings import MOSAIC_DB
 from gvsigol_auth.models import UserGroup
@@ -2853,8 +2853,8 @@ def get_feature_info(request):
                                         #auth2 = ('admin', 'geoserver')
                                         break
 
-                    auth2 = ('admin', 'myawesomegeoserver')
-                    
+                    auth2 = (settings_passwords.GEOSERVER_USER_DEVEL, settings_passwords.GEOSERVER_PW_DEVEL)
+
                     aux_response = fut_session.get(url, auth=auth2, verify=False, timeout=(CONNECT_TIMEOUT, READ_TIMEOUT), proxies=settings.PROXIES)
                     rs.append(is_grouped_symbology_request(request, url, aux_response, styles, fut_session))
 
@@ -3141,8 +3141,7 @@ def get_datatable_data(request):
 
             print wfs_url + "?" + params
 
-            req.auth = ('admin', 'myawesomegeoserver')
-            # req.auth = (request.session['username'], request.session['password']) #Testing this line
+            req.auth = (settings_passwords.GEOSERVER_USER_DEVEL, settings_passwords.GEOSERVER_PW_DEVEL)
 
             response = req.post(wfs_url, data=values, verify=False, proxies=settings.PROXIES)
             jsonString = response.text
@@ -3226,8 +3225,7 @@ def get_feature_wfs(request):
 
             print wfs_url + "?" + params
 
-            req.auth = ('admin', 'myawesomegeoserver')
-            # req.auth = (request.session['username'], request.session['password']) #Testing this line
+            req.auth = (settings_passwords.GEOSERVER_USER_DEVEL, settings_passwords.GEOSERVER_PW_DEVEL)
 
             response = req.post(wfs_url, data=data, verify=False, proxies=settings.PROXIES)
             jsonString = response.text

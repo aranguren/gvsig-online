@@ -744,8 +744,6 @@ def load_project(request, project_name):
             'plugins_config': plugins_config,
             'is_shared_view': False,
             'main_page': settings.LOGOUT_PAGE_URL,
-            'server_username': settings_passwords.GEOSERVER_USER_DEVEL,
-            'server_password': settings_passwords.GEOSERVER_PW_DEVEL,
             }
         )
 
@@ -1214,7 +1212,9 @@ def project_get_conf(request):
                 'permissions': {
                     'is_superuser': is_superuser(request.user),
                     'roles': core_utils.get_group_names_by_user(request.user)
-                },
+                },                
+                'server_username': settings_passwords.GEOSERVER_USER_DEVEL,
+                'server_password': settings_passwords.GEOSERVER_PW_DEVEL,
                 'credentials': {
                     'username': request.session['username'],
                     'password': request.session['password']

@@ -2218,10 +2218,10 @@ EditionBar.prototype.transactWFS = function(p,f) {
 	$.ajax(this.selectedLayer.wfs_url,{
 		type: 'POST',
 
-    headers: {
-      // "Authorization": "Basic " + btoa(self.conf.user.credentials.username + ":" + self.conf.user.credentials.password)
-      "Authorization": "Basic " + btoa(self.conf.user.server_username + ":" + self.conf.user.server_password)
-    },
+    // headers: {
+    //   // "Authorization": "Basic " + btoa(self.conf.user.credentials.username + ":" + self.conf.user.credentials.password)
+    //   "Authorization": "Basic " + btoa(self.conf.user.server_username + ":" + self.conf.user.server_password)
+    // },
 		async: false,
 	    dataType: 'xml',
       // These lines must be modified

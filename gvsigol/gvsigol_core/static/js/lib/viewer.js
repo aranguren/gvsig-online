@@ -72,6 +72,10 @@ viewer.core = {
 
     _authenticate: function() {
     	var self = this;
+      console.log(self.conf.user.credentials.username);
+      console.log(self.conf.user.credentials.password);
+      console.log(self.conf.server_username);
+      console.log(self.conf.server_password);
 
     	for (var i=0; i<self.conf.auth_urls.length; i++) {
     		$.ajax({
@@ -81,11 +85,7 @@ viewer.core = {
     				'VERSION': '1.1.1',
     				'REQUEST': 'GetCapabilities'
     			},
-          console.log(self.conf.user.credentials.username);
-          console.log(self.conf.user.credentials.password);
-          console.log(self.conf.server_username);
-          console.log(self.conf.server_password);
-    
+
     			async: true,
     			//dataType: 'jsonp',
     			//jsonpCallback: "authenticateCallback",

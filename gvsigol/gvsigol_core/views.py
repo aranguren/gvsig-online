@@ -64,7 +64,7 @@ from django.utils.crypto import get_random_string
 from gvsigol_core.forms import CloneProjectForm
 from django.contrib import messages
 from django.shortcuts import redirect
-from django.contrib.gis.geoip2 import GeoIP2
+# from django.contrib.gis.geoip2 import GeoIP2
 
 _valid_name_regex=re.compile("^[a-zA-Z_][a-zA-Z0-9_]*$")
 import logging

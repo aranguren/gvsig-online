@@ -6,9 +6,15 @@
 <script type="text/javascript">
 	var map = viewer.core.getMap();
 	var conf = viewer.core.getConf();
-	
+
 	if (viewer.core.ifToolInConf('gvsigol_plugin_edition')) {
 		if (conf.user) {
+			console.log(conf.user.credentials.username);
+      console.log(conf.user.credentials.password);
+      console.log(conf.user.server_username);
+      console.log(conf.user.server_password);
+      console.log('conf is from eBar' + conf.user.email);
+
 			var layers = map.getLayers();
 			var is_enabled = true;
 			var is_portable = false;
@@ -38,7 +44,7 @@
 					    			$('#layer-box-' + layer.get('id') + ' .box-body').prepend(ui);
 					    		}
 					    	}
-					    }				
+					    }
 					}
 				}, this);
 			}else{
@@ -56,13 +62,13 @@
 						    			$(selector).append(ui);
 						    		}
 						    	}
-						    }				
+						    }
 						}
 					}, this);
 				}
-			}	
+			}
 		}
-		
+
 		$(".start-edition-link").on('click', function(e) {
 			if (viewer.core.getLayerTree().getEditionBar() == null) {
 				var selectedLayer = null;
@@ -73,7 +79,7 @@
 						if (id==layer.get('id')) {
 							selectedLayer = layer;
 						}
-					}						
+					}
 				}, this);
 
 				startEdition(selectedLayer);
@@ -81,7 +87,7 @@
 				messageBox.show('warning', gettext('You are editing the layer') + ': ' + viewer.core.getLayerTree().getEditionBar().getSelectedLayer().title);
 			}
 		});
-		
+
 		function userCanWrite (layer, permission_groups) {
 			var canWrite = false;
 			for (var i=0; i<layer.write_roles.length; i++) {
@@ -93,7 +99,7 @@
 			}
 			return canWrite;
 		}
-			
+
 		/**
 		 * Tries to add a layer lock and starts edition on success
 		 */
@@ -126,14 +132,14 @@
 			  	}
 			});
 		};
-		
+
 		/**
 		 * TODO
 		 */
 		function describeFeatureType(layer) {
-			
+
 			var featureType = new Array();
-			
+
 			$.ajax({
 				type: 'POST',
 				async: false,
@@ -149,9 +155,9 @@
 				},
 			  	error: function(){}
 			});
-			
+
 			return featureType;
-		};	
+		};
 	}
-	
+
 </script>

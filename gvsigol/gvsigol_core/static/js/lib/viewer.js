@@ -42,7 +42,7 @@ viewer.core = {
 	search: null,
 
 	layerTree: null,
-	
+
 	activeToolbar: null,
 
 	layerCount: 0,
@@ -72,7 +72,7 @@ viewer.core = {
 
     _authenticate: function() {
     	var self = this;
-    	
+
     	for (var i=0; i<self.conf.auth_urls.length; i++) {
     		$.ajax({
     			url: self.conf.auth_urls[i],
@@ -81,6 +81,11 @@ viewer.core = {
     				'VERSION': '1.1.1',
     				'REQUEST': 'GetCapabilities'
     			},
+          console.log(self.conf.user.credentials.username);
+          console.log(self.conf.user.credentials.password);
+          console.log(self.conf.server_username);
+          console.log(self.conf.server_password);
+    
     			async: true,
     			//dataType: 'jsonp',
     			//jsonpCallback: "authenticateCallback",
@@ -128,12 +133,12 @@ viewer.core = {
 
 		var interactions = ol.interaction.defaults({altShiftDragRotate:false, pinchRotate:false});
 		this.overviewmap = new ol.control.OverviewMap({
-			collapsed: false, 
+			collapsed: false,
 			layers: [osm],
 			collapseLabel: '»',
 			label: '«'
 		});
-		
+
 		var view = new ol.View({
     		center: ol.proj.transform([parseFloat(self.conf.view.center_lon), parseFloat(self.conf.view.center_lat)], 'EPSG:4326', 'EPSG:3857'),
     		minZoom: 0,
@@ -154,11 +159,11 @@ viewer.core = {
       		layers: default_layers,
 			view: view
 		});
-		
+
 		if (self.conf.view.restricted_extent) {
 			this.map.setView(
 				new ol.View({
-					extent: this.map.getView().calculateExtent(this.map.getSize()),   
+					extent: this.map.getView().calculateExtent(this.map.getSize()),
 					center: ol.proj.transform([parseFloat(self.conf.view.center_lon), parseFloat(self.conf.view.center_lat)], 'EPSG:4326', 'EPSG:3857'),
 		    		minZoom: self.conf.view.zoom + 1,
 		    		maxZoom: self.conf.view.max_zoom_level,
@@ -282,43 +287,43 @@ viewer.core = {
 							self.map.getLayers().forEach(function(layer){
 								if (layer.layer_name == _this.layer_name) {
 									eLayer = layer;
-								}						
+								}
 							}, _this);
-							
+
 							if (eLayer) {
 								if (eLayer.baselayer) {
 									$('#' + eLayer.id).parent().css('color', '#ff0000');
 									$('#' + eLayer.id).parent().children('input').prop( "checked", false );
 									$('#' + eLayer.id).parent().children('input').css( "display", 'none' );
 									$('#' + eLayer.id).parent().prepend('<i style="font-color: red;" class="fa fa-exclamation-triangle"></i>');
-									
+
 								} else {
 									$('#' + eLayer.id).parent().css('color', '#ff0000');
 									$('#' + eLayer.id).parent().children('input').prop( "checked", false );
 									$('#' + eLayer.id).parent().children('input').css( "display", 'none' );
 									$('#' + eLayer.id).parent().prepend('<i style="font-color: red;" class="fa fa-exclamation-triangle"></i>');
-									
+
 								}
 								self.map.removeLayer(eLayer);
 							}
 						}
-	
+
 					}
 				}, 1000);
-			
+
 			});
 			wmsSource.on('tileloadend', function() {
 				this.loadend = true;
-			
+
 			});
 			wmsSource.on('tileloaderror', function(e){
 				var eLayer = null;
 				self.map.getLayers().forEach(function(layer){
 					if (layer.layer_name == this.layer_name) {
 						eLayer = layer;
-					}						
+					}
 				}, this);
-				
+
 				if (eLayer) {
 					if (this.getUrls()[0] == eLayer.cached_url) {
 						if (eLayer.baselayer) {
@@ -326,48 +331,48 @@ viewer.core = {
 							$('#' + eLayer.id).parent().children('input').prop( "checked", false );
 							$('#' + eLayer.id).parent().children('input').css( "display", 'none' );
 							$('#' + eLayer.id).parent().prepend('<i style="font-color: red;" class="fa fa-exclamation-triangle"></i>');
-							
+
 						} else {
 							$('#' + eLayer.id).parent().css('color', '#ff0000');
 							$('#' + eLayer.id).parent().children('input').prop( "checked", false );
 							$('#' + eLayer.id).parent().children('input').css( "display", 'none' );
 							$('#' + eLayer.id).parent().prepend('<i style="font-color: red;" class="fa fa-exclamation-triangle"></i>');
-							
+
 						}
 						self.map.removeLayer(eLayer);
-						
+
 					} else {
 						if (eLayer.cached && eLayer.cached_url) {
 							this.setUrl(eLayer.cached_url);
 							this.updateParams({'LAYERS': eLayer.layer_name, 'FORMAT': eLayer.format, 'VERSION': eLayer.version, 'SRS': 'EPSG:3857', 'TRANSPARENT': 'TRUE'});
-							
+
 						} else {
 							if (eLayer.baselayer) {
 								$('#' + eLayer.id).parent().css('color', '#ff0000');
 								$('#' + eLayer.id).parent().children('input').prop( "checked", false );
 								$('#' + eLayer.id).parent().children('input').css( "display", 'none' );
 								$('#' + eLayer.id).parent().prepend('<i style="font-color: red;" class="fa fa-exclamation-triangle"></i>');
-								
+
 							} else {
 								$('#' + eLayer.id).parent().css('color', '#ff0000');
 								$('#' + eLayer.id).parent().children('input').prop( "checked", false );
 								$('#' + eLayer.id).parent().children('input').css( "display", 'none' );
 								$('#' + eLayer.id).parent().prepend('<i style="font-color: red;" class="fa fa-exclamation-triangle"></i>');
-								
+
 							}
 							self.map.removeLayer(eLayer);
 						}
 					}
 				}
-				
-				
+
+
 			});
 			var wmsLayer = new ol.layer.Tile({
 				id: layerId,
 				source: wmsSource,
 				visible: visible
 			});
-			
+
 			wmsLayer.id = layerId;
 			wmsLayer.wms_url = externalLayer['url'];
 			wmsLayer.cached = externalLayer['cached'];
@@ -395,21 +400,21 @@ viewer.core = {
 
 			this.map.addLayer(wmsLayer);
 		}
-    	
+
     	if (externalLayer['type'] == 'WMTS') {
-    		
+
     		var xmlDoc = null;
     		try {
     			xmlDoc = jQuery.parseXML(JSON.parse(externalLayer['capabilities']));
     		} catch(err){
     			xmlDoc = jQuery.parseXML(externalLayer['capabilities']);
-    			
+
     		}
-    		
+
     		try {
     			var parser = new ol.format.WMTSCapabilities();
 	    		var result = parser.read(xmlDoc);
-	    		
+
 	    		var options = ol.source.WMTS.optionsFromCapabilities(result, {
 					matrixSet: externalLayer['matrixset'],
 			        layer: externalLayer['layers']
@@ -421,7 +426,7 @@ viewer.core = {
 					}
 				}
 				options.crossOrigin = 'anonymous';
-	    		
+
 				var wmtsSource = new ol.source.WMTS((options));
 				wmtsSource.layer_name = externalLayer['name'];
 				wmtsSource.loadend = false;
@@ -439,63 +444,63 @@ viewer.core = {
 								self.map.getLayers().forEach(function(layer){
 									if (layer.layer_name == _this.layer_name) {
 										eLayer = layer;
-									}						
+									}
 								}, _this);
-								
+
 								if (eLayer) {
 									if (eLayer.baselayer) {
 										$('#' + eLayer.id).parent().css('color', '#ff0000');
 										$('#' + eLayer.id).parent().children('input').prop( "checked", false );
 										$('#' + eLayer.id).parent().children('input').css( "display", 'none' );
 										$('#' + eLayer.id).parent().prepend('<i style="font-color: red;" class="fa fa-exclamation-triangle"></i>');
-										
+
 									} else {
 										$('#' + eLayer.id).parent().css('color', '#ff0000');
 										$('#' + eLayer.id).parent().children('input').prop( "checked", false );
 										$('#' + eLayer.id).parent().children('input').css( "display", 'none' );
 										$('#' + eLayer.id).parent().prepend('<i style="font-color: red;" class="fa fa-exclamation-triangle"></i>');
-										
+
 									}
 									self.map.removeLayer(eLayer);
 								}
 							}
-		
+
 						}
 					}, 1000);
-				
+
 				});
 				wmtsSource.on('tileloadend', function() {
 					this.loadend = true;
-				
+
 				});
 				wmtsSource.on('tileloaderror', function(e){
 					var eLayer = null;
 					self.map.getLayers().forEach(function(layer){
 						if (layer.layer_name == this.layer_name) {
 							eLayer = layer;
-						}						
+						}
 					}, this);
-					
+
 					if (eLayer) {
 						if (eLayer.baselayer) {
 							$('#' + eLayer.id).parent().css('color', '#ff0000');
 							$('#' + eLayer.id).parent().children('input').prop( "checked", false );
 							$('#' + eLayer.id).parent().children('input').css( "display", 'none' );
 							$('#' + eLayer.id).parent().prepend('<i style="font-color: red;" class="fa fa-exclamation-triangle"></i>');
-							
+
 						} else {
 							$('#' + eLayer.id).parent().css('color', '#ff0000');
 							$('#' + eLayer.id).parent().children('input').prop( "checked", false );
 							$('#' + eLayer.id).parent().children('input').css( "display", 'none' );
 							$('#' + eLayer.id).parent().prepend('<i style="font-color: red;" class="fa fa-exclamation-triangle"></i>');
-							
+
 						}
 						self.map.removeLayer(eLayer);
 					}
-					
-					
+
+
 				});
-				
+
 	    		var wmtsLayer = new ol.layer.Tile({
 	    			id: layerId,
 					source: wmtsSource,
@@ -512,10 +517,10 @@ viewer.core = {
 	    		wmtsLayer.detailed_info_html = externalLayer['detailed_info_html'];
 	    		wmtsLayer.setZIndex(parseInt(externalLayer.order));
 				self.map.addLayer(wmtsLayer);
-			
+
     		} catch(err){
     			console.log(err);
-    			
+
     		}
 		}
 
@@ -733,7 +738,7 @@ viewer.core = {
 
 			wmsLayer.setOpacity(layerConf.opacity);
 			this.map.addLayer(wmsLayer);
-			
+
 			wmsLayer.getSource().loadend = false;
 			wmsLayer.getSource().layer_name = layerConf.name;
 			wmsLayer.getSource().on('tileloadstart', function() {
@@ -753,34 +758,34 @@ viewer.core = {
 										iLayer = layer;
 									}
 								}
-														
+
 							}, _this);
-							
+
 							if (iLayer) {
 								if (iLayer.baselayer) {
 									$('#' + iLayer.id).parent().css('color', '#ff0000');
 									$('#' + iLayer.id).parent().children('input').prop( "checked", false );
 									$('#' + iLayer.id).parent().children('input').css( "display", 'none' );
 									$('#' + iLayer.id).parent().prepend('<i style="font-color: red;" class="fa fa-exclamation-triangle"></i>');
-									
+
 								} else {
 									$('#' + iLayer.id).parent().css('color', '#ff0000');
 									$('#' + iLayer.id).parent().children('input').prop( "checked", false );
 									$('#' + iLayer.id).parent().children('input').css( "display", 'none' );
 									$('#' + iLayer.id).parent().prepend('<i style="font-color: red;" class="fa fa-exclamation-triangle"></i>');
-									
+
 								}
 								self.map.removeLayer(iLayer);
 							}
 						}
-	
+
 					}
 				}, 1000);
-			
+
 			});
 			wmsLayer.getSource().on('tileloadend', function() {
 				this.loadend = true;
-			
+
 			});
 			wmsLayer.getSource().on('tileloaderror', function(e){
 				var aux = self._check_error_is_TileOutOfRange(e.tile);
@@ -793,16 +798,16 @@ viewer.core = {
 						if (layer.layer_name === this.layer_name) {
 							iLayer = layer;
 						}
-					}						
-				}, this);								
+					}
+				}, this);
 				if (iLayer) {
 					$('#' + iLayer.id).parent().css('color', '#ff0000');
 					$('#' + iLayer.id).parent().children('input').prop( "checked", false );
 					$('#' + iLayer.id).parent().children('input').css( "display", 'none' );
 					$('#' + iLayer.id).parent().prepend('<i style="font-color: red;" class="fa fa-exclamation-triangle"></i>');
 					self.map.removeLayer(iLayer);
-				}								
-			});						
+				}
+			});
 		}
 	},
 	//check if tile error is caused by a TileOutOfRange
@@ -830,7 +835,7 @@ viewer.core = {
 				is_tileoutofrange = false;
 			}
 		});
-		return is_tileoutofrange;		
+		return is_tileoutofrange;
 	},
 	_loadLayerGroups: function() {
 		var self = this;
@@ -893,7 +898,7 @@ viewer.core = {
 			//this.tools.push(new measureLength(this.map));
 			//this.tools.push(new measureArea(this.map));
 			//this.tools.push(new measureAngle(this.map));
-			
+
 			new MeasureToolBar(this.map);
 		}
 		/*if (this.ifToolInConf('gvsigol_tool_export')) {
@@ -920,7 +925,7 @@ viewer.core = {
 
     	this.map.tools = this.tools;
 	},
-	
+
 	getSelectionTable: function() {
     	return this.selectionTable;
     },
@@ -970,11 +975,11 @@ viewer.core = {
     getConf: function(){
     	return this.conf;
     },
-    
+
     setActiveToolbar: function(activeToolBar){
     	this.activeToolbar = activeToolBar;
     },
-    
+
     getActiveToolbar: function(activeToolBar){
     	return this.activeToolbar;
     },
@@ -1077,7 +1082,7 @@ viewer.core = {
 
     	return this.selectedFeatureSource;
     },
-    
+
 
 	getDownloadManager: function() {
 		if (this.downloadManager === undefined) {

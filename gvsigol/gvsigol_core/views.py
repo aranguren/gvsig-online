@@ -39,7 +39,7 @@ from gvsigol_auth.utils import superuser_required, is_superuser, staff_required
 import utils as core_utils
 from gvsigol_services import geographic_servers, utils, backend_postgis
 from django.views.decorators.cache import cache_control
-from gvsigol import settings
+from gvsigol import settings, settings_passwords
 import gvsigol_services.utils as services_utils
 from operator import itemgetter
 from django import apps
@@ -64,6 +64,7 @@ from django.utils.crypto import get_random_string
 from gvsigol_core.forms import CloneProjectForm
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.contrib.gis.geoip2 import GeoIP2
 
 _valid_name_regex=re.compile("^[a-zA-Z_][a-zA-Z0-9_]*$")
 import logging
@@ -128,7 +129,7 @@ def home(request):
                 image = p.image.url.replace(media_url, '')
             else:
                 image = p.image.url.replace(settings.BASE_URL, '')
-                
+
             project = {}
             project['id'] = p.id
             project['name'] = p.name
@@ -152,6 +153,10 @@ def home(request):
         external_ldap_mode = False
 
     return render(request, 'home.html', {'projects': projects, 'public_projects': public_projects, 'external_ldap_mode': external_ldap_mode})
+
+def getGeolocation():
+    pass
+
 
 @login_required(login_url='/gvsigonline/auth/login_user/')
 @staff_required
@@ -287,15 +292,15 @@ def project_add(request):
         is_public = False
         if 'is_public' in request.POST:
             is_public = True
-            
+
         show_project_icon = False
         if 'show_project_icon' in request.POST:
             show_project_icon = True
-        
+
         selectable_groups = False
         if 'selectable_groups' in request.POST:
             selectable_groups = True
-            
+
         restricted_extent = False
         if 'restricted_extent' in request.POST:
             restricted_extent = True
@@ -303,7 +308,7 @@ def project_add(request):
         has_image = False
         if 'project-image' in request.FILES:
             has_image = True
-            
+
         has_logo = False
         if 'project-logo' in request.FILES:
             has_logo = True
@@ -312,7 +317,7 @@ def project_add(request):
             selected_base_layer = int(request.POST.get('selected_base_layer'))
         except:
             selected_base_layer = None
-            
+
         selected_base_group = None
         if 'selected_base_group' in request.POST:
             selected_base_group = request.POST.get('selected_base_group')
@@ -330,7 +335,7 @@ def project_add(request):
             layergroups = LayerGroup.objects.exclude(name='__default__')
         else:
             layergroups = LayerGroup.objects.exclude(name='__default__').filter(created_by__exact=request.user.username)
-            
+
         prepared_layer_groups = []
         for lg in layergroups:
             layer_group = {}
@@ -387,11 +392,11 @@ def project_add(request):
             tools = tools
         )
         project.save()
-        
+
         if has_image:
             project.image = request.FILES['project-image']
             project.save()
-        
+
         if has_logo:
             project.logo = request.FILES['project-logo']
             project.save()
@@ -448,7 +453,7 @@ def project_add(request):
             groups = core_utils.get_all_groups()
         else:
             groups = core_utils.get_user_groups(request.user.username)
-        
+
         prepared_layer_groups = []
         for lg in layergroups:
             layer_group = {}
@@ -497,15 +502,15 @@ def project_update(request, pid):
         is_public = False
         if 'is_public' in request.POST:
             is_public = True
-            
+
         show_project_icon = False
         if 'show_project_icon' in request.POST:
             show_project_icon = True
-            
+
         selectable_groups = False
         if 'selectable_groups' in request.POST:
             selectable_groups = True
-            
+
         restricted_extent = False
         if 'restricted_extent' in request.POST:
             restricted_extent = True
@@ -514,7 +519,7 @@ def project_update(request, pid):
             selected_base_layer = int(request.POST.get('selected_base_layer'))
         except:
             selected_base_layer = None
-            
+
         selected_base_group = None
         if 'selected_base_group' in request.POST:
             selected_base_group = request.POST.get('selected_base_group')
@@ -530,7 +535,7 @@ def project_update(request, pid):
         has_image = False
         if 'project-image' in request.FILES:
             has_image = True
-            
+
         has_logo = False
         if 'project-logo' in request.FILES:
             has_logo = True
@@ -571,7 +576,7 @@ def project_update(request, pid):
 
         if has_image:
             project.image = request.FILES['project-image']
-            
+
         if has_logo:
             project.logo = request.FILES['project-logo']
 
@@ -582,7 +587,7 @@ def project_update(request, pid):
 
         for ug in ProjectUserGroup.objects.filter(project_id=project.id):
             ug.delete()
-            
+
         for alg in assigned_layergroups:
             layergroup = LayerGroup.objects.get(id=alg)
             baselayer_group = False
@@ -654,12 +659,12 @@ def project_update(request, pid):
             if not founded:
                 defaultTool['checked'] = False
                 projectTools.append(defaultTool)
-              
+
         for lg in layer_groups:
             lg['layers'] = []
             layers = Layer.objects.filter(layer_group_id=lg['id'])
-            for l in layers:   
-                baselayer = False           
+            for l in layers:
+                baselayer = False
                 if lg['baselayer_group']:
                     if l.id == lg['default_baselayer']:
                         baselayer = True
@@ -668,20 +673,20 @@ def project_update(request, pid):
                     'title': l.title,
                     'baselayer': baselayer
                 })
-        
+
         url_base_lyr = ''
         icon = settings.BASE_URL + settings.STATIC_URL + 'img/processing.gif'
         if(project.baselayer_version is not None and project.baselayer_version > 0):
             url_base_lyr = settings.MEDIA_URL + settings.LAYERS_ROOT + "/" + project.name + '_prj_' + str(project.baselayer_version) + ".zip"
-                    
+
         return render(request, 'project_update.html', {'tools': projectTools,
-                                                       'pid': pid, 
+                                                       'pid': pid,
                                                        'project': project,
-                                                       'groups': groups, 
-                                                       'layergroups': layer_groups, 
-                                                       'has_geocoding_plugin': has_geocoding_plugin, 
-                                                       'toc': ordered_toc, 
-                                                       'superuser' : is_superuser(request.user), 
+                                                       'groups': groups,
+                                                       'layergroups': layer_groups,
+                                                       'has_geocoding_plugin': has_geocoding_plugin,
+                                                       'toc': ordered_toc,
+                                                       'superuser' : is_superuser(request.user),
                                                        'processing_icon' : icon,
                                                        'url_base_lyr' : url_base_lyr
                                                        })
@@ -738,7 +743,9 @@ def load_project(request, project_name):
             'extra_params': json.dumps(request.GET),
             'plugins_config': plugins_config,
             'is_shared_view': False,
-            'main_page': settings.LOGOUT_PAGE_URL
+            'main_page': settings.LOGOUT_PAGE_URL,
+            'server_username': settings_passwords.GEOSERVER_USER_DEVEL,
+            'server_password': settings_passwords.GEOSERVER_PW_DEVEL,
             }
         )
 
@@ -868,7 +875,7 @@ def project_get_conf(request):
         project_layers_groups = ProjectLayerGroup.objects.filter(project_id=project.id)
         layer_groups = []
         workspaces = []
-        
+
         language = core_utils.get_iso_language(request)
 
         count = 0
@@ -888,7 +895,7 @@ def project_get_conf(request):
             conf_group['cached'] = group.cached
             conf_group['visible'] = group.visible
             if project_group.baselayer_group:
-                conf_group['visible'] = False 
+                conf_group['visible'] = False
             conf_group['basegroup'] = project_group.baselayer_group
             conf_group['wms_endpoint'] = server.getWmsEndpoint()
             conf_group['wfs_endpoint'] = server.getWfsEndpoint()
@@ -896,17 +903,17 @@ def project_get_conf(request):
             layers_in_group = Layer.objects.filter(layer_group_id=group.id).order_by('order')
             layers = []
             user_roles = core_utils.get_group_names_by_user(request.user)
-            
+
             allows_getmap = True
             servers_list = []
-            
+
             idx = 0
             for l in layers_in_group:
                 if not l.external:
                     try:
                         read_roles = services_utils.get_read_roles(l)
                         write_roles = services_utils.get_write_roles(l)
-    
+
                         readable = False
                         if len(read_roles) == 0:
                             readable = True
@@ -915,7 +922,7 @@ def project_get_conf(request):
                                 for rr in read_roles:
                                     if ur == rr:
                                         readable = True
-    
+
                         if readable:
                             layer = {}
                             layer['external'] = False
@@ -927,7 +934,7 @@ def project_get_conf(request):
                                     layer['default_baselayer'] = False
                             else:
                                 layer['baselayer'] = False
-                                
+
                             layer['name'] = l.name
                             layer['title'] = l.title
                             layer['abstract'] = l.abstract
@@ -938,7 +945,7 @@ def project_get_conf(request):
                             layer['detailed_info_enabled'] = l.detailed_info_enabled
                             layer['detailed_info_button_title'] = l.detailed_info_button_title
                             layer['detailed_info_html'] = l.detailed_info_html
-    
+
                             layer['time_enabled'] = l.time_enabled
                             if layer['time_enabled']:
                                 layer['ref'] = l.id
@@ -954,45 +961,45 @@ def project_get_conf(request):
                                 layer['time_resolution_second'] = l.time_resolution_second
                                 layer['time_default_value_mode'] = l.time_default_value_mode
                                 layer['time_default_value'] = l.time_default_value
-    
+
                                 layer['time_resolution'] = l.time_resolution
-    
+
                             layer['cached'] = l.cached
-    
+
                             order = int(conf_group['groupOrder']) + l.order
                             layer['order'] = order
                             layer['single_image'] = l.single_image
                             layer['read_roles'] = read_roles
                             layer['write_roles'] = write_roles
                             layer['styles'] = get_layer_styles(l)
-                            
+
                             if l.external_params:
                                 params = json.loads(l.external_params)
                                 layer['format'] = params.get('format')
-    
+
                             try:
                                 json_conf = ast.literal_eval(l.conf)
                                 layer['conf'] = json.dumps(json_conf)
                             except:
                                 layer['conf'] = "{\"fields\":[]}"
                                 pass
-    
+
                             datastore = Datastore.objects.get(id=l.datastore_id)
                             workspace = Workspace.objects.get(id=datastore.workspace_id)
-                            
+
                             servers_list.append(workspace.server.name)
-                            
+
                             if datastore.type == 'v_SHP' or datastore.type == 'v_PostGIS':
                                 layer['is_vector'] = True
                             else:
                                 layer['is_vector'] = False
-    
+
                             defaultCrs = None
                             if str(datastore.type) == 'e_WMS':
                                 defaultCrs = 'EPSG:4326'
                             else:
                                 defaultCrs = l.native_srs
-    
+
                             crs_code = int(defaultCrs.split(':')[1])
                             if crs_code in core_utils.get_supported_crs():
                                 epsg = core_utils.get_supported_crs()[crs_code]
@@ -1001,7 +1008,7 @@ def project_get_conf(request):
                                     'units': epsg['units']
                                 }
                                 used_crs.append(epsg)
-                                
+
                             layer['native_srs'] = l.native_srs
                             layer['native_extent'] = l.native_extent
                             layer['latlong_extent'] = l.latlong_extent
@@ -1021,7 +1028,7 @@ def project_get_conf(request):
                                 layer['cache_url'] = core_utils.get_cache_url(workspace)
                             else:
                                 layer['cache_url'] = core_utils.get_wms_url(workspace)
-    
+
                             if datastore.type == 'e_WMS':
                                 layer['legend'] = ""
                             else:
@@ -1032,7 +1039,7 @@ def project_get_conf(request):
                                     layer['legend_no_auth'] = core_utils.get_wms_url(workspace) + '?SERVICE=WMS&VERSION=1.1.1&layer=' + l.name + '&REQUEST=getlegendgraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on'
                                     layer['legend_graphic'] = core_utils.get_wms_url(workspace) + '?SERVICE=WMS&VERSION=1.1.1&layer=' + l.name + '&REQUEST=getlegendgraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on'
                                     layer['legend_graphic_no_auth'] = core_utils.get_wms_url(workspace) + '?SERVICE=WMS&VERSION=1.1.1&layer=' + l.name + '&REQUEST=getlegendgraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on'
-    
+
                                 else:
                                     if not ls.has_custom_legend:
                                         layer['legend'] = core_utils.get_wms_url(workspace) + '?SERVICE=WMS&VERSION=1.1.1&layer=' + l.name + '&REQUEST=getlegendgraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on'
@@ -1044,23 +1051,23 @@ def project_get_conf(request):
                                         layer['legend_no_auth'] = ls.custom_legend_url
                                         layer['legend_graphic'] = core_utils.get_wms_url(workspace) + '?SERVICE=WMS&VERSION=1.1.1&layer=' + l.name + '&REQUEST=getlegendgraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on'
                                         layer['legend_graphic_no_auth'] = core_utils.get_wms_url(workspace) + '?SERVICE=WMS&VERSION=1.1.1&layer=' + l.name + '&REQUEST=getlegendgraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on'
-                            
+
                             layer['timeout'] = l.timeout
                             _, urlicon = utils.get_layer_img(l.id, None)
-                            layer['icon'] = urlicon 
+                            layer['icon'] = urlicon
                             layers.append(layer)
-    
+
                             w = {}
                             w['name'] = workspace.name
                             w['wms_url'] = core_utils.get_wms_url(workspace)
                             workspaces.append(w)
                         idx = idx + 1
-    
+
                     except Exception as e:
                         logger.exception('error getting layer conf')
                         datastore = Datastore.objects.get(id=l.datastore_id)
                         workspace = Workspace.objects.get(id=datastore.workspace_id)
-    
+
                         error = {
                             'layer': l.name,
                             'datastore': datastore.name,
@@ -1069,10 +1076,10 @@ def project_get_conf(request):
                         }
                         errors.append(error)
                         pass
-                    
+
                 else:
                     allows_getmap = False
-                    
+
                     layer = {}
                     if project_group.baselayer_group:
                         layer['baselayer'] = True
@@ -1082,9 +1089,9 @@ def project_get_conf(request):
                             layer['default_baselayer'] = False
                     else:
                         layer['baselayer'] = False
-                    
+
                     layer['opacity'] = 1
-                    layer['external'] = True   
+                    layer['external'] = True
                     layer['name'] = l.name
                     layer['title'] = l.title
                     layer['abstract'] = l.abstract
@@ -1097,13 +1104,13 @@ def project_get_conf(request):
                     layer['detailed_info_html'] = l.detailed_info_html
                     layer['metadata'] = core_utils.get_layer_metadata_uuid(l)
                     layer['metadata_url'] = core_utils.get_catalog_url_from_uuid(request, layer['metadata'], lang=language.part2b)
-                    
+
                     if l.cached:
                         if l.external_params:
                             params = json.loads(l.external_params)
                             layer['cache_url'] = params.get('cache_url')
                             layer['format'] = params.get('format')
-                        
+
                     if l.external_params:
                         params = json.loads(l.external_params)
                         if l.type == 'WMTS' and not 'capabilities' in params:
@@ -1116,18 +1123,18 @@ def project_get_conf(request):
                             l.external_params = json.dumps(params)
                             l.save()
                         layer.update(params)
-    
+
                     order = int(conf_group['groupOrder']) + l.order
                     layer['order'] = order
-                    
+
                     layer['timeout'] = l.timeout
                     layers.append(layer)
-            
+
             if allows_getmap:
                 if len(servers_list) > 0 :
-                    allows_getmap = all(elem == servers_list[0] for elem in servers_list)        
+                    allows_getmap = all(elem == servers_list[0] for elem in servers_list)
             conf_group['allows_getmap'] = allows_getmap
-            
+
             if len(layers) > 0:
                 ordered_layers = sorted(layers, key=itemgetter('order'), reverse=True)
                 conf_group['layers'] = ordered_layers
@@ -1190,13 +1197,13 @@ def project_get_conf(request):
             'errors': errors,
             'auth_urls': auth_urls
         }
-        
+
         if language:
             conf['language'] = {
                 'iso639_1': request.LANGUAGE_CODE,
                 'iso639_2b': language.part2b
             }
-        
+
 
         if request.user and request.user.id:
             conf['user'] = {
@@ -1254,7 +1261,7 @@ def export(request, pid):
         image = p.image.url.replace(media_url, '')
     else:
         image = p.image.url
-        
+
     return render(request, 'app_print_template.html', {'print_logo_url': urllib.unquote(image)})
 
 def ogc_services(request):
@@ -1340,17 +1347,17 @@ def save_shared_view(request):
             'shared_url': shared_view.url
         }
         return HttpResponse(json.dumps(response, indent=4), content_type='folder/json')
-    
+
 def send_shared_view(destination, shared_url):
-    if gvsigol.settings.EMAIL_BACKEND_ACTIVE:       
+    if gvsigol.settings.EMAIL_BACKEND_ACTIVE:
         subject = _(u'Shared view')
-        
-        body = _(u'Shared view') + ':\n\n'   
+
+        body = _(u'Shared view') + ':\n\n'
         body = body + '  - ' + _(u'Link') + ': ' + shared_url + '\n'
-        
-        toAddress = [destination]           
+
+        toAddress = [destination]
         fromAddress = gvsigol.settings.EMAIL_HOST_USER
-        
+
         print 'Restore message: ' + body
         try:
             send_mail(subject, body, fromAddress, toAddress, fail_silently=False)
@@ -1489,5 +1496,3 @@ def project_clone(request, pid):
             form.add_error(None, _('Operation not allowed on project: ')+str(pid))
     servers = Server.objects.all()
     return render(request, 'project_clone.html', {'form': form, 'servers': servers})
-
-    

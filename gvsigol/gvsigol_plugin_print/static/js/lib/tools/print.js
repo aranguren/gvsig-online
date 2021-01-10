@@ -74,7 +74,7 @@ print.prototype.handler = function(e) {
 		});
 		this.map.addLayer(this.extentLayer);
 		this.zoomChangedFromScale = false;
-		
+
 
 
 		this.showDetailsTab();
@@ -87,7 +87,7 @@ print.prototype.handler = function(e) {
 	      });
 	    translate.setActive(true);
 	    this.map.addInteraction(translate);
-		
+
 		var currZoom = map.getView().getZoom();
 		var eventKey = this.map.on('moveend', function(e) {
 		  var newZoom = map.getView().getZoom();
@@ -101,12 +101,12 @@ print.prototype.handler = function(e) {
 	        self.extentLayer.getSource().clear();
 //	        self.extentLayer.changed();
 	        self.renderPrintExtent(self.capabilities.layouts[0].attributes[3].clientInfo);
-	        translate.setActive(true);	        
+	        translate.setActive(true);
 		  }
 		});
 
 		var templates = this.getTemplates();
-		
+
 		var scales = this.printProvider.default_scales; //this.getScales(this.capabilities);
 
 
@@ -153,20 +153,20 @@ print.prototype.handler = function(e) {
 		ui += 				'<label>' + gettext('Resolution') + '</label>';
 		ui += 				'<select id="print-dpi" class="form-control">';
 		ui += 					'<option value="72">72 dpi</option>';
-		ui += 					'<option selected value="96">96 dpi</option>';		
-		ui += 					'<option value="128">128 dpi</option>';		
+		ui += 					'<option selected value="96">96 dpi</option>';
+		ui += 					'<option value="128">128 dpi</option>';
 		ui += 					'<option value="180">180 dpi</option>';
 		ui += 					'<option value="240">240 dpi</option>';
 		ui += 					'<option value="320">320 dpi</option>';
 //		ui += 					'<option value="400">400 dpi</option>';
 		ui += 				'</select>';
 		ui += 			'</div>';
-		
+
 		ui += 			'<div class="col-md-12 form-group">';
 		ui += 				'<label>' + gettext('Rotation') + '</label>';
 		ui += 				'<input id="print-rotation" type="number" step="any" class="form-control" value="0">';
 		ui += 			'</div>';
-		
+
 		ui += 			'<div class="col-md-12 form-group">';
 		ui += 				'<label>' + gettext('Format') + '</label>';
 		ui += 				'<select id="print-format" class="form-control">';
@@ -177,7 +177,7 @@ print.prototype.handler = function(e) {
 		ui += 					'<option value="svg">.svg</option>';
 		ui += 				'</select>';
 		ui += 			'</div>';
-		
+
 		ui += 			'<div class="col-md-12 form-group">';
 		ui += 				'<label>' + gettext('Legal warning') + '</label>';
 		ui += 				'<textarea class="form-control" name="print-legal" id="print-legal" rows="5">' + this.printProvider.legal_advice + '</textarea>';
@@ -212,7 +212,7 @@ print.prototype.handler = function(e) {
 			self.extentLayer.getSource().dispatchEvent('change');
 			self.lastAngle = this.value;
 		});
-		
+
 		$('#print-scale').on('change', function(e) {
 			var scaleVal = $("#print-scale option:selected").val();
 			if (scaleVal) {
@@ -372,7 +372,7 @@ print.prototype.createPrintJob = function(template) {
 				           ],
 					    "imageExtension": "png"
 					});
-					
+
 				} else if (mapLayers[i].getSource() instanceof ol.source.Vector) {
 					if (mapLayers[i].printable) {
 						printLayers.push({
@@ -380,8 +380,8 @@ print.prototype.createPrintJob = function(template) {
 						    "geoJson": self.getGeoJSON(mapLayers[i]),
 						    "style": self.getVectorStyles(mapLayers[i])
 						});
-					}	
-					
+					}
+
 				} else {
 					var wms_url = mapLayers[i].wms_url_no_auth;
 					if (wms_url === undefined) {
@@ -555,7 +555,7 @@ print.prototype.createPrintJob = function(template) {
 						            0.1492252984505969,
 						            0.0746455354243517,
 						            0.0373227677121758
-						           ],		
+						           ],
 						          "resolutionTolerance": 0.1,
 							    "tileSize": [256, 256],
 							    "imageExtension": "png"
@@ -571,8 +571,8 @@ print.prototype.createPrintJob = function(template) {
 							"name": baseLayers[i].title,
 							"icons": [legendUrl.replace('forceLabels:on', 'forceLabels:on;columnheight:1000')]
 						};
-						legends.push(legend);	
-					}					
+						legends.push(legend);
+					}
 				}
 			}
 		}
@@ -616,7 +616,7 @@ print.prototype.createPrintJob = function(template) {
 		              {
 		                "type": "OSM",
 						"baseURL": "http://a.tile.openstreetmap.org",
-				  	    "imageExtension": "png"		                	
+				  	    "imageExtension": "png"
 		              }
 		            ]
 		          };
@@ -710,7 +710,8 @@ print.prototype.getCapabilities = function(template) {
 	$.ajax({
 		type: 'GET',
 		async: false,
-	  	url: this.printProvider.url + '/print/' + template + '/capabilities.json',
+	  	// url: this.printProvider.url + '/print/' + template + '/capabilities.json',
+	  	url: this.printProvider.url + '/print/' + template + '/info.json',
 	  	success	:function(response){
 	  		capabilities = response;
 	  	},
@@ -740,12 +741,12 @@ print.prototype.renderPrintExtent = function(clientInfo) {
         targetHeight = mapComponentHeight * scaleFactor;
         targetWidth = targetHeight * desiredPrintRatio;
     }
-    
+
     geomExtent = this.map.getView().calculateExtent([
         targetWidth,
         targetHeight
     ]);
-    
+
     feat = new ol.Feature(ol.geom.Polygon.fromExtent(geomExtent));
     this.extentLayer.getSource().addFeature(feat);
     this.extentLayer.setZIndex(this.map.getLayers().length);
@@ -799,28 +800,28 @@ print.prototype.getGeoJSON = function(layer) {
  */
 print.prototype.getVectorStyles = function(layer) {
 	var styles = null;
-	
+
 	if (layer.drawStyleSettings) {
 		if (layer.drawType == 'point') {
 			styles = layer.drawStyleSettings.getPointPrintStyles();
-			
+
 		} else if (layer.drawType == 'line') {
 			styles = layer.drawStyleSettings.getLinePrintStyles();
-			
+
 		} else if (layer.drawType == 'arrow') {
 			styles = layer.drawStyleSettings.getArrowPrintStyles();
-			
+
 		} else if (layer.drawType == 'polygon') {
 			styles = layer.drawStyleSettings.getPolygonPrintStyles();
-			
+
 		} else if (layer.drawType == 'text') {
 			styles = layer.drawStyleSettings.getTextPrintStyles();
-			
+
 		}
-		
+
 	} else if (layer.randomStyle){
 		styles = layer.randomStyle;
 	}
-	
+
 	return styles;
 };

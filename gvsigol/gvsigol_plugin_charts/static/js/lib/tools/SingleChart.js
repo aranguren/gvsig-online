@@ -58,23 +58,23 @@ SingleChart.prototype.initialize = function() {
 	var chartId = this.jsonChart.chart_id;
 
 	var ui = '';
-	ui += '<div id="floating-modal-chart-' + chartId + '">';
-	ui += 	'<div class="box box-default">';
-	ui += 		'<div class="box-header with-border">';
-	ui += 			'<h3 class="box-title" id="single-chart-title-' + chartId + '"></h3>';
+	ui += '<div class="modal-dialog modal-lg" id="floating-modal-chart-' + chartId + '">';
+	ui += 	'<div class="modal-content">';
+	ui += 		'<div class="modal-header">';
+	ui += 			'<h3 class="modal-title" id="single-chart-title-' + chartId + '"></h3>';
 	ui += 			'<div id="single-tools-' + chartId + '" class="box-tools pull-right">';
 	ui += 			'</div>';
 	ui += 		'</div>';
-	ui += 		'<div id="single-chart-' + chartId + '" class="box-body">';
+	ui += 		'<div id="single-chart-' + chartId + '" class="modal-body">';
 	ui += 		'</div>';
 	ui += 	'</div>';
 	ui += '</div>';
 
 	$('body').append(ui);
-	var height = 0;
+	// var height = 0;
     $('#floating-modal-chart-' + chartId).dialog({
 		collapseEnabled: true,
-		width: 'auto',
+		// width: 'auto',
 		resizable: false,
 		autoOpen: true,
 		open: function (event, ui) {

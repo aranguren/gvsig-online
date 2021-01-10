@@ -1547,7 +1547,7 @@ CatalogView.prototype.installNavBars = function() {
 
 	$("#gvsigol-navbar-menus").append(html);*/
 
-	var button = '<li id="show_catalog" role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="far fa-newspaper m-r-5"></i>' + gettext('Catalog') + '</a></li>';
+	var button = '<li id="show_catalog" role="presentation"><a role="menuitem" tabindex="-1" href="#"><i class="far fa-newspaper m-r-5">&nbsp;&nbsp;</i>' + gettext('Catalog') + '</a></li>';
 	$('#gvsigol-navbar-views-menu').append(button);
 
 	$("#show_catalog").click(function(){

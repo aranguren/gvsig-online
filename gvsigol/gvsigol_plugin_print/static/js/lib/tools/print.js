@@ -81,7 +81,7 @@ print.prototype.handler = function(e) {
 		this.detailsTab.empty();
 
 		this.capabilities = this.getCapabilities('a4_landscape');
-		// this.renderPrintExtent(this.capabilities.layouts[0].attributes[3].clientInfo);
+		this.renderPrintExtent(this.capabilities.layouts[0].attributes[3].clientInfo);
 	    var translate = new ol.interaction.Translate({
 	        layers: [this.extentLayer]
 	      });
@@ -710,8 +710,7 @@ print.prototype.getCapabilities = function(template) {
 	$.ajax({
 		type: 'GET',
 		async: false,
-	  	// url: this.printProvider.url + '/print/' + template + '/capabilities.json',
-	  	url: this.printProvider.url + '/info.json',
+	  	url: this.printProvider.url + '/print/' + template + '/capabilities.json',
 	  	success	:function(response){
 	  		capabilities = response;
 	  	},

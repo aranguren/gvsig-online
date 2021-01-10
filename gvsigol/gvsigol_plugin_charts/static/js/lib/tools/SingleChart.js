@@ -74,7 +74,7 @@ SingleChart.prototype.initialize = function() {
 	var height = 0;
     $('#floating-modal-chart-' + chartId).dialog({
 		collapseEnabled: true,
-		width: 600,
+		width: auto,
 		resizable: false,
 		autoOpen: true,
 		open: function (event, ui) {

@@ -1152,9 +1152,9 @@ def project_get_conf(request):
         for s in Server.objects.all():
             if settings.BASE_URL in s.frontend_url:
                 u = s.frontend_url.replace(settings.BASE_URL, '')
-                auth_urls.append(u + '/wms?request=GetCapabilities')
+                auth_urls.append(u + '/wms')
             else:
-                auth_urls.append(s.frontend_url + '/wms?request=GetCapabilities')
+                auth_urls.append(s.frontend_url + '/wms')
 
         project_tools = json.loads(project.tools) if project.tools else get_available_tools(True, True)
 

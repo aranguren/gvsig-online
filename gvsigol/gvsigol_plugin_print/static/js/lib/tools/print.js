@@ -711,7 +711,7 @@ print.prototype.getCapabilities = function(template) {
 		type: 'GET',
 		async: false,
 	  	// url: this.printProvider.url + '/print/' + template + '/capabilities.json',
-	  	url: this.printProvider.url + '/print/' + template + '/info.json',
+	  	url: this.printProvider.url + '/info.json',
 	  	success	:function(response){
 	  		capabilities = response;
 	  	},

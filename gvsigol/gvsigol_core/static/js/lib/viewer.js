@@ -72,11 +72,6 @@ viewer.core = {
 
     _authenticate: function() {
     	var self = this;
-      console.log(self.conf.user.credentials.username);
-      console.log(self.conf.user.credentials.password);
-      console.log(self.conf.user.server_username);
-      console.log(self.conf.user.server_password);
-      console.log('conf is' + self.conf.user.email);
 
     	for (var i=0; i<self.conf.auth_urls.length; i++) {
     		$.ajax({

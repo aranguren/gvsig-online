@@ -56,7 +56,7 @@ DownloadManagerClient.prototype.queryAvailableResources = function(layer_id, wor
 		queryUrl = self.config.baseQueryUrl + "layer/" + layer_id + "/";
 	}
 
-	//console.log(queryUrl);
+	console.log(queryUrl);
 	/*
 	 * We expect an array of objects like this:
 	 *

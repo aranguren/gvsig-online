@@ -140,16 +140,6 @@ viewer.core = {
       limit: 10,
       keepOpen: true
     });
-    
-
-    geocoder.on('addresschosen', function(evt){
-      var feature = evt.feature,
-      coord = evt.coordinate,
-      address = evt.address;
-      // some popup solution
-      // content.innerHTML = '<p>'+ address.formatted +'</p>';
-      // overlay.setPosition(coord);
-    });
 
 		var interactions = ol.interaction.defaults({altShiftDragRotate:false, pinchRotate:false});
 		this.overviewmap = new ol.control.OverviewMap({
@@ -202,6 +192,15 @@ viewer.core = {
 		this.map.addLayer(this.extentLayer);
     
     this.map.addControl(geocoder);
+    
+    geocoder.on('addresschosen', function(evt){
+      var feature = evt.feature,
+      coord = evt.coordinate,
+      address = evt.address;
+      // some popup solution
+      // content.innerHTML = '<p>'+ address.formatted +'</p>';
+      // overlay.setPosition(coord);
+    });
 
 		var projectionSelect = document.getElementById('custom-mouse-position-projection');
 	    projectionSelect.addEventListener('change', function(event) {

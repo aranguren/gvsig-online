@@ -948,6 +948,9 @@
       original: addressOriginal,
     };
 
+    console.log("Coordinates are " + coord_);
+    console.log("Map is" + map);
+
     this.options.keepOpen === false && this.clearResults(true);
 
     if (this.options.preventDefault === true) {

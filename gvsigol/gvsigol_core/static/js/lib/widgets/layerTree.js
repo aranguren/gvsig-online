@@ -32,7 +32,17 @@ var layerTree = function(conf, map, viewer, isPublic) {
 	this.baseLayerIndex = 1;
 	this.$container = $('#layer-tree-tab');
 	this.$temporary_container = $('#temporary-tab');
-	this.createTree();
+  var geocoder = new Geocoder('nominatim', {
+    provider: 'mapquest',
+    key: '__some_key__',
+    lang: 'en-US', //en-US, fr-FR
+    placeholder: 'Search for ...',
+    targetType: 'text-input',
+    limit: 5,
+    keepOpen: true
+  });
+  map.addControl(geocoder);
+  this.createTree();
 
 	this.step_val_array = [];
 	this.step_val = 1;
@@ -697,6 +707,15 @@ layerTree.prototype.createTemporaryTab = function() {
 		});
 		self.refreshSlider();
 	});
+
+  geocoder.on('addresschosen', function(evt){
+    var feature = evt.feature,
+    coord = evt.coordinate,
+    address = evt.address;
+    // some popup solution
+    content.innerHTML = '<p>'+ address.formatted +'</p>';
+    overlay.setPosition(coord);
+  });
 
 	$(".from-input-group-date-apply-present").unbind("click").click(function(){
 		$("#from-custom-value-year").val(0);

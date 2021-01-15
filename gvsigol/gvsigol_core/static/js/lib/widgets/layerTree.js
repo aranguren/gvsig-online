@@ -33,8 +33,9 @@ var layerTree = function(conf, map, viewer, isPublic) {
 	this.$container = $('#layer-tree-tab');
 	this.$temporary_container = $('#temporary-tab');
   var geocoder = new Geocoder('nominatim', {
-    provider: 'mapquest',
-    key: '__some_key__',
+    // provider: 'mapquest',
+    // key: '__some_key__',
+    autoComplete: true,
     lang: 'en-US', //en-US, fr-FR
     placeholder: 'Search for ...',
     targetType: 'text-input',
@@ -42,7 +43,7 @@ var layerTree = function(conf, map, viewer, isPublic) {
     keepOpen: true
   });
   map.addControl(geocoder);
-  
+
   geocoder.on('addresschosen', function(evt){
     var feature = evt.feature,
     coord = evt.coordinate,

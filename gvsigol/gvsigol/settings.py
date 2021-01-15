@@ -371,7 +371,7 @@ SITE_ID=1
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 # BASE_URL = 'https://localhost'
-BASE_URL = 'https://inventariovial.denebinc.com/'
+BASE_URL = 'http://inventariovial.denebinc.com'
 MEDIA_ROOT = '/usr/local/var/www/media/'
 # MEDIA_URL = 'https://localhost/media/'
 MEDIA_URL = '/media/'

@@ -935,6 +935,7 @@
     var bbox = place.bbox;
 
     if (bbox) {
+      console.log("BBox NSWE" + bbox[2] + "," + bbox[1] + "," + bbox[3] + "," + bbox[0]]);
       bbox = proj__default['default'].transformExtent(
         [bbox[2], bbox[1], bbox[3], bbox[0]], // NSWE -> WSEN
         'EPSG:4326',

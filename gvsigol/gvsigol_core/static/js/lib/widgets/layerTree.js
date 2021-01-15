@@ -32,26 +32,7 @@ var layerTree = function(conf, map, viewer, isPublic) {
 	this.baseLayerIndex = 1;
 	this.$container = $('#layer-tree-tab');
 	this.$temporary_container = $('#temporary-tab');
-  var geocoder = new Geocoder('nominatim', {
-    // provider: 'mapquest',
-    // key: '__some_key__',
-    autoComplete: true,
-    lang: 'en-US', //en-US, fr-FR
-    placeholder: 'Search for ...',
-    targetType: 'text-input',
-    limit: 10,
-    keepOpen: true
-  });
-  viewer.map.addControl(geocoder);
 
-  geocoder.on('addresschosen', function(evt){
-    var feature = evt.feature,
-    coord = evt.coordinate,
-    address = evt.address;
-    // some popup solution
-    // content.innerHTML = '<p>'+ address.formatted +'</p>';
-    // overlay.setPosition(coord);
-  });
   this.createTree();
 
 	this.step_val_array = [];

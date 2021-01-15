@@ -935,12 +935,14 @@
     var bbox = place.bbox;
 
     if (bbox) {
-      console.log("BBox NSWE" + bbox[2] + "," + bbox[1] + "," + bbox[3] + "," + bbox[0]);
+      console.log("coords are" + coord);
+      console.log("BBox SNWE" + bbox[0] + "," + bbox[1] + "," + bbox[2] + "," + bbox[3]);
       bbox = proj__default['default'].transformExtent(
         [bbox[2], bbox[1], bbox[3], bbox[0]], // NSWE -> WSEN
         'EPSG:4326',
         projection
       );
+      console.log("BBox SNWE" + bbox[0] + "," + bbox[1] + "," + bbox[2] + "," + bbox[3]);
     }
 
     var address = {
@@ -964,7 +966,8 @@
       });
     } else {
       if (bbox) {
-        map.getView().fit(bbox, { duration: 500 });
+        flyTo(map, coord);
+        // map.getView().fit(bbox, { duration: 500 });
       } else {
         flyTo(map, coord);
       }

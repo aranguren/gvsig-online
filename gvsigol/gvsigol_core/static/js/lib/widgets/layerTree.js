@@ -50,7 +50,7 @@ var layerTree = function(conf, map, viewer, isPublic) {
     address = evt.address;
     // some popup solution
     // content.innerHTML = '<p>'+ address.formatted +'</p>';
-    overlay.setPosition(coord);
+    viewer.setPosition(coord);
   });
   this.createTree();
 

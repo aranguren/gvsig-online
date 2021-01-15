@@ -708,14 +708,14 @@ layerTree.prototype.createTemporaryTab = function() {
 		self.refreshSlider();
 	});
 
-  geocoder.on('addresschosen', function(evt){
-    var feature = evt.feature,
-    coord = evt.coordinate,
-    address = evt.address;
-    // some popup solution
-    content.innerHTML = '<p>'+ address.formatted +'</p>';
-    overlay.setPosition(coord);
-  });
+  // geocoder.on('addresschosen', function(evt){
+  //   var feature = evt.feature,
+  //   coord = evt.coordinate,
+  //   address = evt.address;
+  //   // some popup solution
+  //   content.innerHTML = '<p>'+ address.formatted +'</p>';
+  //   overlay.setPosition(coord);
+  // });
 
 	$(".from-input-group-date-apply-present").unbind("click").click(function(){
 		$("#from-custom-value-year").val(0);

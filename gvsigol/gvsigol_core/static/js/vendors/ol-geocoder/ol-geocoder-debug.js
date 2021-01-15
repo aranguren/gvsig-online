@@ -935,14 +935,14 @@
     var bbox = place.bbox;
 
     if (bbox) {
-      console.log("coords are" + coord);
-      console.log("BBox SNWE" + bbox[0] + "," + bbox[1] + "," + bbox[2] + "," + bbox[3]);
+      // console.log("coords are" + coord);
+      // console.log("BBox SNWE" + bbox[0] + "," + bbox[1] + "," + bbox[2] + "," + bbox[3]);
       bbox = proj__default['default'].transformExtent(
         [bbox[2], bbox[1], bbox[3], bbox[0]], // NSWE -> WSEN
         'EPSG:4326',
         projection
       );
-      console.log("BBox SNWE" + bbox[0] + "," + bbox[1] + "," + bbox[2] + "," + bbox[3]);
+      // console.log("BBox SNWE" + bbox[0] + "," + bbox[1] + "," + bbox[2] + "," + bbox[3]);
     }
 
     var address = {
@@ -951,8 +951,8 @@
       original: addressOriginal,
     };
 
-    console.log("Coordinates are " + coord_);
-    console.log("Map is" + map);
+    // console.log("Coordinates are " + coord_);
+    // console.log("Map is" + map);
 
     this.options.keepOpen === false && this.clearResults(true);
 

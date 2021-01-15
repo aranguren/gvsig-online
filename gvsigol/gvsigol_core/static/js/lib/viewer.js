@@ -137,7 +137,7 @@ viewer.core = {
       lang: 'en-US', //en-US, fr-FR
       placeholder: 'Search for ...',
       targetType: 'text-input',
-      limit: 10,
+      limit: 5,
       keepOpen: true
     });
 

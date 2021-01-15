@@ -39,10 +39,10 @@ var layerTree = function(conf, map, viewer, isPublic) {
     lang: 'en-US', //en-US, fr-FR
     placeholder: 'Search for ...',
     targetType: 'text-input',
-    limit: 5,
+    limit: 10,
     keepOpen: true
   });
-  map.addControl(geocoder);
+  viewer.map.addControl(geocoder);
 
   geocoder.on('addresschosen', function(evt){
     var feature = evt.feature,

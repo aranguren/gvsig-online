@@ -77,7 +77,7 @@ Rule.prototype.getTableUI = function(allowImport, type) {
 
 	if(type != 'unique') {
 		ui += 				'<button class="btn btn-box-tool btn-box-tool-custom" data-widget="collapse">';
-		ui += 					'<i class="fa fa-plus"></i>';
+		ui += 					'<i class="fa fa-caret-left"></i>';
 		ui += 				'</button>';
 	}
 		ui += 				'<div class="btn-group">';

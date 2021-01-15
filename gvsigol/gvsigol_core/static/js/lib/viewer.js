@@ -130,26 +130,26 @@ viewer.core = {
     	});
       
   
-      var geocoder = new Geocoder('nominatim', {
-        // provider: 'mapquest',
-        // key: '__some_key__',
-        autoComplete: true,
-        lang: 'en-US', //en-US, fr-FR
-        placeholder: 'Search for ...',
-        targetType: 'text-input',
-        limit: 10,
-        keepOpen: true
-      });
-      map.addControl(geocoder);
+    var geocoder = new Geocoder('nominatim', {
+      // provider: 'mapquest',
+      // key: '__some_key__',
+      autoComplete: true,
+      lang: 'en-US', //en-US, fr-FR
+      placeholder: 'Search for ...',
+      targetType: 'text-input',
+      limit: 10,
+      keepOpen: true
+    });
+    
 
-      geocoder.on('addresschosen', function(evt){
-        var feature = evt.feature,
-        coord = evt.coordinate,
-        address = evt.address;
-        // some popup solution
-        // content.innerHTML = '<p>'+ address.formatted +'</p>';
-        // overlay.setPosition(coord);
-      });
+    geocoder.on('addresschosen', function(evt){
+      var feature = evt.feature,
+      coord = evt.coordinate,
+      address = evt.address;
+      // some popup solution
+      // content.innerHTML = '<p>'+ address.formatted +'</p>';
+      // overlay.setPosition(coord);
+    });
 
 		var interactions = ol.interaction.defaults({altShiftDragRotate:false, pinchRotate:false});
 		this.overviewmap = new ol.control.OverviewMap({
@@ -200,6 +200,8 @@ viewer.core = {
 			source: new ol.source.Vector()
 		});
 		this.map.addLayer(this.extentLayer);
+    
+    this.map.addControl(geocoder);
 
 		var projectionSelect = document.getElementById('custom-mouse-position-projection');
 	    projectionSelect.addEventListener('change', function(event) {

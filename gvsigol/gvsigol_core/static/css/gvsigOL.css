@@ -4223,6 +4223,20 @@ table.text-center th {
 .modal-info .modal-body {
   background-color: #00c0ef !important;
 }
+.modal-contact .modal-body {
+  background-color: #3E4F63 !important;
+  color: #fff;
+}
+.modal-contact a {
+  /*color: #3c8dbc;*/
+  color: #fff;
+}
+.modal-contact a:hover,
+.modal-contact a:active,
+.modal-contact a:focus {
+  outline: none;
+  text-decoration: underline;
+}
 .bg-blue {
   background-color: #0073b7 !important;
 }

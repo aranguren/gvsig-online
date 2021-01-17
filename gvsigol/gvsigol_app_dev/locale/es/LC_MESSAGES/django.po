@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-22 17:12+0100\n"
+"POT-Creation-Date: 2021-01-17 17:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,55 +18,55 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/index.html:8
+#: gvsigol_app_dev/templates/index.html:9
 msgid "Home"
 msgstr "Inicio"
 
-#: templates/index.html:75
+#: gvsigol_app_dev/templates/index.html:75
 msgid "Dashboard"
 msgstr "Panel de control"
 
-#: templates/index.html:78
+#: gvsigol_app_dev/templates/index.html:78
 msgid "Sign out"
-msgstr "Cerra sesión"
+msgstr "Cerrar sesión"
 
-#: templates/index.html:98
+#: gvsigol_app_dev/templates/index.html:98
 msgid "Sign in"
 msgstr "Iniciar sesión"
 
-#: templates/index.html:137
+#: gvsigol_app_dev/templates/index.html:141
 msgid "Welcome to gvSIG Online"
 msgstr "Bienvenidos a gvSIG Online"
 
-#: templates/index.html:146
+#: gvsigol_app_dev/templates/index.html:150
 msgid "Public viewers"
 msgstr "Visores públicos"
 
-#: templates/index.html:148
+#: gvsigol_app_dev/templates/index.html:152
 msgid "Display the territory, orthophotos and thematic mapping"
 msgstr "Visualiza el territorio, ortofotos y cartografía temática"
 
-#: templates/index.html:149
+#: gvsigol_app_dev/templates/index.html:153
 msgid "Access to the list of public viewers"
 msgstr "Acceder a la lista de visores públicos"
 
-#: templates/index.html:158
+#: gvsigol_app_dev/templates/index.html:162
 msgid "Mapping services"
 msgstr "Servicios de mapas"
 
-#: templates/index.html:160
+#: gvsigol_app_dev/templates/index.html:164
 msgid "Look up OGC services available"
 msgstr "Explora los servicios OGC disponibles"
 
-#: templates/index.html:161
+#: gvsigol_app_dev/templates/index.html:165
 msgid "Show available services"
 msgstr "Mostrar servicios disponibles"
 
-#: templates/index.html:174
+#: gvsigol_app_dev/templates/index.html:178
 msgid "Metadata catalog"
 msgstr "Catálogo de metadatos"
 
-#: templates/index.html:176
+#: gvsigol_app_dev/templates/index.html:180
 msgid ""
 "Search the metadata catalog for get information about the data and SDI "
 "services"
@@ -74,19 +74,19 @@ msgstr ""
 "Busca en el catálogo de metadatos para obtener información acerca de los "
 "servcios IDE disponibles"
 
-#: templates/index.html:177
+#: gvsigol_app_dev/templates/index.html:181
 msgid "Access to metadata catalog"
 msgstr "Acceder al catálogo de metadatos"
 
-#: templates/index.html:188
+#: gvsigol_app_dev/templates/index.html:192
 msgid "Download app"
 msgstr "Descargar app"
 
-#: templates/index.html:190
+#: gvsigol_app_dev/templates/index.html:194
 msgid "Download"
 msgstr "Descargar"
 
-#: templates/index.html:190
+#: gvsigol_app_dev/templates/index.html:194
 msgid "mobile application"
 msgstr "aplicación móvil"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-30 14:12+0000\n"
+"POT-Creation-Date: 2021-01-17 17:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,20 +20,20 @@ msgstr ""
 "X-Language: pt_BR\n"
 "X-Source-Language: C\n"
 
-#: gvsigol_auth/forms.py:30 gvsigol_auth/templates/user_list.html:23
+#: gvsigol_auth/forms.py:29 gvsigol_auth/templates/user_list.html:23
 #: gvsigol_auth/templates/user_update.html:29
 #: gvsigol_auth/templates/user_update.html:30 gvsigol_auth/utils.py:112
 msgid "First name"
 msgstr "Nome"
 
-#: gvsigol_auth/forms.py:31 gvsigol_auth/templates/user_add.html:46
+#: gvsigol_auth/forms.py:30 gvsigol_auth/templates/user_add.html:46
 #: gvsigol_auth/templates/user_list.html:24
 #: gvsigol_auth/templates/user_update.html:33
 #: gvsigol_auth/templates/user_update.html:34 gvsigol_auth/utils.py:113
 msgid "Last name"
 msgstr "Sobrenome"
 
-#: gvsigol_auth/forms.py:32 gvsigol_auth/templates/login.html:47
+#: gvsigol_auth/forms.py:31 gvsigol_auth/templates/login.html:48
 #: gvsigol_auth/templates/user_add.html:53
 #: gvsigol_auth/templates/user_list.html:22
 #: gvsigol_auth/templates/user_update.html:40
@@ -41,25 +41,50 @@ msgstr "Sobrenome"
 msgid "Username"
 msgstr "Nome de usuário"
 
-#: gvsigol_auth/forms.py:33 gvsigol_auth/templates/user_add.html:57
+#: gvsigol_auth/forms.py:32 gvsigol_auth/templates/user_add.html:57
 #: gvsigol_auth/templates/user_list.html:25
 #: gvsigol_auth/templates/user_update.html:44
 #: gvsigol_auth/templates/user_update.html:45 gvsigol_auth/utils.py:114
 msgid "Email"
 msgstr "Correio electrónico"
 
-#: gvsigol_auth/forms.py:34 gvsigol_auth/templates/login.html:51
-#: gvsigol_auth/templates/user_add.html:65 gvsigol_auth/utils.py:115
+#: gvsigol_auth/forms.py:33 gvsigol_auth/templates/login.html:52
+#: gvsigol_auth/templates/user_add.html:65
+#: gvsigol_auth/templates/user_update.html:51 gvsigol_auth/utils.py:115
 msgid "Password"
 msgstr "Senha"
 
-#: gvsigol_auth/forms.py:35 gvsigol_auth/templates/user_add.html:69
+#: gvsigol_auth/forms.py:34 gvsigol_auth/templates/user_add.html:69
 msgid "Repeat password"
 msgstr "Repita a senha"
 
 #: gvsigol_auth/services.py:72
 msgid "Group for admin users"
 msgstr "Grupo para usuários administradores"
+
+#: gvsigol_auth/templates/change_password.html:41
+msgid "Please, enter your new password details."
+msgstr ""
+
+#: gvsigol_auth/templates/change_password.html:51
+msgid "Please correct the error below."
+msgstr ""
+
+#: gvsigol_auth/templates/change_password.html:51
+msgid "Please correct the errors below."
+msgstr ""
+
+#: gvsigol_auth/templates/change_password.html:56
+msgid ""
+"Please enter your old password, for security’s sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
+msgstr ""
+
+#: gvsigol_auth/templates/change_password.html:84
+#, fuzzy
+#| msgid "I forgot my password"
+msgid "Change my password"
+msgstr "Esqueci minha senha"
 
 #: gvsigol_auth/templates/dashboard_auth_menu.html:4
 msgid "Users and groups"
@@ -73,6 +98,12 @@ msgstr "Usuários"
 #: gvsigol_auth/templates/user_list.html:28
 msgid "Groups"
 msgstr "Grupos"
+
+#: gvsigol_auth/templates/dashboard_auth_menu.html:8
+#, fuzzy
+#| msgid "Password"
+msgid "Change Password"
+msgstr "Senha"
 
 #: gvsigol_auth/templates/group_add.html:12
 #: gvsigol_auth/templates/user_add.html:12
@@ -207,65 +238,70 @@ msgstr "Você não tem permissões administrativas. Enquanto isso, você pode"
 msgid "return to dashboard"
 msgstr "voltar ao painel de instrumentos"
 
-#: gvsigol_auth/templates/login.html:40
+#: gvsigol_auth/templates/login.html:41
 msgid "Sign in to start your session"
 msgstr "Inicie a sessão para começar a trabalhar"
 
-#: gvsigol_auth/templates/login.html:56
+#: gvsigol_auth/templates/login.html:57
 msgid "Sign In"
 msgstr "Inicie a sessão"
 
-#: gvsigol_auth/templates/login.html:61
+#: gvsigol_auth/templates/login.html:62
 msgid "I forgot my password"
 msgstr "Esqueci minha senha"
 
-#: gvsigol_auth/templates/password_reset.html:40
+#: gvsigol_auth/templates/password_change_success.html:41
+msgid "We've successfully changed your password"
+msgstr ""
+
+#: gvsigol_auth/templates/password_change_success.html:42
+#: gvsigol_auth/templates/password_reset_success.html:42
+msgid "Return"
+msgstr "Retorno"
+
+#: gvsigol_auth/templates/password_reset.html:41
 msgid "Enter your username to retrieve your password"
 msgstr "Digite seu nome de usuário para recuperar sua senha"
 
-#: gvsigol_auth/templates/password_reset.html:47
+#: gvsigol_auth/templates/password_reset.html:48
 msgid "Insert your username"
 msgstr "Insira o seu nome de usuário"
 
-#: gvsigol_auth/templates/password_reset.html:52
-#: gvsigol_auth/templates/registration/password_reset_confirm.html:61
+#: gvsigol_auth/templates/password_reset.html:53
+#: gvsigol_auth/templates/registration/password_reset_confirm.html:62
 msgid "Send"
 msgstr "Enviar"
 
-#: gvsigol_auth/templates/password_reset2.html:40
+#: gvsigol_auth/templates/password_reset2.html:41
 msgid "Contact the system administrator"
 msgstr "Contactar com o administrador do sistema"
 
-#: gvsigol_auth/templates/password_reset_success.html:40
+#: gvsigol_auth/templates/password_reset_success.html:41
 msgid "We've sent an email to your account with a link to set the new password"
 msgstr ""
 "Mandamos um e-mail para a sua conta com um link para definir a nova senha"
 
-#: gvsigol_auth/templates/password_reset_success.html:41
-msgid "Return"
-msgstr "Retorno"
-
-#: gvsigol_auth/templates/registration/password_reset_confirm.html:41
+#: gvsigol_auth/templates/registration/password_reset_confirm.html:42
 msgid "Enter new your password"
 msgstr "Digite sua nova senha"
 
-#: gvsigol_auth/templates/registration/password_reset_confirm.html:52
+#: gvsigol_auth/templates/registration/password_reset_confirm.html:53
 msgid "Insert new password"
 msgstr "Inserir nova senha"
 
-#: gvsigol_auth/templates/registration/password_reset_confirm.html:56
+#: gvsigol_auth/templates/registration/password_reset_confirm.html:57
 msgid "Confirm new password"
 msgstr "Confirme a nova senha"
 
-#: gvsigol_auth/templates/registration/password_reset_confirm.html:90
+#: gvsigol_auth/templates/registration/password_reset_confirm.html:91
 msgid "Password confirmation doesn't match"
 msgstr "A senha de confirmação não corresponde"
 
-#: gvsigol_auth/templates/registration/password_reset_confirm.html:93
+#: gvsigol_auth/templates/registration/password_reset_confirm.html:94
 msgid "Password can't be empty"
 msgstr "A senha não pode estar vazia"
 
-#: gvsigol_auth/templates/registration/password_reset_confirm.html:96
+#: gvsigol_auth/templates/registration/password_reset_confirm.html:97
 msgid "Password has contain at least 8 characters"
 msgstr "A senha tem pelo menos 8 caracteres"
 
@@ -274,25 +310,25 @@ msgid "First Name"
 msgstr "Nome"
 
 #: gvsigol_auth/templates/user_add.html:83
-#: gvsigol_auth/templates/user_update.html:55
-#: gvsigol_auth/templates/user_update.html:57
+#: gvsigol_auth/templates/user_update.html:62
+#: gvsigol_auth/templates/user_update.html:64
 msgid "Is superuser"
 msgstr "É superusuário"
 
 #: gvsigol_auth/templates/user_add.html:88
-#: gvsigol_auth/templates/user_update.html:64
-#: gvsigol_auth/templates/user_update.html:66
+#: gvsigol_auth/templates/user_update.html:71
+#: gvsigol_auth/templates/user_update.html:73
 msgid "Can manage projects"
 msgstr "Pode gerenciar projetos"
 
 #: gvsigol_auth/templates/user_add.html:95
-#: gvsigol_auth/templates/user_update.html:74
+#: gvsigol_auth/templates/user_update.html:81
 msgid "Assign groups"
 msgstr "Atribuir grupos"
 
 #: gvsigol_auth/templates/user_add.html:108
-#: gvsigol_auth/templates/user_update.html:88
-#: gvsigol_auth/templates/user_update.html:90
+#: gvsigol_auth/templates/user_update.html:95
+#: gvsigol_auth/templates/user_update.html:97
 msgid "Assign group"
 msgstr "Atribuir grupos"
 
@@ -321,6 +357,10 @@ msgstr "O usuário será removido. Você quer continuar?"
 msgid "Update user"
 msgstr "Atualizar usuário"
 
+#: gvsigol_auth/templates/user_update.html:52
+msgid "New password or leave it blank to maintain the current one"
+msgstr ""
+
 #: gvsigol_auth/utils.py:94
 msgid "New user account"
 msgstr "Nova conta de usuário"
@@ -337,38 +377,38 @@ msgstr "Nova senha"
 msgid "This is your new temporary password"
 msgstr "Esta é a sua nova senha temporária"
 
-#: gvsigol_auth/views.py:79 gvsigol_auth/views.py:153 gvsigol_auth/views.py:255
+#: gvsigol_auth/views.py:82 gvsigol_auth/views.py:165 gvsigol_auth/views.py:286
 msgid "Your account has been disabled"
 msgstr "Sua conta foi desativada"
 
-#: gvsigol_auth/views.py:81 gvsigol_auth/views.py:83 gvsigol_auth/views.py:155
-#: gvsigol_auth/views.py:157 gvsigol_auth/views.py:257
+#: gvsigol_auth/views.py:84 gvsigol_auth/views.py:86 gvsigol_auth/views.py:167
+#: gvsigol_auth/views.py:169 gvsigol_auth/views.py:288
 msgid "The username and password you have entered do not match our records"
 msgstr ""
 "O nome de usuário e a senha que você digitou não correspondem ao seu "
 "registro."
 
-#: gvsigol_auth/views.py:203
+#: gvsigol_auth/views.py:234
 msgid "User account does not exist"
 msgstr "A conta de usuário não existe"
 
-#: gvsigol_auth/views.py:207
+#: gvsigol_auth/views.py:238
 msgid "That did not work"
 msgstr ""
 
-#: gvsigol_auth/views.py:261
+#: gvsigol_auth/views.py:292
 msgid "Invalid token. Your link has expired, you need to ask for another one."
 msgstr "Código inválido. Seu link expirou, você precisa solicitar outro"
 
-#: gvsigol_auth/views.py:379
+#: gvsigol_auth/views.py:410
 msgid "User group for"
 msgstr "Grupo de usuários para"
 
-#: gvsigol_auth/views.py:560
+#: gvsigol_auth/views.py:602
 msgid "Admin is a reserved group"
 msgstr "Admin é um grupo reservado"
 
-#: gvsigol_auth/views.py:564
+#: gvsigol_auth/views.py:606
 #, python-brace-format
 msgid ""
 "Invalid user group name: '{value}'. Identifiers must begin with a letter or "

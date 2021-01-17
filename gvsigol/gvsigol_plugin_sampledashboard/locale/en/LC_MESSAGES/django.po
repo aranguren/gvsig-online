@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-22 10:22+0100\n"
+"POT-Creation-Date: 2021-01-17 17:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,3 +17,166 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_add.html:12
+#: gvsigol_plugin_sampledashboard/templates/dashboard_update.html:12
+msgid "Save"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_add.html:37
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:20
+#: gvsigol_plugin_sampledashboard/templates/dashboard_update.html:37
+msgid "ID"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_add.html:38
+#: gvsigol_plugin_sampledashboard/templates/dashboard_update.html:38
+msgid "Sample id"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_add.html:44
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:21
+#: gvsigol_plugin_sampledashboard/templates/dashboard_update.html:44
+msgid "Name"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_add.html:45
+#: gvsigol_plugin_sampledashboard/templates/dashboard_update.html:45
+msgid "Sample name"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_add.html:51
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:22
+#: gvsigol_plugin_sampledashboard/templates/dashboard_update.html:51
+msgid "Title"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_add.html:52
+#: gvsigol_plugin_sampledashboard/templates/dashboard_update.html:52
+msgid "Sample title"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_add.html:58
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:23
+#: gvsigol_plugin_sampledashboard/templates/dashboard_update.html:58
+msgid "Description"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_add.html:59
+#: gvsigol_plugin_sampledashboard/templates/dashboard_update.html:59
+msgid "Sample description"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_add.html:78
+#: gvsigol_plugin_sampledashboard/templates/dashboard_update.html:78
+msgid "Create new layer"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_add.html:81
+#: gvsigol_plugin_sampledashboard/templates/dashboard_update.html:81
+msgid "Is needed to save this layer group first, Do you want continue?"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_add.html:84
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:61
+#: gvsigol_plugin_sampledashboard/templates/dashboard_update.html:84
+msgid "Cancel"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_add.html:85
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:62
+#: gvsigol_plugin_sampledashboard/templates/dashboard_update.html:85
+msgid "Accept"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:11
+msgid "Add Sample Entry"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:55
+msgid "Delete test element"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:58
+msgid "This test element will be remove. Are you sure?"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:79
+msgid "Processing request..."
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:80
+#, python-format
+msgid "Search%(sep)s"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:81
+#, python-format
+msgid "Showing %(numrecords)s records"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:82
+#, python-format
+msgid "Showing from %(start)s to %(end)s of %(numrecords)s records"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:83
+msgid "Showing from 0 to 0 of 0 records"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:84
+#, python-format
+msgid "Filtering %(max)s records"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:86
+msgid "Loading..."
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:87
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:88
+msgid "No records available"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:90
+msgid "First"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:91
+msgid "Previous"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:92
+msgid "Next"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:93
+msgid "Last"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:96
+#, python-format
+msgid "%(sep)sSort ascending"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:97
+#, python-format
+msgid "%(sep)sSort descending"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:103
+msgid "Delete samples"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_list.html:107
+msgid "Update samples"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_sampledashboard_menu.html:9
+#: gvsigol_plugin_sampledashboard/templates/dashboard_sampledashboard_menu.html:17
+msgid "Sample Dashboard"
+msgstr ""
+
+#: gvsigol_plugin_sampledashboard/templates/dashboard_sampledashboard_menu.html:15
+msgid "Plugins"
+msgstr ""

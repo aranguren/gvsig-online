@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-21 14:31+0200\n"
+"POT-Creation-Date: 2021-01-17 17:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,146 +20,179 @@ msgstr ""
 "X-Language: ca_ES\n"
 "X-Source-Language: C\n"
 
-#: forms.py:7 templates/ww_provider_add.html.py:40
-#: templates/ww_providers_list.html:24
+#: gvsigol_plugin_worldwind/forms.py:12
+#: gvsigol_plugin_worldwind/templates/ww_provider_add.html:40
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:24
 msgid "Project"
 msgstr "Projecte"
 
-#: forms.py:8
+#: gvsigol_plugin_worldwind/forms.py:13
+#: gvsigol_plugin_worldwind/templates/ww_provider_add.html:46
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:25
+msgid "Type"
+msgstr ""
+
+#: gvsigol_plugin_worldwind/forms.py:15
 msgid "Directory name"
 msgstr "Nom del directori"
 
-#: templates/dashboard_worldwind_menu.html:9
-#: templates/dashboard_worldwind_menu.html:17
+#: gvsigol_plugin_worldwind/forms.py:16
+msgid "Url to get height"
+msgstr ""
+
+#: gvsigol_plugin_worldwind/forms.py:17
+msgid "layers"
+msgstr ""
+
+#: gvsigol_plugin_worldwind/templates/dashboard_worldwind_menu.html:9
+#: gvsigol_plugin_worldwind/templates/dashboard_worldwind_menu.html:17
 msgid "WorldWind configuration"
 msgstr "Configuració de WorldWind"
 
-#: templates/dashboard_worldwind_menu.html:15
+#: gvsigol_plugin_worldwind/templates/dashboard_worldwind_menu.html:15
 msgid "Plugins"
 msgstr "Plugins"
 
-#: templates/ww_provider_add.html:12
+#: gvsigol_plugin_worldwind/templates/ww_provider_add.html:12
 msgid "Add WorldWind Provider"
 msgstr "Afegir proveïdor de WorldWind"
 
-#: templates/ww_provider_add.html:14
+#: gvsigol_plugin_worldwind/templates/ww_provider_add.html:14
 msgid "Save"
 msgstr "Guardar"
 
-#: templates/ww_provider_add.html:34
+#: gvsigol_plugin_worldwind/templates/ww_provider_add.html:34
 msgid "Name"
 msgstr "Nom"
 
-#: templates/ww_provider_add.html:46
+#: gvsigol_plugin_worldwind/templates/ww_provider_add.html:52
 msgid "Directory"
 msgstr "Directori"
 
-#: templates/ww_provider_add.html:47
+#: gvsigol_plugin_worldwind/templates/ww_provider_add.html:53
 msgid "Select directory"
 msgstr "Triar Directori"
 
-#: templates/ww_providers_list.html:11
+#: gvsigol_plugin_worldwind/templates/ww_provider_add.html:59
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:26
+msgid "Height URL"
+msgstr ""
+
+#: gvsigol_plugin_worldwind/templates/ww_provider_add.html:65
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:28
+msgid "Layers"
+msgstr ""
+
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:11
 msgid "Providers list"
 msgstr "Llistat de proveïdors"
 
-#: templates/ww_providers_list.html:14
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:14
 msgid "Add provider"
 msgstr "Afegir proveïdor"
 
-#: templates/ww_providers_list.html:52 templates/ww_providers_list.html:100
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:27
+#, fuzzy
+#| msgid "Directory name"
+msgid "Directory Path"
+msgstr "Nom del directori"
+
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:60
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:108
 msgid "Delete provider"
 msgstr "Eliminar prveïdor"
 
-#: templates/ww_providers_list.html:55
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:63
 msgid "The provider will be removed, Do you want continue?"
 msgstr "S'elimará el proveïdor, Vol continuar?"
 
-#: templates/ww_providers_list.html:58
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:66
 msgid "Cancel"
 msgstr "Cancel·lar"
 
-#: templates/ww_providers_list.html:59
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:67
 msgid "Accept"
 msgstr "Acceptar"
 
-#: templates/ww_providers_list.html:76
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:84
 msgid "Processing request..."
 msgstr "Processant petició..."
 
-#: templates/ww_providers_list.html:77
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:85
 #, python-format
 msgid "Search%(sep)s"
 msgstr "Cercar%(sep)s"
 
-#: templates/ww_providers_list.html:78
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:86
 #, python-format
 msgid "Showing %(numrecords)s records"
 msgstr "Mostrant %(numrecords)s registres"
 
-#: templates/ww_providers_list.html:79
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:87
 #, python-format
 msgid "Showing from %(start)s to %(end)s of %(numrecords)s records"
 msgstr "Mostrant desde %(start)s fins %(end)s de %(numrecords)s registres"
 
-#: templates/ww_providers_list.html:80
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:88
 msgid "Showing from 0 to 0 of 0 records"
 msgstr "Mostrant desde 0 fins 0 de 0 registres"
 
-#: templates/ww_providers_list.html:81
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:89
 #, python-format
 msgid "Filtering %(max)s records"
 msgstr "Filtrant %(max)s registres"
 
-#: templates/ww_providers_list.html:83
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:91
 msgid "Loading..."
 msgstr "Carregant..."
 
-#: templates/ww_providers_list.html:84 templates/ww_providers_list.html:85
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:92
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:93
 msgid "No records available"
 msgstr "No hi ha registres disponibles"
 
-#: templates/ww_providers_list.html:87
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:95
 msgid "First"
 msgstr "Primer"
 
-#: templates/ww_providers_list.html:88
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:96
 msgid "Previous"
 msgstr "Anterior"
 
-#: templates/ww_providers_list.html:89
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:97
 msgid "Next"
 msgstr "Pròxim"
 
-#: templates/ww_providers_list.html:90
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:98
 msgid "Last"
 msgstr "Últim"
 
-#: templates/ww_providers_list.html:93
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:101
 #, python-format
 msgid "%(sep)sSort ascending"
 msgstr "%(sep)sOrdre ascendent"
 
-#: templates/ww_providers_list.html:94
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:102
 #, python-format
 msgid "%(sep)sSort descending"
 msgstr "%(sep)sOrdre descendent"
 
-#: templates/ww_providers_list.html:104
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:112
 msgid "TOC order"
 msgstr "Ordre del TOC"
 
-#: templates/ww_providers_list.html:108
+#: gvsigol_plugin_worldwind/templates/ww_providers_list.html:116
 msgid "Update provider"
 msgstr "Actualitzar proveïdor"
 
-#: views.py:75
+#: gvsigol_plugin_worldwind/views.py:90
 msgid "Error: Problem creating mapfile."
 msgstr "Error: Problema creant arxiu del mapa."
 
-#: views.py:84
+#: gvsigol_plugin_worldwind/views.py:101
 msgid "Error: Provider already defined for this project."
 msgstr "Error: El proveïdor ja ha sigut definit per al projecte."
 
-#: views.py:87
+#: gvsigol_plugin_worldwind/views.py:104
 msgid "Error: "
 msgstr "Error: "

@@ -54,7 +54,7 @@ viewer.core = {
 	selectedFeatureSource: null,
 
 	overviewmap: null,
-  
+
 
     initialize: function(conf, extraParams) {
     	this.conf = conf;
@@ -128,8 +128,8 @@ viewer.core = {
     			url: 'https://{a-c}.tile.openstreetmap.de/{z}/{x}/{y}.png'
     		})
     	});
-      
-  
+
+
     var geocoder = new Geocoder('nominatim', {
       // provider: 'mapquest',
       // key: '__some_key__',
@@ -190,9 +190,9 @@ viewer.core = {
 			source: new ol.source.Vector()
 		});
 		this.map.addLayer(this.extentLayer);
-    
+
     this.map.addControl(geocoder);
-    
+
     geocoder.on('addresschosen', function(evt){
       var feature = evt.feature,
       coord = evt.coordinate,
